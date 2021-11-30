@@ -95,9 +95,13 @@ Staff:
 ---
 
 ## Dataflow Diagram
+![High level Dataflow Diagram](docs/img/DFD-highlevel.png "High-level Dataflow Diagram")
+![Registration Dataflow Diagram](docs/img/DFD-register.png "Registration Dataflow Diagram")
+![Workouts Dataflow Diagram](docs/img/DFD-Workouts.png "Workouts Dataflow Diagram")
+![Events Dataflow Diagram](docs/img/DFD-events.png "Events Dataflow Diagram")
 
-## Application Archite ture Diagram
-
+## Application Architecture Diagram
+![Architecture Diagram](docs/img/AAD.png "Architecture Diagram")
 ---
 
 ## User Stories
@@ -269,4 +273,3 @@ Workout charts
 ---
 
 ## Project Management using Trello
-
