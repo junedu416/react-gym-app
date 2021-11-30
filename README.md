@@ -12,8 +12,7 @@ This application was created with the purpose to solve the problem posed by our 
 
 The application also aims to enhances staff work efficiency by creating a platform where their schedules including upcoming personal training and classes are neatly organised.
 
-- cost of gym management is lower with use of app as less gym staff should be required to work at one time/avoid time wastage => good for the client
-
+With the use of this application, client should expect smoother work flow of the gym where gym users get to have a more personalised and efficient workouts while requiring less direct assiatance from staff member. This therefore creates a potential for the client to see a reduction in business management cost due to increased roster efficiency.
 
 #### 2. Functionality and Features
 
