@@ -230,7 +230,7 @@ Staff:
 
 | *As a user, I want to see my workout statistics, so I can know how far away from my fitness goal.*|
 | ------------- |
-| ****1st revision:** James is a fitness enthusiast. To achieve his fitness goals, he visits the gym very often. Instead of manually recording all his workouts on his notebook,  he needs a tool that collects all his workout statistics and generates a workout chart, so he can know how far away he is from his fitness goal.|
+| **1st revision:** James is a fitness enthusiast. To achieve his fitness goals, he visits the gym very often. Instead of manually recording all his workouts on his notebook,  he needs a tool that collects all his workout statistics and generates a workout chart, so he can know how far away he is from his fitness goal.|
 | **Feature suggestions:**  Workout charts |
 
 ---
