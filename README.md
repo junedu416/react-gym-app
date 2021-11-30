@@ -11,7 +11,7 @@ This application is a helper tool for the gym. It is used on top of their origin
 
 #### 2. Functionality and Features
 
-**1. General features
+**1. General features**
 - Authentication
 - Authorization
 - Account settings 
@@ -34,7 +34,7 @@ Staff
 - staff members can share workouts publicly where users can see
 
 
-**3. Training Classes **
+**3. Training Classes**
 
 Users:
 
