@@ -7,7 +7,6 @@ By June D, Daniel W, Nam N and Clare O
 ## About this Application
 
 #### 1. Purpose
-This application is a helper tool for the gym. It is used on top of their original management system. This app aims to help the gym owner better organise their gym community and optimise their customer service. 
 
 This application was created with the purpose to solve the problem posed by our client gym company, who wishes to have a platform where both gym members and staff can manage idividual workouts, classes and gym environment. It is a helper tool for the gym that can be used on top of their original management system that enhances the cutomer experience at their facility. Gym members can utilise this application to save and create their workout routines, keep track of their progress with certain exercises and book training sessions that are available at the gym. The application can further be used to optimise the gym's customer service by allowing users to submit reports in which staff members can smoothly handle. 
 
