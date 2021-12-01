@@ -272,7 +272,7 @@ Our team has used Trello for our Project Management. When cards are first create
 - **Meetings:** Planned Team meetings with date and time.
 - **Design:** Any design related tasks such as wireframes, color schemes and images are placed here.
 
-Any cards that must be completed will then move along the following sections as we develop our application in order for all team members to follow what tasks are being done and what next steo should be taken;
+Any cards that must be completed will then move along the following sections as we develop our application in order for all team members to follow what tasks are being done and what next step should be taken;
 
 - **Backlog**
 - **To Do**
