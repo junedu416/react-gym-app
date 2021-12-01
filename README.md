@@ -287,6 +287,17 @@ During the planning period, team members have held meetings to discuss necessary
 ![Trello: Card power ups](docs/img/Trello-powerups.png "Assigning Card Power Ups")
 ![Trello: Card Families](docs/img/Trello-card-families.png "Assigning Card relationships")
 
+**Example of a Trello Card**
+
+![Trello: Card example](docs/img/Trello-example-card.png "trello card example")
+
+**Overview of our Trello Board during team discussion on task priorities and assignment**
+![Trello: partial board overview](docs/img/Trello-partial-overview.png "trello board before task assignment")
+
+
+**Overview of our Trello Board after team discussion on task priorities and assignment**
+
+![Trello: full board overview](docs/img/Trello-full-overview.png "trello board full overview")
 
 
 
