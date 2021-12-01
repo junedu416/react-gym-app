@@ -196,7 +196,7 @@ Staff:
 
 | *As a user, I want to be able to report on other customer's unsocial behaviour so that gym staff can attend in a timely manner and maintain a comfortable environment.*|
 | ------------- |
-| **Revision:** James is an active gym member, cares about the community. There have been times where he's witnessed and experienced unsocial behaviour from other members. During staffed hours, he can report these matters to a staff member, however, he has trouble reporting these issues afterhours when there's no staff around. He wants to be able to file a report if there is any cases of unsocial behaviour. |
+| **Revision:** James is an active gym member, cares about the community. There have been times where he's witnessed and experienced unsocial behaviour from other members. During staffed hours, he can report these matters to a staff member, however, he has trouble reporting these issues afterhours when there are less staff around. He wants to be able to file a report if there is any cases of unsocial behaviour. |
 | **Feature suggestions:** Report unsocial customer's behaviour |
 <br/>
 
@@ -215,13 +215,13 @@ Staff:
 | *As a client, I don't want to see customers cancel their bookings at the last minute, so I can better manage gym activities.*|
 | ------------- |
 | **1st revision:** As a client, I want my customers give me enough notice if they want to cancel/reschedule their event/PT/classes bookings, so I can better plan the gym activities. |
-| **2nd revision:** Jason is the gym manager. One of his daily work is to schedule gym events/classes. He has to make sure there are enough supporting equipements and human resource to get those events/classes run smoothly. However, there are always some customers booked the events/classes early on but they canceled it at the last minute. This causes redundant labour/equipment costs for the gym. |
+| **2nd revision:** Jason is the gym manager. One of his daily work is to schedule gym events/classes. He has to make sure there are enough supporting equipments and human resource to get those events/classes to run smoothly. However, there are always some customers who have booked the events/class early on but cancel it at the last minute. This causes redundant labour/equipment costs for the gym. |
 | **Feature suggestions:** Class/Event Cancellation policy |
 <br/>
 
 | *As a personal trainer, I want the users to be able to save their progress with weights/time/distance so that I can suggest the weight they should lift next time.*|
 | ------------- |
-| **Revision:** Mike is a personal trainer in the gym. His daily work is to help his customers to achieve their fitness goals. He has more than 4 personal tranining sessions each day. This makes it hard for him to memerize all the workout progress for each of his customers. He wants an app that can save his customers' progress with weights/time/distance, so he can suggest the weight they should lift next time. He also wants to upload a workout routine to his customers routines so that they have easy access to the workout plan themselves. |
+| **Revision:** Mike is a personal trainer in the gym. His daily work is to help his customers achieve their fitness goals. He has more than 4 personal tranining sessions each day. This makes it hard for him to memorize all the workout progress for each of his customers. He wants an app that can save his customers' progress with weights/time/distance, so he can suggest the weight they should lift next time. He also wants to upload a workout routine to his customers routines so that they have easy access to the workout plan themselves. |
 | **Feature suggestions:** Create/view/update/delete customised workout routine |
 <br/>
 
@@ -235,38 +235,32 @@ Staff:
 | *As a user, I want the workouts to be grouped by category/muscle group, so I can easily plan my workout routine.*|
 | ------------- |
 | **Revision:** James is a fitness enthusiast. He plans his daily workout on his own. To make the workout more efficient, James only trains one or two muscle group per day. It makes his workout plan easier to follow and track, if he is able to categorise his workout routine by muscle groups. |
-| **Feature suggestions:** Categorise workouts by muscle group |
+| **Feature suggestions:** CRUD custom workouts, categorise exercise by muscle group |
 <br/>
 
-| *As a personal trainer, I want the users to be able to save their progress with weights/time/distance so that I can suggest the weight they should lift next time.*|
-| ------------- |
-| **Revision:** Mike is a personal trainer in the gym. His daily work is to help his customers to achieve their fitness goals. He has more than 4 personal tranining sessions each day. This makes it hard for him to memerize all the workout progress for each of his customers. He wants an app that can save his customers' progress with weights/time/distance, so he can suggest the weight they should lift next time. He also wants to upload a workout routine to his customers routines so that they have easy access to the workout plan themselves. |
-| **Feature suggestions:** Auto-save past workouts |
-<br/>
-
-| *As a user, I want to be able to navigate the gym app easily, so I don't waste my time finding the feature I want when I am doing exercise.*|
+| *As a user, I want to be able to navigate the gym app easily, so I don't waste my time finding the feature I want when I am doing the exercise.*|
 | ------------- |
 | **1st revision:** David is running his own business. He is busy most of the day and only have free time to go to the gym at night. Most of the personal trainers are off-work, so David often spent time in the gym on his own. He wants an app that can recommend exercises for him (Ideally, the recommendations are written by professional gym trainers), so he can do workouts more efficiently. |
 | **2nd revision:** David is running his own business. He is busy most of the day and only have free time to go to the gym at night. Most of the personal trainers are off-work, so David often spent time in the gym on his own. He wants an app that can recommend exercises for him (Ideally, the recommendations are written by professional gym trainers), so he can do workouts more efficiently. He also wants the app to have a clear layout, so he can navigate and use the app easily without wasting his valuable time. |
 | **Feature suggestions:**  a) Dashboard listing main features b) View PT workout sets |
 <br/>
 
-| *As a User, I want to be able to create my own workout routine so that I can remember what i need to do for the day/session*|
+| *As a User, I want to be able to create my own workout routine so that I can remember what I need to do for the day/session*|
 | ------------- |
 | **1st revision:** Irene is an office lady. She goes to the gym from time to time.  She would like to be able to create her own workout routine in advance, so she can remember what she needs to do for her workout day.|
-| **Feature suggestions:**  CRUD customised workout routine |
+| **Feature suggestions:**  CRUD custom workout routine |
 <br/>
 
 | *As a client, I want the weights/distances to auto decrement/increment based on how my customers are doing, so that they don't get injured.*|
 | ------------- |
 | **1st revision:** Jason is the gym owner. He cares about his customers and doesn't want to see any of his customers get injured during the workout. He would like to have an app that can automatically remind his customers to decrease the weights.|
-| **Feature suggestions:**  Auto workout mode (auto increment/decrement weights/distance  |
+| **Feature suggestions:**  Auto workout mode (auto increment/decrement weights/distance)  |
 <br/>
 
-| *As a user, I want to see my workout statistics, so I can know how far away from my fitness goal.*|
+| *As a user, I want to see my workout statistics, so I can know how far away I am from my fitness goal.*|
 | ------------- |
-| **1st revision:** James is a fitness enthusiast. To achieve his fitness goals, he visits the gym very often. Instead of manually recording all his workouts on his notebook,  he needs a tool that collects all his workout statistics and generates a workout chart, so he can know how far away he is from his fitness goal.|
-| **Feature suggestions:**  Workout charts |
+| **1st revision:** James is a fitness enthusiast. To achieve his fitness goals, he visits the gym very often. Instead of manually recording all his workout progress on his notebook, he needs a tool that collects all his workout progress and generate a chart, so he can know how far away he is from his fitness goal.|
+| **Feature suggestions:**  Charts displaying personal exercise progress |
 
 ---
 
