@@ -284,7 +284,7 @@ Our team has used Trello for our Project Management. When cards are first create
 - **Meetings:** Planned Team meetings with date and time
 - **Design:** Any design related tasks such as wireframes, color schemes and images are placed here
 
-Any cards that must be completed will then move along the following sections as we make progress with our application development, in order for all team members to follow what tasks are being done and what next steo should be taken;
+Any cards that must be completed will then move along the following sections as we develop our application in order for all team members to follow what tasks are being done and what next steo should be taken;
 
 - **Backlog**
 - **To Do**
@@ -293,7 +293,11 @@ Any cards that must be completed will then move along the following sections as 
 - **Code Review**
 - **Done**
 
-During the planning period, team members have held meetings to discuss necessary tasks for our application and assign its priority and its estimate due date. Specific details about how each card should be created and labelled are outlined on trello as follows;
+During the planning period, team members have held meetings to discuss necessary tasks for our application, assign its priority and its estimate due date. Specific details about how each card should be created and labelled are outlined on trello to ensure that all team members are following the same rule when creating a new card;
+
+![Trello: How to Create a Card](docs/img/Trello-create-card.png "Creating Trello Card")
+![Trello: Card power ups](docs/img/Trello-powerups.png "Assigning Card Power Ups")
+![Trello: Card Families](docs/img/Trello-card-families.png "Assigning Card relationships")
 
 
 
