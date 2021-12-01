@@ -266,11 +266,11 @@ Staff:
 
 Our team has used Trello for our Project Management. When cards are first created they are assigned to a section according to the following categories;
 
-- **Brainstorming:** Used mostly in the planning phase. Cards about any ideas we have or want for the application is placed here 
-- **Feature/Scope:** Larger scale cards that describes a particular feature of the application is placed here 
-- **Tasks:** Individual tasks that team members must do for the application is placed here. Tasks are generally more specific than Feature/Scope
-- **Meetings:** Planned Team meetings with date and time
-- **Design:** Any design related tasks such as wireframes, color schemes and images are placed here
+- **Brainstorming:** Used mostly in the planning phase. Cards about any ideas we have or want for the application is placed here. 
+- **Feature/Scope:** Larger scale cards that describes a particular feature of the application is placed here. 
+- **Tasks:** Individual tasks that team members must do for the application is placed here. Tasks are generally more specific than Feature/Scope. Cards are placed in this section before team members discuss priorities and difficulties.
+- **Meetings:** Planned Team meetings with date and time.
+- **Design:** Any design related tasks such as wireframes, color schemes and images are placed here.
 
 Any cards that must be completed will then move along the following sections as we develop our application in order for all team members to follow what tasks are being done and what next steo should be taken;
 
