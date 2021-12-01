@@ -8,7 +8,7 @@ By June D, Daniel W, Nam N and Clare O
 
 #### 1. Purpose
 
-This application was created with the purpose to solve the problem posed by our client gym company, who wishes to have a platform where both gym members and staff can manage individual workouts, classes and gym environment. It is a helper tool for the gym that can be used on top of their original management system, that enhances the cutomer experience at their facility. Gym members can utilise this application to save and create their workout routines, keep track of their progress with certain exercises and book training sessions that are available at the gym. The application can further be used to optimise the gym's customer service by allowing users to submit reports in which staff members can smoothly handle. 
+This application was created with the purpose to solve the problem posed by our client gym company "Average Joes", who wishes to have a platform where both membership holders and staff can manage individual workouts, classes and gym environment. We therefore created an application that is separate from their home website that is exlusive to registered Average Joes membership holders and staff. The application is a helper tool for the gym that can be used on top of their original management system, that enhances the cutomer experience at their facility. Average Joes gym members can utilise this application to save and create their workout routines, keep track of their progress with certain exercises and book training sessions that are available at the gym. The application can further be used to optimise the gym's customer service by allowing users to submit reports in which staff members can smoothly handle. 
 
 The application also aims to enhances staff work efficiency by creating a platform where their schedules including upcoming personal training and classes can created and neatly organised.
 
@@ -20,7 +20,7 @@ With the launch and integration of this application, the client should see:
 
 #### 2. Functionality and Features
 
-**(1) General features**
+**(1) User authentication and settings**
 - Authentication
 - Authorization
 - Account settings 
@@ -31,14 +31,14 @@ With the launch and integration of this application, the client should see:
 
 - create personalised workouts 
 - add exercises that exist in the database or create your own exercise to add to the workout. 
-- for each exercise users can set the number of reps, sets and weights (note 2)
+- for each exercise users can set the number of reps, sets and weights 
 - weights are auto in/decremented depending on whether the user has successfully completed their exercise
 
- Users(customers)
+Users (i.e. Average Joes members):
 
 - exercises created by user (non-staff member) are not shared publicly. 
 
-Staff
+Staff:
 
 - staff members can share workouts publicly where users can see
 
@@ -96,11 +96,11 @@ Staff:
 
 #### 3. Target Audience
   * Client: The gym
-  * User: Gym members/Gym staff
+  * User: Average Joes membership holders/Gym staff
 
   The target audience of this application are individuals who has a membership at our client's gym as well as the employees of our client's gym. As the application is a tool that would allow users to book personal training sessions and classes, it is a requirement for employees to use this application to create and manage their training sessions. 
 
-  For the general users who hold a gym membership, this application is a highly convenient tool that would allow users to easily view their workout schedules and book training sessions or classes according to their availabilities. While it is not a strict requirement, it is recommended that all gym members utilise this application to have the best possible experience at *gym name*.
+  For the general users who hold an Average Joes gym membership, this application is a highly convenient tool that would allow users to easily view their workout schedules and book training sessions or classes according to their availabilities. While it is not a strict requirement, it is recommended that all members utilise this application to have the best possible experience at Average Joes.
 
 #### 4. Tech Stack
   
