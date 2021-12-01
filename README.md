@@ -95,6 +95,10 @@ Staff:
   * Client: The gym
   * User: Gym members/Gym staff
 
+  The target audience of this application are individuals who has a membership at our client's gym as well as the employees of our client's gym. As the application is a tool that would allow users to book personal training sessions and classes, it is a requirement for employees to use this application to create and manage their training sessions. 
+
+  For the general users who hold a gym membership, this application is a highly convenient tool that would allow users to easily view their workout schedules and book training sessions or classes according to their availabilities. While it is not a strict requirement, it is recommended that all gym members utilise this application to have the best possible experience at *gym name*.
+
 #### 4. Tech Stack
   * Front End: React.js
   * Backend: Node.js, Express.js, MongoDB
