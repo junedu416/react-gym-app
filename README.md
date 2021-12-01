@@ -12,7 +12,10 @@ This application was created with the purpose to solve the problem posed by our 
 
 The application also aims to enhances staff work efficiency by creating a platform where their schedules including upcoming personal training and classes can created and neatly organised.
 
-With the use of this application, client should expect a higher customer satisfaction with members having optimised personal workouts along with improved cohesive appointment system. Client should also expect an increase in efficiency and streamlining of gym operations requiring less direct assistance from staff. 
+With the launch and integration of this application, the client should see: 
+- An increase in efficiency and streamlining of gym operations requiring decreased direct staff assistance.
+- Improved, cohesive appointment system.
+- Higher customer satisfaction with members having optimised personalised workouts to achieve their desired fitness goals.
 
 
 #### 2. Functionality and Features
@@ -115,6 +118,11 @@ Staff:
 ---
 
 ## User Stories
+1. Persona
+![Persona](docs/img/persona1.png "User Persona")
+![Persona](docs/img/persona2.png "User Persona")
+
+2. User Stories
 
 | *As a client, I want to have all users sign up for the app so they can access the application features.*|
 | ------------- |
