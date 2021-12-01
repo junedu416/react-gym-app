@@ -222,7 +222,7 @@ Staff:
 | *As a gym staff, I want to introduce myself to gym members, so that I can have more clients.*|
 | ------------- |
 | **1st revision:** As a gym staff, I want to let the customers know my specialties and also introduce myself to the gym customers who doesn't know me, so I can keep myself in front of my target customers.  |
-| **2nd revision:** Mike is a hard-working personal trainer. He understands that 50% of his income depends on the commission from his personal training sessions. He wants to expose himself to the gym customers as much as possible, so they can possibly let him be their personal trainer.  |
+| **2nd revision:** Mike is a hard-working personal trainer. He understands that 50% of his income is from commission of his personal training sessions. He wants to improve the reach of marketing his services so he can have more clientele.  |
 | **Feature suggestions:** a) Our Team page b)Personal session booking platform |
 <br/>
 
