@@ -281,7 +281,7 @@ Any cards that must be completed will then move along the following sections as 
 - **Code Review**
 - **Done**
 
-During the planning period, team members have held meetings to discuss necessary tasks for our application, assign its priority and its estimate due date. Specific details about how each card should be created and labelled are outlined on trello to ensure that all team members are following the same rule when creating a new card;
+During the planning period, team members have held meetings to discuss necessary tasks for our application, assign its priority and its estimate due date. Specific details about how each card should be created and labelled are outlined on trello to ensure that all team members are following the same procedure when creating a new card;
 
 ![Trello: How to Create a Card](docs/img/Trello-create-card.png "Creating Trello Card")
 ![Trello: Card power ups](docs/img/Trello-powerups.png "Assigning Card Power Ups")
