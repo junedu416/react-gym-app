@@ -110,7 +110,7 @@ Staff:
 
   **Front End**
   - React.js
-  - Toast UI Calendar
+  - React Big Calendar
   - Chart.js
   - Styled Components
   - Material UI
