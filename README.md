@@ -161,7 +161,7 @@ Staff:
 
 | *As a user, I want to be able to view all active events that are being held and choose to participate in one or more at a time so I can meet new people.*|
 | ------------- |
-| **Revision**: Vivian is a freelancer. She enjoys meeting new people and loves group exercise classes/events. She would like to actively attend the gym classes whenever she is free. It can be covenitent to have an app where she can check all the available classes and book/cancel classes in advance without going to the gym|
+| **Revision**: Vivian is a freelancer. She enjoys meeting new people and loves group exercise classes/events. She would like to actively attend the gym classes whenever she is free. It would be convenient if there was an app where she can view the available class sessions and be able to book/cancel classes in advance without have to contact gym staff or notify them in person.|
 | **Feature suggestions:** a) Book/cancel group events/classes; b)A calender where users can view/update upcoming classes |
 <br/>
 
