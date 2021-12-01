@@ -188,12 +188,6 @@ Staff:
 | **Feature suggestions:** a) Book/cancel group events/classes; b)A calender where users can view/update upcoming classes |
 <br/>
 
-| *As a user, I want to be able to view my membership details so I know my current membership status and plan when I want to freeze/renew/upgrade them.*|
-| ------------- |
-| **Revision**: Vivian is a freelancer. She travels a lot, so she often needs to freeze/renew her gym membership plan based on her travel itinerary. It has been a headache for her to constantly call the gym staff and get them to check/change her membership status. |
-| **Feature suggestions:** a) Membership settings |
-<br/>
-
 | *As a user, I want to be able to report on other customer's unsocial behaviour so that gym staff can attend in a timely manner and maintain a comfortable environment.*|
 | ------------- |
 | **Revision:** James is an active gym member, cares about the community. There have been times where he's witnessed and experienced unsocial behaviour from other members. During staffed hours, he can report these matters to a staff member, however, he has trouble reporting these issues afterhours when there are less staff around. He wants to be able to file a report if there is any cases of unsocial behaviour. |
