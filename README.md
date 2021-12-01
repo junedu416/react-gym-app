@@ -273,12 +273,8 @@ When a user first registers they are shown a welcome view with instructions on h
 **User Login form**
 ![wireframe login form](docs/img/wireframes/login.png "login form")
 
+
 Once logged in User/staff is taken to the dashboard which acts as a home page
-
-**Profile Page**
-All users can view their profile and edit information after registration.
-![wireframe profile view](docs/img/wireframes/profile.png "profile view")
-
 
 **Dashboard for Users**
 ![wireframe user dashboard](docs/img/wireframes/dashboard-user.png "user dashboard")
@@ -286,9 +282,13 @@ All users can view their profile and edit information after registration.
 **Dashboard for staff**
 ![wireframe staff dashboard](docs/img/wireframes/dashboard-staff.png "staff dashboard")
 
-Users can view their workouts from the dashboard or through the navigation bar
+**Profile Page**
+All users can view their profile and edit information after registration.
+![wireframe profile view](docs/img/wireframes/profile.png "profile view")
+
 
 **Workout Page**
+Users can view their workouts from the dashboard or through the navigation bar
 ![wireframe workout overview](docs/img/wireframes/workout-overview.png "workout overview")
 
 ![wireframe workout show page](docs/img/wireframes/my-workout.png "workout show page")
