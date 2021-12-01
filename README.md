@@ -103,8 +103,31 @@ Staff:
   For the general users who hold a gym membership, this application is a highly convenient tool that would allow users to easily view their workout schedules and book training sessions or classes according to their availabilities. While it is not a strict requirement, it is recommended that all gym members utilise this application to have the best possible experience at *gym name*.
 
 #### 4. Tech Stack
-  * Front End: React.js
-  * Backend: Node.js, Express.js, MongoDB
+  
+  **Version Control**
+  - Git
+  - GitHub
+
+  **Front End**
+  - React.js
+  - Toast UI Calendar
+  - Chart.js
+  - Styled Components
+  - Material UI
+  - Chakra UI
+
+  **Back End**
+  - Node.js
+  - Express.js
+  - Mongoose
+  - MongoDB
+  - Firebase Authentication
+  - Firebase Cloud Storage
+
+  **Testing**
+  - Jest
+  - Cypress
+
 ---
 
 ## Dataflow Diagram
