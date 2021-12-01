@@ -179,7 +179,7 @@ Staff:
 | ------------- |
 | **1st revision:** As a gym staff, I want to let the customers know my specialties and also introduce myself to the gym customers who doesn't know me, so I can keep myself in front of my target customers.    |
 | **2nd revision:** Brian is a hard-working personal trainer. He understands that 50% of his income is from commission of his personal training sessions. He wants to improve the reach of marketing his services so he can have more clientele.     |
-| **Feature suggestions:** a) Team page; b)Personal session booking platformn |
+| **Feature suggestions:** a) Team page; b)Personal session booking platform |
 <br/>
 
 | *As a user, I want to be able to view all active events that are being held and choose to participate in one or more at a time so I can meet new people.*|
@@ -197,7 +197,7 @@ Staff:
 | *As a user, I want to be able to report on faulty or missing equipment so that the gym staff are aware of it and can deal with it in a timely manner.*|
 | ------------- |
 | **Revision:** James cares about the gym community, so he always let the gym staff know if there's faulty equipment. However, as he often trains afterhours, there aren't any staff around to inform them. He wants to be able to report any damaged equipment so the gym staff are aware and can repair/replace them if necessary. |
-| **Feature suggestions:** Report faulty gym equipement |
+| **Feature suggestions:** Report faulty gym equipment |
 <br/>
 
 | *As a user, I want to be able to edit the weights that have been automatically set for me where I feel it's too heavy/light for me.*|
