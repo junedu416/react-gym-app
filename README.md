@@ -260,6 +260,74 @@ Staff:
 
 ## Wireframes
 
+**Landing Page**
+This is the page that all users see before they register or log in
+![wireframe landing page](docs/img/wireframes/landing.png "landing page")
+
+**User Regstration form**
+![wireframe registration form](docs/img/wireframes/register.png "registration form")
+
+When a user first registers they are shown a welcome view with instructions on how to navigate through the application.
+![wireframe introductory welcome page](docs/img/wireframes/welcome.png "welcome page after registration")
+
+**User Login form**
+![wireframe login form](docs/img/wireframes/login.png "login form")
+
+Once logged in User/staff is taken to the dashboard which acts as a home page
+
+**Profile Page**
+All users can view their profile and edit information after registration.
+![wireframe profile view](docs/img/wireframes/profile.png "profile view")
+
+
+**Dashboard for Users**
+![wireframe user dashboard](docs/img/wireframes/dashboard-user.png "user dashboard")
+
+**Dashboard for staff**
+![wireframe staff dashboard](docs/img/wireframes/dashboard-staff.png "staff dashboard")
+
+Users can view their workouts from the dashboard or through the navigation bar
+
+**Workout Page**
+![wireframe workout overview](docs/img/wireframes/workout-overview.png "workout overview")
+
+![wireframe workout show page](docs/img/wireframes/my-workout.png "workout show page")
+
+![wireframe workout edit button options](docs/img/wireframes/workout-edit-options.png "workout edit button options")
+
+workouts are comprised of exercises. When users create or edit workouts they can select from variety of exercises or create their own.
+
+**Exercise view**
+![wireframe edit exercise](docs/img/wireframes/exercise-edit.png "edit exercises")
+
+![wireframe exercise view](docs/img/wireframes/exercise-view.png "exercise view")
+
+![wireframe choosing exercises](docs/img/wireframes/exercises.png "choose exercise")
+
+**Personal Trainers**
+
+From the navigation bar users can also view trainers available for Personal training.
+![wireframe trainer show page](docs/img/wireframes/our-team.png "trainer show page")
+
+Users can book for a Personal training through an individual trainer,
+
+![wireframe trainer view](docs/img/wireframes/trainer-view.png "user dashboard")
+
+![wireframe booking training session](docs/img/wireframes/trainer-view-booking.png "booking training session")
+
+or view all available personal training sessions.
+
+![wireframe pt calendar](docs/img/wireframes/timetable.png "pt booking calendar")
+
+**Events**
+From the Navbar users can also view upcoming or available calendar with Personal training sessions, group classes and events.
+![wireframe events calendar](docs/img/wireframes/events.png "events calendar")
+
+Staff has the ability to create a new event in which they do so through a form.
+![wireframe create event](docs/img/wireframes/event-create.png "create new event form")
+
+
+
 ---
 
 ## Project Management using Trello
