@@ -4,7 +4,9 @@ import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { Container } from "../../styled-components"
+import { Container, Heading } from "../../styled-components";
+import { formStyling } from "../../styled-components/login";
+
 
 export const SignIn = (props) => {
   const [state, setState] = React.useState({ checked: true });
@@ -23,42 +25,48 @@ export const SignIn = (props) => {
     setLogin(true);
   }
 
+
+
   return (
     <Container>
+      <Heading>Sign In</Heading>
       <form onSubmit={handleSubmit}>
-        <TextField
-          id="standard-basic"
-          label="Membership ID"
-          style={{ width: 300 }}
-        />
-        <TextField
-          id="standard-basic"
-          label="Password"
-          style={{ width: 300 }}
-        />
+        <Container >
+          <TextField
+            id="standard-basic"
+            label="Membership ID"
+            style={ formStyling }
+          />
+          <TextField
+            id="standard-basic"
+            label="Password"
+            style={ formStyling }
+          />
 
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={state.checked}
-              onChange={handleChange}
-              name="checked"
-              color="primary"
-            />
-          }
-          label="Remember Me"
-        />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={state.checked}
+                onChange={handleChange}
+                name="checked"
+                color="primary"
+              />
+            }
+            style={ formStyling }
+            label="Remember Me"
+          />
 
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          size="large"
-          startIcon={<ExitToAppIcon />}
-          style={{ height: "55px" }}
-        >
-          Sign In
-        </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            size="large"
+            startIcon={<ExitToAppIcon />}
+            style={{ height: "55px" }}
+          >
+            Sign In
+          </Button>
+        </Container>
       </form>
     </Container>
   );

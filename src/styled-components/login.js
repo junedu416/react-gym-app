@@ -1,5 +1,4 @@
-
-import { flexCol, centered } from "./";
-import styled from "styled-components";
-
-
+export const formStyling = {
+  width: "300px",
+  marginBottom: "20px",
+};

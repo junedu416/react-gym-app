@@ -1,21 +1,14 @@
-import styled, { css } from 'styled-components';
-
-const flexbox = css`
-  display: flex;
-  flex-direction: ${({ direction }) => `${direction || "column"}`};
-`
-const centered = css`
-  justify-content: center;
-  align-items: center;
-`
-
-const middle = css`
-  position: absolute;
-  transform: translate(-50%, -50%);
-`
+import styled from 'styled-components';
+// import { css } from 'styled-components'; // turn this into a 1-liner?
+import { flexbox, centered, middle } from './mixins';
 
 export const Container = styled.div`
-  ${flexbox};
-  ${centered};
+   ${flexbox};
+   ${centered}; 
+`
+
+export const Heading = styled.h1`
+  font-size: 3.6rem;
+  color: ${ props => props.color ? props.color : "blue"};  
 `
 
