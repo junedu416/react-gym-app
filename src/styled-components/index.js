@@ -1,20 +1,21 @@
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const flexCol = css`
+const flexbox = css`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${({ direction }) => `${direction || "column"}`};
 `
-export const centered = css`
+const centered = css`
   justify-content: center;
   align-items: center;
 `
 
-export const flexRow = css`
-  display: flex;
-  flex-direction: row;
-`
-
-export const middle = css`
+const middle = css`
   position: absolute;
   transform: translate(-50%, -50%);
 `
+
+export const Container = styled.div`
+  ${flexbox};
+  ${centered};
+`
+

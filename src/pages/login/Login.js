@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { Container } from "../../styled-components"
 
 export const SignIn = (props) => {
   const [state, setState] = React.useState({ checked: true });
@@ -23,7 +24,7 @@ export const SignIn = (props) => {
   }
 
   return (
-    <>
+    <Container>
       <form onSubmit={handleSubmit}>
         <TextField
           id="standard-basic"
@@ -59,6 +60,6 @@ export const SignIn = (props) => {
           Sign In
         </Button>
       </form>
-    </>
+    </Container>
   );
 };
