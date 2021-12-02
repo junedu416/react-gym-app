@@ -7,7 +7,6 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { Container, Heading } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
 
-
 export const SignIn = (props) => {
   const [state, setState] = React.useState({ checked: true });
 
@@ -25,23 +24,17 @@ export const SignIn = (props) => {
     setLogin(true);
   }
 
-
-
   return (
     <Container>
-      <Heading>Sign In</Heading>
+      <Heading>Login</Heading>
       <form onSubmit={handleSubmit}>
-        <Container >
+        <Container>
           <TextField
             id="standard-basic"
             label="Membership ID"
-            style={ formStyling }
+            style={formStyling}
           />
-          <TextField
-            id="standard-basic"
-            label="Password"
-            style={ formStyling }
-          />
+          <TextField id="standard-basic" label="Password" style={formStyling} />
 
           <FormControlLabel
             control={
@@ -52,7 +45,7 @@ export const SignIn = (props) => {
                 color="primary"
               />
             }
-            style={ formStyling }
+            style={formStyling}
             label="Remember Me"
           />
 
