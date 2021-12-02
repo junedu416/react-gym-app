@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { NavBar } from "./components/NavBar";
+
+// Log in
 import { Landing } from "./pages/login/Landing";
 import { Register } from "./pages/login/Register";
 import { SignIn } from "./pages/login/Login";
@@ -26,10 +28,13 @@ import { NewWorkout } from "./pages/workouts/NewWorkout";
 import { Exercises } from "./pages/workouts/Exercises";
 import { Exercise } from "./pages/workouts/Exercise";
 import { NewExercise } from "./pages/workouts/NewExercise";
+import { MyProfile } from "./pages/home/MyProfile";
+import { PerformanceStats } from "./pages/home/PerformanceStats";
+import { Checkins } from "./pages/home/Checkins";
 
-// Reporting
+// 
+// Contact
 import { Reporting } from "./pages/contact/Reporting";
-
 
 const App = () => {
   return (
@@ -37,30 +42,33 @@ const App = () => {
       <BrowserRouter>
         <NavBar />
         <Routes>
-          <Route path="/" element = { <Landing /> } />
-          <Route path="/auth/login" element = { <SignIn /> } />
-          <Route path="/register" element = { <Register /> } />
-          <Route path="/welcome" element = { <Welcome /> } />
-          <Route path="/home" element = { <Home /> } />
-          <Route path="/workouts" element = { <Workouts /> } />
-          <Route path="/workouts/start" element = { <WorkoutStart /> } />
-          <Route path="/workouts/new" element = { <NewWorkout /> } />
-          <Route path="/exercises" element = { <Exercises /> } />
-          <Route path="/exercises/:id" element = { <Exercise /> } />
-          <Route path="/exercises/new" element = { <NewExercise /> } />
-          <Route path="/events" element = { <Events /> } />
-          <Route path="/event" element = { <Event /> } />
-          <Route path="/event/new" element = { <NewEvent /> } />
-          <Route path="/events/classes" element = { <Classes /> } />
-          <Route path="/events/classes/:id" element = { <Class /> } />
-          <Route path="/events/leaderboards" element = { <Leaderboards /> } />
-          <Route path="/events/leaderboards/:id" element = { <Leaderboard /> } />
-          <Route path="/trainerbookings" element = { <TrainerBookings /> } />
-          <Route path="/contact" element = { <Reporting /> } />
+          <Route path="/" element={<Landing />} />
+          <Route path="/auth/login" element={<SignIn />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/welcome" element={<Welcome />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/workouts" element={<Workouts />} />
+          <Route path="/workouts/start" element={<WorkoutStart />} />
+          <Route path="/workouts/new" element={<NewWorkout />} />
+          <Route path="/exercises" element={<Exercises />} />
+          <Route path="/exercises/:id" element={<Exercise />} />
+          <Route path="/exercises/new" element={<NewExercise />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/events/:id" element={<Event />} />
+          <Route path="/event/new" element={<NewEvent />} />
+          <Route path="/events/classes" element={<Classes />} />
+          <Route path="/events/classes/:id" element={<Class />} />
+          <Route path="/events/leaderboards" element={<Leaderboards />} />
+          <Route path="/events/leaderboards/:id" element={<Leaderboard />} />
+          <Route path="/trainerbookings" element={<TrainerBookings />} />
+          <Route path="/contact" element={<Reporting />} />
+          <Route path="/my-profile" element={<MyProfile />} />
+          <Route path="/performance-stats" element={<PerformanceStats />} />
+          <Route path="/checkins" element={<Checkins />} />
         </Routes>
       </BrowserRouter>
     </>
   );
-}
+};
 
 export default App;
