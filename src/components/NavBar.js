@@ -3,7 +3,11 @@ import { NavBarLink } from "../styled-components/navbar";
 import { Nav } from "../styled-components/navbar";
 
 export const NavBar = (props) => {
-    
+  function handleSignOut() {
+    // dispatch({ type: "removeLoggedInUser" });
+    // dispatch({type: "removeJWT"});
+  } 
+
   return (
     <Nav>
       <NavBarLink to="/home">
@@ -24,7 +28,7 @@ export const NavBar = (props) => {
       <NavBarLink to="/my-profile">
         User
       </NavBarLink>      
-      <NavBarLink to="/signin">
+      <NavBarLink to="/auth/login">
         Sign In
       </NavBarLink>      
       <NavBarLink to="/register">
