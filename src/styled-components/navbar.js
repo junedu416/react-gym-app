@@ -13,6 +13,8 @@ export const NavBarLink = styled(Link)`
 `;
 
 export const Nav = styled.div`
-  height: 100px;
+  height: 80px;
   width: 100vw;
+  display: flex;
+  align-items: center;
 `
