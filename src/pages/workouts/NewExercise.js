@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const EventBanner = (props) => {
+export const NewExercise = (props) => {
     
   return (
     <>

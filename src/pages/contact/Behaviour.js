@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-export const EventBanner = (props) => {
-    
+export const ReportUnsocialBehaviour = () => {
+
   return (
     <>
 
