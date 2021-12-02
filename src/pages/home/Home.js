@@ -1,6 +1,7 @@
+
 import React, { useState } from "react";
 
-export const Leaderboard = (props) => {
+export const Home = (props) => {
     
   return (
     <>

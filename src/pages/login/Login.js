@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const SignUp = (props) => {
+export const SignIn = (props) => {
   return (
     <>
 
