@@ -1,10 +1,10 @@
-import Calendar from "./components/Calendar.js";
+import CalendarView from "./components/CalendarView.js";
 
 function App() {
   return (
     <div className="App">
      <div>Hello World</div>
-     <Calendar />
+     <CalendarView />
     </div>
   );
 }
