@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { NavBarLink } from "../styled-components/navbar";
 import { Nav } from "../styled-components/navbar";
 import TextField from "@material-ui/core/TextField";
-import IconButton from "@material-ui/core/IconButton";
+// import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import HomeIcon from '@material-ui/icons/Home';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-// import GroupIcon from '@material-ui/icons/Group';
 import PeopleAlt from '@material-ui/icons/PeopleAlt';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import PersonIcon from '@material-ui/icons/Person';
@@ -42,6 +41,8 @@ export const NavBar = (props) => {
 
       <TextField
         variant="outlined"
+        onChange={handleInput}
+        value={search}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -50,6 +51,7 @@ export const NavBar = (props) => {
           ),
         }}
       />
+      
       {/* <TextField
         placeholder="Search…"
         inputProps={{ "aria-label": "Search" }}
