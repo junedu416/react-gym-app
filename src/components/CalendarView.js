@@ -15,6 +15,19 @@ const CalendarView = () => {
             allDay: false,
             start: new Date("2021-12-15"),
             end: new Date("2021-12-17")
+        },
+        //Example Single day and Multi Day Event - Daniel
+        {
+            title: "single day event w time",
+            allDay: false,
+            start: new Date("2021-12-10 13:00"),
+            end: new Date("2021-12-10 15:00")
+        },
+        {
+            title: "multi day event w time",
+            allDay: false,
+            start: new Date("2021-12-07 09:00"),
+            end: new Date("2021-12-08 15:00")
         }
     ]
 
@@ -37,6 +50,7 @@ const CalendarView = () => {
             startAccessor="start"
             endAccessor="end"
             onSelectEvent={onClickEvent}
+            showMultiDayTimes //Needs to be included to show times for multi-day events instead of it being treated as all day - Daniel
             style={{height: "50vh"}}
         />
         </div>
