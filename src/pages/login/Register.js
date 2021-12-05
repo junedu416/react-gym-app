@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import { Container, Heading } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
 

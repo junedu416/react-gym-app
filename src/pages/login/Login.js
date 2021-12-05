@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { Container, Heading } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
 
