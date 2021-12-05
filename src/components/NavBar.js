@@ -7,10 +7,10 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from '@mui/icons-material/Home';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import PeopleAlt from '@mui/icons-material/PeopleAlt';
+import EventIcon from '@mui/icons-material/Event';
+import GroupsIcon from '@mui/icons-material/Groups';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import PersonIcon from '@mui/icons-material/Person';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 // import LoginIcon from '@mui/icons-material/Login';
 // import LogoutIcon from '@mui/icons-material/Logout';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -31,10 +31,10 @@ export const NavBar = (props) => {
     <Nav>
       <NavBarLink to="/home"><HomeIcon /> Home</NavBarLink>
       <NavBarLink to="/workouts"><FitnessCenterIcon /> Workouts</NavBarLink>
-      <NavBarLink to="/events"><CalendarTodayIcon /> Events</NavBarLink>
-      <NavBarLink to="/our-team"><PeopleAlt /> Our Team</NavBarLink>
+      <NavBarLink to="/events"><EventIcon /> Events</NavBarLink>
+      <NavBarLink to="/our-team"><GroupsIcon /> Our Team</NavBarLink>
       <NavBarLink to="/contact"><ChatBubbleOutlineIcon /> Contact</NavBarLink>
-      <NavBarLink to="/my-profile"><PersonIcon /> User</NavBarLink>
+      <NavBarLink to="/my-profile"><AccountCircleIcon /> User</NavBarLink>
       <NavBarLink to="/auth/login"><ExitToAppIcon /> Sign In</NavBarLink>
       <NavBarLink to="/register"> Sign Up</NavBarLink>
       <NavBarLink onClick={handleSignOut} to="/"><ExitToAppIcon /> Sign Out</NavBarLink>
