@@ -80,7 +80,7 @@ const CalendarView = () => {
             startAccessor="start"
             endAccessor="end"
             onSelectEvent={onClickEvent}
-            showMultiDayTimes //Needs to be included to show times for multi-day events instead of it being treated as all day - Daniel
+            // showMultiDayTimes //Needs to be included to show times for multi-day events instead of it being treated as all day - Daniel
             style={{height: "50vh"}}
         />
         </div>
