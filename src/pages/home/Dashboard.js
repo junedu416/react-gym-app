@@ -12,17 +12,18 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import { Container } from "../../styled-components";
+import { Container, Grid } from "../../styled-components";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import EventIcon from "@mui/icons-material/Event";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import ViewModuleIcon from '@mui/icons-material/ViewModule';
-import InsertChartIcon from '@mui/icons-material/InsertChart';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import CampaignIcon from '@mui/icons-material/Campaign';
+import ViewModuleIcon from "@mui/icons-material/ViewModule";
+import InsertChartIcon from "@mui/icons-material/InsertChart";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import CampaignIcon from "@mui/icons-material/Campaign";
+import { Overview } from "./Overview";
 
-const drawerWidth = 240;
+const drawerWidth = 230;
 
 const Dashboard = () => {
   const icons = {
@@ -37,10 +38,10 @@ const Dashboard = () => {
   const contactIcons = {
     0: <CampaignIcon />,
     1: <ChatBubbleOutlineIcon />,
-  }
+  };
 
   return (
-    <Container style={{ border: "5px solid red" }}>
+    <Container>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar
@@ -67,13 +68,12 @@ const Dashboard = () => {
             "& .MuiDrawer-paper": {
               width: drawerWidth,
               boxSizing: "border-box",
+              color: "blue",
             },
           }}
           variant="permanent"
           anchor="left"
         >
-          {/* <Toolbar />
-          <Divider /> */}
           <List>
             {[
               "Overview",
@@ -93,9 +93,7 @@ const Dashboard = () => {
           <List>
             {["Report", "Message"].map((text, index) => (
               <ListItem button key={text}>
-                <ListItemIcon>
-                  {contactIcons[index]}
-                </ListItemIcon>
+                <ListItemIcon>{contactIcons[index]}</ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
             ))}
@@ -104,15 +102,14 @@ const Dashboard = () => {
 
         {/* ================ Dashboard content display ================ */}
 
-          <Box
-            component="main"
-            sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
-          >
-            <Toolbar />
-            <Typography paragraph>Stuff goes here</Typography>
-            <Typography paragraph>More Stuff</Typography>
-          </Box>
-
+        <Box
+          component="main"
+          sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
+        >
+          <Toolbar />
+          <Toolbar />
+          <Overview />
+        </Box>
       </Box>
     </Container>
   );
