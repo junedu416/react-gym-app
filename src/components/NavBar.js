@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import { NavBarLink } from "../styled-components/navbar";
 import { Nav } from "../styled-components/navbar";
-import TextField from "@material-ui/core/TextField";
-import IconButton from "@material-ui/core/IconButton";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import SearchIcon from "@material-ui/icons/Search";
-import HomeIcon from '@material-ui/icons/Home';
-import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-// import GroupIcon from '@material-ui/icons/Group';
-import PeopleAlt from '@material-ui/icons/PeopleAlt';
-import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
-import PersonIcon from '@material-ui/icons/Person';
-// import LoginIcon from '@material-ui/icons/Login';
-// import LogoutIcon from '@material-ui/icons/Logout';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import TextField from "@mui/material/TextField";
+// import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import SearchIcon from "@mui/icons-material/Search";
+import HomeIcon from '@mui/icons-material/Home';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import PeopleAlt from '@mui/icons-material/PeopleAlt';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import PersonIcon from '@mui/icons-material/Person';
+// import LoginIcon from '@mui/icons-material/Login';
+// import LogoutIcon from '@mui/icons-material/Logout';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 export const NavBar = (props) => {
   const [search, setSearch] = useState("");
@@ -42,6 +41,8 @@ export const NavBar = (props) => {
 
       <TextField
         variant="outlined"
+        onChange={handleInput}
+        value={search}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -50,6 +51,7 @@ export const NavBar = (props) => {
           ),
         }}
       />
+      
       {/* <TextField
         placeholder="Search…"
         inputProps={{ "aria-label": "Search" }}

@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import LandingS from "../../assets/LandingS.jpg";
-import LandingL from "../../assets/LandingL.jpg";
-import Button from "@material-ui/core/Button";
+// import LandingS from "../../assets/LandingS.jpg";
+// import LandingL from "../../assets/LandingL.jpg";
+import Button from "@mui/material/Button";
 
 export const Landing = (props) => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ export const Landing = (props) => {
         }}
       >
         <img
-          src={LandingL}
+          // src={LandingL}
           alt="muscular fitness model"
           style={{
             height: "100vh",
