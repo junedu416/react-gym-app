@@ -4,7 +4,7 @@ export const Checkins = (props) => {
     
   return (
     <>
-
+      <p>CHECK INS</p>
     </>
   );
 };

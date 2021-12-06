@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-export const MyWorkouts = (props) => {
+export const Leaderboard = (props) => {
     
   return (
     <>
-      <p>MY WORKOUTS</p>
+
     </>
   );
 };

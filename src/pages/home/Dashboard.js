@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom"
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -10,8 +11,8 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+// import InboxIcon from "@mui/icons-material/MoveToInbox";
+// import MailIcon from "@mui/icons-material/Mail";
 import { Container, Grid } from "../../styled-components";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import EventIcon from "@mui/icons-material/Event";
@@ -22,10 +23,31 @@ import InsertChartIcon from "@mui/icons-material/InsertChart";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import { Overview } from "./Overview";
+import { SidebarData } from "./sidebarData.js";
+
+// Dashboard Components
+import { Checkins } from "./Checkins.js"
+import { PerformanceStats } from "./PerformanceStats";
+import { MyCalendar } from "./MyCalendar";
+import { MyWorkouts } from "./MyWorkouts";
+import { MyProfile } from "./MyProfile"; 
+import { Leaderboard } from "./Leaderboard";
+import { Reports } from "./Contact";
+import { EquipmentReports } from "./Contact";
+import { BehaviourReports } from "./Contact";
+
 
 const drawerWidth = 230;
 
 const Dashboard = () => {
+  // const icons = {
+  //   0: <ViewModuleIcon />,
+  //   1: <InsertChartIcon />,
+  //   2: <EventIcon />,
+  //   3: <FitnessCenterIcon />,
+  //   4: <AccountCircleIcon />,
+  //   5: <EmojiEventsIcon />,
+  // };
   const icons = {
     0: <ViewModuleIcon />,
     1: <InsertChartIcon />,
@@ -113,7 +135,18 @@ const Dashboard = () => {
         >
           <Toolbar />
           <Toolbar />
-          <Overview />
+            <Routes>
+              <Route path="/home" element={<Overview />} />
+              <Route path="/home/checkins" element={<Checkins />} />
+              <Route path="/home/mystats" element={<PerformanceStats />} />
+              <Route path="/home/myevents" element={<MyCalendar />} />
+              <Route path="/home/myworkouts" element={<MyWorkouts />} />
+              <Route path="/home/myprofile" element={<MyProfile />} />
+              <Route path="/home/leaderboard" element={<Leaderboard />} />
+              <Route path="/home/contact" element={<Reports />} />
+              <Route path="/home/equipment-reports" element={<EquipmentReports />} />
+              <Route path="/home/behaviour-reports" element={<BehaviourReports />} />
+            </Routes>
         </Box>
       </Box>
     </Container>

@@ -4,7 +4,7 @@ export const PerformanceStats = (props) => {
     
   return (
     <>
-
+      <p>PEROFMRANCE STATS</p>
     </>
   );
 };
