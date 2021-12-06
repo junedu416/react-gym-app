@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -40,6 +40,11 @@ const Dashboard = () => {
     1: <ChatBubbleOutlineIcon />,
   };
 
+  const [state, setState] = useState();
+
+  const handleClick = (event) => {
+    setState({ ...state, [event.target.name]: event.target.clicked });
+  };
   return (
     <Container>
       <Box sx={{ display: "flex" }}>
@@ -83,7 +88,7 @@ const Dashboard = () => {
               "My Profile",
               "Leaderboards",
             ].map((text, index) => (
-              <ListItem button key={text}>
+              <ListItem button key={text} onclick={handleClick}>
                 <ListItemIcon>{icons[index]}</ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
