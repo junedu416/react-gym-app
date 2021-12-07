@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Heading, MainWindow } from "../../styled-components";
+import { Container, Heading, MainWindow } from "../../styled-components";
 import AttachmentIcon from "../../components/buttons/AttachmentIcon";
 import CreateEvent from "../../components/buttons/CreateEvent";
 import InputLabel from "@mui/material/InputLabel";
@@ -7,19 +7,25 @@ import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
 
 // Date Selection
-import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
 import MobileDatePicker from "@mui/lab/MobileDatePicker";
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
-import Stack from "@mui/material/Stack";
+
+// Time Selection
+import TimePicker from "@mui/lab/TimePicker";
+import MobileTimePicker from "@mui/lab/MobileTimePicker";
+import DesktopTimePicker from "@mui/lab/DesktopTimePicker";
 
 export const NewEvent = (props) => {
   const [eventType, setEventType] = useState("");
   const [value, setValue] = useState(new Date());
+  const [time, setTime] = useState(new Date("2021-12-08T00:00:00.000Z"));
 
   const handleChange = (event) => {
     setEventType(event.target.value);
@@ -54,7 +60,9 @@ export const NewEvent = (props) => {
 
       {/* Date Selection */}
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <Stack spacing={3}>
+        <Container style={{flexDirection: "row"}}>
+
+        <Stack spacing={2} mr={4}>
           <MobileDatePicker
             label="For mobile"
             value={value}
@@ -75,6 +83,26 @@ export const NewEvent = (props) => {
             renderInput={(params) => <TextField {...params} />}
           />
         </Stack>
+
+        <Stack spacing={2}>
+          <MobileTimePicker
+            label="For mobile"
+            value={value}
+            onChange={(newValue) => {
+              setValue(newValue);
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+          <DesktopTimePicker
+            label="For desktop"
+            value={value}
+            onChange={(newValue) => {
+              setValue(newValue);
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </Stack>
+        </Container>
       </LocalizationProvider>
       <AttachmentIcon />
       <CreateEvent />
