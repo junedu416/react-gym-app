@@ -23,12 +23,17 @@ import MobileTimePicker from "@mui/lab/MobileTimePicker";
 import DesktopTimePicker from "@mui/lab/DesktopTimePicker";
 
 export const NewEvent = (props) => {
-  const [eventType, setEventType] = useState("");
+  const [eventType, setEventType] = useState('');
   const [value, setValue] = useState(new Date());
   const [time, setTime] = useState(new Date("2021-12-08T00:00:00.000Z"));
+  const [message, setMessage] = useState('');
 
   const handleChange = (event) => {
     setEventType(event.target.value);
+  };
+
+  const handleTyping = (event) => {
+    setMessage(event.target.value);
   };
 
   return (
@@ -38,9 +43,9 @@ export const NewEvent = (props) => {
         id="outlined-basic"
         label="Event Name"
         variant="outlined"
-        sx={{ minWidth: 300 }}
+        sx={{ minWidth: 480, mb: 3 }}
       />
-      <FormControl required sx={{ m: 1, minWidth: 300 }}>
+      <FormControl required sx={{ m: 1, minWidth: 480 }}>
         <InputLabel id="demo-simple-select-required-label">
           Event Type
         </InputLabel>
@@ -62,14 +67,14 @@ export const NewEvent = (props) => {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <Container style={{flexDirection: "row"}}>
 
-        <Stack spacing={2} mr={4}>
+        <Stack spacing={2} mr={2} my={4}>
           <MobileDatePicker
             label="For mobile"
             value={value}
             onChange={(newValue) => {
               setValue(newValue);
             }}
-            renderInput={(params) => <TextField {...params} />}
+            renderInput={(params) => <TextField style={{marginBottom: "20px"}} {...params} />}
           />
           <DatePicker
             disableFuture
@@ -91,7 +96,7 @@ export const NewEvent = (props) => {
             onChange={(newValue) => {
               setValue(newValue);
             }}
-            renderInput={(params) => <TextField {...params} />}
+            renderInput={(params) => <TextField style={{marginBottom: "20px"}} {...params} />}
           />
           <DesktopTimePicker
             label="For desktop"
@@ -104,7 +109,19 @@ export const NewEvent = (props) => {
         </Stack>
         </Container>
       </LocalizationProvider>
-      <AttachmentIcon />
+
+      <TextField
+          id="outlined-multiline-flexible"
+          label="Your Message"
+          multiline
+          rows={4}
+          maxRows={4}
+          value={message}
+          onChange={handleTyping}
+          sx={{ minWidth: 480 }}
+        />
+
+      <AttachmentIcon /> <span>Attach Photo</span>
       <CreateEvent />
     </MainWindow>
   );
