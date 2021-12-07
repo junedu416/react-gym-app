@@ -72,10 +72,13 @@ export const NavBar = (props) => {
       </NavBarLink>
 
       <TextField
+        placeholder="Search"
         variant="outlined"
         onChange={handleInput}
         value={search}
+        style={{ width: "250px", backgroundColor: "rgb(230, 230, 230, 1", borderRadius: "5px" }}
         InputProps={{
+          "aria-label": "Search",
           startAdornment: (
             <InputAdornment position="start">
               <SearchIcon />
@@ -83,7 +86,6 @@ export const NavBar = (props) => {
           ),
         }}
       />
-
       {/* <TextField
         placeholder="Search…"
         inputProps={{ "aria-label": "Search" }}
@@ -93,6 +95,7 @@ export const NavBar = (props) => {
         value={search}
         style={{ width: "250px", backgroundColor: "rgb(255, 255, 255, 0.5" }}
       /> */}
+
     </Nav>
   );
 };
