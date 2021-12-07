@@ -32,7 +32,10 @@ import { MyProfile } from "./pages/home/MyProfile";
 import { PerformanceStats } from "./pages/home/PerformanceStats";
 import { Checkins } from "./pages/home/Checkins";
 
-// 
+// Our Team
+import { MeetTheTeam } from "./pages/ourTeam/MeetTheTeam";
+import { TrainerPage } from "./pages/ourTeam/TrainerPage";
+
 // Contact
 import { Reporting } from "./pages/contact/Reporting";
 
@@ -61,6 +64,8 @@ const App = () => {
           <Route path="/events/leaderboards" element={<Leaderboards />} />
           <Route path="/events/leaderboards/:id" element={<Leaderboard />} />
           <Route path="/trainerbookings" element={<TrainerBookings />} />
+          <Route path="/ourteam" element={<MeetTheTeam />} />
+          <Route path="/ourteam/:id" element={<TrainerPage />} />
           <Route path="/contact" element={<Reporting />} />
           <Route path="/my-profile" element={<MyProfile />} />
           <Route path="/performance-stats" element={<PerformanceStats />} />
