@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { Container, Heading } from "../../styled-components/";
 
 export const PerformanceStats = (props) => {
     
   return (
-    <>
-      <p>PEROFMRANCE STATS</p>
-    </>
+    <Container>
+      <Heading>Performance Stats</Heading>
+    </Container>
   );
 };

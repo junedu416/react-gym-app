@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { Container, Heading } from "../../styled-components/";
 
 export const Leaderboards = (props) => {
     
   return (
-    <>
-      <h1>Leaderboards</h1>
-    </>
+    <Container>
+      <Heading>Leaderboards</Heading>
+    </Container>
   );
 };

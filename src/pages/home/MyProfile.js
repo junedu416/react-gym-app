@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { Container, Heading } from "../../styled-components/";
 
 export const MyProfile = (props) => {
     
   return (
-    <>
-      <h1>My Profile</h1>
-    </>
+    <Container>
+      <Heading>My Profile</Heading>
+    </Container>
   );
 };

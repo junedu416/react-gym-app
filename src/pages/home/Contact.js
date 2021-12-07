@@ -1,28 +1,29 @@
 import React, { useState } from "react";
+import { Heading, Container } from "../../styled-components/";
 
 export const Contact = (props) => {
     
   return (
-    <>
-        <p>Contact</p>
-    </>
+    <Container>
+        <Heading>Contact</Heading>
+    </Container>
   );
 };
 
 export const EquipmentReports = (props) => {
     
   return (
-    <>
-        <p>EQUIPMENT REPORTS</p>
-    </>
+    <Container>
+        <Heading>Equipment Reports</Heading>
+    </Container>
   );
 };
 
 export const BehaviourReports = (props) => {
 
   return (
-    <>
-        <p>BEHAVIOUR REPORTS</p>
-    </>
+    <Container>
+        <Heading>Behaviour Reports</Heading>
+    </Container>
   );
 };
