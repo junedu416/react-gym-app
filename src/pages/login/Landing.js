@@ -3,12 +3,13 @@ import { useNavigate } from "react-router";
 import LandingS from "../../assets/LandingS.jpg";
 import LandingL from "../../assets/LandingL.jpg";
 import Button from "@mui/material/Button";
+import GetStarted from "../../components/buttons/Get Started";
 
 export const Landing = (props) => {
   const navigate = useNavigate();
 
   function handleClick(event) {
-    navigate("/login");
+    navigate("/auth/login");
   }
   return (
     <>
@@ -62,11 +63,9 @@ export const Landing = (props) => {
         >
           Take your training to the <strong style={{color: "red", fontSize: "7rem"}}>NEXT</strong> level
         </h1>
-        <Button variant="outlined" color="primary" size="large"
-        onClick={handleClick}
-        style={{color: "lime", borderColor: "lime", opacity: "0.8", "&:hover": { opacity: "1"}}}>
-          Get Started
-        </Button>
+        <GetStarted btnFunction={() => {
+          handleClick()
+         }} />
       </div>
     </>
   );
