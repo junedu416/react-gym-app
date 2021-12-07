@@ -25,36 +25,32 @@ export const NavBar = (props) => {
     // dispatch({type: "removeJWT"});
   }
 
-  const iconSize = {
-    fontSize: "large",
-  }
-
   return (
     <Nav>
       <NavBarLink to="/home">
-        <HomeIcon style={{iconSize}}/> Home
+        <HomeIcon fontSize="large" /> Home
       </NavBarLink>
       <NavBarLink to="/workouts">
-        <FitnessCenterIcon /> Workouts
+        <FitnessCenterIcon fontSize="large"/> Workouts
       </NavBarLink>
       <NavBarLink to="/events">
-        <EventIcon /> Events
+        <EventIcon fontSize="large"/> Events
       </NavBarLink>
       <NavBarLink to="/our-team">
-        <GroupsIcon /> Our Team
+        <GroupsIcon fontSize="large"/> Our Team
       </NavBarLink>
       <NavBarLink to="/contact">
-        <ChatBubbleOutlineIcon /> Contact
+        <ChatBubbleOutlineIcon fontSize="large"/> Contact
       </NavBarLink>
       <NavBarLink to="/my-profile">
-        <AccountCircleIcon /> User
+        <AccountCircleIcon fontSize="large"/> User
       </NavBarLink>
       <NavBarLink to="/auth/login">
-        <LoginIcon /> Sign In
+        <LoginIcon fontSize="large"/> Sign In
       </NavBarLink>
       <NavBarLink to="/register"> Sign Up</NavBarLink>
       <NavBarLink onClick={handleSignOut} to="/">
-        <LogoutIcon /> Sign Out
+        <LogoutIcon fontSize="large"/> Sign Out
       </NavBarLink>
 
       <TextField
