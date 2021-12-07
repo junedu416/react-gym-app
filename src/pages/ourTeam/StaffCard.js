@@ -4,7 +4,7 @@ export const StaffCard = (props) => {
     
   return (
     <>
-
+      
     </>
   );
 };
