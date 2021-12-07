@@ -3,6 +3,7 @@ export const flexbox = (props) => {
   return `
     display: flex;
     flex-direction: column;
+    // flex-direction: ${props => props ? props : "column"};
   `
 }
 // flex-direction: ${props => props.direction ? "row" : "column"};
