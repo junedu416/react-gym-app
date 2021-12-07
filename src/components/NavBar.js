@@ -8,10 +8,14 @@ import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import EventIcon from "@mui/icons-material/Event";
 import GroupsIcon from "@mui/icons-material/Groups";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
+// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
 // import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import Register from "../assets/register-green.png";
 
 export const NavBar = (props) => {
   const [search, setSearch] = useState("");
@@ -31,26 +35,40 @@ export const NavBar = (props) => {
         <HomeIcon fontSize="large" /> Home
       </NavBarLink>
       <NavBarLink to="/workouts">
-        <FitnessCenterIcon fontSize="large"/> Workouts
+        <FitnessCenterIcon fontSize="large" /> Workouts
       </NavBarLink>
       <NavBarLink to="/events">
-        <EventIcon fontSize="large"/> Events
+        <EventIcon fontSize="large" /> Events
       </NavBarLink>
       <NavBarLink to="/our-team">
-        <GroupsIcon fontSize="large"/> Our Team
+        <GroupsIcon fontSize="large" /> Our Team
       </NavBarLink>
       <NavBarLink to="/contact">
-        <ChatBubbleOutlineIcon fontSize="large"/> Contact
+        <ChatBubbleOutlineIcon fontSize="large" /> Contact
       </NavBarLink>
       <NavBarLink to="/home/myprofile">
-        <AccountCircleIcon fontSize="large"/> User
+        <AccountBoxIcon fontSize="large" /> User
       </NavBarLink>
       <NavBarLink to="/auth/login">
-        <LoginIcon fontSize="large"/> Sign In
+        <LoginIcon fontSize="large" /> Sign In
       </NavBarLink>
-      <NavBarLink to="/register"> Sign Up</NavBarLink>
+      <NavBarLink to="/register">
+        {/* <HowToRegIcon fontSize="large" /> Sign Up */}
+        <img
+          src={Register}
+          alt="icon to register new account"
+          style={{
+            width: "26px",
+            height: "30px",
+            marginBottom: "4px",
+            marginTop: "2px",
+            
+          }}
+        />
+        Sign Up
+      </NavBarLink>
       <NavBarLink onClick={handleSignOut} to="/">
-        <LogoutIcon fontSize="large"/> Sign Out
+        <LogoutIcon fontSize="large" /> Sign Out
       </NavBarLink>
 
       <TextField
