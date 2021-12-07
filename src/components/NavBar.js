@@ -42,7 +42,7 @@ export const NavBar = (props) => {
       <NavBarLink to="/contact">
         <ChatBubbleOutlineIcon fontSize="large"/> Contact
       </NavBarLink>
-      <NavBarLink to="/my-profile">
+      <NavBarLink to="/home/myprofile">
         <AccountCircleIcon fontSize="large"/> User
       </NavBarLink>
       <NavBarLink to="/auth/login">
