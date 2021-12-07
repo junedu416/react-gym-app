@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { CardStyle } from "../../styled-components/dashboard.js";
-import { Container, Grid, Heading } from "../../styled-components";
+import { Container, Grid, SmallHeading } from "../../styled-components";
 
 export const Overview = (props) => {
   return (
     <Container>
-      <h2>Welcome back NAME, here's your overview</h2>
+      <SmallHeading>Welcome back USER, here's your overview</SmallHeading>
       <Grid>
         <CardStyle />
         <CardStyle />

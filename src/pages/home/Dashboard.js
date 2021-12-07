@@ -39,36 +39,21 @@ import { BehaviourReports } from "./Contact";
 const drawerWidth = 230;
 
 const Dashboard = () => {
-  //   const icons = {
-  //     0: <ViewModuleIcon />,
-  //     1: <InsertChartIcon />,
-  //     2: <EventIcon />,
-  //     3: <FitnessCenterIcon />,
-  //     4: <AccountCircleIcon />,
-  //     5: <EmojiEventsIcon />,
-  //   };
-
-  //   const contactIcons = {
-  //     0: <CampaignIcon />,
-  //     1: <ChatBubbleOutlineIcon />,
-  //   };
-
   // const [state, setState] = useState();
   const [dashboardView, setDashboardView] = useState(<Overview />);
 
-  function handleClick(component) {
-    // event.preventDefault();
-    setDashboardView(component);
+  function handleClick(event) {
+    event.preventDefault();
   }
+  // setDashboardView(component);
 
   console.log(SidebarData.map((item, index) => item));
 
   return (
-    <Container>
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <AppBar
-          position="fixed"
+    <Container style={{ flexDirection: "row", border: "3px solid green", marginTop: "80px", }}>
+      <CssBaseline />
+      {/* <AppBar
+          position="absolute"
           sx={{
             width: `calc(100% - ${drawerWidth}px)`,
             ml: `${drawerWidth}px`,
@@ -82,49 +67,74 @@ const Dashboard = () => {
               </Typography>
             </Toolbar>
           </Container>
-        </AppBar>
-        <Drawer
-          sx={{
-            width: drawerWidth,
-            height: `calc(100vh - 90px)`,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: drawerWidth,
-              boxSizing: "border-box",
-              color: "blue",
-            },
-          }}
-          variant="permanent"
-          anchor="left"
-        >
-          <List>
-            {SidebarData.map((item, index) => (
-              <ListItem
-                button
-                key={index}
-                // onClick={handleClick(item.display)}
-                // onClick={displayComponent(item.display, index)}
-              >
-                <Link to={item.path} style={{ textDecoration: "none", color: "blue", display: "flex"}}>
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  {/* <ListItemIcon>{icons[index]}</ListItemIcon> */}
-                  <ListItemText primary={item.title} />
-                </Link>
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-        </Drawer>
+        </AppBar> */}
 
-        {/* ================ Dashboard content display ================ */}
-        <Box
-          component="main"
-          sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
-        >
-          <Toolbar />
-          <Toolbar />
-          <Overview />
-        </Box>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          height: `calc(100vh - 90px)`,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            // marginTop: "80px",
+            paddingTop: `calc(100vh / 8)`,
+            // position: "sticky",
+            position: "fixed",
+            zIndex: "1",
+            width: drawerWidth,
+            boxSizing: "border-box",
+            display: "flex",
+            alignItems: "center",
+            backgroundColor: "blue",
+          },
+        }}
+        variant="permanent"
+      >
+        <List>
+          {SidebarData.map((item, index) => (
+            <ListItem
+              button
+              key={index}
+              onClick={handleClick}
+              // onClick={displayComponent(item.display, index)}
+            >
+              <Link
+                to={item.path}
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <ListItemIcon
+                  style={{ color: "rgba(240, 240, 240, 0.9", minWidth: "35px" }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.title} />
+              </Link>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+      </Drawer>
+
+      {/* ================ Dashboard content display ================ */}
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          bgcolor: "background.default",
+          p: 3,
+          // position: "absolute",
+          height: "100vh",
+          width: `calc(100vw - ${drawerWidth})`,
+        }}
+        style={{ border: "4px solid red" }}
+      >
+        {/* <Toolbar />
+        <Toolbar /> */}
+        <Overview />
       </Box>
     </Container>
   );

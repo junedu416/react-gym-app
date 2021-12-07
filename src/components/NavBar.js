@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { NavBarLink } from "../styled-components/navbar";
-import { Nav } from "../styled-components/navbar";
+import { NavBarLink, Nav } from "../styled-components/navbar";
 import TextField from "@mui/material/TextField";
-// import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from "@mui/icons-material/Home";
@@ -11,9 +9,9 @@ import EventIcon from "@mui/icons-material/Event";
 import GroupsIcon from "@mui/icons-material/Groups";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-// import LoginIcon from '@mui/icons-material/Login';
-// import LogoutIcon from '@mui/icons-material/Logout';
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+// import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 export const NavBar = (props) => {
   const [search, setSearch] = useState("");
@@ -27,10 +25,14 @@ export const NavBar = (props) => {
     // dispatch({type: "removeJWT"});
   }
 
+  const iconSize = {
+    fontSize: "large",
+  }
+
   return (
     <Nav>
       <NavBarLink to="/home">
-        <HomeIcon /> Home
+        <HomeIcon style={{iconSize}}/> Home
       </NavBarLink>
       <NavBarLink to="/workouts">
         <FitnessCenterIcon /> Workouts
@@ -48,11 +50,11 @@ export const NavBar = (props) => {
         <AccountCircleIcon /> User
       </NavBarLink>
       <NavBarLink to="/auth/login">
-        <ExitToAppIcon /> Sign In
+        <LoginIcon /> Sign In
       </NavBarLink>
       <NavBarLink to="/register"> Sign Up</NavBarLink>
       <NavBarLink onClick={handleSignOut} to="/">
-        <ExitToAppIcon /> Sign Out
+        <LogoutIcon /> Sign Out
       </NavBarLink>
 
       <TextField
