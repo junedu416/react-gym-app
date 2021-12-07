@@ -23,5 +23,6 @@ export const Nav = styled.div`
   align-items: center;
   position: fixed;
   z-index: 10;
-  background-color: rgba(10, 10, 10, 1);
+  /* background-color: rgba(10, 10, 10, 1); */
+  background-color: rgba(0, 0, 0, 1);
 `
