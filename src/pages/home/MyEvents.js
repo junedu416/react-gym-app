@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { Container, Heading } from "../../styled-components/";
 
-export const EventBanner = (props) => {
+export const MyEvents = (props) => {
     
   return (
     <Container>
-      <Heading>
-        Competition Name in Event Banner
-      </Heading>
+      <Heading>My Events</Heading>
     </Container>
   );
 };

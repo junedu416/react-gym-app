@@ -4,6 +4,7 @@ import LandingS from "../../assets/LandingS.jpg";
 import LandingL from "../../assets/LandingL.jpg";
 import Button from "@mui/material/Button";
 import GetStarted from "../../components/buttons/Get Started";
+import { MainWindow } from "../../styled-components";
 
 export const Landing = (props) => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export const Landing = (props) => {
     navigate("/auth/login");
   }
   return (
-    <>
+    <MainWindow>
       <div
         style={{
           backgroundColor: "black",
@@ -67,6 +68,6 @@ export const Landing = (props) => {
           handleClick()
          }} />
       </div>
-    </>
+    </MainWindow>
   );
 };

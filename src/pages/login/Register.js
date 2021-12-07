@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Container, Heading } from "../../styled-components";
+import { Container, Heading, MainWindow } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
 
 export const Register = (props) => {
@@ -24,7 +24,7 @@ export const Register = (props) => {
   }
 
   return (
-    <Container>
+    <MainWindow>
       <Heading>Register Account</Heading>
       <form onSubmit={handleSubmit}>
         <Container>
@@ -75,6 +75,6 @@ export const Register = (props) => {
           </Button>
         </Container>
       </form>
-    </Container>
+    </MainWindow>
   );
 };
