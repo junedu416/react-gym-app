@@ -15,6 +15,7 @@ const EditButton = (props) => {
         border: "none",
         display: "flex",
         flexDirection: "column",
+        borderRadius: "100%",
       }}
     >
       <EditIcon />
