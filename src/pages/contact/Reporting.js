@@ -7,7 +7,8 @@ export const Reporting = (props) => {
     
   return (
     <>
-
+      <ReportFaultyEquipment />
+      <ReportUnsocialBehaviour />
     </>
   );
 };

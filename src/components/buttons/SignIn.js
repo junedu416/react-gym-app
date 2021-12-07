@@ -11,6 +11,7 @@ const SignInButton = (props) => {
       size="large"
       startIcon={<LoginIcon />}
       style={{ height: "55px" }}
+      onClick={btnFunction}
     >
       Sign In
     </Button>

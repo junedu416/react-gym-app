@@ -8,6 +8,7 @@ const Confirm = (props) => {
       color="primary"
       size="large"
       style={{ height: "55px" }}
+      onClick={btnFunction}
     >
       Confirm
     </Button>
