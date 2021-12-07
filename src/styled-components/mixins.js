@@ -20,3 +20,9 @@ export const middle = () => {
     transform: translate(-50%, -50%);
   `
 }
+
+export const mt = () => {
+  return `
+    margin-top: 90px;
+  `
+}

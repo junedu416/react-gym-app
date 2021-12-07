@@ -1,14 +1,27 @@
 import styled from 'styled-components';
 // import { css } from 'styled-components'; // turn this into a 1-liner?
-import { flexbox, centered, middle } from './mixins';
+import { flexbox, centered, middle, mt } from './mixins';
 
 export const Container = styled.div`
    ${flexbox};
+   ${centered};
+`
+export const MainWindow = styled.div`
+   ${flexbox};
    ${centered}; 
+   ${mt}
 `
 
 export const Heading = styled.h1`
   font-size: 3.6rem;
+  ${mt};
+  color: ${ props => props.color ? props.color : "blue"};  
+`
+
+export const SmallHeading = styled.h2`
+  font-size: 2.5rem;
+  padding: 0;
+  margin: 0 0 20px 0;
   color: ${ props => props.color ? props.color : "blue"};  
 `
 
