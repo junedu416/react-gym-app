@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 // import { css } from 'styled-components'; // turn this into a 1-liner?
-import { flexbox, centered, middle, mt } from './mixins';
+import { flexbox, centered, middle, mt, pt } from './mixins';
 
 export const Container = styled.div`
    ${flexbox};
@@ -9,7 +9,7 @@ export const Container = styled.div`
 export const MainWindow = styled.div`
    ${flexbox};
    ${centered}; 
-   ${mt}
+   ${pt}
 `
 
 export const Heading = styled.h1`

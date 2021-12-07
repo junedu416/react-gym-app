@@ -23,8 +23,6 @@ import { Contact } from "./pages/home/Contact";
 import { Events } from "./pages/events/Events";
 import { Event } from "./pages/events/Event";
 import { NewEvent } from "./pages/events/NewEvent";
-// import { Leaderboards } from "./pages/events/Leaderboards";
-// import { Leaderboard } from "./pages/events/Leaderboard";
 import { Classes } from "./pages/events/Classes";
 import { Class } from "./pages/events/Class";
 import { TrainerBookings } from "./pages/events/TrainerBookings";
@@ -37,7 +35,10 @@ import { Exercises } from "./pages/workouts/Exercises";
 import { Exercise } from "./pages/workouts/Exercise";
 import { NewExercise } from "./pages/workouts/NewExercise";
 
-//
+// Our Team
+import { MeetTheTeam } from "./pages/ourTeam/MeetTheTeam";
+import { TrainerPage } from "./pages/ourTeam/TrainerPage";
+
 // Contact
 import { Reporting } from "./pages/contact/Reporting";
 
@@ -59,12 +60,14 @@ const App = () => {
         <Route path="/exercises/new" element={<NewExercise />} />
         <Route path="/events" element={<Events />} />
         <Route path="/events/:id" element={<Event />} />
-        <Route path="/event/new" element={<NewEvent />} />
+        <Route path="/events/new" element={<NewEvent />} />
         <Route path="/events/classes" element={<Classes />} />
         <Route path="/events/classes/:id" element={<Class />} />
         <Route path="/events/leaderboards" element={<Leaderboards />} />
         <Route path="/events/leaderboards/:id" element={<Leaderboards />} />
         <Route path="/trainerbookings" element={<TrainerBookings />} />
+        <Route path="/our-team" element={<MeetTheTeam />} />
+        <Route path="/our-team/:id" element={<TrainerPage />} />
         <Route path="/contact" element={<Reporting />} />
         <Route path="/home/overview" element={<Overview />} />
         <Route path="/home/checkins" element={<Checkins />} />
