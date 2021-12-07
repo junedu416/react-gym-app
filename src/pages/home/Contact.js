@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-export const Reports = (props) => {
+export const Contact = (props) => {
     
   return (
     <>
-        <p>CUSTOMER REPORTS</p>
+        <p>Contact</p>
     </>
   );
 };

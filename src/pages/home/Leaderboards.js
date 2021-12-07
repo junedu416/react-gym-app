@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-export const MyCalendar = (props) => {
+export const Leaderboards = (props) => {
     
   return (
     <>
-
+      <h1>Leaderboards</h1>
     </>
   );
 };

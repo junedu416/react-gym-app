@@ -4,7 +4,7 @@ export const MyWorkouts = (props) => {
     
   return (
     <>
-      <p>MY WORKOUTS</p>
+      <p>My Workouts</p>
     </>
   );
 };

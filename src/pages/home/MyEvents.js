@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-export const Leaderboard = (props) => {
+export const MyEvents = (props) => {
     
   return (
     <>
-
+      <p>My Events</p>
     </>
   );
 };
