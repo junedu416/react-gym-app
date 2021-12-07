@@ -5,6 +5,8 @@ import AttachmentIcon from "../../components/buttons/AttachmentIcon";
 import Send from "../../components/buttons/Send";
 import { UploadIcon } from "../../components/buttons/Upload";
 import { Container } from "../../styled-components";
+import { ContactSubheadings } from "../../styled-components/contact";
+import CampaignIcon from "@mui/icons-material/Campaign";
 
 export const ReportUnsocialBehaviour = () => {
   const [value, setValue] = useState("");
@@ -14,8 +16,11 @@ export const ReportUnsocialBehaviour = () => {
   };
 
   return (
-    <Container style={{flexDirection:"row", margin: "50px"}}>
-      <Box>
+    <Container>
+      <ContactSubheadings>
+        <CampaignIcon style={{marginRight:"5px"}}/> Report Unsocial Behaviour
+      </ContactSubheadings>
+      <Container style={{flexDirection: "row"}}>
         <TextField
           id="outlined-multiline-flexible"
           label="Your Message"
@@ -26,11 +31,11 @@ export const ReportUnsocialBehaviour = () => {
           value={value}
           onChange={handleChange}
         ></TextField>
-      </Box>
-      <Container>
-        <Send />
-        <UploadIcon />
-        <AttachmentIcon />
+        <Container>
+          <Send />
+          <UploadIcon />
+          <AttachmentIcon />
+        </Container>
       </Container>
     </Container>
   );
