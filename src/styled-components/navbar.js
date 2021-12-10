@@ -1,19 +1,15 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { flexbox, centered, middle, mt } from './mixins';
+import { flexbox, centered, link } from './mixins';
 
 export const NavBarLink = styled(Link)`
   font-size: 1.2rem;
-  text-decoration: none;
   padding: 15px 40px;
   ${flexbox};
   ${centered};
   margin: 0 5px;
   color: rgb(48, 255, 62);
-  opacity: 0.9;
-  &:hover {
-    opacity: 1;
-  }
+  ${link}
 `;
 
 export const Nav = styled.div`
