@@ -3,6 +3,7 @@ export const flexbox = (props) => {
   return `
     display: flex;
     flex-direction: column;
+    // flex-direction: ${props => props ? props : "column"};
   `
 }
 // flex-direction: ${props => props.direction ? "row" : "column"};
@@ -24,5 +25,11 @@ export const middle = () => {
 export const mt = () => {
   return `
     margin-top: 90px;
+  `
+}
+
+export const pt = () => {
+  return `
+    padding-top: 90px;
   `
 }

@@ -4,8 +4,9 @@ import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import { Container, Heading } from "../../styled-components";
+import { Container, Heading, MainWindow } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
+import SignInButton from "../../components/buttons/SignIn";
 
 export const SignIn = (props) => {
   const [state, setState] = React.useState({ checked: true });
@@ -25,7 +26,7 @@ export const SignIn = (props) => {
   }
 
   return (
-    <Container>
+    <MainWindow>
       <Heading>Login</Heading>
       <form onSubmit={handleSubmit}>
         <Container>
@@ -48,19 +49,11 @@ export const SignIn = (props) => {
             style={formStyling}
             label="Remember Me"
           />
-
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            size="large"
-            startIcon={<ExitToAppIcon />}
-            style={{ height: "55px" }}
-          >
-            Sign In
-          </Button>
+          <SignInButton />
+          <p style={{marginTop: "50px"}}>Forgot Password? Reset Password</p>
+          <p>Don't have an account? Register</p>
         </Container>
       </form>
-    </Container>
+    </MainWindow>
   );
 };

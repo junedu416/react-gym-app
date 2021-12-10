@@ -8,10 +8,14 @@ import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import EventIcon from "@mui/icons-material/Event";
 import GroupsIcon from "@mui/icons-material/Groups";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
+// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
 // import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import Register from "../assets/register-green.png";
 
 export const NavBar = (props) => {
   const [search, setSearch] = useState("");
@@ -25,43 +29,56 @@ export const NavBar = (props) => {
     // dispatch({type: "removeJWT"});
   }
 
-  const iconSize = {
-    fontSize: "large",
-  }
-
   return (
     <Nav>
       <NavBarLink to="/home">
-        <HomeIcon style={{iconSize}}/> Home
+        <HomeIcon fontSize="large" /> Home
       </NavBarLink>
       <NavBarLink to="/workouts">
-        <FitnessCenterIcon /> Workouts
+        <FitnessCenterIcon fontSize="large" /> Workouts
       </NavBarLink>
       <NavBarLink to="/events">
-        <EventIcon /> Events
+        <EventIcon fontSize="large" /> Events
       </NavBarLink>
       <NavBarLink to="/our-team">
-        <GroupsIcon /> Our Team
+        <GroupsIcon fontSize="large" /> Our Team
       </NavBarLink>
       <NavBarLink to="/contact">
-        <ChatBubbleOutlineIcon /> Contact
+        <ChatBubbleOutlineIcon fontSize="large" /> Contact
       </NavBarLink>
-      <NavBarLink to="/my-profile">
-        <AccountCircleIcon /> User
+      <NavBarLink to="/home/myprofile">
+        <AccountBoxIcon fontSize="large" /> User
       </NavBarLink>
       <NavBarLink to="/auth/login">
-        <LoginIcon /> Sign In
+        <LoginIcon fontSize="large" /> Sign In
       </NavBarLink>
-      <NavBarLink to="/register"> Sign Up</NavBarLink>
+      <NavBarLink to="/register">
+        {/* <HowToRegIcon fontSize="large" /> Sign Up */}
+        <img
+          src={Register}
+          alt="icon to register new account"
+          style={{
+            width: "26px",
+            height: "30px",
+            marginBottom: "4px",
+            marginTop: "2px",
+            
+          }}
+        />
+        Sign Up
+      </NavBarLink>
       <NavBarLink onClick={handleSignOut} to="/">
-        <LogoutIcon /> Sign Out
+        <LogoutIcon fontSize="large" /> Sign Out
       </NavBarLink>
 
       <TextField
+        placeholder="Search"
         variant="outlined"
         onChange={handleInput}
         value={search}
+        style={{ width: "250px", backgroundColor: "rgb(230, 230, 230, 1", borderRadius: "5px" }}
         InputProps={{
+          "aria-label": "Search",
           startAdornment: (
             <InputAdornment position="start">
               <SearchIcon />
@@ -69,7 +86,6 @@ export const NavBar = (props) => {
           ),
         }}
       />
-
       {/* <TextField
         placeholder="Search…"
         inputProps={{ "aria-label": "Search" }}
@@ -79,6 +95,7 @@ export const NavBar = (props) => {
         value={search}
         style={{ width: "250px", backgroundColor: "rgb(255, 255, 255, 0.5" }}
       /> */}
+
     </Nav>
   );
 };
