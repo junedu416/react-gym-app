@@ -2,24 +2,52 @@ import React, { useState } from "react";
 import EditButton from "../../components/buttons/Edit";
 import ViewExercises from "../../components/buttons/ViewExercises";
 import StartWorkout from "../../components/buttons/StartWorkout";
-import { Container, Heading, MainWindow } from "../../styled-components";
-import { WorkoutCardStyling } from "../../styled-components/workouts";
+import { Container, Heading, SmallHeading, MainWindow, Grid } from "../../styled-components";
+import {
+  WorkoutCardStyling,
+  WorkoutList,
+} from "../../styled-components/workouts";
 import CreateWorkout from "../../components/buttons/CreateWorkout";
+import Divider from "@mui/material/Divider";
+import { ContactSubheadings } from "../../styled-components/contact";
 
 export const Workouts = (props) => {
-  const workoutList = ["Workout A", "Workout B", "Workout C"];
+  const workoutList = [
+    { name: "Workout A", exercises: ["deadlift", "bench", "squat"] },
+    {
+      name: "Workout B",
+      exercises: ["Exercise 1", "Exercise 2", "Exercise 3"],
+    },
+    { name: "Workout C", exercises: ["row", "run", "swim"] },
+  ];
+
+  workoutList.map((workout) => console.log(workout.name, workout.exercises));
 
   return (
     <MainWindow>
       <Container>
         <Heading>Workouts</Heading>
         <EditButton />
+
         <Container>
-          {workoutList.map((workout) => {
-            <WorkoutCardStyling>
-              {workout}
-            </WorkoutCardStyling>
-          })}
+          <Grid>
+            {workoutList.map((workout) => {
+              return (
+                <WorkoutCardStyling>
+                  <SmallHeading style={{padding:"10px 0 0px 10px", fontSize:"1.5rem"}}>{workout.name}</SmallHeading>
+
+                  {workout.exercises.map((item) => {
+                    return (
+                      <Container>
+                        <WorkoutList>{item}</WorkoutList>
+                        <Divider sx={{width:"90%"}}/>
+                      </Container>
+                    );
+                  })}
+                </WorkoutCardStyling>
+              );
+            })}
+          </Grid>
         </Container>
         <StartWorkout />
         <p>Trainer Workouts</p>
