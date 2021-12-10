@@ -6,7 +6,7 @@ export const ExerciseCardStyling = styled.div`
   ${centered};
   width: 300px;
   height: 250px;
-  border: 1px solid grey;
+  border: 1px solid rgba(150, 150, 150, 0.25);
   border-radius: 12px;
   ${shadow};
 `
