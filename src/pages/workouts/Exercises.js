@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import EditButton from "../../components/buttons/Edit";
-import { Container, Grid, Heading, MainWindow } from "../../styled-components";
+import {
+  Container,
+  Grid,
+  Heading,
+  MainWindow,
+  SmallHeading,
+} from "../../styled-components";
 import { ExerciseCardStyling } from "../../styled-components/exercises";
 import { NavBarLink } from "../../styled-components/navbar";
 
@@ -27,15 +33,26 @@ export const Exercises = (props) => {
   return (
     <MainWindow>
       <Heading>Select Exercise</Heading>
-      <Grid>
-        {exerciseCategories.map((category) => (
-          <ExerciseCardStyling>
-            <NavBarLink to="/exercises">
-              {category}
-            </NavBarLink>
-          </ExerciseCardStyling>
-        ))}
-      </Grid>
+      <Container>
+        <SmallHeading>Category Type</SmallHeading>
+        <Grid>
+          {exerciseCategories.map((category) => (
+            <ExerciseCardStyling>
+              <NavBarLink to="/exercises">{category}</NavBarLink>
+            </ExerciseCardStyling>
+          ))}
+        </Grid>
+      </Container>
+      <Container>
+      <SmallHeading>Muscle Group</SmallHeading>
+        <Grid>
+          {muscleGroups.map((muscleGroup) => (
+            <ExerciseCardStyling>
+              <NavBarLink to="/exercises">{muscleGroup}</NavBarLink>
+            </ExerciseCardStyling>
+          ))}
+        </Grid>
+      </Container>
     </MainWindow>
   );
 };
