@@ -33,3 +33,9 @@ export const pt = () => {
     padding-top: 90px;
   `
 }
+
+export const shadow = () => {
+  return `
+    box-shadow: 2px 2px 6px 0px rgba(120, 120, 120, 0.8);
+  ` 
+}
