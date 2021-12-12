@@ -10,6 +10,7 @@ import {
 import CreateWorkout from "../../components/buttons/CreateWorkout";
 import Divider from "@mui/material/Divider";
 import { ContactSubheadings } from "../../styled-components/contact";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 export const Workouts = (props) => {
   const workoutList = [
@@ -36,10 +37,13 @@ export const Workouts = (props) => {
                 <WorkoutCardStyling>
                   <SmallHeading style={{padding:"10px 0 0px 10px", fontSize:"1.5rem"}}>{workout.name}</SmallHeading>
 
-                  {workout.exercises.map((item) => {
+                  {workout.exercises.map((exercise) => {
                     return (
                       <Container>
-                        <WorkoutList>{item}</WorkoutList>
+                        <WorkoutList>
+                          <p>{exercise}</p>
+                          <ArrowForwardIosIcon />
+                        </WorkoutList>
                         <Divider sx={{width:"90%"}}/>
                       </Container>
                     );

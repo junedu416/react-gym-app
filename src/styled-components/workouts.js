@@ -11,7 +11,14 @@ export const WorkoutCardStyling = styled.div`
 `
 
 export const WorkoutList = styled.div`
-  padding: 20px;
-  align-self: flex-start;
+  padding-left: 15px;
+  padding-right: 5px;
   text-transform: capitalize;
+  ${flexbox};
+  flex-direction: row;
+  align-items: center;
+  width: calc(100% - 20px);
+  justify-content: space-between;
+  ;
+
 `
