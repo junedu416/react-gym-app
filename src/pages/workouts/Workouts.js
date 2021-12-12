@@ -17,6 +17,7 @@ import CreateWorkout from "../../components/buttons/CreateWorkout";
 import Divider from "@mui/material/Divider";
 import { ContactSubheadings } from "../../styled-components/contact";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import IconButton from "@mui/material/IconButton";
 
 export const Workouts = (props) => {
   const workoutList = [
@@ -87,7 +88,9 @@ export const Workouts = (props) => {
                           {exercise.distance === null ? null : (
                             <p>{exercise.distance}</p>
                           )}
-                          <ArrowForwardIosIcon />
+                          <IconButton>
+                            <ArrowForwardIosIcon />
+                          </IconButton>
                         </WorkoutList>
                         <Divider sx={{ width: "90%" }} />
                       </Container>
