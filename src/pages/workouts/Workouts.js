@@ -47,64 +47,74 @@ export const Workouts = (props) => {
     },
   ];
 
-  workoutList.map((workout) => console.log(workout.name, workout.exercises));
+  // workoutList.map((workout) => console.log(workout.name, workout.exercises));
+
+  const [activeWorkout, setActiveWorkout] = useState("");
+  const handleClick = (selectWorkout) => {
+    if (selectWorkout !== null) {
+      setActiveWorkout(selectWorkout);
+    }
+  };
 
   return (
     <MainWindow>
       <Container>
         <Heading>Workouts</Heading>
-        <EditButton />
 
         <Container>
           <Grid>
-            {workoutList.map((workout) => {
+            {workoutList.map((workout, index) => {
               return (
-                <WorkoutCardStyling>
-                  <SmallHeading
-                    style={{ padding: "10px 0 0px 10px", fontSize: "1.5rem" }}
-                  >
-                    {workout.name}
-                  </SmallHeading>
+                <Container>
+                  <EditButton style={{justifySelf: "flex-end"}} />
+                  <WorkoutCardStyling value={index} onClick={handleClick}>
+                    <SmallHeading
+                      style={{ padding: "10px 0 0px 10px", fontSize: "1.5rem" }}
+                    >
+                      {workout.name}
+                    </SmallHeading>
 
-                  {workout.exercises.map((exercise) => {
-                    return (
-                      <Container>
-                        <WorkoutList>
-                          <p>{exercise.name}</p>
-                          {exercise.sets === null ? null : (
-                            <span style={{ display: "flex", width: "30px" }}>
-                              <p>{exercise.sets}</p>
-                              <p
-                                style={{
-                                  textTransform: "lowercase",
-                                  padding: "0 5px",
-                                }}
-                              >
-                                {"x"}
-                              </p>
-                              <p>{exercise.reps}</p>
-                            </span>
-                          )}
-                          {exercise.distance === null ? null : (
-                            <p>{exercise.distance}</p>
-                          )}
-                          <IconButton>
-                            <ArrowForwardIosIcon />
-                          </IconButton>
-                        </WorkoutList>
-                        <Divider sx={{ width: "90%" }} />
-                      </Container>
-                    );
-                  })}
-                </WorkoutCardStyling>
+                    {workout.exercises.map((exercise) => {
+                      return (
+                        <Container>
+                          <WorkoutList>
+                            <p>{exercise.name}</p>
+                            {exercise.sets === null ? null : (
+                              <span style={{ display: "flex", width: "30px" }}>
+                                <p>{exercise.sets}</p>
+                                <p
+                                  style={{
+                                    textTransform: "lowercase",
+                                    padding: "0 5px",
+                                  }}
+                                >
+                                  {"x"}
+                                </p>
+                                <p>{exercise.reps}</p>
+                              </span>
+                            )}
+                            {exercise.distance === null ? null : (
+                              <p>{exercise.distance}</p>
+                            )}
+                            <IconButton>
+                              <ArrowForwardIosIcon />
+                            </IconButton>
+                          </WorkoutList>
+                          <Divider sx={{ width: "90%" }} />
+                        </Container>
+                      );
+                    })}
+                  </WorkoutCardStyling>
+                  <StartWorkout />
+                </Container>
               );
             })}
           </Grid>
-        </Container>
-        <StartWorkout />
+        
         <p>Trainer Workouts</p>
         <CreateWorkout />
         <ViewExercises />
+        </Container>
       </Container>
     </MainWindow>
   );
