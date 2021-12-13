@@ -12,6 +12,7 @@ const StartWorkout = (props) => {
       onClick={btnFunction}
       style={{
         color: "lime",
+        marginTop: "20px",
         border: "1.7px solid lime",
         borderRadius: "6px",
         opacity: "1",
