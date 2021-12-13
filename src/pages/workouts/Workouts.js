@@ -67,7 +67,7 @@ export const Workouts = (props) => {
             {workoutList.map((workout, index) => {
               return (
                 <Container>
-                  <EditButton style={{justifySelf: "flex-end"}} />
+                  <EditButton />
                   <WorkoutCardStyling value={index} onClick={handleClick}>
                     <SmallHeading
                       style={{ padding: "10px 0 0px 10px", fontSize: "1.5rem" }}
