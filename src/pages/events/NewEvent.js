@@ -2,22 +2,11 @@ import React, { useState } from "react";
 import { Container, Heading, MainWindow } from "../../styled-components";
 import AttachmentIcon from "../../components/buttons/AttachmentIcon";
 import CreateEvent from "../../components/buttons/CreateEvent";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
-import { Input } from '@mui/material';
-
-// Date Selection
+import {MenuItem, TextField, Stack} from "@mui/material";
+// Date/Time Selection
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import MobileDatePicker from "@mui/lab/MobileDatePicker";
-
-// Time Selection
-import MobileTimePicker from "@mui/lab/MobileTimePicker";
+import {MobileDatePicker, MobileTimePicker} from "@mui/lab";
 
 
 export const NewEvent = (props) => {
