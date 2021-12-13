@@ -28,37 +28,61 @@ export const NewEvent = (props) => {
   const [time, setTime] = useState(new Date("2021-12-08T00:00:00.000Z"));
   const [message, setMessage] = useState('');
 
+  const initialValues = {
+    name: '',
+    description: '',
+    category: '',
+    spotsAvailable: 0
+  }
+  const [formValues, setFormValues] = useState(initialValues)
+
   const handleChange = (event) => {
-    setEventType(event.target.value);
+    // setEventType(event.target.value);
+    setFormValues({
+      ...formValues,
+      [event.target.name]: event.target.value
+    })
   };
 
   const handleTyping = (event) => {
     setMessage(event.target.value);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("submitted")
+    console.log(formValues, value)
+  }
+
   return (
     <MainWindow>
       <Heading>Create Event</Heading>
+      <form onSubmit={handleSubmit}>
+      <FormControl required sx={{ m: 1, minWidth: 480 }} >
       <TextField
         id="outlined-basic"
         label="Event Name"
         variant="outlined"
         sx={{ minWidth: 480, mb: 3 }}
+        name="name"
+        onChange={handleChange}
       />
-      <FormControl required sx={{ m: 1, minWidth: 480 }}>
+      {/* <FormControl required sx={{ m: 1, minWidth: 480 }}> */}
         <InputLabel id="demo-simple-select-required-label">
           Event Type
         </InputLabel>
         <Select
           labelId="demo-simple-select-required-label"
           id="demo-simple-select-required"
-          value={eventType}
+          // value={eventType}
+          value={formValues.category}
           label="Event Type"
           onChange={handleChange}
+          name="category"
         >
           <MenuItem value="class">Class</MenuItem>
           <MenuItem value="competition">Competition</MenuItem>
-          <MenuItem value="social">Social</MenuItem>
+          {/* <MenuItem value="social">Social</MenuItem> */}
         </Select>
         <FormHelperText>Required *</FormHelperText>
       </FormControl>
@@ -76,7 +100,7 @@ export const NewEvent = (props) => {
             }}
             renderInput={(params) => <TextField style={{marginBottom: "20px"}} {...params} />}
           />
-          <DatePicker
+          {/* <DatePicker
             disableFuture
             label="Responsive"
             openTo="year"
@@ -85,8 +109,11 @@ export const NewEvent = (props) => {
             onChange={(newValue) => {
               setValue(newValue);
             }}
+            // value={formValues.startTime}
+            // name="startTime"
+            // onChange={handleChange}
             renderInput={(params) => <TextField {...params} />}
-          />
+          /> */}
         </Stack>
 
         <Stack spacing={2}>
@@ -98,14 +125,14 @@ export const NewEvent = (props) => {
             }}
             renderInput={(params) => <TextField style={{marginBottom: "20px"}} {...params} />}
           />
-          <DesktopTimePicker
+          {/* <DesktopTimePicker
             label="For desktop"
             value={value}
             onChange={(newValue) => {
               setValue(newValue);
             }}
             renderInput={(params) => <TextField {...params} />}
-          />
+          /> */}
         </Stack>
         </Container>
       </LocalizationProvider>
@@ -116,13 +143,17 @@ export const NewEvent = (props) => {
           multiline
           rows={4}
           maxRows={4}
-          value={message}
-          onChange={handleTyping}
+          value={formValues.description}
+          name="description"
+          // onChange={handleTyping}
+          onChange={handleChange}
           sx={{ minWidth: 480 }}
         />
 
       <AttachmentIcon /> <span>Attach Photo</span>
-      <CreateEvent />
+        <CreateEvent />
+      {/* </FormControl> */}
+      </form>
     </MainWindow>
   );
 };

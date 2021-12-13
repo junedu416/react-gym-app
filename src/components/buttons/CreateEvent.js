@@ -9,6 +9,7 @@ const CreateEvent = (props) => {
       size="large"
       style={{ height: "55px" }}
       onClick={btnFunction}
+      type="submit"
     >
       Create Event
     </Button>
