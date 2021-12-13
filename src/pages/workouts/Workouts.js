@@ -18,6 +18,7 @@ import Divider from "@mui/material/Divider";
 import { ContactSubheadings } from "../../styled-components/contact";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import IconButton from "@mui/material/IconButton";
+import TrainerWorkouts from "../../components/buttons/TrainerWorkouts";
 
 export const Workouts = (props) => {
   const workoutList = [
@@ -111,7 +112,7 @@ export const Workouts = (props) => {
             })}
           </Grid>
         
-        <p>Trainer Workouts</p>
+        <TrainerWorkouts />
         <CreateWorkout />
         <ViewExercises />
         </Container>
