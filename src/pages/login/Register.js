@@ -14,12 +14,30 @@ export const Register = (props) => {
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
+  
+  const handleFormChange = (event) => {
+    setFormValues({
+      ...formValues,
+      [event.target.name] : event.target.value
+    });
+  }
 
-  const [membershipID, setMembershipID] = useState("");
+  const initialFormValues = {
+    firstName: "",
+    lastName: "",
+    membershipNumber: 0,
+    email: "",
+    password: "",
+    passwordConfirm: ""
+  }
+
+  const [formValues, setFormValues] = useState(initialFormValues);
+
   const [login, setLogin] = useState(false);
 
   function handleSubmit(event) {
     event.preventDefault();
+    
     navigate("/welcome");
   }
 
@@ -32,23 +50,31 @@ export const Register = (props) => {
             id="standard-basic"
             label="First Name"
             style={formStyling}
+            onChange={handleFormChange}
+            name="firstName"
           />
           <TextField
             id="standard-basic"
             label="Last Name"
             style={formStyling}
+            onChange={handleFormChange}
+            name="lastName"
           />
           <TextField
             id="standard-basic"
             label="Membership ID"
             style={formStyling}
+            onChange={handleFormChange}
+            name="membershipNumber"
           />
-          <TextField id="standard-basic" label="Email" style={formStyling} />
-          <TextField id="standard-basic" label="Password" style={formStyling} />
+          <TextField id="standard-basic" label="Email" style={formStyling} onChange={handleChange} name="email" />
+          <TextField id="standard-basic" label="Password" style={formStyling} onChange={handleChange} name="password" />
           <TextField
             id="standard-basic"
             label="Confirm Password"
             style={formStyling}
+            onChange={handleFormChange}
+            name="passwordConfirm"
           />
 
           <FormControlLabel
