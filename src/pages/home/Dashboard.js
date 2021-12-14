@@ -94,11 +94,13 @@ const Dashboard = () => {
             <ListItem
               button
               key={index}
-              onClick={handleClick}
+              onClick={() => {
+                setDashboardView(item.display)
+              }}
               // onClick={displayComponent(item.display, index)}
             >
-              <Link
-                to={item.path}
+              <div
+                //to={item.path}
                 style={{
                   textDecoration: "none",
                   color: "white",
@@ -112,7 +114,7 @@ const Dashboard = () => {
                   {item.icon}
                 </ListItemIcon>
                 <ListItemText primary={item.title} />
-              </Link>
+              </div>
             </ListItem>
           ))}
         </List>
@@ -134,7 +136,7 @@ const Dashboard = () => {
       >
         {/* <Toolbar />
         <Toolbar /> */}
-        <Overview />
+        {dashboardView}
       </Box>
     </Container>
   );
