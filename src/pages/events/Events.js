@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router";
 import Info from "../../components/buttons/Info"
 import Book from "../../components/buttons/Book"
 import { MainWindow } from "../../styled-components";
 import { Calendar } from "./Calendar";
 import { BookingConfirmation } from "./Confirmation";
-import { NewEvent } from "./NewEvent";
+// import { NewEvent } from "./NewEvent";
 import CreateEvent from "../../components/buttons/CreateEvent";
 
 export const Events = (props) => {

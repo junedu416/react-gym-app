@@ -10,9 +10,8 @@ import {MobileDatePicker, MobileTimePicker} from "@mui/lab";
 
 
 export const NewEvent = (props) => {
-  const [start, setStart] = useState(new Date());
-  const [end, setEnd] = useState(new Date());
-  // const [time, setTime] = useState(new Date("2021-12-08T00:00:00.000Z"));
+  const [startTime, setStartTime] = useState(new Date());
+  const [endTime, setEndTime] = useState(new Date());
 
   const initialValues = {
     name: '',
@@ -23,7 +22,6 @@ export const NewEvent = (props) => {
   const [formValues, setFormValues] = useState(initialValues)
 
   const handleChange = (event) => {
-    // setEventType(event.target.value);
     setFormValues({
       ...formValues,
       [event.target.name]: event.target.value
@@ -35,8 +33,8 @@ export const NewEvent = (props) => {
     console.log("submitted")
     const infoToSend = {
       ...formValues,
-      start: start,
-      end: end
+      startTime: startTime,
+      endTime: endTime
     }
     console.log(infoToSend);
   }
@@ -64,9 +62,9 @@ export const NewEvent = (props) => {
           name="category"
           required
           helperText="Please select the event type">
-            <MenuItem key="class" value="class">Class</MenuItem>
-            <MenuItem key="competition" value="competition">Competition</MenuItem>
-            <MenuItem key="personal training" value="personal training">Personal Training</MenuItem>
+            <MenuItem key="class" value="Class">Class</MenuItem>
+            <MenuItem key="competition" value="Competition">Competition</MenuItem>
+            <MenuItem key="personal training" value="Personal Training">Personal Training</MenuItem>
         </TextField>
 
 
@@ -77,26 +75,26 @@ export const NewEvent = (props) => {
             <Stack spacing={2} mr={2} my={4}>
               <MobileDatePicker
                 label="Start Date"
-                value={start}
-                onChange={(newValue) => {setStart(newValue);}}
+                value={startTime}
+                onChange={(newValue) => {setStartTime(newValue);}}
                 renderInput={(params) => <TextField style={{marginBottom: "20px"}} {...params} />}/>
               <MobileDatePicker
                 label="End Date"
-                value={end}
-                onChange={(newValue) => {setEnd(newValue);}}
+                value={endTime}
+                onChange={(newValue) => {setEndTime(newValue);}}
                 renderInput={(params) => <TextField style={{marginBottom: "20px"}} {...params} />}/>
             </Stack>
 
             <Stack spacing={2}>
               <MobileTimePicker
                 label="Start Time"
-                value={start}
-                onChange={(newValue) => {setStart(newValue);}}
+                value={startTime}
+                onChange={(newValue) => {setStartTime(newValue);}}
                 renderInput={(params) => <TextField style={{marginBottom: "20px"}} {...params} />}/>
               <MobileTimePicker
                 label="End Time"
-                value={end}
-                onChange={(newValue) => {setEnd(newValue);}}
+                value={endTime}
+                onChange={(newValue) => {setEndTime(newValue);}}
                 renderInput={(params) => <TextField style={{marginBottom: "20px"}} {...params} />}/>
             </Stack>
         </Container>
@@ -114,7 +112,6 @@ export const NewEvent = (props) => {
           sx={{ minWidth: 480 }}
           required/>
       
-      {/* <InputLabel for="spotsAvailable">Spots Available</InputLabel> */}
       <TextField 
         id="outlined-basic"
         variant="outlined"
