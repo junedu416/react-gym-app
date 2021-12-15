@@ -7,17 +7,18 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { Container, Heading, MainWindow } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
 import { useGlobalState } from "../../config/globalStore"
-import gymApi from "../../config/api";
 import { signUpUser } from "../../services/userServices";
 
 export const Register = (props) => {
   const navigate = useNavigate();
-  const {store, dispatch} = useGlobalState();
+  const {dispatch} = useGlobalState();
 
-  const [state, setState] = React.useState({ checked: true });
+  const [rememberMe, setRememberMe] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+  const [disableSubmit, setDisableSubmit] = useState(false);
+
+  const handleCheckChange = (event) => {
+    setRememberMe(!rememberMe);
   };
   
   const handleFormChange = (event) => {
@@ -38,20 +39,22 @@ export const Register = (props) => {
 
   const [formValues, setFormValues] = useState(initialFormValues);
 
-  const [login, setLogin] = useState(false);
+  //use global state or local storage for this
+  //const [login, setLogin] = useState(false);
 
   //sign up user and console log profile -> save to state later
   async function handleSubmit(event) {
+    console.log("clicked!");
     event.preventDefault();
+    setDisableSubmit(true);
     const response = await signUpUser(formValues);
-    console.log("profile", response);
+    setDisableSubmit(false);
+    //console.log("profile", response);
     if (response.error) {
       setErrorMsg(response.error);
     } else {
-      console.log("before dispatch:state", store);
       dispatch({type: "setProfile", data: response});
       setErrorMsg("");
-      console.log("after dispatch:state", store);
       navigate("/welcome");
     }
   }
@@ -108,8 +111,8 @@ export const Register = (props) => {
             label="Remember Me"
             control={
               <Checkbox
-                checked={state.checked}
-                onChange={handleChange}
+                checked={rememberMe}
+                onChange={handleCheckChange}
                 name="checked"
                 color="primary"
               />
@@ -123,6 +126,7 @@ export const Register = (props) => {
             color="primary"
             size="large"
             style={{ height: "55px", width: "200px" }}
+            disabled={disableSubmit}
           >
             Create Account
           </Button>
