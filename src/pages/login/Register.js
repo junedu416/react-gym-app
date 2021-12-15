@@ -13,7 +13,6 @@ import { signUpUser } from "../../services/userServices";
 export const Register = (props) => {
   const navigate = useNavigate();
   const {store, dispatch} = useGlobalState();
-  console.log(store);
 
   const [state, setState] = React.useState({ checked: true });
   const [errorMsg, setErrorMsg] = useState("");
@@ -49,7 +48,10 @@ export const Register = (props) => {
     if (response.error) {
       setErrorMsg(response.error);
     } else {
+      console.log("before dispatch:state", store);
+      dispatch({type: "setProfile", data: response});
       setErrorMsg("");
+      console.log("after dispatch:state", store);
       navigate("/welcome");
     }
   }

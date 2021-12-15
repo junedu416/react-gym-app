@@ -1,5 +1,5 @@
 const initialGlobalState = {
-    profile: {}
+    profile: null
 }
 
 export default initialGlobalState;
