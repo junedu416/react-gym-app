@@ -21,10 +21,10 @@ import { Contact } from "./pages/home/Contact";
 
 // Events
 import { Events } from "./pages/events/Events";
-import { Event } from "./pages/events/Event";
+// import { Event } from "./pages/events/Event";
 import { NewEvent } from "./pages/events/NewEvent";
-import { Classes } from "./pages/events/Classes";
-import { Class } from "./pages/events/Class";
+// import { Classes } from "./pages/events/Classes";
+// import { Class } from "./pages/events/Class";
 import { TrainerBookings } from "./pages/events/TrainerBookings";
 
 // Workouts
@@ -68,10 +68,10 @@ const App = () => {
         <Route path="/exercises/:id" element={<Exercise />} />
         <Route path="/exercises/new" element={<NewExercise />} />
         <Route path="/events" element={<Events />} />
-        <Route path="/events/:id" element={<Event />} />
+        {/* <Route path="/events/:id" element={<Event />} /> */}
         <Route path="/events/new" element={<NewEvent />} />
-        <Route path="/events/classes" element={<Classes />} />
-        <Route path="/events/classes/:id" element={<Class />} />
+        {/* <Route path="/events/classes" element={<Classes />} /> */}
+        {/* <Route path="/events/classes/:id" element={<Class />} /> */}
         <Route path="/events/leaderboards" element={<Leaderboards />} />
         <Route path="/events/leaderboards/:id" element={<Leaderboards />} />
         <Route path="/trainerbookings" element={<TrainerBookings />} />

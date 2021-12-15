@@ -1,84 +1,51 @@
-import React, {useReducer} from "react";
+import React, {useState, useEffect} from "react";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import moment from 'moment';
-import { myEvents } from "../data/events-dummy";
-import {eventsReducer} from "../utils/eventsReducer"
+// import { getAllEvents } from "../services/eventsServices";
+import {events} from "../data/events-dummy.js"
+import { PopupCard } from "./PopupCard";
 
-const CalendarView = () => {
-    const initialEvent = {
-        title: "",
-        startDate: "",
-        endDate: "",
-        startTime: "",
-        endTime: ""
-    }
-    const [selectedEvent, selectedEventDispatch] = useReducer(eventsReducer, initialEvent)
-
+const CalendarView = ({eventCategory}) => {
     const localizer = momentLocalizer(moment);
-    const events = [
-        {
-            title: "first event",
-            allDay: false,
-            start: new Date("2021-12-15"),
-            end: new Date("2021-12-17")
-        },
-        //Example Single day and Multi Day Event - Daniel
-        {
-            title: "single day event w time",
-            allDay: false,
-            start: new Date("2021-12-10 13:00"),
-            end: new Date("2021-12-10 15:00")
-        },
-        {
-            title: "multi day event w time",
-            allDay: false,
-            start: new Date("2021-12-07 09:00"),
-            end: new Date("2021-12-08 15:00")
-        },
-        {
-            title: "single day event w time overlapping",
-            allDay: false,
-            start: new Date("2021-12-10 13:00"),
-            end: new Date("2021-12-10 15:00")
+    // events currently loaded from data/dummy-data.js
+    const [eventsArray, setEventsArray] = useState(events);
+    const [clickedEvent, setClickedEvent] = useState(null);
+
+    //=======
+    // load events from backend
+    //=======
+    useEffect(() => {
+        console.log(eventsArray)
+        if(eventCategory) {
+            console.log(`event Category from prop is: ${eventCategory}`)
+            const filteredEvents = events.filter((event) => event.category.toLowerCase() === eventCategory.toLowerCase())
+            console.log(filteredEvents)
+            setEventsArray(filteredEvents)
+        } else {
+            setEventsArray(events)
         }
-    ]
+        return
+    }, [eventCategory])
 
     const onClickEvent = (e) => {
-        // console.log(e)
-        if(selectedEvent.title){
-            selectedEventDispatch({type: "deselectEvent"})
+        console.log(e)
+        if(clickedEvent) {
+            setClickedEvent(null)
         } else {
-            const startDate = moment(e.start).format('Do [of] MMM')
-            const startTime = moment(e.start).format('h:mm A')
-            const endDate = moment(e.end).format('Do [of] MMM')
-            const endTime = moment(e.end).format('h:mm A')
-            selectedEventDispatch({type: "setEvent", data: {
-                title: e.title, 
-                startDate: startDate, 
-                endDate: endDate,
-                startTime: startTime,
-                endTime: endTime 
-            }})
+            setClickedEvent(e)
         }
     }
 
     return(
         <div>
-        <h1>Calendar</h1>
-        {selectedEvent.title && 
-            <div>
-                <h3>{selectedEvent.title}</h3>
-                <p>{selectedEvent.startDate} at {selectedEvent.startTime} ~ {selectedEvent.endDate && selectedEvent.endDate} {selectedEvent.endTime}</p>
-                <button>Details</button>
-            </div>
-        }
+        {clickedEvent && <PopupCard selectedEvent={clickedEvent}/>}
         <Calendar 
             localizer={localizer}
             defaultView="week"
-            events={events}
-            startAccessor="start"
-            endAccessor="end"
+            events={eventsArray}
+            startAccessor="startTime"
+            endAccessor="endTime"
             onSelectEvent={onClickEvent}
             // showMultiDayTimes //Needs to be included to show times for multi-day events instead of it being treated as all day - Daniel
             style={{height: "50vh"}}

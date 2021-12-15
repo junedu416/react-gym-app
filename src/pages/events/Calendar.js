@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import CalendarView from "../../components/CalendarView";
 
 export const Calendar = () => {
-  const [eventSelect, setEventSelect] = useState("classes");
+  const [eventSelect, setEventSelect] = useState("class");
 
   const handleEventSelect = (event, newEventSelect) => {
     if (newEventSelect !== null) {
@@ -22,16 +23,18 @@ export const Calendar = () => {
         color="warning"
         style={{backgroundColor: "lightBlue", margin:"50px"}}
       >
-        <ToggleButton value="classes" aria-label="classes" sx={{color:"grey"}}>
+        <ToggleButton value="class" aria-label="class" sx={{color:"grey"}} selected>
           Classes
         </ToggleButton>
-        <ToggleButton value="competitions" aria-label="competitions" sx={{color:"grey"}}>
+        <ToggleButton value="competition" aria-label="competition" sx={{color:"grey"}}>
           Competitions
         </ToggleButton>
-        <ToggleButton value="socials" aria-label="socials" sx={{color:"grey"}}>
-          Socials
+        <ToggleButton value="personal training" aria-label="personal training" sx={{color:"grey"}}>
+          Personal Training
         </ToggleButton>
       </ToggleButtonGroup>
+      <CalendarView eventCategory={eventSelect}/>
+
     </>
   );
 };
