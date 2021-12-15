@@ -23,17 +23,17 @@ export const Calendar = () => {
         color="warning"
         style={{backgroundColor: "lightBlue", margin:"50px"}}
       >
-        <ToggleButton value="classes" aria-label="classes" sx={{color:"grey"}}>
+        <ToggleButton value="class" aria-label="class" sx={{color:"grey"}}>
           Classes
         </ToggleButton>
-        <ToggleButton value="competitions" aria-label="competitions" sx={{color:"grey"}}>
+        <ToggleButton value="competition" aria-label="competition" sx={{color:"grey"}}>
           Competitions
         </ToggleButton>
         <ToggleButton value="personal training" aria-label="personal training" sx={{color:"grey"}}>
-          Socials
+          Personal Training
         </ToggleButton>
       </ToggleButtonGroup>
-      <CalendarView />
+      <CalendarView eventCategory={eventSelect}/>
 
     </>
   );
