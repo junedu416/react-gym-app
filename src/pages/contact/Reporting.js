@@ -41,8 +41,8 @@ export const Reporting = (props) => {
           label="Inquiry Type *"
           onChange={handleSelection}
         >
-          <MenuItem value="Faulty Equipment">Faulty Equipment</MenuItem>
-          <MenuItem value="Unsocial Behaviour">Unsocial Behaviour</MenuItem>
+          <MenuItem value="Faulty Equipment">Report Faulty Equipment</MenuItem>
+          <MenuItem value="Unsocial Behaviour">Report Unsocial Behaviour</MenuItem>
           <MenuItem value="General Inquiry">General Inquiry</MenuItem>
         </Select>
         <FormHelperText>Please select inquiry type (required)</FormHelperText>
