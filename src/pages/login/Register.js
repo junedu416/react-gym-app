@@ -6,11 +6,15 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { Container, Heading, MainWindow } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
+import { useGlobalState } from "../../config/globalStore"
 import gymApi from "../../config/api";
 import { signUpUser } from "../../services/userServices";
 
 export const Register = (props) => {
   const navigate = useNavigate();
+  const {store, dispatch} = useGlobalState();
+  console.log(store);
+
   const [state, setState] = React.useState({ checked: true });
   const [errorMsg, setErrorMsg] = useState("");
   const handleChange = (event) => {
