@@ -37,7 +37,8 @@ export const Register = (props) => {
 
   function handleSubmit(event) {
     event.preventDefault();
-    
+    //send formData
+
     navigate("/welcome");
   }
 
@@ -67,8 +68,19 @@ export const Register = (props) => {
             onChange={handleFormChange}
             name="membershipNumber"
           />
-          <TextField id="standard-basic" label="Email" style={formStyling} onChange={handleChange} name="email" />
-          <TextField id="standard-basic" label="Password" style={formStyling} onChange={handleChange} name="password" />
+          <TextField 
+            id="standard-basic" 
+            label="Email" style={formStyling} 
+            onChange={handleFormChange} 
+            name="email" 
+          />
+          <TextField 
+            id="standard-basic" 
+            label="Password" 
+            style={formStyling} 
+            onChange={handleFormChange} 
+            name="password" 
+          />
           <TextField
             id="standard-basic"
             label="Confirm Password"
