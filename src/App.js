@@ -42,9 +42,18 @@ import { TrainerPage } from "./pages/ourTeam/TrainerPage";
 // Contact
 import { Reporting } from "./pages/contact/Reporting";
 
+//Global State
+import {useReducer} from "react"
+import globalReducer from "./config/globalReducer";
+import initialGlobalState from "./config/initialGlobalState";
+import { StateContext } from "./config/globalStore";
+
 const App = () => {
+  const [store, dispatch] = useReducer(globalReducer, initialGlobalState)
+
   return (
     <>
+      <StateContext.Provider value={{store, dispatch}}>
       <NavBar />
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -78,6 +87,7 @@ const App = () => {
         <Route path="/home/leaderboards" element={<Leaderboards />} />
         <Route path="/home/contact" element={<Contact />} />
       </Routes>
+    </StateContext.Provider>
     </>
   );
 };
