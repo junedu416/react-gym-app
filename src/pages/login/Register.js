@@ -12,7 +12,7 @@ import { signUpUser } from "../../services/userServices";
 export const Register = (props) => {
   const navigate = useNavigate();
   const [state, setState] = React.useState({ checked: true });
-
+  const [errorMsg, setErrorMsg] = useState("");
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
@@ -42,12 +42,18 @@ export const Register = (props) => {
     event.preventDefault();
     const response = await signUpUser(formValues);
     console.log("profile", response);
-    navigate("/welcome");
+    if (response.error) {
+      setErrorMsg(response.error);
+    } else {
+      setErrorMsg("");
+      navigate("/welcome");
+    }
   }
 
   return (
     <MainWindow>
       <Heading>Register Account</Heading>
+      {errorMsg && <h3>{errorMsg}</h3>}
       <form onSubmit={handleSubmit}>
         <Container>
           <TextField

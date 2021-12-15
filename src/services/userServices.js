@@ -1,8 +1,9 @@
 import gymApi from "../config/api";
 
 export const signUpUser = async (userDetails) => {
+    let response;
     try {
-        const response = await gymApi.post('/users/sign-up', userDetails, {
+        response = await gymApi.post('/users/sign-up', userDetails, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -10,7 +11,7 @@ export const signUpUser = async (userDetails) => {
         console.log(response)
         return response.data
     } catch(e) {
-        console.log(e)
+        console.log("error", e)
         throw e
     }
 }
