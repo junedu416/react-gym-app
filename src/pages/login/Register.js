@@ -37,11 +37,11 @@ export const Register = (props) => {
 
   const [login, setLogin] = useState(false);
 
-  //sign up user and console log uid -> save to state later
+  //sign up user and console log profile -> save to state later
   async function handleSubmit(event) {
     event.preventDefault();
     const response = await signUpUser(formValues);
-    console.log(response.uid);
+    console.log("profile", response);
     navigate("/welcome");
   }
 
