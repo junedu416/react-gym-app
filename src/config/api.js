@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const gymApi = axios.create({
-    baseURL: process.env.GYM_APP_API
+    // baseURL: 'https://gym-dev-server.herokuapp.com'
+    baseURL: 'http://localhost:3000'
 })
 
 export default gymApi;

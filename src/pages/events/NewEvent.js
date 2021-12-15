@@ -7,11 +7,14 @@ import {MenuItem, TextField, Stack} from "@mui/material";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import {MobileDatePicker, MobileTimePicker} from "@mui/lab";
+// services
+import {createNewEvent} from '../../services/eventsServices'
 
 
-export const NewEvent = (props) => {
+export const NewEvent = () => {
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
+  const [image, setImage] = useState(null);
 
   const initialValues = {
     name: '',
@@ -34,15 +37,26 @@ export const NewEvent = (props) => {
     const infoToSend = {
       ...formValues,
       startTime: startTime,
-      endTime: endTime
+      endTime: endTime,
+      eventImage: image
     }
-    console.log(infoToSend);
+    const data = new FormData();
+    for (let key in infoToSend) {
+      data.append(`${key}`, infoToSend[key]);
+    }
+    // post to event
+    createNewEvent(data);
+  }
+
+  const handleFile = (event) => {
+    console.log(event.target.files[0])
+    setImage(event.target.files[0])
   }
 
   return (
     <MainWindow>
       <Heading>Create Event</Heading>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} >
         <TextField
           id="outlined-basic"
           label="Event Name"
@@ -102,7 +116,7 @@ export const NewEvent = (props) => {
 
       <TextField
           id="outlined-multiline-flexible"
-          label="Your Message"
+          label="Description"
           multiline
           rows={4}
           maxRows={4}
@@ -127,6 +141,7 @@ export const NewEvent = (props) => {
 
 
       <AttachmentIcon /> <span>Attach Photo</span>
+      <input type="file" accept="image/*,.pdf" name="eventImage" id="eventImage" onChange={handleFile}/>
         <CreateEvent />
       </form>
     </MainWindow>

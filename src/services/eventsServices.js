@@ -29,7 +29,11 @@ export const getEventById = async (id) => {
 // POST new event i.e PT, Class or Comp (staff only)
 export const createNewEvent = async (eventObj) => {
     try {
-        const response = await gymApi.post('/events', eventObj)
+        const response = await gymApi.post('/events', eventObj, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
         console.log(response)
         return response.data
     } catch(e) {
