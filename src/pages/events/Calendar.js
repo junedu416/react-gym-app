@@ -4,7 +4,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import CalendarView from "../../components/CalendarView";
 
 export const Calendar = () => {
-  const [eventSelect, setEventSelect] = useState("");
+  const [eventSelect, setEventSelect] = useState("class");
 
   const handleEventSelect = (event, newEventSelect) => {
     if (newEventSelect !== null) {
@@ -23,7 +23,7 @@ export const Calendar = () => {
         color="warning"
         style={{backgroundColor: "lightBlue", margin:"50px"}}
       >
-        <ToggleButton value="class" aria-label="class" sx={{color:"grey"}}>
+        <ToggleButton value="class" aria-label="class" sx={{color:"grey"}} selected>
           Classes
         </ToggleButton>
         <ToggleButton value="competition" aria-label="competition" sx={{color:"grey"}}>
