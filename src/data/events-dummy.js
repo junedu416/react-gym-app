@@ -1,33 +1,37 @@
 // dummy data for events 
 // similar data to be pulled from backend later on
-import moment from "moment"
-
-export const myEvents = [
+export const events = [
     {
-        id: 1,
-        title: "Intermediate HIIT workout class",
-        description: "HIIT workout focusing on abs, arns and hips",
-        start_date: new Date("2021-12-15"),
-        end_date: new Date("2021-12-15"),
-        spots_available: 20,
-        category: "Class"
+        title: "David's Personal Training",
+        category: "Personal Training",
+        description: "Let's build muscles together",
+        spotsAvailable: '1',
+        startTime: new Date("2021-12-15 08:00"),
+        endTime: new Date("2021-12-15 08:45")
+    },
+    //Example Single day and Multi Day Event - Daniel
+    {
+        title: "Yoga class by Mia",
+        category: "Class",
+        description: "1 hour intermediate yoga class",
+        spotsAvailable: "20",
+        startTime: new Date("2021-12-10 13:00"),
+        endTime: new Date("2021-12-10 14:00")
     },
     {
-        id: 2,
-        title: "Heaviest Lifter Comp",
-        description: "Who can lift the heaviest weight this week? Don't push yourself too hard, but try your best!",
-        start: moment([2021, 12, 6]),
-        end: moment([2021, 12, 13]),
-        spots_available: null,
-        category: "Competition"
+        title: "Weight Lift comp",
+        category: "Competition",
+        description: "Who can lift the heaviest weight at Average Joes?",
+        spotsAvailable: "50",
+        startTime: new Date("2021-12-07 09:00"),
+        endTime: new Date("2021-12-08 15:00")
     },
     {
-        id: 3,
-        title: "Beginner Pilates class",
-        description: "Achieve your body goals with integration of stretches and core workout",
-        start: moment([2021, 12, 20, 11, 0]),
-        end: moment([2021, 12, 15, 11, 45]),
-        spots_available: 20,
-        category: "Class"
+        title: "Distance comp",
+        category: "Competition",
+        description: "Who can run the longest distance in total over 5 days?",
+        spotsAvailable: "100",
+        startTime: new Date("2021-12-10 09:00"),
+        endTime: new Date("2021-12-15 15:00")
     }
 ]
