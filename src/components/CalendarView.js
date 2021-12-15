@@ -65,7 +65,6 @@ const CalendarView = () => {
 
     return(
         <div>
-        <h1>Calendar</h1>
         {selectedEvent.title && 
             <div>
                 <h3>{selectedEvent.title}</h3>
