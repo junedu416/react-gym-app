@@ -6,6 +6,8 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { Container, Heading, MainWindow } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
+import gymApi from "../../config/api";
+import { signUpUser } from "../../services/userServices";
 
 export const Register = (props) => {
   const navigate = useNavigate();
@@ -35,10 +37,11 @@ export const Register = (props) => {
 
   const [login, setLogin] = useState(false);
 
-  function handleSubmit(event) {
+  //sign up user and console log uid -> save to state later
+  async function handleSubmit(event) {
     event.preventDefault();
-    //send formData
-
+    const response = await signUpUser(formValues);
+    console.log(response.uid);
     navigate("/welcome");
   }
 
