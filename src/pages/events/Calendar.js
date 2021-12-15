@@ -4,7 +4,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import CalendarView from "../../components/CalendarView";
 
 export const Calendar = () => {
-  const [eventSelect, setEventSelect] = useState("classes");
+  const [eventSelect, setEventSelect] = useState("");
 
   const handleEventSelect = (event, newEventSelect) => {
     if (newEventSelect !== null) {
