@@ -7,12 +7,14 @@ import {MenuItem, TextField, Stack} from "@mui/material";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import {MobileDatePicker, MobileTimePicker} from "@mui/lab";
+// services
+import {createNewEvent} from '../../services/eventsServices'
 
 
-export const NewEvent = (props) => {
-  const [start, setStart] = useState(new Date());
-  const [end, setEnd] = useState(new Date());
-  // const [time, setTime] = useState(new Date("2021-12-08T00:00:00.000Z"));
+export const NewEvent = () => {
+  const [startTime, setStartTime] = useState(new Date());
+  const [endTime, setEndTime] = useState(new Date());
+  const [image, setImage] = useState(null);
 
   const initialValues = {
     name: '',
@@ -23,7 +25,6 @@ export const NewEvent = (props) => {
   const [formValues, setFormValues] = useState(initialValues)
 
   const handleChange = (event) => {
-    // setEventType(event.target.value);
     setFormValues({
       ...formValues,
       [event.target.name]: event.target.value
@@ -35,16 +36,27 @@ export const NewEvent = (props) => {
     console.log("submitted")
     const infoToSend = {
       ...formValues,
-      start: start,
-      end: end
+      startTime: startTime,
+      endTime: endTime,
+      eventImage: image
     }
-    console.log(infoToSend);
+    const data = new FormData();
+    for (let key in infoToSend) {
+      data.append(`${key}`, infoToSend[key]);
+    }
+    // post to event
+    createNewEvent(data);
+  }
+
+  const handleFile = (event) => {
+    console.log(event.target.files[0])
+    setImage(event.target.files[0])
   }
 
   return (
     <MainWindow>
       <Heading>Create Event</Heading>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} >
         <TextField
           id="outlined-basic"
           label="Event Name"
@@ -64,9 +76,9 @@ export const NewEvent = (props) => {
           name="category"
           required
           helperText="Please select the event type">
-            <MenuItem key="class" value="class">Class</MenuItem>
-            <MenuItem key="competition" value="competition">Competition</MenuItem>
-            <MenuItem key="personal training" value="personal training">Personal Training</MenuItem>
+            <MenuItem key="class" value="Class">Class</MenuItem>
+            <MenuItem key="competition" value="Competition">Competition</MenuItem>
+            <MenuItem key="personal training" value="Personal Training">Personal Training</MenuItem>
         </TextField>
 
 
@@ -77,26 +89,26 @@ export const NewEvent = (props) => {
             <Stack spacing={2} mr={2} my={4}>
               <MobileDatePicker
                 label="Start Date"
-                value={start}
-                onChange={(newValue) => {setStart(newValue);}}
+                value={startTime}
+                onChange={(newValue) => {setStartTime(newValue);}}
                 renderInput={(params) => <TextField style={{marginBottom: "20px"}} {...params} />}/>
               <MobileDatePicker
                 label="End Date"
-                value={end}
-                onChange={(newValue) => {setEnd(newValue);}}
+                value={endTime}
+                onChange={(newValue) => {setEndTime(newValue);}}
                 renderInput={(params) => <TextField style={{marginBottom: "20px"}} {...params} />}/>
             </Stack>
 
             <Stack spacing={2}>
               <MobileTimePicker
                 label="Start Time"
-                value={start}
-                onChange={(newValue) => {setStart(newValue);}}
+                value={startTime}
+                onChange={(newValue) => {setStartTime(newValue);}}
                 renderInput={(params) => <TextField style={{marginBottom: "20px"}} {...params} />}/>
               <MobileTimePicker
                 label="End Time"
-                value={end}
-                onChange={(newValue) => {setEnd(newValue);}}
+                value={endTime}
+                onChange={(newValue) => {setEndTime(newValue);}}
                 renderInput={(params) => <TextField style={{marginBottom: "20px"}} {...params} />}/>
             </Stack>
         </Container>
@@ -104,7 +116,7 @@ export const NewEvent = (props) => {
 
       <TextField
           id="outlined-multiline-flexible"
-          label="Your Message"
+          label="Description"
           multiline
           rows={4}
           maxRows={4}
@@ -114,7 +126,6 @@ export const NewEvent = (props) => {
           sx={{ minWidth: 480 }}
           required/>
       
-      {/* <InputLabel for="spotsAvailable">Spots Available</InputLabel> */}
       <TextField 
         id="outlined-basic"
         variant="outlined"
@@ -130,6 +141,7 @@ export const NewEvent = (props) => {
 
 
       <AttachmentIcon /> <span>Attach Photo</span>
+      <input type="file" accept="image/*,.pdf" name="eventImage" id="eventImage" onChange={handleFile}/>
         <CreateEvent />
       </form>
     </MainWindow>
