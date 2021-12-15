@@ -15,3 +15,14 @@ export const signUpUser = async (userDetails) => {
         throw e
     }
 }
+
+export const signOutUser = async () => {
+    try {
+        const response = await gymApi.post('/users/sign-out');
+        console.log(response.data)
+        return response.data
+    } catch(e) {
+        console.log("error", e);
+        throw e;
+    }
+}

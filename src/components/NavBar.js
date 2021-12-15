@@ -16,15 +16,23 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import Register from "../assets/register-green.png";
+import { useGlobalState } from "../config/globalStore";
+import { signOutUser } from "../services/userServices";
 
 export const NavBar = (props) => {
   const [search, setSearch] = useState("");
+  const {store, dispatch} = useGlobalState();
 
   function handleInput(event) {
     setSearch(event.target.value);
   }
 
   function handleSignOut() {
+    signOutUser().then(() => {
+      dispatch({type: "setProfile", data: null});
+      console.log(store);
+    })
+    
     // dispatch({ type: "removeLoggedInUser" });
     // dispatch({type: "removeJWT"});
   }
