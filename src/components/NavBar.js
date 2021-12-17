@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavBarLink, Nav } from "../styled-components/navbar";
+import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TextField from "@mui/material/TextField";
@@ -21,17 +22,61 @@ import { useGlobalState } from "../config/globalStore";
 import { signOutUser } from "../services/userServices";
 import { RegisterIcon } from "./RegisterIcon.js";
 
-function LinkTab(props) {
-  return (
-    <Tab
-      component="a"
-      onClick={(event) => {
-        event.preventDefault();
-      }}
-      {...props}
-    />
-  );
-}
+// function LinkTab(props) {
+//   return (
+//     <Tab
+//       component="a"
+//       onClick={(event) => {
+//         event.preventDefault();
+//       }}
+//       {...props}
+//     />
+//   );
+// }
+
+
+// Custom settings and colors for Material-UI tabs
+
+const StyledTabs = styled((props) => (
+  <Tabs
+    {...props}
+    TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
+  />
+))({
+  "& .MuiTabs-indicator": {
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "transparent",
+  },
+  "& .MuiTabs-indicatorSpan": {
+    maxWidth: 70,
+    width: "100%",
+    backgroundColor: "rgb(57, 255, 20)",
+  },
+});
+
+const LinkTab = styled((props) => (
+  <Tab
+    disableRipple
+    component="a"
+    onClick={(event) => {
+      event.preventDefault();
+    }}
+    {...props}
+  />
+))(({ theme }) => ({
+  textTransform: "none",
+  fontWeight: theme.typography.fontWeightRegular,
+  fontSize: theme.typography.pxToRem(15),
+  marginRight: theme.spacing(3),
+  color: "rgba(57, 255, 20, 0.7)",
+  "&.Mui-selected": {
+    color: "rgba(57, 255, 20, 1)",
+  },
+  "&.Mui-focusVisible": {
+    backgroundColor: "rgba(57, 255, 20, 0.7)",
+  },
+}));
 
 export const NavBar = (props) => {
   const [search, setSearch] = useState("");
@@ -58,12 +103,13 @@ export const NavBar = (props) => {
 
   return (
     <Nav>
-      <Tabs
+      <StyledTabs
         value={value}
         onChange={handlePageSelect}
         aria-label="navbar"
-        variant="success"
         selectionFollowsFocus
+        // textColor="primary"
+        // indicatorColor="primary"
       >
         <LinkTab
           icon={<HomeIcon sx={{ fontSize: "2.5rem" }} />}
@@ -71,6 +117,7 @@ export const NavBar = (props) => {
           aria-label="Go to Home page"
           href="/home"
           sx={{ color: "white", fontSize: "small" }}
+          value="home"
         />
         <LinkTab
           icon={<FitnessCenterIcon sx={{ fontSize: "2.5rem" }} />}
@@ -78,6 +125,7 @@ export const NavBar = (props) => {
           aria-label="Go to Workouts page"
           href="/workouts"
           sx={{ color: "white", fontSize: "small" }}
+          value="Workouts"
         />
         <LinkTab
           icon={<EventIcon sx={{ fontSize: "2.5rem" }} />}
@@ -128,7 +176,7 @@ export const NavBar = (props) => {
           href="/"
           sx={{ color: "white", fontSize: "small" }}
         />
-      </Tabs>
+      </StyledTabs>
 
       <TextField
         placeholder="Search"
