@@ -35,14 +35,16 @@ const StyledTabs = styled((props) => (
 ))({
   "& .MuiTabs-indicator": {
     display: "flex",
+    left: "0px",
     justifyContent: "center",
     backgroundColor: "transparent",
     height: "3px",
   },
   "& .MuiTabs-indicatorSpan": {
-    maxWidth: 70,
-    width: "100%",
-    backgroundColor: "rgb(57, 255, 20)",
+    maxHeight: 70,
+    minWidth: "7px",
+    // backgroundColor: "rgba(253, 106, 2, 1)",
+    backgroundColor: "white",
     borderRadius: "10px",
   },
 });
@@ -59,22 +61,23 @@ const LinkTab = styled((props) => (
 ))(({ theme }) => ({
   textTransform: "none",
   fontWeight: theme.typography.fontWeightRegular,
-  fontSize: theme.typography.pxToRem(12),
+  fontSize: theme.typography.pxToRem(14),
   // fontSize: "0.8rem",
-  marginRight: theme.spacing(3),
-  color: "rgba(57, 230, 30, 0.85)",
-  "&.Mui-selected": {
-    color: "rgba(57, 255, 30, 1)",
-    fontWeight: theme.typography.fontWeightBold,
-    transform: "scale(1.09) translateY(-2px)",
-  },
+  marginRight: theme.spacing(1),
+  color: "rgba(255, 255, 255, 0.85)",
   "&:hover": {
-    color: "rgba(57, 255, 45, 1)",
-    transform: "scale(1.1) translateY(-2px)",
+    backgroundColor: "rgba(100, 100, 100, 0.4)",
     transition: "0.2s",
   },
+  "&.Mui-selected": {
+    // color: "rgba(253, 106, 2, 1)",
+    color: "white",
+    // backgroundColor: "rgba(110, 110, 110, 0.6)",
+    backgroundColor: "darkblue",
+    fontWeight: theme.typography.fontWeightBold,
+  },
   "&.Mui-focusVisible": {
-    backgroundColor: "rgba(57, 255, 45, 0.25)",
+    backgroundColor: "rgba(100, 100, 100, 0.4)",
   },
 }));
 
@@ -149,16 +152,16 @@ const Dashboard = () => {
         }}
         variant="permanent"
       >
-        <Tabs
+        <StyledTabs
           orientation="vertical"
           variant="scrollable"
           value={value}
           onChange={handleChange}
           aria-label="Vertical tabs example"
-          sx={{ borderRight: 1, borderColor: "divider" }}
+          sx={{ borderLeft: 1, borderColor: "divider" }}
         >
           {SidebarData.map((item, index) => (
-            <Tab
+            <LinkTab
               label={item.title}
               style={dashItem}
               onClick={() => {
@@ -166,7 +169,7 @@ const Dashboard = () => {
               }}
             />
           ))}
-        </Tabs>
+        </StyledTabs>
       </Drawer>
 
       {/* ================ Dashboard content display ================ */}

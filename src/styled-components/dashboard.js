@@ -13,7 +13,7 @@ export const CardStyle = styled.div`
 `;
 
 export const dashItem = {
-   color: "white",
+   // color: "white",
    // border: "2px solid red",
    borderRadius: "7px",
    display: "flex",
