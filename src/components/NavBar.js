@@ -115,6 +115,10 @@ export const NavBar = (props) => {
     });
   }
 
+  const navTextSize = {
+    fontSize: "2.5rem"
+  }
+
   return (
     <Nav>
       <StyledTabs
@@ -125,46 +129,46 @@ export const NavBar = (props) => {
         // selectionFollowsFocus
       >
         <LinkTab
-          icon={<HomeIcon sx={{ fontSize: "2.5rem" }} />}
+          icon={<HomeIcon sx={ navTextSize } />}
           label="Home"
           aria-label="Go to Home page"
           href="/home"
           value="home"
         />
         <LinkTab
-          icon={<FitnessCenterIcon sx={{ fontSize: "2.5rem" }} />}
+          icon={<FitnessCenterIcon sx={ navTextSize } />}
           label="Workouts"
           aria-label="Go to Workouts page"
           href="/workouts"
           value="Workouts"
         />
         <LinkTab
-          icon={<EventIcon sx={{ fontSize: "2.5rem" }} />}
+          icon={<EventIcon sx={ navTextSize } />}
           label="Events"
           aria-label="Go to Events page"
           href="/events"
         />
         <LinkTab
-          icon={<GroupsIcon sx={{ fontSize: "2.5rem" }} />}
+          icon={<GroupsIcon sx={ navTextSize } />}
           label="Our Team"
           aria-label="Go to Our Team page"
           href="/our-team"
         />
         <LinkTab
-          icon={<ChatBubbleOutlineIcon sx={{ fontSize: "2.5rem" }} />}
+          icon={<ChatBubbleOutlineIcon sx={ navTextSize } />}
           label="Contact"
           aria-label="Go to Contact page"
           href="/contact"
         />
         <LinkTab
-          icon={<AccountBoxIcon sx={{ fontSize: "2.5rem" }} />}
+          icon={<AccountBoxIcon sx={ navTextSize } />}
           label="User"
           aria-label="Go to My Profile page"
           href="/home/myprofile"
           sx={{ ml: 70 }}
         />
         <LinkTab
-          icon={<LoginIcon sx={{ fontSize: "2.5rem" }} />}
+          icon={<LoginIcon sx={ navTextSize } />}
           label="Sign In"
           aria-label="Go to Sign In page"
           href="/auth/login"
@@ -176,7 +180,7 @@ export const NavBar = (props) => {
           href="/register"
         />
         <LinkTab
-          icon={<LogoutIcon sx={{ fontSize: "2.5rem" }} />}
+          icon={<LogoutIcon sx={ navTextSize } />}
           label="Sign Out"
           aria-label="Sign Out"
           href="/"

@@ -15,7 +15,6 @@ export const MainWindow = styled.div`
 
 export const Heading = styled.h1`
   font-size: 3.6rem;
-  ${mt};
   color: ${ props => props.color ? props.color : "blue"};  
 `
 

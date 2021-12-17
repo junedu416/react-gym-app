@@ -22,52 +22,54 @@ import { Contact } from "./Contact";
 import { EquipmentReports } from "./Contact";
 import { BehaviourReports } from "./Contact";
 
-
+const iconMargin = {
+  marginRight: "7px"
+}
 export const SidebarData = [
   {
-    title: "Overview",
+    title: [<ViewModuleIcon style={ iconMargin } />, "Overview"],
     path: "/home",
     icon: <ViewModuleIcon />,
     display: <Overview />
   },
   {
-    title: "Checkins",
+    title: [<QrCode2Icon style={ iconMargin }  />, "Checkins"],
     path: "/home/checkins",
     icon: <QrCode2Icon />,
     display: <Checkins />
   },
   {
-    title: "Performance Stats",
+    title: [<InsertChartIcon style={ iconMargin }  />, "Performance Stats"],
     path: "/home/mystats",
     icon: <InsertChartIcon />,
     display: <PerformanceStats />
   },
   {
-    title: "My Events",
+    title: [<EventIcon style={ iconMargin }  />, "My Events"],
     path: "/home/myevents",
     icon: <EventIcon />,
     display: <MyEvents />
   },
   {
-    title: "My Workouts",
+    title: [<FitnessCenterIcon style={ iconMargin }  />, "My Workouts"],
     path: "/home/myworkouts",
     icon: <FitnessCenterIcon />,
     display: <MyWorkouts />
   },
   {
-    title: "My Profile",
+    title: [<AccountCircleIcon style={ iconMargin }  />, "My Profile"],
     path: "/home/myprofile",
     icon: <AccountCircleIcon />,
     display: <MyProfile />
   },
   {
-    title: "Leaderboards",
+    title: [<EmojiEventsIcon style={ iconMargin }  />, "Leaderboards"],
     path: "/home/leaderboards",
     icon: <EmojiEventsIcon />,
     display: <Leaderboards />
   },
   {
-    title: "Contact",
+    title: [<CampaignIcon style={ iconMargin }  />, "Contact"],
     path: "/home/contact",
     icon: <CampaignIcon />,
     display: <Contact />
