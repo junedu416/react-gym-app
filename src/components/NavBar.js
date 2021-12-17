@@ -35,10 +35,17 @@ import { RegisterIcon } from "./RegisterIcon.js";
 // }
 
 
+// ***************** NEED TO UNCOMMENT EITHER line 46 or 71
+// Probably need to use global state to keep selection.
+
 // Custom settings and colors for Material-UI tabs
 
 const StyledTabs = styled((props) => (
   <Tabs
+    component="a"
+    onClick={(event) => {
+      // event.preventDefault();
+    }}
     {...props}
     TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
   />
@@ -47,11 +54,13 @@ const StyledTabs = styled((props) => (
     display: "flex",
     justifyContent: "center",
     backgroundColor: "transparent",
+    height: "3px",
   },
   "& .MuiTabs-indicatorSpan": {
     maxWidth: 70,
     width: "100%",
     backgroundColor: "rgb(57, 255, 20)",
+    borderRadius: "10px",
   },
 });
 
@@ -60,21 +69,29 @@ const LinkTab = styled((props) => (
     disableRipple
     component="a"
     onClick={(event) => {
-      event.preventDefault();
+      // event.preventDefault();
     }}
     {...props}
   />
 ))(({ theme }) => ({
   textTransform: "none",
   fontWeight: theme.typography.fontWeightRegular,
-  fontSize: theme.typography.pxToRem(15),
+  fontSize: theme.typography.pxToRem(12),
+  // fontSize: "0.8rem",
   marginRight: theme.spacing(3),
-  color: "rgba(57, 255, 20, 0.7)",
+  color: "rgba(57, 230, 30, 0.85)",
   "&.Mui-selected": {
-    color: "rgba(57, 255, 20, 1)",
+    color: "rgba(57, 255, 30, 1)",
+    fontWeight: theme.typography.fontWeightBold,
+    transform: "scale(1.09) translateY(-2px)",
+  },
+  "&:hover": {
+    color: "rgba(57, 255, 45, 1)",
+    transform: "scale(1.1) translateY(-2px)",
+    transition: "0.2s"
   },
   "&.Mui-focusVisible": {
-    backgroundColor: "rgba(57, 255, 20, 0.7)",
+    backgroundColor: "rgba(57, 255, 45, 0.25)",
   },
 }));
 
@@ -96,9 +113,6 @@ export const NavBar = (props) => {
       dispatch({ type: "setProfile", data: null });
       console.log(store);
     });
-
-    // dispatch({ type: "removeLoggedInUser" });
-    // dispatch({type: "removeJWT"});
   }
 
   return (
@@ -107,16 +121,14 @@ export const NavBar = (props) => {
         value={value}
         onChange={handlePageSelect}
         aria-label="navbar"
-        selectionFollowsFocus
-        // textColor="primary"
-        // indicatorColor="primary"
+// Parameter makes the selection to auto pick what is focused/selected with the keyboard in navbar
+        // selectionFollowsFocus
       >
         <LinkTab
           icon={<HomeIcon sx={{ fontSize: "2.5rem" }} />}
           label="Home"
           aria-label="Go to Home page"
           href="/home"
-          sx={{ color: "white", fontSize: "small" }}
           value="home"
         />
         <LinkTab
@@ -124,7 +136,6 @@ export const NavBar = (props) => {
           label="Workouts"
           aria-label="Go to Workouts page"
           href="/workouts"
-          sx={{ color: "white", fontSize: "small" }}
           value="Workouts"
         />
         <LinkTab
@@ -132,49 +143,43 @@ export const NavBar = (props) => {
           label="Events"
           aria-label="Go to Events page"
           href="/events"
-          sx={{ color: "white", fontSize: "small" }}
         />
         <LinkTab
           icon={<GroupsIcon sx={{ fontSize: "2.5rem" }} />}
           label="Our Team"
           aria-label="Go to Our Team page"
           href="/our-team"
-          sx={{ color: "white", fontSize: "small" }}
         />
         <LinkTab
           icon={<ChatBubbleOutlineIcon sx={{ fontSize: "2.5rem" }} />}
           label="Contact"
           aria-label="Go to Contact page"
           href="/contact"
-          sx={{ color: "white", fontSize: "small" }}
         />
         <LinkTab
           icon={<AccountBoxIcon sx={{ fontSize: "2.5rem" }} />}
           label="User"
           aria-label="Go to My Profile page"
           href="/home/myprofile"
-          sx={{ color: "white", fontSize: "small", ml: 70 }}
+          sx={{ ml: 70 }}
         />
         <LinkTab
           icon={<LoginIcon sx={{ fontSize: "2.5rem" }} />}
           label="Sign In"
           aria-label="Go to Sign In page"
           href="/auth/login"
-          sx={{ color: "white", fontSize: "small" }}
         />
         <LinkTab
           icon={<RegisterIcon />}
           label="Sign Up"
           aria-label="Go to Registration page"
           href="/register"
-          sx={{ color: "white", fontSize: "small" }}
         />
         <LinkTab
           icon={<LogoutIcon sx={{ fontSize: "2.5rem" }} />}
           label="Sign Out"
           aria-label="Sign Out"
           href="/"
-          sx={{ color: "white", fontSize: "small" }}
         />
       </StyledTabs>
 
