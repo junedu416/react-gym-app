@@ -68,54 +68,63 @@ export const NavBar = (props) => {
         <LinkTab
           icon={<HomeIcon sx={{ fontSize: "2.5rem" }} />}
           label="Home"
+          aria-label="Go to Home page"
           href="/home"
           sx={{ color: "white", fontSize: "small" }}
         />
         <LinkTab
           icon={<FitnessCenterIcon sx={{ fontSize: "2.5rem" }} />}
           label="Workouts"
+          aria-label="Go to Workouts page"
           href="/workouts"
           sx={{ color: "white", fontSize: "small" }}
         />
         <LinkTab
           icon={<EventIcon sx={{ fontSize: "2.5rem" }} />}
           label="Events"
+          aria-label="Go to Events page"
           href="/events"
           sx={{ color: "white", fontSize: "small" }}
         />
         <LinkTab
           icon={<GroupsIcon sx={{ fontSize: "2.5rem" }} />}
           label="Our Team"
+          aria-label="Go to Our Team page"
           href="/our-team"
           sx={{ color: "white", fontSize: "small" }}
         />
         <LinkTab
           icon={<ChatBubbleOutlineIcon sx={{ fontSize: "2.5rem" }} />}
           label="Contact"
+          aria-label="Go to Contact page"
           href="/contact"
           sx={{ color: "white", fontSize: "small" }}
         />
         <LinkTab
           icon={<AccountBoxIcon sx={{ fontSize: "2.5rem" }} />}
           label="User"
+          aria-label="Go to My Profile page"
           href="/home/myprofile"
           sx={{ color: "white", fontSize: "small", ml: 70 }}
         />
         <LinkTab
           icon={<LoginIcon sx={{ fontSize: "2.5rem" }} />}
           label="Sign In"
+          aria-label="Go to Sign In page"
           href="/auth/login"
           sx={{ color: "white", fontSize: "small" }}
         />
         <LinkTab
           icon={<RegisterIcon />}
           label="Sign Up"
+          aria-label="Go to Registration page"
           href="/register"
           sx={{ color: "white", fontSize: "small" }}
         />
         <LinkTab
           icon={<LogoutIcon sx={{ fontSize: "2.5rem" }} />}
           label="Sign Out"
+          aria-label="Sign Out"
           href="/"
           sx={{ color: "white", fontSize: "small" }}
         />
