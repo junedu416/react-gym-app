@@ -1,66 +1,208 @@
 import React, { useState } from "react";
-import { NavBarLink } from "../styled-components/navbar";
-import { Nav } from "../styled-components/navbar";
-import TextField from "@material-ui/core/TextField";
-// import IconButton from "@material-ui/core/IconButton";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import SearchIcon from "@material-ui/icons/Search";
-import HomeIcon from '@material-ui/icons/Home';
-import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import PeopleAlt from '@material-ui/icons/PeopleAlt';
-import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
-import PersonIcon from '@material-ui/icons/Person';
-// import LoginIcon from '@material-ui/icons/Login';
-// import LogoutIcon from '@material-ui/icons/Logout';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { NavBarLink, Nav } from "../styled-components/navbar";
+import { styled } from "@mui/material/styles";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import SearchIcon from "@mui/icons-material/Search";
+import HomeIcon from "@mui/icons-material/Home";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import EventIcon from "@mui/icons-material/Event";
+import GroupsIcon from "@mui/icons-material/Groups";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
+// import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import { useGlobalState } from "../config/globalStore";
+import { signOutUser } from "../services/userServices";
+import { RegisterIcon } from "./RegisterIcon.js";
+
+// function LinkTab(props) {
+//   return (
+//     <Tab
+//       component="a"
+//       onClick={(event) => {
+//         event.preventDefault();
+//       }}
+//       {...props}
+//     />
+//   );
+// }
+
+
+// ***************** NEED TO UNCOMMENT EITHER line 46 or 71
+// Probably need to use global state to keep selection.
+
+// Custom settings and colors for Material-UI tabs
+
+const StyledTabs = styled((props) => (
+  <Tabs
+    component="a"
+    onClick={(event) => {
+      // event.preventDefault();
+    }}
+    {...props}
+    TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
+  />
+))({
+  "& .MuiTabs-indicator": {
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "transparent",
+    height: "3px",
+  },
+  "& .MuiTabs-indicatorSpan": {
+    maxWidth: 70,
+    width: "100%",
+    backgroundColor: "rgb(57, 255, 20)",
+    borderRadius: "10px",
+  },
+});
+
+const LinkTab = styled((props) => (
+  <Tab
+    disableRipple
+    component="a"
+    onClick={(event) => {
+      // event.preventDefault();
+    }}
+    {...props}
+  />
+))(({ theme }) => ({
+  textTransform: "none",
+  fontWeight: theme.typography.fontWeightRegular,
+  fontSize: theme.typography.pxToRem(12),
+  // fontSize: "0.8rem",
+  marginRight: theme.spacing(3),
+  color: "rgba(57, 230, 30, 0.85)",
+  "&.Mui-selected": {
+    color: "rgba(57, 255, 30, 1)",
+    fontWeight: theme.typography.fontWeightBold,
+    transform: "scale(1.09) translateY(-2px)",
+  },
+  "&:hover": {
+    color: "rgba(57, 255, 45, 1)",
+    transform: "scale(1.1) translateY(-2px)",
+    transition: "0.2s"
+  },
+  "&.Mui-focusVisible": {
+    backgroundColor: "rgba(57, 255, 45, 0.25)",
+  },
+}));
 
 export const NavBar = (props) => {
   const [search, setSearch] = useState("");
+  const { store, dispatch } = useGlobalState();
+  const [value, setValue] = useState(0);
+
+  const handlePageSelect = (event, newValue) => {
+    setValue(newValue);
+  };
 
   function handleInput(event) {
     setSearch(event.target.value);
   }
 
   function handleSignOut() {
-    // dispatch({ type: "removeLoggedInUser" });
-    // dispatch({type: "removeJWT"});
+    signOutUser().then(() => {
+      dispatch({ type: "setProfile", data: null });
+      console.log(store);
+    });
   }
 
   return (
     <Nav>
-      <NavBarLink to="/home"><HomeIcon /> Home</NavBarLink>
-      <NavBarLink to="/workouts"><FitnessCenterIcon /> Workouts</NavBarLink>
-      <NavBarLink to="/events"><CalendarTodayIcon /> Events</NavBarLink>
-      <NavBarLink to="/our-team"><PeopleAlt /> Our Team</NavBarLink>
-      <NavBarLink to="/contact"><ChatBubbleOutlineIcon /> Contact</NavBarLink>
-      <NavBarLink to="/my-profile"><PersonIcon /> User</NavBarLink>
-      <NavBarLink to="/auth/login"><ExitToAppIcon /> Sign In</NavBarLink>
-      <NavBarLink to="/register"> Sign Up</NavBarLink>
-      <NavBarLink onClick={handleSignOut} to="/"><ExitToAppIcon /> Sign Out</NavBarLink>
+      <StyledTabs
+        value={value}
+        onChange={handlePageSelect}
+        aria-label="navbar"
+// Parameter makes the selection to auto pick what is focused/selected with the keyboard in navbar
+        // selectionFollowsFocus
+      >
+        <LinkTab
+          icon={<HomeIcon sx={{ fontSize: "2.5rem" }} />}
+          label="Home"
+          aria-label="Go to Home page"
+          href="/home"
+          value="home"
+        />
+        <LinkTab
+          icon={<FitnessCenterIcon sx={{ fontSize: "2.5rem" }} />}
+          label="Workouts"
+          aria-label="Go to Workouts page"
+          href="/workouts"
+          value="Workouts"
+        />
+        <LinkTab
+          icon={<EventIcon sx={{ fontSize: "2.5rem" }} />}
+          label="Events"
+          aria-label="Go to Events page"
+          href="/events"
+        />
+        <LinkTab
+          icon={<GroupsIcon sx={{ fontSize: "2.5rem" }} />}
+          label="Our Team"
+          aria-label="Go to Our Team page"
+          href="/our-team"
+        />
+        <LinkTab
+          icon={<ChatBubbleOutlineIcon sx={{ fontSize: "2.5rem" }} />}
+          label="Contact"
+          aria-label="Go to Contact page"
+          href="/contact"
+        />
+        <LinkTab
+          icon={<AccountBoxIcon sx={{ fontSize: "2.5rem" }} />}
+          label="User"
+          aria-label="Go to My Profile page"
+          href="/home/myprofile"
+          sx={{ ml: 70 }}
+        />
+        <LinkTab
+          icon={<LoginIcon sx={{ fontSize: "2.5rem" }} />}
+          label="Sign In"
+          aria-label="Go to Sign In page"
+          href="/auth/login"
+        />
+        <LinkTab
+          icon={<RegisterIcon />}
+          label="Sign Up"
+          aria-label="Go to Registration page"
+          href="/register"
+        />
+        <LinkTab
+          icon={<LogoutIcon sx={{ fontSize: "2.5rem" }} />}
+          label="Sign Out"
+          aria-label="Sign Out"
+          href="/"
+        />
+      </StyledTabs>
 
       <TextField
+        placeholder="Search"
         variant="outlined"
         onChange={handleInput}
         value={search}
+        style={{
+          width: "250px",
+          backgroundColor: "rgb(230, 230, 230, 1",
+          borderRadius: "5px",
+          "&:focus": { backgroundColor: "white" },
+        }}
         InputProps={{
+          "aria-label": "Search",
           startAdornment: (
             <InputAdornment position="start">
-                <SearchIcon />
+              <SearchIcon />
             </InputAdornment>
           ),
         }}
       />
-      
-      {/* <TextField
-        placeholder="Search…"
-        inputProps={{ "aria-label": "Search" }}
-        endAdornment={<SearchIcon />}
-        variant="outlined"
-        onChange={handleInput}
-        value={search}
-        style={{ width: "250px", backgroundColor: "rgb(255, 255, 255, 0.5" }}
-      /> */}
     </Nav>
   );
 };
