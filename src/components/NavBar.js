@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { NavBarLink, Nav } from "../styled-components/navbar";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
@@ -15,13 +17,30 @@ import LogoutIcon from "@mui/icons-material/Logout";
 // import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
-import Register from "../assets/register-green.png";
 import { useGlobalState } from "../config/globalStore";
 import { signOutUser } from "../services/userServices";
+import { RegisterIcon } from "./RegisterIcon.js";
+
+function LinkTab(props) {
+  return (
+    <Tab
+      component="a"
+      onClick={(event) => {
+        event.preventDefault();
+      }}
+      {...props}
+    />
+  );
+}
 
 export const NavBar = (props) => {
   const [search, setSearch] = useState("");
-  const {store, dispatch} = useGlobalState();
+  const { store, dispatch } = useGlobalState();
+  const [value, setValue] = useState(0);
+
+  const handlePageSelect = (event, newValue) => {
+    setValue(newValue);
+  };
 
   function handleInput(event) {
     setSearch(event.target.value);
@@ -29,62 +48,90 @@ export const NavBar = (props) => {
 
   function handleSignOut() {
     signOutUser().then(() => {
-      dispatch({type: "setProfile", data: null});
+      dispatch({ type: "setProfile", data: null });
       console.log(store);
-    })
-    
+    });
+
     // dispatch({ type: "removeLoggedInUser" });
     // dispatch({type: "removeJWT"});
   }
 
   return (
     <Nav>
-      <NavBarLink to="/home">
-        <HomeIcon fontSize="large" /> Home
-      </NavBarLink>
-      <NavBarLink to="/workouts">
-        <FitnessCenterIcon fontSize="large" /> Workouts
-      </NavBarLink>
-      <NavBarLink to="/events">
-        <EventIcon fontSize="large" /> Events
-      </NavBarLink>
-      <NavBarLink to="/our-team">
-        <GroupsIcon fontSize="large" /> Our Team
-      </NavBarLink>
-      <NavBarLink to="/contact">
-        <ChatBubbleOutlineIcon fontSize="large" /> Contact
-      </NavBarLink>
-      <NavBarLink to="/home/myprofile">
-        <AccountBoxIcon fontSize="large" /> User
-      </NavBarLink>
-      <NavBarLink to="/auth/login">
-        <LoginIcon fontSize="large" /> Sign In
-      </NavBarLink>
-      <NavBarLink to="/register">
-        {/* <HowToRegIcon fontSize="large" /> Sign Up */}
-        <img
-          src={Register}
-          alt="icon to register new account"
-          style={{
-            width: "26px",
-            height: "30px",
-            marginBottom: "4px",
-            marginTop: "2px",
-            
-          }}
+      <Tabs
+        value={value}
+        onChange={handlePageSelect}
+        aria-label="navbar"
+        variant="success"
+        selectionFollowsFocus
+      >
+        <LinkTab
+          icon={<HomeIcon sx={{ fontSize: "2.5rem" }} />}
+          label="Home"
+          href="/home"
+          sx={{ color: "white", fontSize: "small" }}
         />
-        Sign Up
-      </NavBarLink>
-      <NavBarLink onClick={handleSignOut} to="/">
-        <LogoutIcon fontSize="large" /> Sign Out
-      </NavBarLink>
+        <LinkTab
+          icon={<FitnessCenterIcon sx={{ fontSize: "2.5rem" }} />}
+          label="Workouts"
+          href="/workouts"
+          sx={{ color: "white", fontSize: "small" }}
+        />
+        <LinkTab
+          icon={<EventIcon sx={{ fontSize: "2.5rem" }} />}
+          label="Events"
+          href="/events"
+          sx={{ color: "white", fontSize: "small" }}
+        />
+        <LinkTab
+          icon={<GroupsIcon sx={{ fontSize: "2.5rem" }} />}
+          label="Our Team"
+          href="/our-team"
+          sx={{ color: "white", fontSize: "small" }}
+        />
+        <LinkTab
+          icon={<ChatBubbleOutlineIcon sx={{ fontSize: "2.5rem" }} />}
+          label="Contact"
+          href="/contact"
+          sx={{ color: "white", fontSize: "small" }}
+        />
+        <LinkTab
+          icon={<AccountBoxIcon sx={{ fontSize: "2.5rem" }} />}
+          label="User"
+          href="/home/myprofile"
+          sx={{ color: "white", fontSize: "small", ml: 70 }}
+        />
+        <LinkTab
+          icon={<LoginIcon sx={{ fontSize: "2.5rem" }} />}
+          label="Sign In"
+          href="/auth/login"
+          sx={{ color: "white", fontSize: "small" }}
+        />
+        <LinkTab
+          icon={<RegisterIcon />}
+          label="Sign Up"
+          href="/register"
+          sx={{ color: "white", fontSize: "small" }}
+        />
+        <LinkTab
+          icon={<LogoutIcon sx={{ fontSize: "2.5rem" }} />}
+          label="Sign Out"
+          href="/"
+          sx={{ color: "white", fontSize: "small" }}
+        />
+      </Tabs>
 
       <TextField
         placeholder="Search"
         variant="outlined"
         onChange={handleInput}
         value={search}
-        style={{ width: "250px", backgroundColor: "rgb(230, 230, 230, 1", borderRadius: "5px" }}
+        style={{
+          width: "250px",
+          backgroundColor: "rgb(230, 230, 230, 1",
+          borderRadius: "5px",
+          "&:focus": { backgroundColor: "white" },
+        }}
         InputProps={{
           "aria-label": "Search",
           startAdornment: (
@@ -94,16 +141,6 @@ export const NavBar = (props) => {
           ),
         }}
       />
-      {/* <TextField
-        placeholder="Search…"
-        inputProps={{ "aria-label": "Search" }}
-        endAdornment={<SearchIcon />}
-        variant="outlined"
-        onChange={handleInput}
-        value={search}
-        style={{ width: "250px", backgroundColor: "rgb(255, 255, 255, 0.5" }}
-      /> */}
-
     </Nav>
   );
 };
