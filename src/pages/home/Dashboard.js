@@ -66,7 +66,7 @@ const LinkTab = styled((props) => (
   marginRight: theme.spacing(1),
   color: "rgba(255, 255, 255, 0.85)",
   "&:hover": {
-    backgroundColor: "rgba(100, 100, 100, 0.4)",
+    backgroundColor: "rgba(0, 49, 72, 0.70)",
     transition: "0.2s",
   },
   "&.Mui-selected": {
