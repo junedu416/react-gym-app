@@ -1,6 +1,7 @@
-import styled from 'styled-components';
 // import { css } from 'styled-components'; // turn this into a 1-liner?
-import { flexbox, centered, middle, mt } from './mixins';
+import styled from 'styled-components';
+import { flexbox, centered, popupMiddle, mt, pt, link } from './mixins';
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
    ${flexbox};
@@ -9,12 +10,11 @@ export const Container = styled.div`
 export const MainWindow = styled.div`
    ${flexbox};
    ${centered}; 
-   ${mt}
+   ${pt};
 `
 
 export const Heading = styled.h1`
   font-size: 3.6rem;
-  ${mt};
   color: ${ props => props.color ? props.color : "blue"};  
 `
 
@@ -27,11 +27,12 @@ export const SmallHeading = styled.h2`
 
 export const Grid = styled.div`
   display: grid;
-  /* grid-template-rows: repeat(3, 1fr); */
-  grid-template-rows: repeat(3, minmax(100px, 1fr));
+  /* grid-template-rows: repeat(3, minmax(100px, 1fr)); */
   grid-template-columns: repeat(3, minmax(100px, 1fr));
-  /* grid-auto-rows: ; */
-  
+  grid-auto-rows: auto;
   gap: 50px;
 `
 
+export const ButtonLink = styled(Link)`
+  ${link}
+`

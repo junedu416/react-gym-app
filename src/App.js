@@ -21,12 +21,10 @@ import { Contact } from "./pages/home/Contact";
 
 // Events
 import { Events } from "./pages/events/Events";
-import { Event } from "./pages/events/Event";
+// import { Event } from "./pages/events/Event";
 import { NewEvent } from "./pages/events/NewEvent";
-// import { Leaderboards } from "./pages/events/Leaderboards";
-// import { Leaderboard } from "./pages/events/Leaderboard";
-import { Classes } from "./pages/events/Classes";
-import { Class } from "./pages/events/Class";
+// import { Classes } from "./pages/events/Classes";
+// import { Class } from "./pages/events/Class";
 import { TrainerBookings } from "./pages/events/TrainerBookings";
 
 // Workouts
@@ -37,13 +35,25 @@ import { Exercises } from "./pages/workouts/Exercises";
 import { Exercise } from "./pages/workouts/Exercise";
 import { NewExercise } from "./pages/workouts/NewExercise";
 
-//
+// Our Team
+import { MeetTheTeam } from "./pages/ourTeam/MeetTheTeam";
+import { TrainerPage } from "./pages/ourTeam/TrainerPage";
+
 // Contact
 import { Reporting } from "./pages/contact/Reporting";
 
+//Global State
+import {useReducer} from "react"
+import globalReducer from "./config/globalReducer";
+import initialGlobalState from "./config/initialGlobalState";
+import { StateContext } from "./config/globalStore";
+
 const App = () => {
+  const [store, dispatch] = useReducer(globalReducer, initialGlobalState)
+
   return (
     <>
+      <StateContext.Provider value={{store, dispatch}}>
       <NavBar />
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -58,13 +68,15 @@ const App = () => {
         <Route path="/exercises/:id" element={<Exercise />} />
         <Route path="/exercises/new" element={<NewExercise />} />
         <Route path="/events" element={<Events />} />
-        <Route path="/events/:id" element={<Event />} />
-        <Route path="/event/new" element={<NewEvent />} />
-        <Route path="/events/classes" element={<Classes />} />
-        <Route path="/events/classes/:id" element={<Class />} />
+        {/* <Route path="/events/:id" element={<Event />} /> */}
+        <Route path="/events/new" element={<NewEvent />} />
+        {/* <Route path="/events/classes" element={<Classes />} /> */}
+        {/* <Route path="/events/classes/:id" element={<Class />} /> */}
         <Route path="/events/leaderboards" element={<Leaderboards />} />
         <Route path="/events/leaderboards/:id" element={<Leaderboards />} />
         <Route path="/trainerbookings" element={<TrainerBookings />} />
+        <Route path="/our-team" element={<MeetTheTeam />} />
+        <Route path="/our-team/:id" element={<TrainerPage />} />
         <Route path="/contact" element={<Reporting />} />
         <Route path="/home/overview" element={<Overview />} />
         <Route path="/home/checkins" element={<Checkins />} />
@@ -75,6 +87,7 @@ const App = () => {
         <Route path="/home/leaderboards" element={<Leaderboards />} />
         <Route path="/home/contact" element={<Contact />} />
       </Routes>
+    </StateContext.Provider>
     </>
   );
 };
