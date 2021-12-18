@@ -14,70 +14,131 @@ import ListItemText from "@mui/material/ListItemText";
 // import InboxIcon from "@mui/icons-material/MoveToInbox";
 // import MailIcon from "@mui/icons-material/Mail";
 import { Container, Grid } from "../../styled-components";
-import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
-import EventIcon from "@mui/icons-material/Event";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import ViewModuleIcon from "@mui/icons-material/ViewModule";
-import InsertChartIcon from "@mui/icons-material/InsertChart";
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-import CampaignIcon from "@mui/icons-material/Campaign";
 import { SidebarData } from "./sidebarData";
+import { styled } from "@mui/material/styles";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import { dashItem } from "../../styled-components/dashboard";
+import PropTypes from "prop-types";
 
-// Dashboard Components
 import { Overview } from "./Overview";
-import { Checkins } from "./Checkins.js";
-import { PerformanceStats } from "./PerformanceStats";
-import { MyEvents } from "./MyEvents";
-import { MyWorkouts } from "./MyWorkouts";
-import { MyProfile } from "./MyProfile";
-import { Leaderboards } from "./Leaderboards";
-import { Contact } from "./Contact";
-import { EquipmentReports } from "./Contact";
-import { BehaviourReports } from "./Contact";
 
-const drawerWidth = 230;
+const StyledTabs = styled((props) => (
+  <Tabs
+    component="a"
+    onClick={(event) => {
+      // event.preventDefault();
+    }}
+    {...props}
+    TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
+  />
+))({
+  "& .MuiTabs-indicator": {
+    display: "flex",
+    left: "0px",
+    justifyContent: "center",
+    backgroundColor: "transparent",
+    height: "3px",
+  },
+  "& .MuiTabs-indicatorSpan": {
+    maxHeight: 70,
+    minWidth: "7px",
+    // backgroundColor: "rgba(253, 106, 2, 1)",
+    backgroundColor: "white",
+    borderRadius: "10px",
+  },
+});
+
+const LinkTab = styled((props) => (
+  <Tab
+    disableRipple
+    component="a"
+    onClick={(event) => {
+      // event.preventDefault();
+    }}
+    {...props}
+  />
+))(({ theme }) => ({
+  textTransform: "none",
+  fontWeight: theme.typography.fontWeightRegular,
+  fontSize: theme.typography.pxToRem(14),
+  // fontSize: "0.8rem",
+  marginRight: theme.spacing(1),
+  color: "rgba(255, 255, 255, 0.85)",
+  "&:hover": {
+    backgroundColor: "rgba(0, 49, 72, 0.70)",
+    transition: "0.2s",
+  },
+  "&.Mui-selected": {
+    // color: "rgba(253, 106, 2, 1)",
+    color: "white",
+    // backgroundColor: "rgba(110, 110, 110, 0.6)",
+    backgroundColor: "darkblue",
+    fontWeight: theme.typography.fontWeightBold,
+  },
+  "&.Mui-focusVisible": {
+    backgroundColor: "rgba(100, 100, 100, 0.4)",
+  },
+}));
+
+const drawerWidth = "230px";
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`,
+  };
+}
 
 const Dashboard = () => {
-  // const [state, setState] = useState();
   const [dashboardView, setDashboardView] = useState(<Overview />);
+  const [value, setValue] = useState(0);
 
   function handleClick(event) {
     event.preventDefault();
   }
-  // setDashboardView(component);
 
-  console.log(SidebarData.map((item, index) => item));
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   return (
-    <Container style={{ flexDirection: "row", border: "3px solid green", marginTop: "80px", }}>
+    <Container style={{ flexDirection: "row" }}>
       <CssBaseline />
-      {/* <AppBar
-          position="absolute"
-          sx={{
-            width: `calc(100% - ${drawerWidth}px)`,
-            ml: `${drawerWidth}px`,
-            mt: "100px",
-          }}
-        >
-          <Container>
-            <Toolbar>
-              <Typography variant="h6" noWrap component="div">
-                TITLE DISPLAY
-              </Typography>
-            </Toolbar>
-          </Container>
-        </AppBar> */}
-
       <Drawer
         sx={{
           width: drawerWidth,
-          height: `calc(100vh - 90px)`,
+          // height: `calc(100vh - 90px)`,
+          height: `100vh`,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
-            // marginTop: "80px",
             paddingTop: `calc(100vh / 8)`,
-            // position: "sticky",
             position: "fixed",
             zIndex: "1",
             width: drawerWidth,
@@ -89,36 +150,24 @@ const Dashboard = () => {
         }}
         variant="permanent"
       >
-        <List>
+        <StyledTabs
+          orientation="vertical"
+          variant="scrollable"
+          value={value}
+          onChange={handleChange}
+          aria-label="Vertical tabs example"
+          sx={{ borderLeft: 1, borderColor: "divider" }}
+        >
           {SidebarData.map((item, index) => (
-            <ListItem
-              button
-              key={index}
+            <LinkTab
+              label={item.title}
+              style={dashItem}
               onClick={() => {
-                setDashboardView(item.display)
+                setDashboardView(item.display);
               }}
-              // onClick={displayComponent(item.display, index)}
-            >
-              <div
-                //to={item.path}
-                style={{
-                  textDecoration: "none",
-                  color: "white",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                <ListItemIcon
-                  style={{ color: "rgba(240, 240, 240, 0.9", minWidth: "35px" }}
-                >
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText primary={item.title} />
-              </div>
-            </ListItem>
+            />
           ))}
-        </List>
-        <Divider />
+        </StyledTabs>
       </Drawer>
 
       {/* ================ Dashboard content display ================ */}
@@ -127,15 +176,11 @@ const Dashboard = () => {
         sx={{
           flexGrow: 1,
           bgcolor: "background.default",
-          p: 3,
-          // position: "absolute",
+          px: 3,
           height: "100vh",
           width: `calc(100vw - ${drawerWidth})`,
         }}
-        style={{ border: "4px solid red" }}
       >
-        {/* <Toolbar />
-        <Toolbar /> */}
         {dashboardView}
       </Box>
     </Container>
