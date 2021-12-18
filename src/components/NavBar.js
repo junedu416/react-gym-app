@@ -24,6 +24,10 @@ import { useGlobalState } from "../config/globalStore";
 import { signOutUser } from "../services/userServices";
 import { RegisterIcon } from "./RegisterIcon.js";
 
+import './NavBar.css';
+import { useLocation } from "react-router-dom";
+
+
 // import { matchPath } from "react-router";
 
 const pathname = window.location.pathname;    // => gets the url path without the domain
@@ -107,13 +111,26 @@ const LinkTab = styled((props) => (
 export const NavBar = (props) => {
   const [search, setSearch] = useState("");
   const { store, dispatch } = useGlobalState();
-  const [value, setValue] = useState(0);
-  const [currentUrl, setCurrentUrl] = useState("");
+  
+  
+  //assigning location variable
+  const location = useLocation();
+  
+  //destructuring pathname from location
+  const { pathname } = location;
+  
+  //Javascript split method to get the name of the path in array
+  const splitLocation = pathname.split("/");
+  
+  const [currentUrl, setCurrentUrl] = useState(splitLocation[1]);
+  // const [value, setValue] = useState(splitLocation[1]);
+  
+     console.log(currentUrl);
 
   const handlePageSelect = (event, newValue) => {
-    setValue(newValue);
+    // setValue(newValue);
     setCurrentUrl(newValue);
-    event.preventDefault();
+    // event.preventDefault();
   };
 
   function handleInput(event) {
@@ -141,7 +158,7 @@ export const NavBar = (props) => {
   return (
     <Nav>
       <StyledTabs
-        value={value}
+        value={currentUrl}
         onChange={handlePageSelect}
         aria-label="navbar"
 // Parameter makes the selection to auto pick what is focused/selected with the keyboard in navbar
@@ -150,42 +167,54 @@ export const NavBar = (props) => {
         <LinkTab
           icon={<HomeIcon sx={ navFontSize } />}
           activeClassName="active"
+          className={splitLocation[1] === "home" ? "active" : ""}
           label="Home"
+          value="home"
           aria-label="Go to Home page"
           href="/home"
         />
         <LinkTab
           icon={<FitnessCenterIcon sx={ navFontSize } />}
           activeClassName="active"
+          className={splitLocation[1] === "workouts" ? "active" : ""}
           label="Workouts"
+          value="workouts"
           aria-label="Go to Workouts page"
           href="/workouts"
         />
         <LinkTab
           icon={<EventIcon sx={ navFontSize } />}
           activeClassName="active"
+          className={splitLocation[1] === "events" ? "active" : ""}
           label="Events"
+          value="events"
           aria-label="Go to Events page"
           href="/events"
         />
         <LinkTab
           icon={<GroupsIcon sx={ navFontSize } />}
           activeClassName="active"
+          className={splitLocation[1] === "our-team" ? "active" : ""}
           label="Our Team"
+          value="our-team"
           aria-label="Go to Our Team page"
           href="/our-team"
         />
         <LinkTab
           icon={<ChatBubbleOutlineIcon sx={ navFontSize } />}
           activeClassName="active"
+          className={splitLocation[1] === "contact" ? "active" : ""}
           label="Contact"
+          value="contact"
           aria-label="Go to Contact page"
           href="/contact"
         />
         <LinkTab
           icon={<AccountBoxIcon sx={ navFontSize } />}
           activeClassName="active"
+          className={splitLocation[1] === "my-profile" ? "active" : ""}
           label="User"
+          value="myprofile"
           aria-label="Go to My Profile page"
           href="/myprofile"
           sx={{ ml: 70 }}
@@ -193,21 +222,27 @@ export const NavBar = (props) => {
         <LinkTab
           icon={<LoginIcon sx={ navFontSize } />}
           activeClassName="active"
+          className={splitLocation[1] === "auth/login" ? "active" : ""}
           label="Sign In"
+          value="auth/login"
           aria-label="Go to Sign In page"
           href="/auth/login"
         />
         <LinkTab
           icon={<RegisterIcon />}
           activeClassName="active"
+          className={splitLocation[1] === "register" ? "active" : ""}
           label="Sign Up"
+          value="register"
           aria-label="Go to Registration page"
           href="/register"
         />
         <LinkTab
           icon={<LogoutIcon sx={ navFontSize } />}
           activeClassName="active"
+          className={splitLocation[1] === "" ? "active" : ""}
           label="Sign Out"
+          value=""
           aria-label="Sign Out"
           href="/"
         />
