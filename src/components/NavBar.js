@@ -1,3 +1,5 @@
+
+   
 import React, { useState } from "react";
 import { NavBarLink, Nav } from "../styled-components/navbar";
 import { styled } from "@mui/material/styles";
@@ -21,6 +23,12 @@ import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { useGlobalState } from "../config/globalStore";
 import { signOutUser } from "../services/userServices";
 import { RegisterIcon } from "./RegisterIcon.js";
+
+// import { matchPath } from "react-router";
+
+const pathname = window.location.pathname;    // => gets the url path without the domain
+
+console.log(pathname);
 
 // function LinkTab(props) {
 //   return (
@@ -95,13 +103,17 @@ const LinkTab = styled((props) => (
   },
 }));
 
+ 
 export const NavBar = (props) => {
   const [search, setSearch] = useState("");
   const { store, dispatch } = useGlobalState();
   const [value, setValue] = useState(0);
+  const [currentUrl, setCurrentUrl] = useState("");
 
   const handlePageSelect = (event, newValue) => {
     setValue(newValue);
+    setCurrentUrl(newValue);
+    event.preventDefault();
   };
 
   function handleInput(event) {
@@ -115,6 +127,17 @@ export const NavBar = (props) => {
     });
   }
 
+  // const { href } = props;
+
+  // const active = (pathname === href) ? true : false;
+  // console.log("href: ", href);
+  // console.log("Active: ", active);
+
+  const navFontSize = {
+    fontSize: "2.5rem",
+    // color: active ? "red" : "blue",
+  };
+
   return (
     <Nav>
       <StyledTabs
@@ -125,58 +148,65 @@ export const NavBar = (props) => {
         // selectionFollowsFocus
       >
         <LinkTab
-          icon={<HomeIcon sx={{ fontSize: "2.5rem" }} />}
+          icon={<HomeIcon sx={ navFontSize } />}
+          activeClassName="active"
           label="Home"
           aria-label="Go to Home page"
           href="/home"
-          value="home"
         />
         <LinkTab
-          icon={<FitnessCenterIcon sx={{ fontSize: "2.5rem" }} />}
+          icon={<FitnessCenterIcon sx={ navFontSize } />}
+          activeClassName="active"
           label="Workouts"
           aria-label="Go to Workouts page"
           href="/workouts"
-          value="Workouts"
         />
         <LinkTab
-          icon={<EventIcon sx={{ fontSize: "2.5rem" }} />}
+          icon={<EventIcon sx={ navFontSize } />}
+          activeClassName="active"
           label="Events"
           aria-label="Go to Events page"
           href="/events"
         />
         <LinkTab
-          icon={<GroupsIcon sx={{ fontSize: "2.5rem" }} />}
+          icon={<GroupsIcon sx={ navFontSize } />}
+          activeClassName="active"
           label="Our Team"
           aria-label="Go to Our Team page"
           href="/our-team"
         />
         <LinkTab
-          icon={<ChatBubbleOutlineIcon sx={{ fontSize: "2.5rem" }} />}
+          icon={<ChatBubbleOutlineIcon sx={ navFontSize } />}
+          activeClassName="active"
           label="Contact"
           aria-label="Go to Contact page"
           href="/contact"
         />
         <LinkTab
-          icon={<AccountBoxIcon sx={{ fontSize: "2.5rem" }} />}
+          icon={<AccountBoxIcon sx={ navFontSize } />}
+          activeClassName="active"
           label="User"
           aria-label="Go to My Profile page"
-          href="/home/myprofile"
+          href="/myprofile"
           sx={{ ml: 70 }}
         />
         <LinkTab
-          icon={<LoginIcon sx={{ fontSize: "2.5rem" }} />}
+          icon={<LoginIcon sx={ navFontSize } />}
+          activeClassName="active"
           label="Sign In"
           aria-label="Go to Sign In page"
           href="/auth/login"
         />
         <LinkTab
           icon={<RegisterIcon />}
+          activeClassName="active"
           label="Sign Up"
           aria-label="Go to Registration page"
           href="/register"
         />
         <LinkTab
-          icon={<LogoutIcon sx={{ fontSize: "2.5rem" }} />}
+          icon={<LogoutIcon sx={ navFontSize } />}
+          activeClassName="active"
           label="Sign Out"
           aria-label="Sign Out"
           href="/"
