@@ -1,55 +1,23 @@
 import React, { useState } from "react";
-import { NavBarLink, Nav } from "../styled-components/navbar";
+import { Nav } from "../styled-components/navbar";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
-import HomeIcon from "@mui/icons-material/Home";
-import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
-import EventIcon from "@mui/icons-material/Event";
-import GroupsIcon from "@mui/icons-material/Groups";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import LoginIcon from "@mui/icons-material/Login";
-import LogoutIcon from "@mui/icons-material/Logout";
-// import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import HowToRegIcon from "@mui/icons-material/HowToReg";
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { useGlobalState } from "../config/globalStore";
 import { signOutUser } from "../services/userServices";
-import { RegisterIcon } from "./RegisterIcon.js";
 
 import "./NavBar.css";
 import { useLocation } from "react-router-dom";
 
 import { navbarData } from "../data/navbarData";
 
-// import { matchPath } from "react-router";
-
-const pathname = window.location.pathname; // => gets the url path without the domain
-
-console.log(pathname);
-
-// function LinkTab(props) {
-//   return (
-//     <Tab
-//       component="a"
-//       onClick={(event) => {
-//         event.preventDefault();
-//       }}
-//       {...props}
-//     />
-//   );
-// }
-
-// ***************** NEED TO UNCOMMENT EITHER line 46 or 71
-// Probably need to use global state to keep selection.
+// const pathname = window.location.pathname; // => gets the url path without the domain
+// console.log(pathname);
 
 // Custom settings and colors for Material-UI tabs
-
 const StyledTabs = styled((props) => (
   <Tabs
     component="a"
@@ -79,7 +47,7 @@ const LinkTab = styled((props) => (
     disableRipple
     component="a"
     onClick={(event) => {
-      // event.preventDefault();
+      event.preventDefault();
     }}
     {...props}
   />
@@ -119,13 +87,12 @@ export const NavBar = (props) => {
   const splitLocation = pathname.split("/");
 
   const [currentUrl, setCurrentUrl] = useState(splitLocation[1]);
-  // const [value, setValue] = useState(splitLocation[1]);
 
   console.log(currentUrl);
 
   const handlePageSelect = (event, urlPath) => {
     setCurrentUrl(urlPath);
-    // event.preventDefault();
+    // event.preventDefault();   // UNCOMMENT TO SEE IT WORKING WITHOUT REFRESH, double click to navigate
   };
 
   function handleInput(event) {
@@ -138,8 +105,9 @@ export const NavBar = (props) => {
       console.log(store);
     });
   }
-
-  const [windowDisplay, setWindowDisplay] = useState();
+  // *******************************************************************************************************
+  // *******************************************************************************************************
+  const [windowDisplay, setWindowDisplay] = useState(); // TODO: use global context to display main window component
 
   const navFontSize = {
     fontSize: "2.5rem",
