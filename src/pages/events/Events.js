@@ -7,7 +7,6 @@ import { Calendar } from "./Calendar";
 import { BookingConfirmation } from "./Confirmation";
 // import { NewEvent } from "./NewEvent";
 import CreateEvent from "../../components/buttons/CreateEvent";
-import ModalTransition from "../../components/Modal";
 
 export const Events = (props) => {
   const navigate = useNavigate();
@@ -20,13 +19,11 @@ export const Events = (props) => {
     <>
     <MainWindow stlye={{display:"flex", flexDirection:"column", justifyContent:"center"}}>
       <Calendar style={{ marginBottom:"50px", padding:"50px" }}/>
-      <ModalTransition />
+      <BookingConfirmation />
 
       <Info />
-      {/* <Book /> */}
       <CreateEvent btnFunction={handleNewEvent}/>
     </MainWindow>
-    <BookingConfirmation />
     </>
   );
 };

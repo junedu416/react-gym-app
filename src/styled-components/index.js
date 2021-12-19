@@ -42,7 +42,7 @@ export const ButtonLink = styled(Link)`
 // custom settings for MUI modal backdrop
 export const StyledModal = styled(Modal)`
   .MuiBackdrop-root {
-    background-color: rgba(0,0,0, 0.8);
+    background-color: rgba(0,0,0, 0.9);
     backdrop-filter: blur(1px);
   }
 `;
