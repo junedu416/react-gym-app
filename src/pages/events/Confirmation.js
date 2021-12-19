@@ -12,7 +12,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import Chip from '@mui/material/Chip';
 
-export const BookingConfirmation = ({title, event, instructor, date, time, level}) => {
+export const BookingConfirmation = ({title, eventName, instructor, date, time, level}) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -68,7 +68,7 @@ export const BookingConfirmation = ({title, event, instructor, date, time, level
               {title}
             </Typography>
             <Typography id="booking-confirmation-description" sx={{ my: 3 }}>
-              <p><b>Class:</b> <u>{event}</u></p>
+              <p><b>Class:</b> <u>{eventName}</u></p>
               <p><b>Instructor: </b> {instructor}</p>
               <p><b>Level: </b> <Chip label={level} color={determineColor(level)} variant="outlined" /></p>
               <p><b>Date: </b> {date}</p>
