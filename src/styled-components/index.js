@@ -2,6 +2,7 @@
 import styled from 'styled-components';
 import { flexbox, centered, popupMiddle, mt, pt, link } from './mixins';
 import { Link } from "react-router-dom";
+import Modal from "@mui/material/Modal";
 
 export const Container = styled.div`
    ${flexbox};
@@ -37,3 +38,11 @@ export const Grid = styled.div`
 export const ButtonLink = styled(Link)`
   ${link}
 `
+
+// custom settings for MUI modal backdrop
+export const StyledModal = styled(Modal)`
+  .MuiBackdrop-root {
+    background-color: rgba(0,0,0, 0.8);
+    backdrop-filter: blur(1px);
+  }
+`;
