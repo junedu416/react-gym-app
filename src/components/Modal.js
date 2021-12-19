@@ -62,7 +62,7 @@ export default function ModalTransition() {
               on <b>Weds 22nd Dec at 1:00pm - 2:00pm</b>.
             </Typography>
             <Confirm />
-            <Cancel />
+            <Cancel btnFunction={handleClose} />
           </Box>
         </Fade>
       </StyledModal>
