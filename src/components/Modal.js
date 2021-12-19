@@ -1,33 +1,13 @@
 import React, { useState } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Confirm from "./buttons/Confirm";
 import Cancel from "./buttons/Cancel";
-
-import styled from "styled-components";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 500,
-  bgcolor: "background.paper",
-  //   border: '1px solid white',
-  boxShadow: 24,
-  p: 5,
-};
-
-const StyledModal = styled(Modal)`
-  .MuiBackdrop-root {
-    background-color: rgba(0,0,0, 0.8);
-    backdrop-filter: blur(1px);
-  }
-`;
+import { modalStyling } from "../styled-components/modal";
+import { StyledModal } from "../styled-components";
 
 export default function ModalTransition() {
   const [open, setOpen] = useState(false);
@@ -56,7 +36,7 @@ export default function ModalTransition() {
         }}
       >
         <Fade in={open}>
-          <Box sx={style}>
+          <Box sx={modalStyling}>
             <Typography
               id="booking-confirmation-title"
               variant="h6"
