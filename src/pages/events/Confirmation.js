@@ -10,14 +10,22 @@ import { modalStyling } from "../../styled-components/modal";
 import { StyledModal } from "../../styled-components";
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
+import Chip from '@mui/material/Chip';
 
-export const BookingConfirmation = () => {
+export const BookingConfirmation = ({title, event, instructor, date, time, level}) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   function handleClick() {
     // ADD LOGIC HERE FOR BOOKING CONFIRMATION
+  }
+
+  function determineColor(level) {
+    if (level === "Beginner") return "success";
+    else if (level === "Intermediate") return "warning";
+    else if (level === "Advance") return "error";
+    else return "primary";
   }
 
   return (
@@ -56,14 +64,15 @@ export const BookingConfirmation = () => {
               variant="h5"
               fontWeight="bold"
               component="h2"
-            //   style={{ display: "flex", justifyContent:"space-between", alignItems: "center"}}
             >
-              Booking Confirmation
-
+              {title}
             </Typography>
             <Typography id="booking-confirmation-description" sx={{ my: 3 }}>
-              Confirm booking for <u>Beginner's Yoga class</u> with Tracy Summers 
-              on <b>Weds 22nd Dec</b> at <b>1:00pm - 2:00pm</b>.
+              <p><b>Class:</b> <u>{event}</u></p>
+              <p><b>Instructor: </b> {instructor}</p>
+              <p><b>Level: </b> <Chip label={level} color={determineColor(level)} variant="outlined" /></p>
+              <p><b>Date: </b> {date}</p>
+              <p><b>Time: </b> {time}</p>
             </Typography>
             <Confirm 
               btnFunction = {() => {

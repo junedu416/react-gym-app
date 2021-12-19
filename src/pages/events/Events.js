@@ -19,7 +19,14 @@ export const Events = (props) => {
     <>
     <MainWindow stlye={{display:"flex", flexDirection:"column", justifyContent:"center"}}>
       <Calendar style={{ marginBottom:"50px", padding:"50px" }}/>
-      <BookingConfirmation />
+      <BookingConfirmation 
+        title="Class Booking"
+        event="Beginner's Yoga"
+        instructor="April Summers"
+        date="Weds 22nd Dec"
+        time="1:00PM - 2:00PM"
+        level="Intermediate "
+      />
 
       <Info />
       <CreateEvent btnFunction={handleNewEvent}/>
