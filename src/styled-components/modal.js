@@ -7,4 +7,5 @@ export const modalStyling = {
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 5,
+  borderRadius: "10px",
 };
