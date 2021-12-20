@@ -1,16 +1,15 @@
 export const flexbox = (props) => {
   return `
     display: flex;
-    flex-direction: column;
-    // flex-direction: ${(props) => (props ? props : "column")};
+    flex-direction: ${props.direction ? props.direction : "column"};
   `;
 };
 // flex-direction: ${props => props.direction ? "row" : "column"};
 
-export const centered = () => {
+export const centered = (props) => {
   return `
-    justify-content: center;
-    align-items: center;
+    justify-content: ${props.justify ? props.justify : "center"};
+    align-items: ${props.align ? props.align : "center"};
   `;
 };
 
@@ -33,9 +32,9 @@ export const pt = () => {
   `;
 };
 
-export const shadow = () => {
+export const shadow = (props) => {
   return `
-    box-shadow: 2px 2px 6px 0px rgba(120, 120, 120, 0.8);
+    box-shadow: 2px 2px 6px 0px ${props.shadow ? props.shadow : "rgba(120, 120, 120, 0.8)"};
   `;
 };
 
