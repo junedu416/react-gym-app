@@ -7,7 +7,7 @@ const Confirm = (props) => {
       variant="contained"
       color="primary"
       size="large"
-      style={{ height: "55px" }}
+      sx={{ mr: 4, height: "55px" }}
       onClick={btnFunction}
     >
       Confirm
