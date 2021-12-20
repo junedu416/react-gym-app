@@ -81,9 +81,9 @@ export const Reporting = () => {
       {inquiryType === ""
         ? null
         : [
-            <Container>
+            <Container align="flex-start" justify="flex-start">
               <form encType="multipart/form-data">
-              <ContactSubheadings>
+              <ContactSubheadings justify="flex-start">
                 {inquiryType === ""
                   ? null
                   : inquiryType === "General Inquiry"
@@ -97,7 +97,7 @@ export const Reporting = () => {
                       ],
                     ]}
               </ContactSubheadings>
-              <Container style={{ flexDirection: "row" }}>
+              <Container direction="row" align="flex-start">
                 <TextField
                   id="outlined-multiline-flexible"
                   label="Your Message"
