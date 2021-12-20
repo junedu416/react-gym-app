@@ -34,7 +34,7 @@ export const createNewEvent = async (eventObj) => {
                 'Content-Type': 'multipart/form-data'
             }
         })
-        console.log(response)
+        console.log(response.data)
         return response.data
     } catch(e) {
         console.log(e)
