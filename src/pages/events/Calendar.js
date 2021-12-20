@@ -7,7 +7,8 @@ export const Calendar = () => {
   const [eventSelect, setEventSelect] = useState("class");
 
   const handleEventSelect = (event, newEventSelect) => {
-    if (newEventSelect !== null) {
+    if(!newEventSelect) setEventSelect("class");
+    else {
       setEventSelect(newEventSelect);
     }
   };
@@ -23,7 +24,7 @@ export const Calendar = () => {
         color="warning"
         style={{backgroundColor: "lightBlue", margin:"50px"}}
       >
-        <ToggleButton value="class" aria-label="class" sx={{color:"grey"}} selected>
+        <ToggleButton value="class" aria-label="class" sx={{color:"grey"}}>
           Classes
         </ToggleButton>
         <ToggleButton value="competition" aria-label="competition" sx={{color:"grey"}}>
