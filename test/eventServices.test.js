@@ -1,4 +1,4 @@
-import { getAllEvents, createNewEvent } from "../src/services/eventsServices";
+import { createNewEvent } from "../src/services/eventsServices";
 import { rest } from "msw";
 import { setupServer } from 'msw/node';
 // import gymApi from '../src/config/api';
@@ -44,4 +44,16 @@ describe("createNewEvent", () => {
         const response = await createNewEvent(eventObj)
         expect(response.name).toBe("testing event")
     })
+
+    // test('that it handles failures', async() => {
+    //     server.use(
+    //         rest.post(`${serverUrl}/events`, (req, res, ctx) => {
+    //             return res(ctx.status(422));
+    //         })
+    //     )
+    //     await expect(() => {
+    //         createNewEvent({fail: "fail"})
+    //     }).rejects.toThrow("Request failed with status code 422")
+        
+    // })
 })

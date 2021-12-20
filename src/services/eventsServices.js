@@ -37,7 +37,7 @@ export const createNewEvent = async (eventObj) => {
         console.log(response.data)
         return response.data
     } catch(e) {
-        console.log(e)
+        // console.log(e)
         throw e
     }
 }
