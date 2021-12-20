@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "cypress": "^9.1.0",
-    "jest": "26.6.0"
+    "jest": "26.6.0",
+    "msw": "^0.36.3"
   }
 }
