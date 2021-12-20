@@ -1,12 +1,13 @@
 // import { css } from 'styled-components'; // turn this into a 1-liner?
 import styled from "styled-components";
-import { flexbox, centered, popupMiddle, mt, pt, link } from "./mixins";
+import { flexbox, centered, popupMiddle, mt, pt, link, shadow } from "./mixins";
 import { Link } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 
 export const Container = styled.div`
   ${flexbox};
   ${centered};
+  ${props => props.shadow && shadow }
 `;
 
   /* justify-content: ${props => (props.justifyItems ? props.justifyItems : "center")};
@@ -24,7 +25,7 @@ export const Heading = styled.h1`
 `;
 
 export const SmallHeading = styled.h2`
-  font-size: 2.5rem;
+  font-size: ${props => props.size ? props.size: "2.5rem"};
   padding: 0;
   margin: 0 0 20px 0;
   color: ${(props) => (props.color ? props.color : "blue")};

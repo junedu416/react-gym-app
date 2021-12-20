@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import EditButton from "../../components/buttons/Edit";
 import { Container, MainWindow, SmallHeading } from "../../styled-components";
-import IconButton from '@mui/material/IconButton';
-import DoneIcon from '@mui/icons-material/Done';
-import ClearIcon from '@mui/icons-material/Clear';
+import IconButton from "@mui/material/IconButton";
+import DoneIcon from "@mui/icons-material/Done";
+import ClearIcon from "@mui/icons-material/Clear";
+import Divider from "@mui/material/Divider";
+import { WorkoutText } from "../../styled-components/workouts";
 
 export const WorkoutStart = (props) => {
   const dummyData = [
@@ -30,45 +32,89 @@ export const WorkoutStart = (props) => {
     },
   ];
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [active, setActive] = useState(false);
+
+  const nextExercise = (event) => {
+    // setActive = event.target.index
+    setActive(false);
+    setCurrentIndex++;
+    // if (currentIndex === parseInt(index)) setActive(true);
+  };
+
   return (
     <MainWindow>
       <EditButton />
-
-      <Container>
-        <p>{Date.now()}</p>
-        <p>
-          <span style={{ color: "lime" }}>Completed</span>
-          <span style={{ color: "red" }}>Incomplete</span>
+      <p>{Date()}</p>
+      <Container style={{ border: "1px solid rgba(120, 120, 120, 0.3)", padding: "30px", borderRadius: "20px" }} shadow >
+        <SmallHeading style={{ alignSelf:"flex-start", margin:"0"}}>
+          Workout A
+        </SmallHeading>
+        
+        <p style={{ alignSelf: "flex-end", margin:"0px" }}>
+          <span style={{ color: "lime", paddingRight: "23px" }}>Completed</span>
+          <span style={{ color: "red", paddingRight: "15px" }}>Incomplete</span>
         </p>
         {dummyData.map((exercise, index) => (
-          <Container>
-            <SmallHeading>{exercise.name}</SmallHeading>
-            <Container>
-            <Container>
-
-              <Container>
-                <p>Sets</p>
-                <p>{exercise.sets}</p>
-              </Container>
-              <Container>
-                <p>Reps</p>
-                <p>{exercise.reps}</p>
-              </Container>
-              <Container>
-                <p>Weight</p>
-                <p>{exercise.weight}</p>
+          <>
+            <Container
+              key={index}
+              active={false}
+              style={{
+                width: "100%",
+                padding: "0 30px 10px 30px",
+              }}
+            >
+              <SmallHeading
+                size="1.6rem"
+                color={active ? active : "grey"}
+                style={{ margin: "20px 0 0 0", alignSelf:"flex-start" }}
+                
+              >
+                {exercise.name}
+              </SmallHeading>
+              <Container
+                direction="row"
+                style={{ width: "100%" }}
+                justify="space-between"
+              >
+                <Container
+                  direction="row"
+                  style={{ gap: "50px" }}
+                >
+                  <Container>
+                    <WorkoutText mb="0">Sets</WorkoutText>
+                    <WorkoutText>{exercise.sets}</WorkoutText>
+                  </Container>
+                  <Container>
+                    <WorkoutText mb="0">Reps</WorkoutText>
+                    <WorkoutText>{exercise.reps}</WorkoutText>
+                  </Container>
+                  <Container>
+                    <WorkoutText mb="0">Weight</WorkoutText>
+                    <WorkoutText>{exercise.weight}</WorkoutText>
+                  </Container>
+                </Container>
+                <Container direction="row">
+                  <IconButton>
+                    <DoneIcon
+                      sx={{ fontSize: "5rem" }}
+                      color="success"
+                      onclick={{ nextExercise }}
+                    />
+                  </IconButton>
+                  <IconButton>
+                    <ClearIcon
+                      sx={{ fontSize: "5rem" }}
+                      color="error"
+                      onclick={{ nextExercise }}
+                    />
+                  </IconButton>
+                </Container>
               </Container>
             </Container>
-            <Container>
-              <IconButton>
-                <DoneIcon />
-              </IconButton>
-              <IconButton>
-                <ClearIcon />
-              </IconButton>
-            </Container>
-            </Container>
-          </Container>
+            <Divider sx={{ width: "90%" }} />
+          </>
         ))}
         <Container></Container>
       </Container>
