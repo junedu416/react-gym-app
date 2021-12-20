@@ -9,6 +9,7 @@ export const Container = styled.div`
   ${centered};
   ${props => props.shadow && shadow }
   ${props => props.greyBorder && greyBorder }
+  ${props => props.mt && mt }
 `;
 
   /* justify-content: ${props => (props.justifyItems ? props.justifyItems : "center")};

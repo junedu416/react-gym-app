@@ -6,6 +6,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
 import Divider from "@mui/material/Divider";
 import { WorkoutText } from "../../styled-components/workouts";
+import moment from "moment";
 
 export const WorkoutStart = (props) => {
   const dummyData = [
@@ -42,14 +43,21 @@ export const WorkoutStart = (props) => {
 
   return (
     <MainWindow>
-      <EditButton />
-      <p>{Date()}</p>
-      <Container style={{ padding: "30px", borderRadius: "20px" }} greyBorder shadow >
-        <SmallHeading style={{ alignSelf:"flex-start", margin:"0"}}>
-          Workout A
-        </SmallHeading>
-        
-        <p style={{ alignSelf: "flex-end", margin:"0px" }}>
+      <Container
+        style={{ padding: "0 25px", borderRadius: "20px" }}
+        greyBorder
+        shadow
+        mt
+      >
+        <p style={{ alignSelf: "flex-end" }}>{moment().format("LL")}</p>
+        <Container direction="row" style={{width:"100%"}} justify="space-between">
+          <SmallHeading style={{ margin: "0" }}>
+            Workout A
+          </SmallHeading>
+          <EditButton />
+        </Container>
+
+        <p style={{ alignSelf: "flex-end", margin: "0px" }}>
           <span style={{ color: "lime", paddingRight: "23px" }}>Completed</span>
           <span style={{ color: "red", paddingRight: "15px" }}>Incomplete</span>
         </p>
@@ -66,8 +74,7 @@ export const WorkoutStart = (props) => {
               <SmallHeading
                 size="1.6rem"
                 color={active ? active : "grey"}
-                style={{ margin: "20px 0 0 0", alignSelf:"flex-start" }}
-                
+                style={{ margin: "20px 0 0 0", alignSelf: "flex-start" }}
               >
                 {exercise.name}
               </SmallHeading>
@@ -76,10 +83,7 @@ export const WorkoutStart = (props) => {
                 style={{ width: "100%" }}
                 justify="space-between"
               >
-                <Container
-                  direction="row"
-                  style={{ gap: "50px" }}
-                >
+                <Container direction="row" style={{ gap: "50px" }}>
                   <Container>
                     <WorkoutText mb="0">Sets</WorkoutText>
                     <WorkoutText>{exercise.sets}</WorkoutText>
