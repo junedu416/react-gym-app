@@ -15,15 +15,29 @@ export const Events = (props) => {
     navigate("/events/new");
   }
 
+  const title= "Class Booking"
+  const eventName="Yoga"
+  const instructor="April Summers"
+  const date="Weds 22nd Dec"
+  const time="2:00PM - 3:00PM"
+  const level="Beginner"
+
   return (
     <>
     <MainWindow stlye={{display:"flex", flexDirection:"column", justifyContent:"center"}}>
       <Calendar style={{ marginBottom:"50px", padding:"50px" }}/>
+      <BookingConfirmation 
+        title={title}
+        eventName={eventName}
+        instructor={instructor}
+        date={date}
+        time={time}
+        level={level}
+      />
+
       <Info />
-      <Book />
       <CreateEvent btnFunction={handleNewEvent}/>
     </MainWindow>
-    <BookingConfirmation />
     </>
   );
 };
