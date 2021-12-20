@@ -34,11 +34,13 @@ export const createNewEvent = async (eventObj) => {
                 'Content-Type': 'multipart/form-data'
             }
         })
+
+        console.log("success path")
         console.log(response.data)
         return response.data
     } catch(e) {
-        // console.log(e)
-        throw e
+        console.log("caught error", e.message)
+        return {message: e.message}
     }
 }
 

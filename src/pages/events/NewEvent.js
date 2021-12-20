@@ -42,7 +42,7 @@ export const NewEvent = () => {
     }
     const data = new FormData();
     for (let key in infoToSend) {
-      data.append(`${key}`, infoToSend[key]);
+      if (infoToSend[key]) data.append(`${key}`, infoToSend[key]);
     }
     // post to event
     createNewEvent(data);
