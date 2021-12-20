@@ -14,22 +14,14 @@ import { ContactSubheadings } from "../../styled-components/contact";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import { postReport } from "../../services/reportServices";
 
+// JUNE D 20/12/2021: UploadIcon has been removed. Can implement the function after MVP is done
+// JUNE D 20/12/2021: There is no back-end routes for General Inquiry. Can implement the function after MVP is done
 
-export const Reporting = (props) => {
-  
-  const initialReportDetails = {
-    type:"",
-    description:"",
-    resolved: false,
-    reportImage:""
-  }
+export const Reporting = () => {
 
   const [inquiryType, setInquiryType] = useState("");
   const [value, setValue] = useState("");
   const [message, setMessage] = useState("");
-
-   // selectedFile contains information on the currently picked file.
-  // isFilePicked determines if a file has been picked or not.
   const [selectedFile, setSelectedFile] = useState(null);
 	const [isFilePicked, setIsFilePicked] = useState(false);
 
@@ -54,7 +46,7 @@ export const Reporting = (props) => {
     formData.append('description', value);
     formData.append('reportImage', selectedFile);
 
-    const response = await postReport(formData);
+    await postReport(formData);
     setIsFilePicked(false);
     setMessage("report sent successfully!")
 
@@ -62,7 +54,6 @@ export const Reporting = (props) => {
       setMessage("")
     }, 5000);
   }
-
 
   return (
     <MainWindow>
@@ -82,7 +73,7 @@ export const Reporting = (props) => {
         >
           <MenuItem value="Faulty Equipment">Report Faulty Equipment</MenuItem>
           <MenuItem value="Unsocial Behaviour">Report Unsocial Behaviour</MenuItem>
-          <MenuItem value="General Inquiry">General Inquiry</MenuItem>
+          {/* <MenuItem value="General Inquiry">General Inquiry</MenuItem> */}
         </Select>
         <FormHelperText>Please select inquiry type (required)</FormHelperText>
       </FormControl>
