@@ -6,9 +6,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import { RiLineChartLine } from "react-icons/ri";
-import ShowChartIcon from '@mui/icons-material/ShowChart';
-import QrCode2Icon from '@mui/icons-material/QrCode2';
+import QrCode2Icon from "@mui/icons-material/QrCode2";
 
 // Dashboard components
 import { Overview } from "./Overview";
@@ -19,65 +17,49 @@ import { MyWorkouts } from "./MyWorkouts";
 import { MyProfile } from "./MyProfile";
 import { Leaderboards } from "./Leaderboards";
 import { Contact } from "./Contact";
-import { EquipmentReports } from "./Contact";
-import { BehaviourReports } from "./Contact";
 
-
+const iconMargin = {
+  marginRight: "7px",
+};
 export const SidebarData = [
   {
-    title: "Overview",
-    path: "/home",
-    icon: <ViewModuleIcon />,
-    display: <Overview />
+    title: [<ViewModuleIcon style={iconMargin} />, "Overview"],
+    display: <Overview />,
   },
   {
-    title: "Checkins",
-    path: "/home/checkins",
-    icon: <QrCode2Icon />,
-    display: <Checkins />
+    title: [<QrCode2Icon style={iconMargin} />, "Checkins"],
+    display: <Checkins />,
   },
   {
-    title: "Performance Stats",
-    path: "/home/mystats",
-    icon: <InsertChartIcon />,
-    display: <PerformanceStats />
+    title: [<InsertChartIcon style={iconMargin} />, "Performance Stats"],
+    display: <PerformanceStats />,
   },
   {
-    title: "My Events",
-    path: "/home/myevents",
-    icon: <EventIcon />,
-    display: <MyEvents />
+    title: [<EventIcon style={iconMargin} />, "My Events"],
+    display: <MyEvents />,
   },
   {
-    title: "My Workouts",
-    path: "/home/myworkouts",
-    icon: <FitnessCenterIcon />,
-    display: <MyWorkouts />
+    title: [<FitnessCenterIcon style={iconMargin} />, "My Workouts"],
+    display: <MyWorkouts />,
   },
   {
-    title: "My Profile",
-    path: "/home/myprofile",
-    icon: <AccountCircleIcon />,
-    display: <MyProfile />
+    title: [<AccountCircleIcon style={iconMargin} />, "My Profile"],
+    display: <MyProfile />,
   },
   {
-    title: "Leaderboards",
-    path: "/home/leaderboards",
-    icon: <EmojiEventsIcon />,
-    display: <Leaderboards />
+    title: [<EmojiEventsIcon style={iconMargin} />, "Leaderboards"],
+    display: <Leaderboards />,
   },
   {
-    title: "Contact",
-    path: "/home/contact",
-    icon: <CampaignIcon />,
-    display: <Contact />
-    
-    // display: {   
+    title: [<CampaignIcon style={iconMargin} />, "Reports"],
+    display: <Contact />,
+
+    // display: {
     //     user: <Contact />,
     //     staff:  <div>
     //               <EquipmentReports />
     //               <BehaviourReports />
     //             </div>
     // },
-  }
+  },
 ];
