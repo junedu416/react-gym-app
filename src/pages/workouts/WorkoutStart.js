@@ -36,17 +36,15 @@ export const WorkoutStart = (props) => {
   const [active, setActive] = useState(false);
 
   const nextExercise = (event) => {
-    // setActive = event.target.index
     setActive(false);
     setCurrentIndex++;
-    // if (currentIndex === parseInt(index)) setActive(true);
   };
 
   return (
     <MainWindow>
       <EditButton />
       <p>{Date()}</p>
-      <Container style={{ border: "1px solid rgba(120, 120, 120, 0.3)", padding: "30px", borderRadius: "20px" }} shadow >
+      <Container style={{ padding: "30px", borderRadius: "20px" }} greyBorder shadow >
         <SmallHeading style={{ alignSelf:"flex-start", margin:"0"}}>
           Workout A
         </SmallHeading>

@@ -32,7 +32,7 @@ export const pt = () => {
   `;
 };
 
-export const shadow = (props) => {
+export const shadow = () => {
   return `
     box-shadow: 2px 2px 6px 0px rgba(120, 120, 120, 0.8);
     `;
@@ -48,3 +48,9 @@ export const link = () => {
     }
   `;
 };
+
+export const greyBorder = () => {
+  return `
+    border: 1px solid rgba(120, 120, 120, 0.3);
+  `
+}
