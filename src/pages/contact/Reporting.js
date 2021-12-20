@@ -12,19 +12,57 @@ import { UploadIcon } from "../../components/buttons/Upload";
 import { Container } from "../../styled-components";
 import { ContactSubheadings } from "../../styled-components/contact";
 import CampaignIcon from "@mui/icons-material/Campaign";
+import { postReport } from "../../services/reportServices";
+
 
 export const Reporting = (props) => {
+  
+  const initialReportDetails = {
+    type:"",
+    description:"",
+    resolved: false,
+    reportImage:""
+  }
+
   const [inquiryType, setInquiryType] = useState("");
+  const [value, setValue] = useState("");
+  const [message, setMessage] = useState("");
+
+   // selectedFile contains information on the currently picked file.
+  // isFilePicked determines if a file has been picked or not.
+  const [selectedFile, setSelectedFile] = useState(null);
+	const [isFilePicked, setIsFilePicked] = useState(false);
+
+  const uploadImage = (event) => {
+    setSelectedFile(event.target.files[0]);
+    setIsFilePicked(true);
+  }
 
   const handleSelection = (event) => {
     setInquiryType(event.target.value);
   };
 
-  const [value, setValue] = useState("");
-
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+
+  const handleSend =  async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append('type', inquiryType);
+    formData.append('description', value);
+    formData.append('reportImage', selectedFile);
+
+    const response = await postReport(formData);
+    setIsFilePicked(false);
+    setMessage("report sent successfully!")
+
+    setTimeout(() => {
+      setMessage("")
+    }, 5000);
+  }
+
 
   return (
     <MainWindow>
@@ -40,6 +78,7 @@ export const Reporting = (props) => {
           value={inquiryType}
           label="Inquiry Type *"
           onChange={handleSelection}
+          name="type"
         >
           <MenuItem value="Faulty Equipment">Report Faulty Equipment</MenuItem>
           <MenuItem value="Unsocial Behaviour">Report Unsocial Behaviour</MenuItem>
@@ -52,6 +91,7 @@ export const Reporting = (props) => {
         ? null
         : [
             <Container>
+              <form encType="multipart/form-data">
               <ContactSubheadings>
                 {inquiryType === ""
                   ? null
@@ -75,14 +115,18 @@ export const Reporting = (props) => {
                   maxRows={4}
                   style={{ width: "300px" }}
                   value={value}
+                  name="description"
                   onChange={handleChange}
                 ></TextField>
                 <Container>
-                  <Send />
-                  <UploadIcon />
-                  <AttachmentIcon />
+                  <Send btnFunction={handleSend} />
+                  {/* <UploadIcon /> */}
+                  <AttachmentIcon btnFunction={uploadImage} />
                 </Container>
               </Container>
+              </form>
+              {isFilePicked== true && <ContactSubheadings>Image selected!</ContactSubheadings>}
+              {message !=="" && <ContactSubheadings>{message}</ContactSubheadings>}
             </Container>,
           ]}
     </MainWindow>
