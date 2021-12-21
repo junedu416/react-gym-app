@@ -7,22 +7,38 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { Container, Heading, MainWindow } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
 import SignInButton from "../../components/buttons/SignIn";
+import { signInUser } from "../../services/userServices";
+import { useGlobalState } from "../../config/globalStore";
+import { useNavigate } from "react-router-dom";
 
-export const SignIn = (props) => {
+export const SignIn = () => {
   const [state, setState] = React.useState({ checked: true });
 
+  const {dispatch} = useGlobalState();
+  const navigate = useNavigate();
+
   const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    setFormValues({
+      ...formValues,
+      [event.target.name] : event.target.value
+    });
   };
 
-  const [membershipID, setMembershipID] = useState("");
-  const [login, setLogin] = useState(false);
+  const initialFormValues = {
+    email: "",
+    password: ""
+  }
+
+  const [formValues, setFormValues] = useState(initialFormValues);
 
   // =======================================================
   // Change out this logic for auth later
   function handleSubmit(event) {
     event.preventDefault();
-    setLogin(true);
+    signInUser(formValues).then((profile) => {
+      dispatch({type: "setProfile", data: profile});
+      navigate("/home");
+    })
   }
 
   return (
@@ -32,16 +48,23 @@ export const SignIn = (props) => {
         <Container>
           <TextField
             id="standard-basic"
-            label="Membership ID"
+            label="Email"
             style={formStyling}
+            onChange={handleChange}
+            name="email"
           />
-          <TextField id="standard-basic" label="Password" style={formStyling} />
+          <TextField id="standard-basic" 
+            label="Password" 
+            style={formStyling} 
+            onChange={handleChange}
+            name="password"
+            />
 
           <FormControlLabel
             control={
               <Checkbox
                 checked={state.checked}
-                onChange={handleChange}
+                //onChange={handleChange}
                 name="checked"
                 color="primary"
               />
