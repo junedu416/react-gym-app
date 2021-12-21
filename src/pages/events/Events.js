@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import Info from "../../components/buttons/Info"
-import Book from "../../components/buttons/Book"
+// import Book from "../../components/buttons/Book"
 import { MainWindow } from "../../styled-components";
 import { Calendar } from "./Calendar";
 import { BookingConfirmation } from "./Confirmation";

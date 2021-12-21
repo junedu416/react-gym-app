@@ -1,10 +1,7 @@
 import Button from "@mui/material/Button";
-import { Tooltip } from "@mui/material";
-import { green } from "@mui/material/colors";
 
 const GetStarted = (props) => {
   const { btnFunction } = props;
-  const color = green;
   return (
     <Button
       variant="outlined"

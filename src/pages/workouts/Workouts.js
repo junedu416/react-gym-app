@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import EditButton from "../../components/buttons/Edit";
 import ViewExercises from "../../components/buttons/ViewExercises";
 import StartWorkout from "../../components/buttons/StartWorkout";
@@ -15,12 +16,13 @@ import {
 } from "../../styled-components/workouts";
 import CreateWorkout from "../../components/buttons/CreateWorkout";
 import Divider from "@mui/material/Divider";
-import { ContactSubheadings } from "../../styled-components/contact";
+// import { ContactSubheadings } from "../../styled-components/contact";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import IconButton from "@mui/material/IconButton";
 import TrainerWorkouts from "../../components/buttons/TrainerWorkouts";
 
 export const Workouts = (props) => {
+  const navigate = useNavigate();
   const workoutList = [
     {
       name: "Workout A",
@@ -51,11 +53,17 @@ export const Workouts = (props) => {
   // workoutList.map((workout) => console.log(workout.name, workout.exercises));
 
   const [activeWorkout, setActiveWorkout] = useState("");
-  const handleClick = (selectWorkout) => {
-    if (selectWorkout !== null) {
-      setActiveWorkout(selectWorkout);
+  const handleClick = (selectedWorkout) => {
+    if (selectedWorkout !== null) {
+      setActiveWorkout(selectedWorkout);
     }
   };
+
+  console.log(activeWorkout);
+
+  function workoutStart() {
+    navigate("/workouts/start");
+  }
 
   return (
     <MainWindow>
@@ -106,7 +114,7 @@ export const Workouts = (props) => {
                       );
                     })}
                   </WorkoutCardStyling>
-                  <StartWorkout />
+                  <StartWorkout btnFunction={workoutStart} />
                 </Container>
               );
             })}

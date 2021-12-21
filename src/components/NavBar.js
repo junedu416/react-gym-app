@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavBarLink, Nav } from "../styled-components/navbar";
+import { Nav } from "../styled-components/navbar";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -16,8 +16,8 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 // import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import HowToRegIcon from "@mui/icons-material/HowToReg";
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+// import HowToRegIcon from "@mui/icons-material/HowToReg";
+// import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { useGlobalState } from "../config/globalStore";
 import { signOutUser } from "../services/userServices";
 import { RegisterIcon } from "./RegisterIcon.js";
@@ -188,6 +188,7 @@ export const NavBar = (props) => {
           label="Sign Out"
           aria-label="Sign Out"
           href="/"
+          onClick={handleSignOut}
         />
       </StyledTabs>
 
