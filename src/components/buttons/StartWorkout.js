@@ -1,9 +1,7 @@
 import Button from "@mui/material/Button";
-import { green } from "@mui/material/colors";
 
 const StartWorkout = (props) => {
   const { btnFunction } = props;
-  const color = green;
   return (
     <Button
       variant="outlined"

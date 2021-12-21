@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { CardStyle } from "../../styled-components/dashboard.js";
 import { Container, Grid, SmallHeading } from "../../styled-components";
+import { useGlobalState } from "../../config/globalStore.js";
 
 export const Overview = (props) => {
+
+  const {store} = useGlobalState();
+  const {profile} = store;
+
   return (
-    <Container style={{
-        width: "calc(100vw - 230px)",
-        float: "right",
-        marginTop: "80px"
-      }}>
-      <SmallHeading>Welcome back USER, here's your overview</SmallHeading>
+    <Container>
+      <SmallHeading>Welcome back { profile ? profile.firstName : "user" }, here's your overview</SmallHeading>
       <Grid>
         <CardStyle />
         <CardStyle />

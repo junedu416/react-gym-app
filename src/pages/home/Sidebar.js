@@ -109,14 +109,14 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
-  };
-}
+// function a11yProps(index) {
+//   return {
+//     id: `vertical-tab-${index}`,
+//     "aria-controls": `vertical-tabpanel-${index}`,
+//   };
+// }
 
-const Sidebar = () => {
+export const Sidebar = () => {
   const [dashboardView, setDashboardView] = useState(<Overview />);
   const [value, setValue] = useState(0);
 
@@ -178,5 +178,3 @@ const Sidebar = () => {
     </Container>
   );
 };
-
-export default Sidebar;

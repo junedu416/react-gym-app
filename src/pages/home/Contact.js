@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Heading, Container } from "../../styled-components/";
 
 export const Contact = (props) => {

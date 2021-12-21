@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavBarLink, Nav } from "../styled-components/navbar";
+import { Nav, StyledTabs } from "../styled-components/navbar";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -16,30 +16,23 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 // import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import HowToRegIcon from "@mui/icons-material/HowToReg";
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+// import HowToRegIcon from "@mui/icons-material/HowToReg";
+// import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { useGlobalState } from "../config/globalStore";
 import { signOutUser } from "../services/userServices";
 import { RegisterIcon } from "./RegisterIcon.js";
-
-// function LinkTab(props) {
-//   return (
-//     <Tab
-//       component="a"
-//       onClick={(event) => {
-//         event.preventDefault();
-//       }}
-//       {...props}
-//     />
-//   );
-// }
+import { useNavigate, useLocation } from "react-router-dom";
+import { navbarData } from "../data/navbarData";
+import "./NavBar.css";
 
 
-// ***************** NEED TO UNCOMMENT EITHER line 46 or 71
+// ***************** NEED TO UNCOMMENT EITHER event.preventDefault() lines
 // Probably need to use global state to keep selection.
 
-// Custom settings and colors for Material-UI tabs
+// const pathname = window.location.pathname; // => gets the url path without the domain
+// console.log(pathname);
 
+// Custom settings and colors for Material-UI tabs
 const StyledTabs = styled((props) => (
   <Tabs
     component="a"
@@ -69,7 +62,7 @@ const LinkTab = styled((props) => (
     disableRipple
     component="a"
     onClick={(event) => {
-      // event.preventDefault();
+      event.preventDefault();
     }}
     {...props}
   />
@@ -88,7 +81,7 @@ const LinkTab = styled((props) => (
   "&:hover": {
     color: "rgba(57, 255, 45, 1)",
     transform: "scale(1.1) translateY(-2px)",
-    transition: "0.2s"
+    transition: "0.2s",
   },
   "&.Mui-focusVisible": {
     backgroundColor: "rgba(57, 255, 45, 0.25)",
@@ -98,10 +91,23 @@ const LinkTab = styled((props) => (
 export const NavBar = (props) => {
   const [search, setSearch] = useState("");
   const { store, dispatch } = useGlobalState();
-  const [value, setValue] = useState(0);
 
-  const handlePageSelect = (event, newValue) => {
-    setValue(newValue);
+  //assigning location variable
+  const location = useLocation();
+
+  //destructuring pathname from location
+  const { pathname } = location;
+
+  //Javascript split method to get the name of the path in array
+  const splitLocation = pathname.split("/");
+
+  const [currentUrl, setCurrentUrl] = useState(splitLocation[1]);
+
+  console.log(currentUrl);
+
+  const handlePageSelect = (event, urlPath) => {
+    setCurrentUrl(urlPath);
+    // event.preventDefault();   // UNCOMMENT TO SEE IT WORKING WITHOUT REFRESH, double click to navigate
   };
 
   function handleInput(event) {
@@ -114,77 +120,51 @@ export const NavBar = (props) => {
       console.log(store);
     });
   }
+  // *******************************************************************************************************
+  // *******************************************************************************************************
+  const [windowDisplay, setWindowDisplay] = useState(); // TODO: use global context to display main window component
 
-  const navTextSize = {
-    fontSize: "2.5rem"
+  const navFontSize = {
+    fontSize: "2.5rem",
+  };
+
+  function transformLabel(title) {
+    if (title === "our-team") return "Our Team";
+    // *******************************************************************************************************
+    // **************************** need to change to user's name here once setup ****************************
+    else if (title === "profile") return "User";
+    else {
+      return title[0].toUpperCase() + title.substring(1);
+    }
   }
+
+  const navigate = useNavigate();
 
   return (
     <Nav>
       <StyledTabs
-        value={value}
+        value={currentUrl}
         onChange={handlePageSelect}
         aria-label="navbar"
-// Parameter makes the selection to auto pick what is focused/selected with the keyboard in navbar
+        // Parameter makes the selection to auto pick what is focused/selected with the keyboard in navbar
         // selectionFollowsFocus
       >
-        <LinkTab
-          icon={<HomeIcon sx={ navTextSize } />}
-          label="Home"
-          aria-label="Go to Home page"
-          href="/home"
-          value="home"
-        />
-        <LinkTab
-          icon={<FitnessCenterIcon sx={ navTextSize } />}
-          label="Workouts"
-          aria-label="Go to Workouts page"
-          href="/workouts"
-          value="Workouts"
-        />
-        <LinkTab
-          icon={<EventIcon sx={ navTextSize } />}
-          label="Events"
-          aria-label="Go to Events page"
-          href="/events"
-        />
-        <LinkTab
-          icon={<GroupsIcon sx={ navTextSize } />}
-          label="Our Team"
-          aria-label="Go to Our Team page"
-          href="/our-team"
-        />
-        <LinkTab
-          icon={<ChatBubbleOutlineIcon sx={ navTextSize } />}
-          label="Contact"
-          aria-label="Go to Contact page"
-          href="/contact"
-        />
-        <LinkTab
-          icon={<AccountBoxIcon sx={ navTextSize } />}
-          label="User"
-          aria-label="Go to My Profile page"
-          href="/home/myprofile"
-          sx={{ ml: 70 }}
-        />
-        <LinkTab
-          icon={<LoginIcon sx={ navTextSize } />}
-          label="Sign In"
-          aria-label="Go to Sign In page"
-          href="/auth/login"
-        />
-        <LinkTab
-          icon={<RegisterIcon />}
-          label="Sign Up"
-          aria-label="Go to Registration page"
-          href="/register"
-        />
-        <LinkTab
-          icon={<LogoutIcon sx={ navTextSize } />}
-          label="Sign Out"
-          aria-label="Sign Out"
-          href="/"
-        />
+        {navbarData.map((item, index) => (
+          <LinkTab
+            icon={item.icon}
+            label={transformLabel(item.title)}
+            value={item.title}
+            aria-label={`Go to ${item.title} page`}
+            href={`${item.title === "logout" ? "/" : item.title}`}
+            onClick={(event) => {
+              setWindowDisplay(item.display);
+              // onClick={ navigate(`${item.path}`)};
+              // event.preventDefault()
+            }}
+            sx={index === 5 ? { ml: 70 } : null}
+          />
+        ))}
+
       </StyledTabs>
 
       <TextField

@@ -1,6 +1,6 @@
 // import { css } from 'styled-components'; // turn this into a 1-liner?
 import styled from "styled-components";
-import { flexbox, centered, popupMiddle, mt, pt, link } from "./mixins";
+import { flexbox, centered, pt, link } from "./mixins";
 import { Link } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 
@@ -16,6 +16,9 @@ export const MainWindow = styled.div`
   ${flexbox};
   ${centered};
   ${pt};
+  width: calc(100vw - 230px);
+  min-height: 100vh;
+  margin-left: 230px;
 `;
 
 export const Heading = styled.h1`

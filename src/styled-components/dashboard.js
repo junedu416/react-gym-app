@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexbox, centered, popupMiddle } from "./mixins";
+import { flexbox, centered } from "./mixins";
 
 export const CardStyle = styled.div`
   ${flexbox};

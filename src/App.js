@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { NavBar } from "./components/NavBar";
-import Sidebar from "./pages/home/Sidebar"
+// import { NavBar } from "./components/NavBar";
+import { Sidebar } from "./pages/home/Sidebar"
 
 // Log in
 import { Landing } from "./pages/login/Landing";
@@ -80,14 +80,14 @@ const App = () => {
         <Route path="/our-team" element={<MeetTheTeam />} />
         <Route path="/our-team/:id" element={<TrainerPage />} />
         <Route path="/contact" element={<Reporting />} />
-        <Route path="/home/overview" element={<Overview />} />
+        <Route path="/profile" element={<MyProfile />} />
+        {/* <Route path="/home/overview" element={<Overview />} />
         <Route path="/home/checkins" element={<Checkins />} />
         <Route path="/home/mystats" element={<PerformanceStats />} />
         <Route path="/home/myevents" element={<MyEvents />} />
         <Route path="/home/myworkouts" element={<MyWorkouts />} />
-        <Route path="/home/myprofile" element={<MyProfile />} />
         <Route path="/home/leaderboards" element={<Leaderboards />} />
-        <Route path="/home/contact" element={<Contact />} />
+        <Route path="/home/contact" element={<Contact />} /> */}
       </Routes>
     </StateContext.Provider>
     </>

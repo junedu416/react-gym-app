@@ -53,7 +53,7 @@ export const BookingConfirmation = ({title, eventName, instructor, date, time, l
           <Box sx={modalStyling}>
           <IconButton 
                   onClick={handleClose}
-                  aria-lable="close confirmation popup"
+                  aria-label="close confirmation popup"
                   style={{ position: "absolute", right:"0px", top:"0px" }}
                 //   size="large"
               >
