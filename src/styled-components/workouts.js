@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexbox, centered, mt, pt, shadow } from "./mixins";
+import { flexbox, shadow } from "./mixins";
 
 export const WorkoutCardStyling = styled.div`
   ${flexbox};

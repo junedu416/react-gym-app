@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import EditButton from "../../components/buttons/Edit";
 import { Container, MainWindow, SmallHeading } from "../../styled-components";
 import IconButton from "@mui/material/IconButton";

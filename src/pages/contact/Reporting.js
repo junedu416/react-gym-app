@@ -8,7 +8,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import AttachmentIcon from "../../components/buttons/AttachmentIcon";
 import Send from "../../components/buttons/Send";
-import { UploadIcon } from "../../components/buttons/Upload";
+// import { UploadIcon } from "../../components/buttons/Upload";
 import { Container } from "../../styled-components";
 import { ContactSubheadings } from "../../styled-components/contact";
 import CampaignIcon from "@mui/icons-material/Campaign";
@@ -114,7 +114,7 @@ export const Reporting = () => {
                 </Container>
               </Container>
               </form>
-              {isFilePicked== true && <ContactSubheadings>Image selected!</ContactSubheadings>}
+              {isFilePicked === true && <ContactSubheadings>Image selected!</ContactSubheadings>}
               {message !=="" && <ContactSubheadings>{message}</ContactSubheadings>}
             </Container>,
           ]}

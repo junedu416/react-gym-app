@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import AttachmentIcon from "../../components/buttons/AttachmentIcon";
 import { MainWindow } from "../../styled-components";
 
