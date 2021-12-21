@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Dashboard from "./Dashboard";
-import { Container, Heading, MainWindow } from "../../styled-components/";
+import { MainWindow } from "../../styled-components/";
 
 export const Home = (props) => {
     

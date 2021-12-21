@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import LandingS from "../../assets/LandingS.jpg";
+// import LandingS from "../../assets/LandingS.jpg";
 import LandingL from "../../assets/LandingL.jpg";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import GetStarted from "../../components/buttons/Get Started";
 import { MainWindow } from "../../styled-components";
 

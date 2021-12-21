@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { flexbox, centered, popupMiddle, mt, pt } from './mixins';
+import { flexbox, centered } from './mixins';
 
 export const ContactSubheadings = styled.h3`
   font-size: 1.3rem;

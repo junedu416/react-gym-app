@@ -1,10 +1,8 @@
 import Button from "@mui/material/Button";
-import { green } from "@mui/material/colors";
 import { ButtonLink } from "../../styled-components";
 
 const ViewExercises = (props) => {
   const { btnFunction } = props;
-  const color = green;
   return (
     <ButtonLink to="/exercises">
       <Button
