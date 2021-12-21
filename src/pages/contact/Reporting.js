@@ -12,19 +12,48 @@ import { UploadIcon } from "../../components/buttons/Upload";
 import { Container } from "../../styled-components";
 import { ContactSubheadings } from "../../styled-components/contact";
 import CampaignIcon from "@mui/icons-material/Campaign";
+import { postReport } from "../../services/reportServices";
 
-export const Reporting = (props) => {
+// JUNE D 20/12/2021: UploadIcon has been removed. Can implement the function after MVP is done
+// JUNE D 20/12/2021: There is no back-end routes for General Inquiry. Can implement the function after MVP is done
+
+export const Reporting = () => {
+
   const [inquiryType, setInquiryType] = useState("");
+  const [value, setValue] = useState("");
+  const [message, setMessage] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+	const [isFilePicked, setIsFilePicked] = useState(false);
+
+  const uploadImage = (event) => {
+    setSelectedFile(event.target.files[0]);
+    setIsFilePicked(true);
+  }
 
   const handleSelection = (event) => {
     setInquiryType(event.target.value);
   };
 
-  const [value, setValue] = useState("");
-
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+
+  const handleSend =  async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append('type', inquiryType);
+    formData.append('description', value);
+    formData.append('reportImage', selectedFile);
+
+    await postReport(formData);
+    setIsFilePicked(false);
+    setMessage("report sent successfully!")
+
+    setTimeout(() => {
+      setMessage("")
+    }, 5000);
+  }
 
   return (
     <MainWindow>
@@ -40,10 +69,11 @@ export const Reporting = (props) => {
           value={inquiryType}
           label="Inquiry Type *"
           onChange={handleSelection}
+          name="type"
         >
           <MenuItem value="Faulty Equipment">Report Faulty Equipment</MenuItem>
           <MenuItem value="Unsocial Behaviour">Report Unsocial Behaviour</MenuItem>
-          <MenuItem value="General Inquiry">General Inquiry</MenuItem>
+          {/* <MenuItem value="General Inquiry">General Inquiry</MenuItem> */}
         </Select>
         <FormHelperText>Please select inquiry type (required)</FormHelperText>
       </FormControl>
@@ -51,8 +81,9 @@ export const Reporting = (props) => {
       {inquiryType === ""
         ? null
         : [
-            <Container>
-              <ContactSubheadings>
+            <Container align="flex-start" justify="flex-start">
+              <form encType="multipart/form-data">
+              <ContactSubheadings justify="flex-start">
                 {inquiryType === ""
                   ? null
                   : inquiryType === "General Inquiry"
@@ -66,7 +97,7 @@ export const Reporting = (props) => {
                       ],
                     ]}
               </ContactSubheadings>
-              <Container style={{ flexDirection: "row" }}>
+              <Container direction="row" align="flex-start">
                 <TextField
                   id="outlined-multiline-flexible"
                   label="Your Message"
@@ -75,14 +106,18 @@ export const Reporting = (props) => {
                   maxRows={4}
                   style={{ width: "300px" }}
                   value={value}
+                  name="description"
                   onChange={handleChange}
                 ></TextField>
                 <Container>
-                  <Send />
-                  <UploadIcon />
-                  <AttachmentIcon />
+                  <Send btnFunction={handleSend} />
+                  {/* <UploadIcon /> */}
+                  <AttachmentIcon btnFunction={uploadImage} />
                 </Container>
               </Container>
+              </form>
+              {isFilePicked== true && <ContactSubheadings>Image selected!</ContactSubheadings>}
+              {message !=="" && <ContactSubheadings>{message}</ContactSubheadings>}
             </Container>,
           ]}
     </MainWindow>
