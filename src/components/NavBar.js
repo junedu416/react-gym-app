@@ -21,6 +21,7 @@ import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { useGlobalState } from "../config/globalStore";
 import { signOutUser } from "../services/userServices";
 import { RegisterIcon } from "./RegisterIcon.js";
+import { useNavigate } from "react-router-dom";
 
 // ***************** NEED TO UNCOMMENT EITHER event.preventDefault() lines
 // Probably need to use global state to keep selection.
@@ -107,6 +108,8 @@ export const NavBar = (props) => {
     fontSize: "2.5rem"
   }
 
+  const navigate = useNavigate();
+
   return (
     <Nav>
       <StyledTabs
@@ -120,7 +123,8 @@ export const NavBar = (props) => {
           icon={<HomeIcon sx={ navTextSize } />}
           label="Home"
           aria-label="Go to Home page"
-          href="/home"
+          //href="/home"
+          onClick={()=>navigate("/home")}
           value="home"
         />
         <LinkTab
