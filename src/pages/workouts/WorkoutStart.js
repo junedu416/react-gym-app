@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import EditButton from "../../components/buttons/Edit";
 import { Container, MainWindow, SmallHeading } from "../../styled-components";
 import IconButton from "@mui/material/IconButton";
@@ -39,10 +39,10 @@ export const WorkoutStart = (props) => {
   const totalExercises = dummyData.length; 
   console.log(totalExercises);
 
-  const finishExercise = (event, completed) => {
+  const finishExercise = (completed) => {
     console.log("Exercise was: ", completed);
     setDisableButton(true);
-    setCounter++;
+    setCounter(+1);
     isWorkoutCompleted(counter)
   };
 
@@ -84,7 +84,7 @@ export const WorkoutStart = (props) => {
         {dummyData.map((exercise, index) => (
           <>
             <Container
-              key={index}
+              // key={index}
               active={false}
               style={{
                 width: "100%",
@@ -118,14 +118,14 @@ export const WorkoutStart = (props) => {
                   </Container>
                 </Container>
                 <Container direction="row">
-                  <IconButton disabled={disableButton} onclick={ () => finishExercise(true) }>
+                  <IconButton key={index} disabled={disableButton} onClick={ () => finishExercise(true) }>
                     <DoneIcon
                       sx={{ fontSize: "5rem" }}
                       color= { disableButton ? "warning" : "success"}
                      
                     />
                   </IconButton>
-                  <IconButton onclick={ () => finishExercise(false) }>
+                  <IconButton onClick={ () => finishExercise(false) }>
                       
                     <ClearIcon
                       sx={{ fontSize: "5rem" }}
@@ -140,6 +140,7 @@ export const WorkoutStart = (props) => {
         ))}
         <Container></Container>
       </Container>
+      {workoutCompleted && "YAYYY!! YOU FINISHED YOUR WORKOUT!!"}
     </MainWindow>
   );
 };

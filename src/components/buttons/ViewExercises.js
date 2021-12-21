@@ -8,7 +8,7 @@ const ViewExercises = (props) => {
       <Button
         variant="outlined"
         size="large"
-        color="primary"
+        // color="primary"
         onClick={btnFunction}
         style={{
           color: "lime",
