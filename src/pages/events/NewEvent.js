@@ -64,7 +64,7 @@ export const NewEvent = () => {
           sx={{ minWidth: 480, mb: 3 }}
           name="name"
           onChange={handleChange}
-          required
+          // required
         />
   
         <TextField

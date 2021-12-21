@@ -9,8 +9,7 @@ export const getAllEvents = async () => {
         console.log(response)
         return response
     } catch (e) {
-        console.log(e)
-        throw e
+        return e.message
     }
 }
 
@@ -21,8 +20,7 @@ export const getEventById = async (id) => {
         console.log(response)
         return response
     } catch (e) {
-        console.log(e)
-        throw e
+        return e.message
     }
 }
 
@@ -34,13 +32,16 @@ export const createNewEvent = async (eventObj) => {
                 'Content-Type': 'multipart/form-data'
             }
         })
-
+        if(response.data.message) {
+            console.log(response.data.message)
+            return
+        }
         console.log("success path")
         console.log(response.data)
         return response.data
     } catch(e) {
         console.log("caught error", e.message)
-        return {message: e.message}
+        return e.message
     }
 }
 
