@@ -9,9 +9,6 @@ export const Container = styled.div`
   ${centered};
 `;
 
-  /* justify-content: ${props => (props.justifyItems ? props.justifyItems : "center")};
-  align-items: ${props => (props.align ? props.align : "center")}; */
-
 export const MainWindow = styled.div`
   ${flexbox};
   ${vcentered};

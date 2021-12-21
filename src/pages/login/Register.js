@@ -60,7 +60,7 @@ export const Register = (props) => {
   }
 
   return (
-    <MainWindow justify="center">
+    <MainWindow verticalMiddle>
       <Heading>Register Account</Heading>
       {errorMsg && <h3>{errorMsg}</h3>}
       <form onSubmit={handleSubmit}>
