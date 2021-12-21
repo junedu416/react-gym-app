@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Nav } from "../styled-components/navbar";
+import { Nav, StyledTabs } from "../styled-components/navbar";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -158,7 +158,7 @@ export const NavBar = (props) => {
             href={`${item.title === "logout" ? "/" : item.title}`}
             onClick={(event) => {
               setWindowDisplay(item.display);
-              onClick={() => navigate(`/${item.title}`);
+              // onClick={ navigate(`${item.path}`)};
               // event.preventDefault()
             }}
             sx={index === 5 ? { ml: 70 } : null}
