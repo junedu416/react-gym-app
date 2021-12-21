@@ -33,13 +33,25 @@ export const WorkoutStart = (props) => {
     },
   ];
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [active, setActive] = useState(false);
+  const [counter, setCounter] = useState(0);
+  const [disableButton, setDisableButton] = useState(false);
+  const [workoutCompleted, setWorkoutCompleted] = useState(false);
+  const totalExercises = dummyData.length; 
+  console.log(totalExercises);
 
-  const nextExercise = (event) => {
-    setActive(false);
-    setCurrentIndex++;
+  function finishExercise() {
+    console.log("CLICKED");
+    setDisableButton(true);
+
+    // setCounter++;
+    isWorkoutCompleted(counter)
   };
+
+  function isWorkoutCompleted(counter){
+    if (counter === totalExercises) setWorkoutCompleted(true);
+  }
+
+  
 
   return (
     <MainWindow>
@@ -73,7 +85,7 @@ export const WorkoutStart = (props) => {
             >
               <SmallHeading
                 size="1.6rem"
-                color={active ? active : "grey"}
+                color={disableButton ? "grey" : "lime"}
                 style={{ margin: "20px 0 0 0", alignSelf: "flex-start" }}
               >
                 {exercise.name}
@@ -98,18 +110,18 @@ export const WorkoutStart = (props) => {
                   </Container>
                 </Container>
                 <Container direction="row">
-                  <IconButton>
+                  <IconButton disabled={disableButton} onclick={{ finishExercise }}>
                     <DoneIcon
                       sx={{ fontSize: "5rem" }}
-                      color="success"
-                      onclick={{ nextExercise }}
+                      color= { disableButton ? "warning" : "success"}
+                     
                     />
                   </IconButton>
                   <IconButton>
                     <ClearIcon
                       sx={{ fontSize: "5rem" }}
                       color="error"
-                      onclick={{ nextExercise }}
+                      onclick={{ finishExercise }}
                     />
                   </IconButton>
                 </Container>
