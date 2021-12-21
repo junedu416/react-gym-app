@@ -128,8 +128,6 @@ const Dashboard = () => {
     setValue(newValue);
   };
 
-  console.log(SidebarData.map((item, index) => item));
-
   return (
     <Container style={{ flexDirection: "row" }}>
       <CssBaseline />
