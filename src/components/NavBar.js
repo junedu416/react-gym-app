@@ -8,22 +8,17 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import { useGlobalState } from "../config/globalStore";
 import { signOutUser } from "../services/userServices";
-<<<<<<< HEAD
 import { RegisterIcon } from "./RegisterIcon.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { navbarData } from "../data/navbarData";
+import "./NavBar.css";
+
 
 // ***************** NEED TO UNCOMMENT EITHER event.preventDefault() lines
 // Probably need to use global state to keep selection.
-=======
-
-import "./NavBar.css";
-import { useLocation } from "react-router-dom";
-
-import { navbarData } from "../data/navbarData";
 
 // const pathname = window.location.pathname; // => gets the url path without the domain
 // console.log(pathname);
->>>>>>> 21ad59d9acf64eb18c259d8a01f475cb25c23971
 
 // Custom settings and colors for Material-UI tabs
 const StyledTabs = styled((props) => (
