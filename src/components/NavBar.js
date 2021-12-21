@@ -89,6 +89,7 @@ export const NavBar = (props) => {
 
   const handlePageSelect = (event, newValue) => {
     setValue(newValue);
+    event.preventDefault();       // UNCOMMENT THIS LINE, OR DOUBLE CLICK TO LOAD PAGE
   };
 
   function handleInput(event) {
