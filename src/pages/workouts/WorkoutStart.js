@@ -33,24 +33,32 @@ export const WorkoutStart = (props) => {
     },
   ];
 
-  const [counter, setCounter] = useState(0);
+  let [counter, setCounter] = useState(0);
   const [disableButton, setDisableButton] = useState(false);
   const [workoutCompleted, setWorkoutCompleted] = useState(false);
   const totalExercises = dummyData.length; 
   console.log(totalExercises);
 
-  function finishExercise() {
-    console.log("CLICKED");
+  const finishExercise = (event, completed) => {
+    console.log("Exercise was: ", completed);
     setDisableButton(true);
-
-    // setCounter++;
+    setCounter++;
     isWorkoutCompleted(counter)
   };
 
-  function isWorkoutCompleted(counter){
-    if (counter === totalExercises) setWorkoutCompleted(true);
+  const isWorkoutCompleted = (counter) => {
+    if (counter === totalExercises){
+      setWorkoutCompleted(true);
+      displayCompletedMessage()
+    }
+      
+
   }
 
+  function displayCompletedMessage(){
+    console.log("CONGRATS! You finished your workout 🎉");
+    // navigate("/workouts");
+  }
   
 
   return (
@@ -110,18 +118,18 @@ export const WorkoutStart = (props) => {
                   </Container>
                 </Container>
                 <Container direction="row">
-                  <IconButton disabled={disableButton} onclick={{ finishExercise }}>
+                  <IconButton disabled={disableButton} onclick={ () => finishExercise(true) }>
                     <DoneIcon
                       sx={{ fontSize: "5rem" }}
                       color= { disableButton ? "warning" : "success"}
                      
                     />
                   </IconButton>
-                  <IconButton>
+                  <IconButton onclick={ () => finishExercise(false) }>
+                      
                     <ClearIcon
                       sx={{ fontSize: "5rem" }}
                       color="error"
-                      onclick={{ finishExercise }}
                     />
                   </IconButton>
                 </Container>
