@@ -6,6 +6,18 @@ import Tab from "@mui/material/Tab";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
+import HomeIcon from "@mui/icons-material/Home";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import EventIcon from "@mui/icons-material/Event";
+import GroupsIcon from "@mui/icons-material/Groups";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
+// import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+// import HowToRegIcon from "@mui/icons-material/HowToReg";
+// import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { useGlobalState } from "../config/globalStore";
 import { signOutUser } from "../services/userServices";
 import { RegisterIcon } from "./RegisterIcon.js";
@@ -137,7 +149,6 @@ export const NavBar = (props) => {
         // Parameter makes the selection to auto pick what is focused/selected with the keyboard in navbar
         // selectionFollowsFocus
       >
-
         {navbarData.map((item, index) => (
           <LinkTab
             icon={item.icon}
@@ -147,11 +158,13 @@ export const NavBar = (props) => {
             href={`${item.title === "logout" ? "/" : item.title}`}
             onClick={(event) => {
               setWindowDisplay(item.display);
+              onClick={() => navigate(`/${item.title}`);
               // event.preventDefault()
             }}
             sx={index === 5 ? { ml: 70 } : null}
           />
         ))}
+
       </StyledTabs>
 
       <TextField

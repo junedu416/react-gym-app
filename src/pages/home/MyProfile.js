@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { UploadButton } from "../../components/buttons/Upload";
 
 import { Container, Heading } from "../../styled-components/";

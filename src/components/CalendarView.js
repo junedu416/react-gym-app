@@ -16,7 +16,7 @@ const CalendarView = ({eventCategory}) => {
     // load events from backend
     //=======
     useEffect(() => {
-        console.log(eventsArray)
+        // console.log(eventsArray)
         if(eventCategory) {
             console.log(`event Category from prop is: ${eventCategory}`)
             const filteredEvents = events.filter((event) => event.category.toLowerCase() === eventCategory.toLowerCase())
