@@ -1,11 +1,11 @@
 import React from "react";
-import { Container, Heading } from "../../styled-components/";
+import { Container, Heading, MainWindow } from "../../styled-components/";
 
 export const Checkins = (props) => {
     
   return (
-    <Container>
+    <MainWindow>
       <Heading>Check-ins</Heading>
-    </Container>
+    </MainWindow>
   );
 };

@@ -1,20 +1,19 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-// import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import React, { useState, useEffect, useReducer } from "react";
+import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
-// import AppBar from "@mui/material/AppBar";
-// import Toolbar from "@mui/material/Toolbar";
-// import List from "@mui/material/List";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
-// import Divider from "@mui/material/Divider";
-// import ListItem from "@mui/material/ListItem";
-// import ListItemIcon from "@mui/material/ListItemIcon";
-// import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
 // import InboxIcon from "@mui/icons-material/MoveToInbox";
 // import MailIcon from "@mui/icons-material/Mail";
-import { Container } from "../../styled-components";
+import { Container, Grid } from "../../styled-components";
 import { SidebarData } from "./sidebarData";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
@@ -117,22 +116,24 @@ TabPanel.propTypes = {
 //   };
 // }
 
-const Dashboard = () => {
+export const Sidebar = () => {
   const [dashboardView, setDashboardView] = useState(<Overview />);
   const [value, setValue] = useState(0);
 
   const navigate = useNavigate();
 
-  // function handleClick(event) {
-  //   event.preventDefault();
-  // }
+  function handleClick(event) {
+    event.preventDefault();
+  }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  console.log(SidebarData.map((item, index) => item));
+
   return (
-    <Container style={{ flexDirection: "row" }}>
+    <Container style={{ position: "fixed",flexDirection: "row" }}>
       <CssBaseline />
       <Drawer
         sx={{
@@ -166,29 +167,14 @@ const Dashboard = () => {
               label={item.title}
               style={dashItem}
               onClick={() => {
-                setDashboardView(item.display)
-                navigate(item.route);
+                if (item.route) {
+                  navigate(item.route);
+                }
               }}
             />
           ))}
         </StyledTabs>
       </Drawer>
-
-      {/* ================ Dashboard content display ================ */}
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          bgcolor: "background.default",
-          px: 3,
-          height: "100vh",
-          width: `calc(100vw - ${drawerWidth})`,
-        }}
-      >
-        {dashboardView}
-      </Box>
     </Container>
   );
 };
-
-export default Dashboard;
