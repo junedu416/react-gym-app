@@ -24,6 +24,7 @@ import { Leaderboards } from "./Leaderboards";
 import { Contact } from "./Contact";
 import { Register } from "../login/Register";
 import { SignIn } from "../login/Login";
+import { Landing } from "../login/Landing";
 
 const iconMargin = {
   marginRight: "7px",
@@ -87,7 +88,9 @@ export const SidebarData = [
     route: "/auth/login"
   },
   {
-    title: [<LogoutIcon style={iconMargin} />, "Sign Out"]
+    title: [<LogoutIcon style={iconMargin} />, "Sign Out"],
+    display: <Landing />,
+    route: "/"
   },
   {
     title: [<RegisterIcon style={iconMargin} />, "Register"],
