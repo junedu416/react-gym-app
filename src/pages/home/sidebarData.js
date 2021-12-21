@@ -17,14 +17,14 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import { Overview } from "./Overview";
 import { Checkins } from "./Checkins.js";
 import { PerformanceStats } from "./PerformanceStats";
-import { MyEvents } from "./MyEvents";
-import { MyWorkouts } from "./MyWorkouts";
 import { MyProfile } from "./MyProfile";
 import { Leaderboards } from "./Leaderboards";
-import { Contact } from "./Contact";
+import { Reporting } from "../contact/Reporting";
 import { Register } from "../login/Register";
 import { SignIn } from "../login/Login";
 import { Landing } from "../login/Landing";
+import { Events } from "../events/Events";
+import { Workouts } from "../workouts/Workouts";
 
 const iconMargin = {
   marginRight: "7px",
@@ -33,42 +33,42 @@ export const SidebarData = [
   {
     title: [<ViewModuleIcon style={iconMargin} />, "Overview"],
     display: <Overview />,
-    route: "/home/overview"
+    route: "/overview"
   },
   {
-    title: [<QrCode2Icon style={iconMargin} />, "Checkins"],
+    title: [<QrCode2Icon style={iconMargin} />, "Check-ins"],
     display: <Checkins />,
-    route: "/home/checkins"
+    route: "/checkins"
   },
   {
     title: [<InsertChartIcon style={iconMargin} />, "Performance Stats"],
     display: <PerformanceStats />,
-    route: "/home/mystats"
+    route: "/mystats"
   },
   {
-    title: [<EventIcon style={iconMargin} />, "My Events"],
-    display: <MyEvents />,
+    title: [<EventIcon style={iconMargin} />, "Events"],
+    display: <Events />,
     route: "/events"
   },
   {
-    title: [<FitnessCenterIcon style={iconMargin} />, "My Workouts"],
-    display: <MyWorkouts />,
+    title: [<FitnessCenterIcon style={iconMargin} />, "Workouts"],
+    display: <Workouts />,
     route: "/workouts"
   },
   {
-    title: [<AccountCircleIcon style={iconMargin} />, "My Profile"],
+    title: [<AccountCircleIcon style={iconMargin} />, "Profile"],
     display: <MyProfile />,
-    route: "/home/myprofile"
+    route: "/myprofile"
   },
   {
     title: [<EmojiEventsIcon style={iconMargin} />, "Leaderboards"],
     display: <Leaderboards />,
-    route: "/home/leaderboards"
+    route: "/leaderboards"
   },
   {
     title: [<CampaignIcon style={iconMargin} />, "Reports"],
-    display: <Contact />,
-    route: "/home/contact"
+    display: <Reporting />,
+    route: "/contact"
 
     // display: {
     //     user: <Contact />,

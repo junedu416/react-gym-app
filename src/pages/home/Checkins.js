@@ -1,15 +1,11 @@
 import React from "react";
-import { Container, Heading } from "../../styled-components/";
+import { Container, Heading, MainWindow } from "../../styled-components/";
 
 export const Checkins = (props) => {
     
   return (
-    <Container style={{
-      width: "calc(100vw - 230px)",
-      float: "right",
-      marginTop: "80px"
-    }}>
+    <MainWindow>
       <Heading>Check-ins</Heading>
-    </Container>
+    </MainWindow>
   );
 };

@@ -14,8 +14,6 @@ import { Home } from "./pages/home/Home";
 import { Overview } from "./pages/home/Overview";
 import { Checkins } from "./pages/home/Checkins.js";
 import { PerformanceStats } from "./pages/home/PerformanceStats";
-import { MyEvents } from "./pages/home/MyEvents";
-import { MyWorkouts } from "./pages/home/MyWorkouts";
 import { MyProfile } from "./pages/home/MyProfile";
 import { Leaderboards } from "./pages/home/Leaderboards";
 import { Contact } from "./pages/home/Contact";
@@ -80,14 +78,12 @@ const App = () => {
         <Route path="/our-team" element={<MeetTheTeam />} />
         <Route path="/our-team/:id" element={<TrainerPage />} />
         <Route path="/contact" element={<Reporting />} />
-        <Route path="/profile" element={<MyProfile />} />
-        {/* <Route path="/home/overview" element={<Overview />} />
-        <Route path="/home/checkins" element={<Checkins />} />
-        <Route path="/home/mystats" element={<PerformanceStats />} />
-        <Route path="/home/myevents" element={<MyEvents />} />
-        <Route path="/home/myworkouts" element={<MyWorkouts />} />
-        <Route path="/home/leaderboards" element={<Leaderboards />} />
-        <Route path="/home/contact" element={<Contact />} /> */}
+        <Route path="/myprofile" element={<MyProfile />} />
+        <Route path="/overview" element={<Overview />} />
+        <Route path="/checkins" element={<Checkins />} />
+        <Route path="/mystats" element={<PerformanceStats />} />
+        <Route path="/leaderboards" element={<Leaderboards />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </StateContext.Provider>
     </>

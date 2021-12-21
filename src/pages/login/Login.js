@@ -46,7 +46,7 @@ export const SignIn = () => {
   }
 
   return (
-    <MainWindow>
+    <MainWindow align="center">
       <Heading>Login</Heading>
       <form onSubmit={handleSubmit}>
         <Container>

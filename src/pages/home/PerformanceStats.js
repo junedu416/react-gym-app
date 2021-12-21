@@ -1,15 +1,11 @@
 import React from "react";
-import { Container, Heading } from "../../styled-components/";
+import { Container, Heading, MainWindow } from "../../styled-components/";
 
 export const PerformanceStats = (props) => {
     
   return (
-    <Container style={{
-      width: "calc(100vw - 230px)",
-      float: "right",
-      marginTop: "80px"
-    }}>
+    <MainWindow>
       <Heading>Performance Stats</Heading>
-    </Container>
+    </MainWindow>
   );
 };

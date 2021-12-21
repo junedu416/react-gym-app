@@ -166,6 +166,7 @@ const Dashboard = () => {
               label={item.title}
               style={dashItem}
               onClick={() => {
+                setDashboardView(item.display)
                 navigate(item.route);
               }}
             />

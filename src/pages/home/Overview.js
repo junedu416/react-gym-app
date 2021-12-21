@@ -1,6 +1,6 @@
 import React from "react";
 import { CardStyle } from "../../styled-components/dashboard.js";
-import { Container, Grid, SmallHeading } from "../../styled-components";
+import { Container, Grid, MainWindow, SmallHeading } from "../../styled-components";
 import { useGlobalState } from "../../config/globalStore.js";
 
 export const Overview = (props) => {
@@ -9,7 +9,7 @@ export const Overview = (props) => {
   const {profile} = store;
 
   return (
-    <Container>
+    <MainWindow>
       <SmallHeading>Welcome back { profile ? profile.firstName : "user" }, here's your overview</SmallHeading>
       <Grid>
         <CardStyle />
@@ -19,6 +19,6 @@ export const Overview = (props) => {
         <CardStyle />
         <CardStyle />
       </Grid>
-    </Container>
+    </MainWindow>
   );
 };

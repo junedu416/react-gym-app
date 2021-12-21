@@ -1,16 +1,12 @@
 import React from "react";
-import { Heading, Container } from "../../styled-components/";
+import { Heading, Container, MainWindow } from "../../styled-components/";
 
 export const Contact = (props) => {
     
   return (
-    <Container style={{
-      width: "calc(100vw - 230px)",
-      float: "right",
-      marginTop: "80px"
-    }}>
+    <MainWindow>
         <Heading>Contact</Heading>
-    </Container>
+    </MainWindow>
   );
 };
 
