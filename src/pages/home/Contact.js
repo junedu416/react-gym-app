@@ -4,7 +4,11 @@ import { Heading, Container } from "../../styled-components/";
 export const Contact = (props) => {
     
   return (
-    <Container>
+    <Container style={{
+      width: "calc(100vw - 230px)",
+      float: "right",
+      marginTop: "80px"
+    }}>
         <Heading>Contact</Heading>
     </Container>
   );

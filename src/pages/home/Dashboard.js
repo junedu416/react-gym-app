@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useReducer } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -120,6 +120,8 @@ const Dashboard = () => {
   const [dashboardView, setDashboardView] = useState(<Overview />);
   const [value, setValue] = useState(0);
 
+  const navigate = useNavigate();
+
   function handleClick(event) {
     event.preventDefault();
   }
@@ -165,7 +167,7 @@ const Dashboard = () => {
               label={item.title}
               style={dashItem}
               onClick={() => {
-                setDashboardView(item.display);
+                navigate(item.route);
               }}
             />
           ))}

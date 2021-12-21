@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { NavBar } from "./components/NavBar";
+import Sidebar from "./pages/home/Sidebar"
 
 // Log in
 import { Landing } from "./pages/login/Landing";
@@ -54,7 +55,8 @@ const App = () => {
   return (
     <>
       <StateContext.Provider value={{store, dispatch}}>
-      <NavBar />
+      {/*<NavBar />*/}
+      <Sidebar />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/auth/login" element={<SignIn />} />
