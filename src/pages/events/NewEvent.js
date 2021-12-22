@@ -207,19 +207,22 @@ export const NewEvent = () => {
               </Stack>
             </Container>
           </LocalizationProvider>
-          <TextField
-            required
-            variant="outlined"
-            label="Spots Available"
-            type="number"
-            name="spotsAvailable"
-            inputProps={{ min: "1", step: "1" }}
-            onChange={handleChange}
-            value={formValues.spotsAvailable}
-            defaultValue="1"
-            sx={{ mb: 4 }}
-            style={alignLeft}
-          />
+
+          {formValues.category === "Competition" ? null : (
+            <TextField
+              required
+              variant="outlined"
+              label="Spots Available"
+              type="number"
+              name="spotsAvailable"
+              inputProps={{ min: "1", step: "1" }}
+              onChange={handleChange}
+              value={formValues.spotsAvailable}
+              defaultValue="1"
+              sx={{ mb: 4 }}
+              style={alignLeft}
+            />
+          )}
           <TextField
             label="Description"
             multiline
