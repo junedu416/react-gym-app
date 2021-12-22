@@ -113,7 +113,7 @@ export const NewEvent = () => {
     <MainWindow>
       <Heading>Create Event</Heading>
       <form onSubmit={handleSubmit}>
-        <Container>
+        <Container style={{ minWidth: "400px" }}>
           <TextField
             select
             label="Event Type"
@@ -130,126 +130,132 @@ export const NewEvent = () => {
             ))}
           </TextField>
 
-          {formValues.category === "Class" ? (
-            <TextField
-              select
-              required
-              label="Select Class"
-              value={formValues.name}
-              onChange={handleChange}
-              name="name"
-              helperText="Please select class"
-              fullWidth
-            >
-              {gymClasses.map((groupClass) => (
-                <MenuItem value={groupClass.name}>{groupClass.name}</MenuItem>
-              ))}
-            </TextField>
-          ) : (
-            <TextField
-              required
-              label="Event Name"
-              variant="outlined"
-              fullWidth
-              // sx={{ minWidth: 480, mb: 3 }}
-              name="name"
-              onChange={handleChange}
-            />
+          {formValues.category === "" ? null : (
+            <>
+              {formValues.category === "Class" ? (
+                <TextField
+                  select
+                  required
+                  label="Select Class"
+                  value={formValues.name}
+                  onChange={handleChange}
+                  name="name"
+                  helperText="Please select class"
+                  fullWidth
+                >
+                  {gymClasses.map((groupClass) => (
+                    <MenuItem value={groupClass.name}>
+                      {groupClass.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              ) : (
+                <TextField
+                  required
+                  label="Event Name"
+                  variant="outlined"
+                  fullWidth
+                  // sx={{ minWidth: 480, mb: 3 }}
+                  name="name"
+                  onChange={handleChange}
+                />
+              )}
+
+              {/* Date Selection */}
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <Container style={{ flexDirection: "row" }}>
+                  <Stack spacing={2} mr={2} my={4}>
+                    <MobileDatePicker
+                      label="Start Date"
+                      value={startTime}
+                      onChange={(newValue) => {
+                        setStartTime(newValue);
+                      }}
+                      renderInput={(params) => (
+                        <TextField sx={{ mb: 2 }} {...params} />
+                      )}
+                    />
+                    <MobileDatePicker
+                      label="End Date"
+                      value={endTime}
+                      onChange={(newValue) => {
+                        setEndTime(newValue);
+                      }}
+                      renderInput={(params) => (
+                        <TextField sx={{ mb: 2 }} {...params} />
+                      )}
+                    />
+                  </Stack>
+
+                  <Stack spacing={2}>
+                    <MobileTimePicker
+                      label="Start Time"
+                      value={startTime}
+                      onChange={(newValue) => {
+                        setStartTime(newValue);
+                      }}
+                      renderInput={(params) => (
+                        <TextField sx={{ mb: 2 }} {...params} />
+                      )}
+                    />
+                    <MobileTimePicker
+                      label="End Time"
+                      value={endTime}
+                      onChange={(newValue) => {
+                        setEndTime(newValue);
+                      }}
+                      renderInput={(params) => (
+                        <TextField sx={{ mb: 2 }} {...params} />
+                      )}
+                    />
+                  </Stack>
+                </Container>
+              </LocalizationProvider>
+
+              {formValues.category === "Competition" ? null : (
+                <TextField
+                  required
+                  variant="outlined"
+                  label="Spots Available"
+                  type="number"
+                  name="spotsAvailable"
+                  inputProps={{ min: "1", step: "1" }}
+                  onChange={handleChange}
+                  value={formValues.spotsAvailable}
+                  defaultValue="1"
+                  sx={{ mb: 4 }}
+                  style={alignLeft}
+                />
+              )}
+              <TextField
+                label="Description"
+                multiline
+                rows={4}
+                maxRows={4}
+                value={formValues.description}
+                name="description"
+                onChange={handleChange}
+                fullWidth
+                sx={{ mb: 2 }}
+                required
+              />
+
+              <Container direction="row" style={alignLeft}>
+                <AttachmentIcon /> <span>Attach Photo</span>
+              </Container>
+
+              <input
+                type="file"
+                accept="image/*,.pdf"
+                name="eventImage"
+                id="eventImage"
+                onChange={handleFile}
+                style={alignLeft}
+              />
+
+              <CreateEvent />
+            </>
           )}
-
-          {/* Date Selection */}
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Container style={{ flexDirection: "row" }}>
-              <Stack spacing={2} mr={2} my={4}>
-                <MobileDatePicker
-                  label="Start Date"
-                  value={startTime}
-                  onChange={(newValue) => {
-                    setStartTime(newValue);
-                  }}
-                  renderInput={(params) => (
-                    <TextField sx={{ mb: 2 }} {...params} />
-                  )}
-                />
-                <MobileDatePicker
-                  label="End Date"
-                  value={endTime}
-                  onChange={(newValue) => {
-                    setEndTime(newValue);
-                  }}
-                  renderInput={(params) => (
-                    <TextField sx={{ mb: 2 }} {...params} />
-                  )}
-                />
-              </Stack>
-
-              <Stack spacing={2}>
-                <MobileTimePicker
-                  label="Start Time"
-                  value={startTime}
-                  onChange={(newValue) => {
-                    setStartTime(newValue);
-                  }}
-                  renderInput={(params) => (
-                    <TextField sx={{ mb: 2 }} {...params} />
-                  )}
-                />
-                <MobileTimePicker
-                  label="End Time"
-                  value={endTime}
-                  onChange={(newValue) => {
-                    setEndTime(newValue);
-                  }}
-                  renderInput={(params) => (
-                    <TextField sx={{ mb: 2 }} {...params} />
-                  )}
-                />
-              </Stack>
-            </Container>
-          </LocalizationProvider>
-
-          {formValues.category === "Competition" ? null : (
-            <TextField
-              required
-              variant="outlined"
-              label="Spots Available"
-              type="number"
-              name="spotsAvailable"
-              inputProps={{ min: "1", step: "1" }}
-              onChange={handleChange}
-              value={formValues.spotsAvailable}
-              defaultValue="1"
-              sx={{ mb: 4 }}
-              style={alignLeft}
-            />
-          )}
-          <TextField
-            label="Description"
-            multiline
-            rows={4}
-            maxRows={4}
-            value={formValues.description}
-            name="description"
-            onChange={handleChange}
-            fullWidth
-            sx={{ mb: 2 }}
-            required
-          />
-
-          <Container direction="row" style={alignLeft}>
-            <AttachmentIcon /> <span>Attach Photo</span>
-          </Container>
-
-          <input
-            type="file"
-            accept="image/*,.pdf"
-            name="eventImage"
-            id="eventImage"
-            onChange={handleFile}
-            style={alignLeft}
-          />
-
-          <CreateEvent />
         </Container>
       </form>
     </MainWindow>
