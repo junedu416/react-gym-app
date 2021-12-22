@@ -9,6 +9,7 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { MobileDatePicker, MobileTimePicker } from "@mui/lab";
 // services
 import { createNewEvent } from "../../services/eventsServices";
+import Select from "@mui/material/Select";
 
 export const NewEvent = () => {
   const [startTime, setStartTime] = useState(new Date());
@@ -19,6 +20,7 @@ export const NewEvent = () => {
     name: "",
     description: "",
     category: "",
+    level: "",
     spotsAvailable: 1,
   };
   const [formValues, setFormValues] = useState(initialValues);
@@ -57,6 +59,56 @@ export const NewEvent = () => {
     marginBottom: "20px",
   };
 
+  const gymClasses = [
+    {
+      name: "BodyAttack",
+      description: "abc",
+    },
+    {
+      name: "BodyCombat",
+      description: "",
+    },
+    {
+      name: "BodyPump",
+      description: "",
+    },
+    {
+      name: "Bootcamp",
+      description: "",
+    },
+    {
+      name: "Boxing",
+      description: "",
+    },
+    {
+      name: "Circuit",
+      description: "",
+    },
+    {
+      name: "Cycle",
+      description: "",
+    },
+    {
+      name: "HIIT",
+      description: "",
+    },
+    {
+      name: "Pilates",
+      description: "",
+    },
+    {
+      name: "Yoga",
+      description: "",
+    },
+    {
+      name: "Zumba",
+      description: "",
+    },
+  ];
+
+  // const gymClasses = ["A", "b", "c"];
+  const eventCategories = ["Class", "Competition", "Personal Training"];
+
   return (
     <MainWindow>
       <Heading>Create Event</Heading>
@@ -64,34 +116,47 @@ export const NewEvent = () => {
         <Container>
           <TextField
             select
-            required
             label="Event Type"
+            required
             value={formValues.category}
             onChange={handleChange}
             name="category"
             helperText="Please select the event type"
-            sx={{ mb: 2 }}
+            sx={{ mb: 3 }}
             fullWidth
           >
-            <MenuItem key="class" value="Class">
-              Class
-            </MenuItem>
-            <MenuItem key="competition" value="Competition">
-              Competition
-            </MenuItem>
-            <MenuItem key="personal training" value="Personal Training">
-              Personal Training
-            </MenuItem>
+            {eventCategories.map((category) => (
+              <MenuItem value={category}>{category}</MenuItem>
+            ))}
           </TextField>
-          <TextField
-            required
-            label="Event Name"
-            variant="outlined"
-            fullWidth
-            // sx={{ minWidth: 480, mb: 3 }}
-            name="name"
-            onChange={handleChange}
-          />
+
+          {formValues.category === "Class" ? (
+            <TextField
+              select
+              required
+              label="Select Class"
+              value={formValues.name}
+              onChange={handleChange}
+              name="name"
+              helperText="Please select class"
+              fullWidth
+            >
+              {gymClasses.map((groupClass) => (
+                <MenuItem value={groupClass.name}>{groupClass.name}</MenuItem>
+              ))}
+            </TextField>
+          ) : (
+            <TextField
+              required
+              label="Event Name"
+              variant="outlined"
+              fullWidth
+              // sx={{ minWidth: 480, mb: 3 }}
+              name="name"
+              onChange={handleChange}
+            />
+          )}
+
           {/* Date Selection */}
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Container style={{ flexDirection: "row" }}>
@@ -171,7 +236,7 @@ export const NewEvent = () => {
           <Container direction="row" style={alignLeft}>
             <AttachmentIcon /> <span>Attach Photo</span>
           </Container>
-          
+
           <input
             type="file"
             accept="image/*,.pdf"
