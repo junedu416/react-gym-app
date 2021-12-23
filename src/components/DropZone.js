@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 
 import "./DropZone.css";
 import { Container } from "../styled-components";
+import { CloudUpload, Upload, UploadFile } from "@mui/icons-material";
 
 const Dropzone = () => {
   const fileInputRef = useRef();
@@ -145,7 +146,7 @@ const Dropzone = () => {
       formData.append("key", "");
 
       axios
-      // CHANGE URL TO FILE UPLOAD FOR FIREBASE
+        // CHANGE URL TO FILE UPLOAD FOR FIREBASE
         .post("https://api.imgbb.com/1/upload", formData, {
           onUploadProgress: (progressEvent) => {
             const uploadPercentage = Math.floor(
@@ -186,7 +187,12 @@ const Dropzone = () => {
           onClick={fileInputClicked}
         >
           <div className="drop-message">
-            <div className="upload-icon"></div>
+            <div>
+              {/* <CloudUpload sx={{ fontSize: "8rem" }} /> */}
+              <UploadFile sx={{ fontSize: "8rem" }} />
+              {/* <Upload sx={{ fontSize: "8rem" }} /> */}
+            </div>
+            {/* <div className="upload-icon"></div> */}
             Drag & Drop files here or click to select file(s)
           </div>
           <input
