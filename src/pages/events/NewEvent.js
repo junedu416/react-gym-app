@@ -9,7 +9,7 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { MobileDatePicker, MobileTimePicker } from "@mui/lab";
 // services
 import { createNewEvent } from "../../services/eventsServices";
-import Select from "@mui/material/Select";
+import { gymClasses } from "../../data/classes";
 
 export const NewEvent = () => {
   const [startTime, setStartTime] = useState(new Date());
@@ -56,58 +56,26 @@ export const NewEvent = () => {
 
   const alignLeft = {
     alignSelf: "flex-start",
-    marginBottom: "20px",
+    marginBottom: "30px",
   };
 
-  const gymClasses = [
-    {
-      name: "BodyAttack",
-      description: "abc",
-    },
-    {
-      name: "BodyCombat",
-      description: "",
-    },
-    {
-      name: "BodyPump",
-      description: "",
-    },
-    {
-      name: "Bootcamp",
-      description: "",
-    },
-    {
-      name: "Boxing",
-      description: "",
-    },
-    {
-      name: "Circuit",
-      description: "",
-    },
-    {
-      name: "Cycle",
-      description: "",
-    },
-    {
-      name: "HIIT",
-      description: "",
-    },
-    {
-      name: "Pilates",
-      description: "",
-    },
-    {
-      name: "Yoga",
-      description: "",
-    },
-    {
-      name: "Zumba",
-      description: "",
-    },
-  ];
+ 
 
   // const gymClasses = ["A", "b", "c"];
   const eventCategories = ["Class", "Competition", "Personal Training"];
+
+  function autoFillDescription(props) {
+    const { formValues: input } = props;
+    if (input.category === "Class" && input.name === "") return null
+    else {
+      console.log("Category: ", input.category)
+      console.log("Name: ", input.name)
+      const output = gymClasses.filter( gymClass => gymClass.name === input.name )
+      console.log(output)
+      // setFormValues.description = output.description
+      return output.description
+    }
+  }
 
   return (
     <MainWindow>
@@ -122,7 +90,7 @@ export const NewEvent = () => {
             onChange={handleChange}
             name="category"
             helperText="Please select the event type"
-            sx={{ mb: 3 }}
+            sx={{ mb: 2 }}
             fullWidth
           >
             {eventCategories.map((category) => (
@@ -140,7 +108,7 @@ export const NewEvent = () => {
                   value={formValues.name}
                   onChange={handleChange}
                   name="name"
-                  helperText="Please select class"
+                  // helperText="Please select class"
                   fullWidth
                 >
                   {gymClasses.map((groupClass) => (
@@ -222,16 +190,16 @@ export const NewEvent = () => {
                   inputProps={{ min: "1", step: "1" }}
                   onChange={handleChange}
                   value={formValues.spotsAvailable}
-                  defaultValue="1"
-                  sx={{ mb: 4 }}
                   style={alignLeft}
+                  // defaultValue="1"    // Don't need this
                 />
               )}
+              
               <TextField
                 label="Description"
                 multiline
                 rows={4}
-                maxRows={4}
+                // value={formValues.category === "Class" && formValues.name !== "" ? {autoFillDescription} : formValues.description }
                 value={formValues.description}
                 name="description"
                 onChange={handleChange}
