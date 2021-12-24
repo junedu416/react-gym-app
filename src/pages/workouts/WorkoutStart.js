@@ -135,22 +135,24 @@ export const WorkoutStart = (props) => {
             <Container
               key={exercise}
               active={false}
+              align="flex-start"
               style={{
                 width: "100%",
-                padding: "0 30px 10px 30px",
+                paddingBottom: "10px",
+                // padding: "0 30px 10px 30px",
               }}
             >
               <SmallHeading
                 size="1.6rem"
-                color="lime"
+                color="rgba(40, 40, 40, 0.8)"
                 // color={disableButton ? "grey" : "lime"}
-                style={{ margin: "20px 0 0 0", alignSelf: "flex-start" }}
+                style={{ margin: "20px 0 0 0" }}
               >
                 {exercise.name}
               </SmallHeading>
               <Container
                 direction="row"
-                style={{ width: "100%" }}
+                style={{ width: "100%", marginRight: "40px" }}
                 justify="space-between"
               >
                 <Container direction="row" style={{ gap: "50px" }}>

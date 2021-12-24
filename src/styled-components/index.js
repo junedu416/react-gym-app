@@ -1,6 +1,6 @@
 // import { css } from 'styled-components'; // turn this into a 1-liner?
 import styled from "styled-components";
-import { flexbox, centered, pt, link, greyBorder, shadow, mt, vcentered, hcentered } from "./mixins";
+import { flexbox, centered, link, greyBorder, shadow, mt, vcentered, hcentered } from "./mixins";
 import { Link } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 
