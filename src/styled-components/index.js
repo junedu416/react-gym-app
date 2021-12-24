@@ -1,6 +1,6 @@
 // import { css } from 'styled-components'; // turn this into a 1-liner?
 import styled from "styled-components";
-import { flexbox, centered, pt, link, greyBorder, shadow, mt } from "./mixins";
+import { flexbox, centered, pt, link, greyBorder, shadow, mt, vcentered, hcentered } from "./mixins";
 import { Link } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 
@@ -12,13 +12,13 @@ export const Container = styled.div`
   ${props => props.mt && mt }
 `;
 
-  /* justify-content: ${props => (props.justifyItems ? props.justifyItems : "center")};
-  align-items: ${props => (props.align ? props.align : "center")}; */
-
 export const MainWindow = styled.div`
   ${flexbox};
-  ${centered};
-  ${pt};
+  ${vcentered};
+  width: calc(100vw - 230px);
+  min-height: 100vh;
+  margin-left: 230px;
+  ${props => props.verticalMiddle && hcentered}
 `;
 
 export const Heading = styled.h1`

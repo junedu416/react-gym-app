@@ -13,6 +13,18 @@ export const centered = (props) => {
   `;
 };
 
+export const vcentered = (props) => {
+  return `
+    align-items: ${props.align ? props.align : "center"};
+  `;
+}
+
+export const hcentered = (props) => {
+  return `
+    justify-content: ${props.justify ? props.justify : "center"};
+  `;
+}
+
 export const popupMiddle = () => {
   return `
     position: absolute;

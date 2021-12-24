@@ -1,12 +1,12 @@
 import React from "react";
-import { Heading, Container } from "../../styled-components/";
+import { Heading, Container, MainWindow } from "../../styled-components/";
 
 export const Contact = (props) => {
     
   return (
-    <Container>
+    <MainWindow>
         <Heading>Contact</Heading>
-    </Container>
+    </MainWindow>
   );
 };
 

@@ -13,7 +13,7 @@ export const Landing = (props) => {
     navigate("/auth/login");
   }
   return (
-    <MainWindow>
+    <MainWindow justify="center">
       <div
         style={{
           backgroundColor: "black",
