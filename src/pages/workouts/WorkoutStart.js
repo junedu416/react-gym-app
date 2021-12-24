@@ -1,25 +1,39 @@
 import React, { useState } from "react";
 import EditButton from "../../components/buttons/Edit";
-import { Container, MainWindow, SmallHeading, StyledModal } from "../../styled-components";
+import {
+  Container,
+  MainWindow,
+  SmallHeading,
+  StyledModal,
+} from "../../styled-components";
 import IconButton from "@mui/material/IconButton";
 import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
 import Divider from "@mui/material/Divider";
 import { WorkoutText } from "../../styled-components/workouts";
 import moment from "moment";
-import { Box, Fade, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Fade,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { modalStyling } from "../../styled-components/modal";
 import Backdrop from "@mui/material/Backdrop";
+import { blueGrey } from "@mui/material/colors";
+const borderOutline = blueGrey[200];
 
 export const WorkoutStart = (props) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => { 
+  const handleClose = () => {
     setOpen(false);
     navigate("/workouts");
-  }
+  };
 
   const dummyData = [
     {
@@ -48,35 +62,52 @@ export const WorkoutStart = (props) => {
   const [counter, setCounter] = useState(0);
   // const [disableButton, setDisableButton] = useState(false);
   const [workoutCompleted, setWorkoutCompleted] = useState(false);
-  const [completed, setCompleted] = useState(false);
   const totalExercises = dummyData.length - 1;
+  const [btnDisabled, setBtnDisabled] = useState(false);
 
   const finishExercise = (event, isCompleted) => {
     setCounter(counter + 1);
     console.log("Completed (True/False): ", isCompleted);
     console.log("Event : ", event);
+    setBtnDisabled(true);
 
-// **************************************************************************************************************
+    // **************************************************************************************************************
 
-// NEED TO TARGET BOTH THE TICK AND CROSS TO BE DISABLED.. NOT SURE HOW TO DO THIS:
-// THINKING TO TARGET THE STACK ELEMENT AND BASED ON IF THAT'S DISABLED, PASS THE DISABLED PROPS TO THE CHILDREN
-// ELEMNTS (BUTTONS).
+    // NEED TO TARGET BOTH THE TICK AND CROSS TO BE DISABLED.. NOT SURE HOW TO DO THIS:
+    // THINKING TO TARGET THE STACK ELEMENT AND BASED ON IF THAT'S DISABLED, PASS THE DISABLED PROPS TO THE CHILDREN
+    // ELEMNTS (BUTTONS).
 
     // setDisableButton(true);
-    const parent = event.target.parentElement.parentElement;
-    parent.disabled = true;
-    
-    event.target.disabled = true;
-    
-    event.target.parentElement.disabled = true;
+    const targetElement = event.target;
+    const parent = event.target.parentElement;
+    const grandparent = event.target.parentElement.parentElement;
+    const thirdParent = event.target.parentElement.parentElement.parentElement;
 
-    console.log("disabled: ", event.target.disabled);
-    
-    console.log("Parent: ", event.target.parentElement.parentElement)
+    const parentNode = event.currentTarget.parentNode;
+    const grandParentNode = parentNode.parentNode;
+
+    parentNode.disabled = true;
+    console.log("PARENTNODE: ", parentNode)
+    console.log("GrandparentNODE: ", grandParentNode)
+
+
+    console.log("key: ", parent[0]);
+
+    // targetElement.disabled = true;
+    // parent.disabled = true;
+    // grandparent.disabled = true;
+    // thirdParent.disabled = true;
+
+    console.log("Disabled: ", event.target.disabled);
+    console.log("Target: ", targetElement);
+
+    console.log("Parent: ", parent);
+    console.log("Grandparent: ", grandparent);
+    console.log("3rd Parent: ", thirdParent);
 
     event.target.parentElement.parentElement.disabled = true;
 
-// **************************************************************************************************************    
+    // **************************************************************************************************************
 
     isWorkoutCompleted(counter);
   };
@@ -87,13 +118,17 @@ export const WorkoutStart = (props) => {
       handleOpen();
       displayCompletedMessage();
 
-
- // ================================ ADD LOGIC TO SEND TO BACKEND ==========================     
+      // ================================ ADD LOGIC TO SEND TO BACKEND ==========================
       // sendData();
       // navigate("/workouts");
 
-// =========================================================================================
+      // =========================================================================================
     }
+  };
+
+  const disableButtons = (event) => {
+    console.log("disable event: ", event);
+    event.target.disabled = true;
   };
 
   function displayCompletedMessage() {
@@ -169,40 +204,47 @@ export const WorkoutStart = (props) => {
                     <WorkoutText>{exercise.weight}</WorkoutText>
                   </Container>
                 </Container>
+
                 {/* <Container direction="row"> */}
-                  <Stack
-                    direction="row"
-                    disabled
-                    // onclick={() => (Children.disabled = true)}
+                <ButtonGroup
+                  key={index}
+                  variant="text"
+                  color="success"
+                  aria-label="complete workout button group"
+                  onclick={(e) => disableButtons(e)}
+                  // disabled
+                >
+                  <Button
+                    key={index + "Completed"}
+                    // disabled={ btnDisabled ? true : false }
+                    // disabled={disableButton}
+                    // disabled={props.disabled}
+
+                    onClick={(e) => {
+                      finishExercise(e, true);
+                      // disableButton(e);
+                    }}
                   >
-                    <IconButton
-                      key={index + "Completed"}
-                      // disabled={disableButton}
-                      onClick={(e) => {
-                        finishExercise(e, true);
-                        // disableButton(e);
-                      }}
-                      // onClick={() => (finishExercise(), exerciseCompleted(true))}
-                    >
-                      <DoneIcon
-                        sx={{ fontSize: "5rem" }}
-                        color="success"
-                        // color={disableButton ? "disabled" : "success"}
-                      />
-                    </IconButton>
-                    <IconButton
-                      key={index + "Incomplete"}
-                      // disabled={disableButton}
-                      onClick={(e) => finishExercise(e, false)}
-                      // onClick={() => (finishExercise(), exerciseCompleted(false))}
-                    >
-                      <ClearIcon
-                        sx={{ fontSize: "5rem" }}
-                        color="error"
-                        // color={disableButton ? "disabled" : "error"}
-                      />
-                    </IconButton>
-                  </Stack>
+                    <DoneIcon
+                      sx={{ fontSize: "5rem" }}
+                      color="success"
+                      // color={ btnDisabled ? "disabled" : "success"}
+                    />
+                  </Button>
+                  <Button
+                    key={index + "Incomplete"}
+                    // disabled={disableButton}
+                    onClick={(e) => finishExercise(e, false)}
+                    // onClick={() => (finishExercise(), exerciseCompleted(false))}
+                  >
+                    <ClearIcon
+                      sx={{ fontSize: "5rem" }}
+                      color="error"
+                      // color={disableButton ? "disabled" : "error"}
+                    />
+                  </Button>
+                </ButtonGroup>
+
                 {/* </Container> */}
               </Container>
             </Container>
@@ -223,11 +265,11 @@ export const WorkoutStart = (props) => {
       >
         <Fade in={open}>
           <Box sx={modalStyling}>
-
-         {workoutCompleted && <Typography>YAY!! You completed your workout!! 🎉🎉</Typography>}
-
-         </Box>
-         </Fade>
+            {workoutCompleted && (
+              <Typography>YAY!! You completed your workout!! 🎉🎉</Typography>
+            )}
+          </Box>
+        </Fade>
       </StyledModal>
     </MainWindow>
   );
