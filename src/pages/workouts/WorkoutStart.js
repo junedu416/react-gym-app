@@ -1,14 +1,26 @@
 import React, { useState } from "react";
 import EditButton from "../../components/buttons/Edit";
-import { Container, MainWindow, SmallHeading } from "../../styled-components";
+import { Container, MainWindow, SmallHeading, StyledModal } from "../../styled-components";
 import IconButton from "@mui/material/IconButton";
 import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
 import Divider from "@mui/material/Divider";
 import { WorkoutText } from "../../styled-components/workouts";
 import moment from "moment";
+import { Box, Fade, Stack, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { modalStyling } from "../../styled-components/modal";
+import Backdrop from "@mui/material/Backdrop";
 
 export const WorkoutStart = (props) => {
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => { 
+    setOpen(false);
+    navigate("/workouts");
+  }
+
   const dummyData = [
     {
       name: "Bench Press",
@@ -33,33 +45,68 @@ export const WorkoutStart = (props) => {
     },
   ];
 
-  let [counter, setCounter] = useState(0);
-  const [disableButton, setDisableButton] = useState(false);
+  const [counter, setCounter] = useState(0);
+  // const [disableButton, setDisableButton] = useState(false);
   const [workoutCompleted, setWorkoutCompleted] = useState(false);
-  const totalExercises = dummyData.length; 
-  console.log(totalExercises);
+  const [completed, setCompleted] = useState(false);
+  const totalExercises = dummyData.length - 1;
 
-  const finishExercise = (completed) => {
-    console.log("Exercise was: ", completed);
-    setDisableButton(true);
-    setCounter(+1);
-    isWorkoutCompleted(counter)
+  const finishExercise = (event, isCompleted) => {
+    setCounter(counter + 1);
+    console.log("Completed (True/False): ", isCompleted);
+    console.log("Event : ", event);
+
+// **************************************************************************************************************
+
+// NEED TO TARGET BOTH THE TICK AND CROSS TO BE DISABLED.. NOT SURE HOW TO DO THIS:
+// THINKING TO TARGET THE STACK ELEMENT AND BASED ON IF THAT'S DISABLED, PASS THE DISABLED PROPS TO THE CHILDREN
+// ELEMNTS (BUTTONS).
+
+    // setDisableButton(true);
+    const parent = event.target.parentElement.parentElement;
+    parent.disabled = true;
+    
+    event.target.disabled = true;
+    
+    event.target.parentElement.disabled = true;
+
+    console.log("disabled: ", event.target.disabled);
+    
+    console.log("Parent: ", event.target.parentElement.parentElement)
+
+    event.target.parentElement.parentElement.disabled = true;
+
+// **************************************************************************************************************    
+
+    isWorkoutCompleted(counter);
   };
 
   const isWorkoutCompleted = (counter) => {
-    if (counter === totalExercises){
+    if (counter === totalExercises) {
       setWorkoutCompleted(true);
-      displayCompletedMessage()
+      handleOpen();
+      displayCompletedMessage();
+
+
+ // ================================ ADD LOGIC TO SEND TO BACKEND ==========================     
+      // sendData();
+      // navigate("/workouts");
+
+// =========================================================================================
     }
-      
+  };
 
-  }
-
-  function displayCompletedMessage(){
+  function displayCompletedMessage() {
     console.log("CONGRATS! You finished your workout 🎉");
     // navigate("/workouts");
   }
-  
+
+  // const disableButton = (event) => {
+  //   event.target.disabled = true;
+  // };
+
+  console.log("Total Exercises: ", totalExercises);
+  console.log("Completed Exercises: ", counter);
 
   return (
     <MainWindow>
@@ -70,10 +117,12 @@ export const WorkoutStart = (props) => {
         mt
       >
         <p style={{ alignSelf: "flex-end" }}>{moment().format("LL")}</p>
-        <Container direction="row" style={{width:"100%"}} justify="space-between">
-          <SmallHeading style={{ margin: "0" }}>
-            Workout A
-          </SmallHeading>
+        <Container
+          direction="row"
+          style={{ width: "100%" }}
+          justify="space-between"
+        >
+          <SmallHeading style={{ margin: "0" }}>Workout A</SmallHeading>
           <EditButton />
         </Container>
 
@@ -84,7 +133,7 @@ export const WorkoutStart = (props) => {
         {dummyData.map((exercise, index) => (
           <>
             <Container
-              // key={index}
+              key={exercise}
               active={false}
               style={{
                 width: "100%",
@@ -93,7 +142,8 @@ export const WorkoutStart = (props) => {
             >
               <SmallHeading
                 size="1.6rem"
-                color={disableButton ? "grey" : "lime"}
+                color="lime"
+                // color={disableButton ? "grey" : "lime"}
                 style={{ margin: "20px 0 0 0", alignSelf: "flex-start" }}
               >
                 {exercise.name}
@@ -117,30 +167,66 @@ export const WorkoutStart = (props) => {
                     <WorkoutText>{exercise.weight}</WorkoutText>
                   </Container>
                 </Container>
-                <Container direction="row">
-                  <IconButton key={index} disabled={disableButton} onClick={ () => finishExercise(true) }>
-                    <DoneIcon
-                      sx={{ fontSize: "5rem" }}
-                      color= { disableButton ? "warning" : "success"}
-                     
-                    />
-                  </IconButton>
-                  <IconButton onClick={ () => finishExercise(false) }>
-                      
-                    <ClearIcon
-                      sx={{ fontSize: "5rem" }}
-                      color="error"
-                    />
-                  </IconButton>
-                </Container>
+                {/* <Container direction="row"> */}
+                  <Stack
+                    direction="row"
+                    disabled
+                    // onclick={() => (Children.disabled = true)}
+                  >
+                    <IconButton
+                      key={index + "Completed"}
+                      // disabled={disableButton}
+                      onClick={(e) => {
+                        finishExercise(e, true);
+                        // disableButton(e);
+                      }}
+                      // onClick={() => (finishExercise(), exerciseCompleted(true))}
+                    >
+                      <DoneIcon
+                        sx={{ fontSize: "5rem" }}
+                        color="success"
+                        // color={disableButton ? "disabled" : "success"}
+                      />
+                    </IconButton>
+                    <IconButton
+                      key={index + "Incomplete"}
+                      // disabled={disableButton}
+                      onClick={(e) => finishExercise(e, false)}
+                      // onClick={() => (finishExercise(), exerciseCompleted(false))}
+                    >
+                      <ClearIcon
+                        sx={{ fontSize: "5rem" }}
+                        color="error"
+                        // color={disableButton ? "disabled" : "error"}
+                      />
+                    </IconButton>
+                  </Stack>
+                {/* </Container> */}
               </Container>
             </Container>
             <Divider sx={{ width: "90%" }} />
           </>
         ))}
-        <Container></Container>
       </Container>
-      {workoutCompleted && "YAYYY!! YOU FINISHED YOUR WORKOUT!!"}
+      <StyledModal
+        aria-labelledby="booking-confirmation"
+        aria-describedby="booking-confirmation"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 600,
+        }}
+      >
+        <Fade in={open}>
+          <Box sx={modalStyling}>
+
+         {workoutCompleted && <Typography>YAY!! You completed your workout!! 🎉🎉</Typography>}
+
+         </Box>
+         </Fade>
+      </StyledModal>
     </MainWindow>
   );
 };
