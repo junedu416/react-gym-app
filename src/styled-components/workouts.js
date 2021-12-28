@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexbox, shadow } from "./mixins";
+import { flexbox, ml, p, shadow } from "./mixins";
 
 export const WorkoutCardStyling = styled.div`
   ${flexbox};
@@ -11,14 +11,14 @@ export const WorkoutCardStyling = styled.div`
 `
 
 export const WorkoutList = styled.div`
-  padding-left: 15px;
-  padding-right: 5px;
+  /* padding-left: 15px; */
+  /* padding-right: 5px; */
   text-transform: capitalize;
   ${flexbox};
   flex-direction: row;
   align-items: center;
   width: calc(100% - 20px);
   justify-content: space-between;
-  ;
-
+  ${p}
+  ${ml}
 `

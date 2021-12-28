@@ -65,6 +65,12 @@ export const Workouts = (props) => {
     navigate("/workouts/start");
   }
 
+  function editWorkout(workout) {
+    navigate(`/workouts/edit`)
+    // navigate(`/workouts/edit?${workout}`)
+  }
+
+
   return (
     <MainWindow>
       <Container>
@@ -75,10 +81,14 @@ export const Workouts = (props) => {
             {workoutList.map((workout, index) => {
               return (
                 <Container>
-                  <EditButton />
+                  <EditButton 
+                    btnFunction={editWorkout}
+                  />
                   <WorkoutCardStyling value={index} onClick={handleClick}>
                     <SmallHeading
-                      style={{ padding: "10px 0 0px 10px", fontSize: "1.5rem" }}
+                      p="10px 0 0 20px"
+                      m="0 0 10px"
+                      style={{ fontSize: "1.5rem" }}
                     >
                       {workout.name}
                     </SmallHeading>
@@ -86,7 +96,7 @@ export const Workouts = (props) => {
                     {workout.exercises.map((exercise) => {
                       return (
                         <Container>
-                          <WorkoutList>
+                          <WorkoutList p="0 5px 0 15px">
                             <p>{exercise.name}</p>
                             {exercise.sets === null ? null : (
                               <span style={{ display: "flex", width: "30px" }}>
