@@ -20,7 +20,7 @@ import { Button } from "@mui/material";
 
 export const EditWorkouts = (props, workouts) => {
   const navigate = useNavigate();
-  const workoutList = [
+  let workoutList = [
     {
       name: "Workout A",
       exercises: [
@@ -70,6 +70,12 @@ export const EditWorkouts = (props, workouts) => {
     setEditMode(true)
   } 
 
+  function removeWorkout(workout, index) {
+    workoutList = workoutList.filter((exercise) => exercise.name !== workout.name)
+    console.log("After Removed: ", workoutList);
+    return workoutList;
+  }
+
   return (
     <MainWindow>
       <Container>
@@ -78,13 +84,13 @@ export const EditWorkouts = (props, workouts) => {
         <EditButton btnFunction={handleEdit} />
         <Container>
           <WorkoutCardStyling onClick={handleClick}>
-            {workoutList.map((workout) => {
+            {workoutList.map((workout, index) => {
               return (
                 <Container>
                   <WorkoutList p="10px 0 10px" ml="20px">
                     {workout.name}
                     <IconButton onClick={() => editWorkout(workout)}>
-                      {editMode ? <RemoveCircleIcon sx={{ color:"red" }} /> :
+                      {editMode ? <RemoveCircleIcon sx={{ color:"red" }} onClick={()=> removeWorkout(workout, index)}/> :
                       <ArrowForwardIosIcon />}
                     </IconButton>
                   </WorkoutList>
