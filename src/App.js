@@ -33,6 +33,7 @@ import { NewWorkout } from "./pages/workouts/NewWorkout";
 import { Exercises } from "./pages/workouts/Exercises";
 import { Exercise } from "./pages/workouts/Exercise";
 import { NewExercise } from "./pages/workouts/NewExercise";
+import { EditWorkouts } from "./pages/workouts/WorkoutsEdit";
 
 // Our Team
 import { MeetTheTeam } from "./pages/ourTeam/MeetTheTeam";
@@ -46,7 +47,7 @@ import {useReducer} from "react"
 import globalReducer from "./config/globalReducer";
 import initialGlobalState from "./config/initialGlobalState";
 import { StateContext } from "./config/globalStore";
-import { EditWorkout } from "./pages/workouts/WorkoutEdit";
+
 
 const App = () => {
   const [store, dispatch] = useReducer(globalReducer, initialGlobalState)
@@ -65,7 +66,7 @@ const App = () => {
         <Route path="/workouts" element={<Workouts />} />
         <Route path="/workouts/start" element={<WorkoutStart />} />
         <Route path="/workouts/new" element={<NewWorkout />} />
-        <Route path="/workouts/edit" element={<EditWorkout />} />
+        <Route path="/workouts/edit" element={<EditWorkouts />} />
         <Route path="/exercises" element={<Exercises />} />
         <Route path="/exercises/:id" element={<Exercise />} />
         <Route path="/exercises/new" element={<NewExercise />} />

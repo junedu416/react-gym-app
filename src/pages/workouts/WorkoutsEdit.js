@@ -14,8 +14,9 @@ import Divider from "@mui/material/Divider";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import IconButton from "@mui/material/IconButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { Link } from "@mui/material";
 
-export const EditWorkout = (props, workout) => {
+export const EditWorkouts = (props, workouts) => {
   const navigate = useNavigate();
   const workoutList = [
     {
