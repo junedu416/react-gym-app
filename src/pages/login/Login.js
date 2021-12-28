@@ -42,12 +42,14 @@ export const SignIn = () => {
     event.preventDefault();
     signInUser(formValues).then((profile) => {
       dispatch({ type: "setProfile", data: profile });
+      setErrorMessage("");
       navigate("/home");
     }).catch((error) => {
       console.log(`error caught in login handle submit:`, error);
       setErrorMessage("Incorrect email or password");
     });
   }
+  
 
   return (
     <MainWindow verticalMiddle>
