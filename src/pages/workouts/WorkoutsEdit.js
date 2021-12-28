@@ -14,7 +14,9 @@ import Divider from "@mui/material/Divider";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import IconButton from "@mui/material/IconButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { Link } from "@mui/material";
+import EditButton from "../../components/buttons/Edit";
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import { Button } from "@mui/material";
 
 export const EditWorkouts = (props, workouts) => {
   const navigate = useNavigate();
@@ -46,6 +48,8 @@ export const EditWorkouts = (props, workouts) => {
   ];
 
   const [activeWorkout, setActiveWorkout] = useState("");
+  const [editMode, setEditMode] = useState(false);
+
   const handleClick = (selectedWorkout) => {
     if (selectedWorkout !== null) {
       setActiveWorkout(selectedWorkout);
@@ -62,11 +66,16 @@ export const EditWorkouts = (props, workouts) => {
     navigate(`/workouts/edit?${workout.name}`)
   }
 
+  function handleEdit() {
+    setEditMode(true)
+  } 
+
   return (
     <MainWindow>
       <Container>
         <Heading>Workouts</Heading>
 
+        <EditButton btnFunction={handleEdit} />
         <Container>
           <WorkoutCardStyling onClick={handleClick}>
             {workoutList.map((workout) => {
@@ -75,7 +84,8 @@ export const EditWorkouts = (props, workouts) => {
                   <WorkoutList p="10px 0 10px" ml="20px">
                     {workout.name}
                     <IconButton onClick={() => editWorkout(workout)}>
-                      <ArrowForwardIosIcon />
+                      {editMode ? <RemoveCircleIcon sx={{ color:"red" }} /> :
+                      <ArrowForwardIosIcon />}
                     </IconButton>
                   </WorkoutList>
                   <Divider sx={{ width: "90%" }} />
@@ -94,6 +104,15 @@ export const EditWorkouts = (props, workouts) => {
             </TextLink>
           </WorkoutCardStyling>
         </Container>
+        {editMode &&
+        <Button
+          variant="contained"
+          size="large"
+          sx={{ mt: 3}}
+          onClick={()=> setEditMode(false)}
+        >
+          Done
+        </Button>}
       </Container>
     </MainWindow>
   );
