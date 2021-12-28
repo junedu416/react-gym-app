@@ -20,7 +20,7 @@ export const NewEvent = () => {
     name: '',
     description: '',
     category: '',
-    spotsAvailable: 0
+    spotsAvailable: 1
   }
   const [formValues, setFormValues] = useState(initialValues)
 
@@ -136,7 +136,6 @@ export const NewEvent = () => {
         required
         onChange={handleChange}
         value={formValues.spotsAvailable}
-        defaultValue="1"
         />
 
 
