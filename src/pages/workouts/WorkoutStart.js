@@ -12,18 +12,14 @@ import ClearIcon from "@mui/icons-material/Clear";
 import Divider from "@mui/material/Divider";
 import { WorkoutText } from "../../styled-components/workouts";
 import moment from "moment";
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Fade,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Button, ButtonGroup, Fade, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { modalStyling } from "../../styled-components/modal";
 import Backdrop from "@mui/material/Backdrop";
 import { blueGrey } from "@mui/material/colors";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+
 const borderOutline = blueGrey[200];
 
 export const WorkoutStart = (props) => {
@@ -59,17 +55,60 @@ export const WorkoutStart = (props) => {
     },
   ];
 
+
+// ======================================== SOMETHING LIKE THIS MIGHT WORK?? ================================  
+  // this.state = {
+  //   exercise: [],
+  //   disabledButtons: []
+  // }
+
+  // exerciseClicked(index, param, e) {
+  //   this.setState(prevState => {
+  //     const newDisabledButtons = [...prevState.disabledButtons];
+  //     newDisabledButtons[index] = true;
+  //     return {
+  //       completedExercise: true,
+  //       disabledButtons: newDisabledButtons
+  //     }
+  //   })
+  // }
+// ======================================== SOMETHING LIKE THIS MIGHT WORK?? ================================
+
+  const [myMap, setMyMap] = useState(new Map(dummyData));
+  const updateMap = (k, v) => {
+    setMyMap(Map(dummyData.set(k, v)));
+  };
+
+  // const exercises = dummyData.length
+
+  // const initialValues = {
+  //   // for (let i = 0; i < exercises; i++) {
+  //   //   return `group${index}: 'false'`
+  //   // }
+  // }
+
+
+  const [exerciseCompleted, setExerciseCompleted] = useState("");
+  const handleExerciseCompleted = (event, newExerciseCompleted) => {
+    setExerciseCompleted(newExerciseCompleted);
+  };
+
   const [counter, setCounter] = useState(0);
   // const [disableButton, setDisableButton] = useState(false);
   const [workoutCompleted, setWorkoutCompleted] = useState(false);
   const totalExercises = dummyData.length - 1;
   const [btnDisabled, setBtnDisabled] = useState(false);
 
+  const disableButton = (event) => {
+    event.target.disabled = true;
+    setBtnDisabled(true);
+  };
+
   const finishExercise = (event, isCompleted) => {
     setCounter(counter + 1);
     console.log("Completed (True/False): ", isCompleted);
-    console.log("Event : ", event);
-    setBtnDisabled(true);
+    console.log("exercise Event : ", event);
+    // setBtnDisabled(true);
 
     // **************************************************************************************************************
 
@@ -86,26 +125,25 @@ export const WorkoutStart = (props) => {
     const parentNode = event.currentTarget.parentNode;
     const grandParentNode = parentNode.parentNode;
 
-    parentNode.disabled = true;
-    console.log("PARENTNODE: ", parentNode)
-    console.log("GrandparentNODE: ", grandParentNode)
+    // parentNode.disabled = true;
+    console.log("PARENTNODE: ", parentNode);
+    console.log("GrandparentNODE: ", grandParentNode);
 
-
-    console.log("key: ", parent[0]);
+    console.log("key: ", Object.entries(parent));
 
     // targetElement.disabled = true;
     // parent.disabled = true;
     // grandparent.disabled = true;
     // thirdParent.disabled = true;
 
-    console.log("Disabled: ", event.target.disabled);
-    console.log("Target: ", targetElement);
+    // console.log("Disabled: ", event.target.disabled);
+    // console.log("Target: ", targetElement);
 
-    console.log("Parent: ", parent);
-    console.log("Grandparent: ", grandparent);
-    console.log("3rd Parent: ", thirdParent);
+    // console.log("Parent: ", parent);
+    // console.log("Grandparent: ", grandparent);
+    // console.log("3rd Parent: ", thirdParent);
 
-    event.target.parentElement.parentElement.disabled = true;
+    // event.target.parentElement.parentElement.disabled = true;
 
     // **************************************************************************************************************
 
@@ -127,8 +165,10 @@ export const WorkoutStart = (props) => {
   };
 
   const disableButtons = (event) => {
-    console.log("disable event: ", event);
     event.target.disabled = true;
+    setBtnDisabled(true);
+    console.log("disable group (event): ", event);
+    console.log("TARGET (Group): ", event.target);
   };
 
   function displayCompletedMessage() {
@@ -161,10 +201,13 @@ export const WorkoutStart = (props) => {
           <EditButton />
         </Container>
 
-        <p style={{ alignSelf: "flex-end", margin: "0px" }}>
+        <Container align="flex-start" direction="row">
+          {/* <p style={{ alignSelf: "flex-end", margin: "0px" }}> */}
           <span style={{ color: "lime", paddingRight: "23px" }}>Completed</span>
           <span style={{ color: "red", paddingRight: "15px" }}>Incomplete</span>
-        </p>
+          {/* </p> */}
+        </Container>
+       
         {dummyData.map((exercise, index) => (
           <>
             <Container
@@ -180,7 +223,7 @@ export const WorkoutStart = (props) => {
               <SmallHeading
                 size="1.6rem"
                 color="rgba(40, 40, 40, 0.8)"
-                // color={disableButton ? "grey" : "lime"}
+                color={ btnDisabled ? "grey" : "lime"}
                 style={{ margin: "20px 0 0 0" }}
               >
                 {exercise.name}
@@ -205,21 +248,42 @@ export const WorkoutStart = (props) => {
                   </Container>
                 </Container>
 
+                <Container>
+                  <ToggleButtonGroup
+                    exclusive
+                    value={exerciseCompleted}
+                    onChange={handleExerciseCompleted}
+                    aria-label="exercise completed"
+                    key={index}
+                  >
+                    <ToggleButton value="completed" aria-label="completed">
+                      <DoneIcon />
+                    </ToggleButton>
+                    <ToggleButton value="incomplete" aria-label="incomplete">
+                      <ClearIcon />
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                </Container>
+
                 {/* <Container direction="row"> */}
                 <ButtonGroup
-                  key={index}
-                  variant="text"
+                  // key={index}
+                  id={`group${index}`}
+                  variant={btnDisabled ? "contained" : "text"}
+                  disableElevation={btnDisabled}
                   color="success"
                   aria-label="complete workout button group"
-                  onclick={(e) => disableButtons(e)}
-                  // disabled
+                  // onClick={() => exerciseClicked(index, exercise)}
+                  // disabled={ this.state.disabledButtons[index] }
+                  // disabled={ this.state.disabledButton === index }
+                  onClick={() => setBtnDisabled(index, true)}
+                  disabled={ btnDisabled }
+                  sx={{ mx: 3 }}
                 >
                   <Button
                     key={index + "Completed"}
-                    // disabled={ btnDisabled ? true : false }
-                    // disabled={disableButton}
-                    // disabled={props.disabled}
-
+                    // color={completedExercise ? "success" : "primary"}
+                    // color={btnDisabled ? "success" : "primary"}
                     onClick={(e) => {
                       finishExercise(e, true);
                       // disableButton(e);
@@ -227,20 +291,21 @@ export const WorkoutStart = (props) => {
                   >
                     <DoneIcon
                       sx={{ fontSize: "5rem" }}
-                      color="success"
-                      // color={ btnDisabled ? "disabled" : "success"}
+                      // color="success"
+                      // color={completedExercise ? "disabled" : "success"}
+                      color={btnDisabled ? "disabled" : "success"}
                     />
                   </Button>
                   <Button
                     key={index + "Incomplete"}
                     // disabled={disableButton}
                     onClick={(e) => finishExercise(e, false)}
-                    // onClick={() => (finishExercise(), exerciseCompleted(false))}
                   >
                     <ClearIcon
                       sx={{ fontSize: "5rem" }}
-                      color="error"
-                      // color={disableButton ? "disabled" : "error"}
+                      // color="error"
+                      // color={completedExercise ? "disabled" : "error"}
+                      color={btnDisabled ? "disabled" : "error"}
                     />
                   </Button>
                 </ButtonGroup>
