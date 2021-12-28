@@ -21,6 +21,10 @@ export const SignIn = () => {
     navigate("/register");
   }
 
+  function forgotPassword() {
+    // NEED TO ADD LOGIC HERE FOR FIREBASE PASSWORD RESET
+  }
+
   const handleChange = (event) => {
     setFormValues({
       ...formValues,
@@ -82,7 +86,7 @@ export const SignIn = () => {
             style={formStyling}
           />
           <SignInButton />
-          <p style={{ marginTop: "50px" }}>Forgot Password? Reset Password</p>
+          <p style={{ marginTop: "50px" }}>Forgot Password? <TextLink onClick={forgotPassword}>Reset Password</TextLink></p>
           <p>Don't have an account? <TextLink onClick={handleClick}>Register</TextLink></p>
         </Container>
       </form>
