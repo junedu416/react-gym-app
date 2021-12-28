@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 export const SignIn = () => {
   const [rememberMe, setRememberMe] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { dispatch } = useGlobalState();
   const navigate = useNavigate();
@@ -42,11 +43,15 @@ export const SignIn = () => {
     signInUser(formValues).then((profile) => {
       dispatch({ type: "setProfile", data: profile });
       navigate("/home");
+    }).catch((error) => {
+      console.log(`error caught in login handle submit:`, error);
+      setErrorMessage("Incorrect email or password");
     });
   }
 
   return (
     <MainWindow verticalMiddle>
+      {errorMessage && <p>{errorMessage}</p>}
       <Heading>Login</Heading>
       <form onSubmit={handleSubmit}>
         <Container>
