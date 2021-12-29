@@ -9,8 +9,7 @@ export const getAllEvents = async () => {
         console.log(response)
         return response
     } catch (e) {
-        console.log(e)
-        throw e
+        return e.message
     }
 }
 
@@ -21,8 +20,7 @@ export const getEventById = async (id) => {
         console.log(response)
         return response
     } catch (e) {
-        console.log(e)
-        throw e
+        return e.message
     }
 }
 
@@ -34,10 +32,11 @@ export const createNewEvent = async (eventObj) => {
                 'Content-Type': 'multipart/form-data'
             }
         })
-        console.log(response.data)
+        console.log(`printing response data: `, response.data)
+        // any validation error will be returned as response.data.error
         return response.data
     } catch(e) {
-        // console.log(e)
+        console.log(`error caught: `, e)
         throw e
     }
 }
