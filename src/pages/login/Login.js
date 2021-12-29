@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 // import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import { Container, Heading, MainWindow } from "../../styled-components";
+import { Container, Heading, MainWindow, TextLink } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
 import SignInButton from "../../components/buttons/SignIn";
 import { signInUser } from "../../services/userServices";
@@ -17,6 +17,14 @@ export const SignIn = () => {
 
   const { dispatch } = useGlobalState();
   const navigate = useNavigate();
+
+  function handleClick() {
+    navigate("/register");
+  }
+
+  function forgotPassword() {
+    // NEED TO ADD LOGIC HERE FOR FIREBASE PASSWORD RESET
+  }
 
   const handleChange = (event) => {
     setFormValues({
@@ -85,8 +93,8 @@ export const SignIn = () => {
             style={formStyling}
           />
           <SignInButton />
-          <p style={{ marginTop: "50px" }}>Forgot Password? Reset Password</p>
-          <p>Don't have an account? Register</p>
+          <p style={{ marginTop: "50px" }}>Forgot Password? <TextLink onClick={forgotPassword}>Reset Password</TextLink></p>
+          <p>Don't have an account? <TextLink onClick={handleClick}>Register</TextLink></p>
         </Container>
       </form>
     </MainWindow>

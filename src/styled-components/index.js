@@ -42,6 +42,11 @@ export const ButtonLink = styled(Link)`
   ${link}
 `;
 
+export const TextLink = styled.u`
+  ${link}
+  color: blue;
+`
+
 // custom settings for MUI modal backdrop
 export const StyledModal = styled(Modal)`
   .MuiBackdrop-root {

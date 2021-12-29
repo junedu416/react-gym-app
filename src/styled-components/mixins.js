@@ -56,6 +56,7 @@ export const link = () => {
     opacity: 0.9;
     &:hover {
       opacity: 1;
+      cursor: pointer;
     }
   `;
 };
