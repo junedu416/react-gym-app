@@ -17,13 +17,12 @@ export const NewEvent = () => {
   const [image, setImage] = useState(null);
 
   const initialValues = {
-    name: "",
-    description: "",
-    category: "",
-    level: "",
-    spotsAvailable: 1,
-  };
-  const [formValues, setFormValues] = useState(initialValues);
+    name: '',
+    description: '',
+    category: '',
+    spotsAvailable: 1
+  }
+  const [formValues, setFormValues] = useState(initialValues)
 
   const handleChange = (event) => {
     setFormValues({
@@ -43,7 +42,7 @@ export const NewEvent = () => {
     };
     const data = new FormData();
     for (let key in infoToSend) {
-      data.append(`${key}`, infoToSend[key]);
+      if (infoToSend[key]) data.append(`${key}`, infoToSend[key]);
     }
     // post to event
     createNewEvent(data);
@@ -191,7 +190,6 @@ export const NewEvent = () => {
                   onChange={handleChange}
                   value={formValues.spotsAvailable}
                   style={alignLeft}
-                  // defaultValue="1"    // Don't need this
                 />
               )}
               
