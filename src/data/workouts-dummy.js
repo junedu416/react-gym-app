@@ -1,0 +1,26 @@
+export const workoutList = [
+  {
+    name: "Workout A",
+    exercises: [
+      { name: "deadlift", sets: 1, reps: 5, distance: null },
+      { name: "bench", sets: 3, reps: 5, distance: null },
+      { name: "squat", sets: 5, reps: 5, distance: null },
+    ],
+  },
+  {
+    name: "Workout B",
+    exercises: [
+      { name: "Exercise 1", sets: 3, reps: 10, distance: null },
+      { name: "Exercise 2", sets: 3, reps: 8, distance: null },
+      { name: "Exercise 3", sets: 1, reps: 5, distance: null },
+    ],
+  },
+  {
+    name: "Workout C",
+    exercises: [
+      { name: "Row", sets: null, reps: null, distance: "500m" },
+      { name: "Run", sets: null, reps: null, distance: "8km" },
+      { name: "Swim", sets: null, reps: null, distance: "800m" },
+    ],
+  },
+];
