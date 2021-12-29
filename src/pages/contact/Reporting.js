@@ -84,9 +84,7 @@ export const Reporting = () => {
             <Container align="flex-start" justify="flex-start">
               <form encType="multipart/form-data">
               <ContactSubheadings justify="flex-start">
-                {inquiryType === ""
-                  ? null
-                  : inquiryType === "General Inquiry"
+                {inquiryType === "General Inquiry"
                   ? "General Inquiry"
                   : [
                       <CampaignIcon style={{ marginRight: "5px" }} />,

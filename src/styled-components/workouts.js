@@ -22,3 +22,7 @@ export const WorkoutList = styled.div`
   ${p}
   ${ml}
 `
+
+export const WorkoutText = styled.p`
+  margin-bottom: ${props => props.mb ? props.mb : "10px"};
+`
