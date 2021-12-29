@@ -32,16 +32,12 @@ export const createNewEvent = async (eventObj) => {
                 'Content-Type': 'multipart/form-data'
             }
         })
-        if(response.data.message) {
-            console.log(response.data.message)
-            return
-        }
-        console.log("success path")
-        console.log(response.data)
+        console.log(`printing response data: `, response.data)
+        // any validation error will be returned as response.data.error
         return response.data
     } catch(e) {
-        console.log("caught error", e.message)
-        return e.message
+        console.log(`error caught: `, e)
+        throw e
     }
 }
 

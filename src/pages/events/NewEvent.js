@@ -15,6 +15,7 @@ export const NewEvent = () => {
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
   const [image, setImage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("")
 
   const initialValues = {
     name: '',
@@ -45,8 +46,19 @@ export const NewEvent = () => {
       if (infoToSend[key]) data.append(`${key}`, infoToSend[key]);
     }
     // post to event
-    createNewEvent(data);
-  };
+    createNewEvent(data).then(result => {
+      if (result.error){
+        console.log("error in darta validation: ", result.error)
+        setErrorMessage(result.error);
+      } else {
+        console.log("success")
+        setErrorMessage("");
+      }
+    }).catch(error => {
+      setErrorMessage("Failed to connect to server.")
+    });
+  }
+
 
   const handleFile = (event) => {
     console.log(event.target.files[0]);
@@ -78,6 +90,7 @@ export const NewEvent = () => {
 
   return (
     <MainWindow>
+      {errorMessage && <p>{errorMessage}</p>}
       <Heading>Create Event</Heading>
       <form onSubmit={handleSubmit}>
         <Container style={{ minWidth: "400px" }}>
