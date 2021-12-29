@@ -22,6 +22,9 @@ import { dashItem } from "../../styled-components/dashboard";
 import PropTypes from "prop-types";
 
 import { Overview } from "./Overview";
+import { useGlobalState } from "../../config/globalStore";
+
+import { signOutUser } from "../../services/userServices";
 
 const StyledTabs = styled((props) => (
   <Tabs
@@ -119,6 +122,8 @@ TabPanel.propTypes = {
 export const Sidebar = () => {
   const [dashboardView, setDashboardView] = useState(<Overview />);
   const [value, setValue] = useState(0);
+  const {store, dispatch} = useGlobalState();
+  const {profile} = store;
 
   const navigate = useNavigate();
 
@@ -129,6 +134,13 @@ export const Sidebar = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  async function handleSignOut() {
+    signOutUser().then(() => {
+      dispatch({ type: "setProfile", data: null });
+      console.log(store);
+    });
+  }
 
   console.log(SidebarData.map((item, index) => item));
 
@@ -162,17 +174,28 @@ export const Sidebar = () => {
           aria-label="Vertical tabs example"
           sx={{ borderLeft: 1, borderColor: "divider" }}
         >
-          {SidebarData.map((item, index) => (
+          {SidebarData.map((item, index) => {
+            if (
+              (item.title[1] === "Sign Out" && !profile) ||
+              (item.title[1] === "Sign In" && profile) ||
+              (item.title[1] === "Register" && profile)
+              ) return
+
+            return (
             <LinkTab
               label={item.title}
               style={dashItem}
               onClick={() => {
+                if (item.title[1] === "Sign Out") {
+                  handleSignOut();
+                }
                 if (item.route) {
                   navigate(item.route);
                 }
               }}
             />
-          ))}
+          )}
+        )}
         </StyledTabs>
       </Drawer>
     </Container>
