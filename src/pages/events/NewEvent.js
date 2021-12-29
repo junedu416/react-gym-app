@@ -20,7 +20,7 @@ export const NewEvent = () => {
     name: '',
     description: '',
     category: '',
-    spotsAvailable: 0
+    spotsAvailable: 1
   }
   const [formValues, setFormValues] = useState(initialValues)
 
@@ -42,7 +42,7 @@ export const NewEvent = () => {
     }
     const data = new FormData();
     for (let key in infoToSend) {
-      data.append(`${key}`, infoToSend[key]);
+      if (infoToSend[key]) data.append(`${key}`, infoToSend[key]);
     }
     // post to event
     createNewEvent(data);
@@ -64,7 +64,7 @@ export const NewEvent = () => {
           sx={{ minWidth: 480, mb: 3 }}
           name="name"
           onChange={handleChange}
-          required
+          // required
         />
   
         <TextField
@@ -136,7 +136,6 @@ export const NewEvent = () => {
         required
         onChange={handleChange}
         value={formValues.spotsAvailable}
-        defaultValue="1"
         />
 
 
