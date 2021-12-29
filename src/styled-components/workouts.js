@@ -19,6 +19,8 @@ export const WorkoutList = styled.div`
   align-items: center;
   width: calc(100% - 20px);
   justify-content: space-between;
-  ;
+`
 
+export const WorkoutText = styled.p`
+  margin-bottom: ${props => props.mb ? props.mb : "10px"};
 `

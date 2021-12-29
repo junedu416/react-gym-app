@@ -44,12 +44,13 @@ export const pt = () => {
   `;
 };
 
-export const shadow = (props) => {
+export const shadow = () => {
   return `
-    box-shadow: 2px 2px 6px 0px ${props.shadow ? props.shadow : "rgba(120, 120, 120, 0.8)"};
-  `;
-};
-
+    box-shadow: 2px 2px 6px 0px rgba(120, 120, 120, 0.8);
+    `;
+  };
+  // box-shadow: ${props.shadow ? props.shadow (props.shadowColor ? props.shadowColor : "rgba(120, 120, 120, 0.8)") : "2px 2px 6px 0px"};
+  
 export const link = () => {
   return `
     text-decoration: none;
@@ -60,3 +61,9 @@ export const link = () => {
     }
   `;
 };
+
+export const greyBorder = () => {
+  return `
+    border: 1px solid rgba(120, 120, 120, 0.3);
+  `
+}
