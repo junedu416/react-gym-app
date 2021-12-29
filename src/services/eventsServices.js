@@ -9,8 +9,7 @@ export const getAllEvents = async () => {
         console.log(response)
         return response
     } catch (e) {
-        console.log(e)
-        throw e
+        return e.message
     }
 }
 
@@ -21,8 +20,7 @@ export const getEventById = async (id) => {
         console.log(response)
         return response
     } catch (e) {
-        console.log(e)
-        throw e
+        return e.message
     }
 }
 
