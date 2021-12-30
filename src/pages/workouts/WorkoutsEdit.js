@@ -9,6 +9,7 @@ import {
 import {
   WorkoutCardStyling,
   WorkoutList,
+  ListItems
 } from "../../styled-components/workouts";
 import Divider from "@mui/material/Divider";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -64,7 +65,6 @@ export const EditWorkouts = (props, workouts) => {
   }
 
   function handleClick() {
- 
     navigate("/workouts/new");
   }
 
@@ -86,7 +86,7 @@ export const EditWorkouts = (props, workouts) => {
                 }}
               >
                 {list.map((workout) => (
-                  <li>
+                  <ListItems>
                     <WorkoutList p="10px 0px" ml="20px">
                       {workout.name}
                       <IconButton>
@@ -103,7 +103,7 @@ export const EditWorkouts = (props, workouts) => {
                       </IconButton>
                     </WorkoutList>
                     <Divider sx={{ width: "90%" }} />
-                  </li>
+                  </ListItems>
                 ))}
               </ul>
 

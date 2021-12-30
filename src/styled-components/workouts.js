@@ -5,7 +5,7 @@ export const WorkoutCardStyling = styled.div`
   ${flexbox};
   ${shadow};
   min-width: 300px;
-  min-height: 250px;
+  /* min-height: 250px; */
   border: 1px solid rgba(150, 150, 150, 0.25);
   border-radius: 5px;
 `
@@ -23,4 +23,10 @@ export const WorkoutList = styled.div`
 
 export const WorkoutText = styled.p`
   margin-bottom: ${props => props.mb ? props.mb : "10px"};
+`
+
+export const ListItems = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items:center;
 `
