@@ -9,7 +9,7 @@ import {
 import {
   WorkoutCardStyling,
   WorkoutList,
-  ListItems
+  ListItems,
 } from "../../styled-components/workouts";
 import Divider from "@mui/material/Divider";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -26,23 +26,33 @@ export const EditWorkouts = (props, workouts) => {
   const [editMode, setEditMode] = useState(false);
   const [list, setList] = useState(workoutList);
   const [workoutRemove, setWorkoutRemove] = useState("");
-  
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  
+
   const modalText = `Are you sure you want to delete ${workoutRemove.name}?`;
   const actionButtons = [
     <Container mt="40px" direction="row">
-
-      <Button variant="contained" color="error" sx={{ mr: 5 }} onClick={() => handleRemove(workoutRemove.id)}>
+      <Button
+        variant="contained"
+        size="large"
+        color="error"
+        sx={{ mr: 5 }}
+        onClick={() => handleRemove(workoutRemove.id)}
+      >
         Delete
       </Button>
-      <Button variant="contained" color="info" onClick={handleClose}>
+      <Button
+        variant="contained"
+        size="large"
+        color="info"
+        onClick={handleClose}
+      >
         Cancel
       </Button>
-    </Container>
-  ]
+    </Container>,
+  ];
 
   function handleEdit() {
     setEditMode(!editMode);
@@ -58,7 +68,6 @@ export const EditWorkouts = (props, workouts) => {
   }
 
   function handleRemove(removeWorkoutId) {
-
     const newList = list.filter((workout) => workout.id !== removeWorkoutId);
     setList(newList);
     handleClose();
