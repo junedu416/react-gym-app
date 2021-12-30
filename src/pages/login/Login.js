@@ -51,7 +51,7 @@ export const SignIn = () => {
     signInUser(formValues).then((profile) => {
       dispatch({ type: "setProfile", data: profile });
       setErrorMessage("");
-      navigate("/home");
+      navigate("/overview");
     }).catch((error) => {
       console.log(`error caught in login handle submit:`, error);
       setErrorMessage("Incorrect email or password");

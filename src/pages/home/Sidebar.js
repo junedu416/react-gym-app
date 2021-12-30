@@ -22,6 +22,9 @@ import { dashItem } from "../../styled-components/dashboard";
 import PropTypes from "prop-types";
 
 import { Overview } from "./Overview";
+import { useGlobalState } from "../../config/globalStore";
+
+import { signOutUser } from "../../services/userServices";
 
 const StyledTabs = styled((props) => (
   <Tabs
@@ -119,8 +122,10 @@ TabPanel.propTypes = {
 export const Sidebar = () => {
   const [dashboardView, setDashboardView] = useState(<Overview />);
   const [value, setValue] = useState(0);
-
+  const {store, dispatch} = useGlobalState();
+  const {profile} = store;
   const navigate = useNavigate();
+  const [sbData, setSbData] = useState([]);
 
   function handleClick(event) {
     event.preventDefault();
@@ -130,7 +135,24 @@ export const Sidebar = () => {
     setValue(newValue);
   };
 
-  console.log(SidebarData.map((item, index) => item));
+  function handleSignOut() {
+    signOutUser().then(() => {
+      dispatch({ type: "setProfile", data: null });
+      console.log(store);
+    });
+  }
+
+  useEffect(() => {
+    let temp;
+    if (profile) {
+      temp = SidebarData.filter((e) => e.title[1] !== "Register" && e.title[1] !== "Sign In")
+    } else {
+      temp = SidebarData.filter((e) => e.title[1] !== "Sign Out")
+    }
+    setSbData(temp);
+    console.log("changing sidebardata");
+  }, [profile])
+
 
   return (
     <Container style={{ position: "fixed",flexDirection: "row" }}>
@@ -162,17 +184,23 @@ export const Sidebar = () => {
           aria-label="Vertical tabs example"
           sx={{ borderLeft: 1, borderColor: "divider" }}
         >
-          {SidebarData.map((item, index) => (
+          {sbData.map((item, index) => {
+            return (
             <LinkTab
               label={item.title}
               style={dashItem}
+              key={index}
               onClick={() => {
+                if (item.title[1] === "Sign Out") {
+                  handleSignOut();
+                }
                 if (item.route) {
                   navigate(item.route);
                 }
               }}
             />
-          ))}
+          )}
+        )}
         </StyledTabs>
       </Drawer>
     </Container>

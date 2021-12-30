@@ -1,3 +1,4 @@
+//Unused Component
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
@@ -134,46 +135,6 @@ const Dashboard = () => {
   return (
     <Container style={{ flexDirection: "row" }}>
       <CssBaseline />
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          // height: `calc(100vh - 90px)`,
-          height: `100vh`,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            paddingTop: `calc(100vh / 8)`,
-            position: "fixed",
-            zIndex: "1",
-            width: drawerWidth,
-            boxSizing: "border-box",
-            display: "flex",
-            alignItems: "center",
-            backgroundColor: "blue",
-          },
-        }}
-        variant="permanent"
-      >
-        <StyledTabs
-          orientation="vertical"
-          variant="scrollable"
-          value={value}
-          onChange={handleChange}
-          aria-label="Vertical tabs example"
-          sx={{ borderLeft: 1, borderColor: "divider" }}
-        >
-          {SidebarData.map((item, index) => (
-            <LinkTab
-              label={item.title}
-              style={dashItem}
-              onClick={() => {
-                setDashboardView(item.display)
-                navigate(item.route);
-              }}
-            />
-          ))}
-        </StyledTabs>
-      </Drawer>
-
       {/* ================ Dashboard content display ================ */}
       <Box
         component="main"
