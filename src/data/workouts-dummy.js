@@ -1,5 +1,6 @@
 export const workoutList = [
   {
+    id: "0",
     name: "Workout A",
     exercises: [
       { name: "deadlift", sets: 1, reps: 5, distance: null },
@@ -8,6 +9,7 @@ export const workoutList = [
     ],
   },
   {
+    id: "1",
     name: "Workout B",
     exercises: [
       { name: "Exercise 1", sets: 3, reps: 10, distance: null },
@@ -16,6 +18,7 @@ export const workoutList = [
     ],
   },
   {
+    id: "2",
     name: "Workout C",
     exercises: [
       { name: "Row", sets: null, reps: null, distance: "500m" },

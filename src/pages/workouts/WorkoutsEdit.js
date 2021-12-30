@@ -15,39 +15,27 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import IconButton from "@mui/material/IconButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EditButton from "../../components/buttons/Edit";
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { Button } from "@mui/material";
 import { workoutList } from "../../data/workouts-dummy";
 
 export const EditWorkouts = (props, workouts) => {
   const navigate = useNavigate();
-  const [activeWorkout, setActiveWorkout] = useState("");
   const [editMode, setEditMode] = useState(false);
 
-  const handleClick = (selectedWorkout) => {
-    if (selectedWorkout !== null) {
-      setActiveWorkout(selectedWorkout);
-    }
-  };
+  const [list, setList] = useState(workoutList);
 
-  console.log(activeWorkout);
-
-  function workoutStart() {
-    navigate("/workouts/start");
+  function handleEdit() {
+    setEditMode(true);
   }
 
   function editWorkout(workout) {
-    navigate(`/workouts/edit?${workout.name}`)
+    navigate(`/workouts/${workout.name}`);
   }
 
-  function handleEdit() {
-    setEditMode(true)
-  } 
-
-  function removeWorkout(workout, index) {
-    workoutList = workoutList.filter((exercise) => exercise.name !== workout.name)
-    console.log("After Removed: ", workoutList);
-    return workoutList;
+  function handleRemove(removeWorkoutId) {
+    const newList = list.filter((workout) => workout.id !== removeWorkoutId);
+    setList(newList);
   }
 
   return (
@@ -57,21 +45,38 @@ export const EditWorkouts = (props, workouts) => {
 
         <EditButton btnFunction={handleEdit} />
         <Container>
-          <WorkoutCardStyling onClick={handleClick}>
-            {workoutList.map((workout, index) => {
-              return (
-                <Container>
+          <WorkoutCardStyling
+          // onClick={handleClick}
+          >
+            <ul
+              style={{
+                // Removes bullet and indentation
+                listStyleType: "none",
+                padding: 0,
+              }}
+            >
+              {list.map((workout) => (
+                <li>
                   <WorkoutList p="10px 0 10px" ml="20px">
                     {workout.name}
-                    <IconButton onClick={() => editWorkout(workout)}>
-                      {editMode ? <RemoveCircleIcon sx={{ color:"red" }} onClick={()=> removeWorkout(workout, index)}/> :
-                      <ArrowForwardIosIcon />}
+                    <IconButton>
+                      {editMode ? 
+                        <RemoveCircleIcon
+                          sx={{ color: "red" }}
+                          onClick={() => handleRemove(workout.id)}
+                        />
+                       : 
+                        <ArrowForwardIosIcon
+                          onClick={() => editWorkout(workout)}
+                        />
+                      }
                     </IconButton>
                   </WorkoutList>
                   <Divider sx={{ width: "90%" }} />
-                </Container>
-              );
-            })}
+                </li>
+              ))}
+            </ul>
+
             <TextLink
               direction="row"
               p="20px 0"
@@ -84,15 +89,16 @@ export const EditWorkouts = (props, workouts) => {
             </TextLink>
           </WorkoutCardStyling>
         </Container>
-        {editMode &&
-        <Button
-          variant="contained"
-          size="large"
-          sx={{ mt: 3}}
-          onClick={()=> setEditMode(false)}
-        >
-          Done
-        </Button>}
+        {editMode && (
+          <Button
+            variant="contained"
+            size="large"
+            sx={{ mt: 3 }}
+            onClick={() => setEditMode(false)}
+          >
+            Done
+          </Button>
+        )}
       </Container>
     </MainWindow>
   );
