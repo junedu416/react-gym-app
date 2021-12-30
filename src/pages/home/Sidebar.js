@@ -135,7 +135,7 @@ export const Sidebar = () => {
     setValue(newValue);
   };
 
-  async function handleSignOut() {
+  function handleSignOut() {
     signOutUser().then(() => {
       dispatch({ type: "setProfile", data: null });
       console.log(store);
@@ -145,7 +145,7 @@ export const Sidebar = () => {
   useEffect(() => {
     let temp;
     if (profile) {
-      temp = SidebarData.filter((e) => e.title[1] !== "Register" && e.title[1] !== "Sign Up")
+      temp = SidebarData.filter((e) => e.title[1] !== "Register" && e.title[1] !== "Sign In")
     } else {
       temp = SidebarData.filter((e) => e.title[1] !== "Sign Out")
     }
@@ -153,7 +153,6 @@ export const Sidebar = () => {
     console.log("changing sidebardata");
   }, [profile])
 
-  console.log(SidebarData.map((item, index) => item));
 
   return (
     <Container style={{ position: "fixed",flexDirection: "row" }}>
@@ -186,16 +185,11 @@ export const Sidebar = () => {
           sx={{ borderLeft: 1, borderColor: "divider" }}
         >
           {sbData.map((item, index) => {
-            if (
-              (item.title[1] === "Sign Out" && !profile) ||
-              (item.title[1] === "Sign In" && profile) ||
-              (item.title[1] === "Register" && profile)
-              ) return
-
             return (
             <LinkTab
               label={item.title}
               style={dashItem}
+              key={index}
               onClick={() => {
                 if (item.title[1] === "Sign Out") {
                   handleSignOut();
