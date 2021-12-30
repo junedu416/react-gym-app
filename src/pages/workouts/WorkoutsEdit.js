@@ -26,7 +26,7 @@ export const EditWorkouts = (props, workouts) => {
   const [list, setList] = useState(workoutList);
 
   function handleEdit() {
-    setEditMode(true);
+    setEditMode(!editMode);
   }
 
   function editWorkout(workout) {
