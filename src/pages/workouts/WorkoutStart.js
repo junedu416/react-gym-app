@@ -222,7 +222,7 @@ export const WorkoutStart = (props) => {
             >
               <SmallHeading
                 size="1.6rem"
-                color="rgba(40, 40, 40, 0.8)"
+                // color="rgba(40, 40, 40, 0.8)"
                 color={ btnDisabled ? "grey" : "lime"}
                 style={{ margin: "20px 0 0 0" }}
               >

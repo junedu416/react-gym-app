@@ -45,31 +45,30 @@ export const EditWorkouts = (props, workouts) => {
 
         <EditButton btnFunction={handleEdit} />
         <Container>
-          <WorkoutCardStyling
-          // onClick={handleClick}
-          >
+          <WorkoutCardStyling>
             <ul
               style={{
                 // Removes bullet and indentation
                 listStyleType: "none",
                 padding: 0,
+                margin: 0,
               }}
             >
               {list.map((workout) => (
                 <li>
-                  <WorkoutList p="10px 0 10px" ml="20px">
+                  <WorkoutList p="10px 0px" ml="20px">
                     {workout.name}
                     <IconButton>
-                      {editMode ? 
+                      {editMode ? (
                         <RemoveCircleIcon
                           sx={{ color: "red" }}
                           onClick={() => handleRemove(workout.id)}
                         />
-                       : 
+                      ) : (
                         <ArrowForwardIosIcon
                           onClick={() => editWorkout(workout)}
                         />
-                      }
+                      )}
                     </IconButton>
                   </WorkoutList>
                   <Divider sx={{ width: "90%" }} />
@@ -79,9 +78,9 @@ export const EditWorkouts = (props, workouts) => {
 
             <TextLink
               direction="row"
-              p="20px 0"
               ml="25px"
               mt="0"
+              p="20px 0"
               justify="flex-start"
               onClick={() => navigate("/workouts/new")}
             >
