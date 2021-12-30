@@ -124,8 +124,8 @@ export const Sidebar = () => {
   const [value, setValue] = useState(0);
   const {store, dispatch} = useGlobalState();
   const {profile} = store;
-
   const navigate = useNavigate();
+  const [sbData, setSbData] = useState([]);
 
   function handleClick(event) {
     event.preventDefault();
@@ -141,6 +141,17 @@ export const Sidebar = () => {
       console.log(store);
     });
   }
+
+  useEffect(() => {
+    let temp;
+    if (profile) {
+      temp = SidebarData.filter((e) => e.title[1] !== "Register" && e.title[1] !== "Sign Up")
+    } else {
+      temp = SidebarData.filter((e) => e.title[1] !== "Sign Out")
+    }
+    setSbData(temp);
+    console.log("changing sidebardata");
+  }, [profile])
 
   console.log(SidebarData.map((item, index) => item));
 
@@ -174,7 +185,7 @@ export const Sidebar = () => {
           aria-label="Vertical tabs example"
           sx={{ borderLeft: 1, borderColor: "divider" }}
         >
-          {SidebarData.map((item, index) => {
+          {sbData.map((item, index) => {
             if (
               (item.title[1] === "Sign Out" && !profile) ||
               (item.title[1] === "Sign In" && profile) ||
