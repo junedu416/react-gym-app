@@ -12,7 +12,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Divider,
 } from "@mui/material";
 import { modalStyling } from "../styled-components/modal";
 import { StyledModal } from "../styled-components";
@@ -40,7 +39,6 @@ export const ReusableModal = ({
           <Box sx={modalStyling}>
             <IconButton
               onClick={handleClose}
-              aria-label="close popup"
               style={{ position: "absolute", right: "0px", top: "0px" }}
             >
               <CloseIcon fontSize="large" />

@@ -24,13 +24,24 @@ export const EditWorkouts = (props, workouts) => {
   const navigate = useNavigate();
   const [editMode, setEditMode] = useState(false);
   const [list, setList] = useState(workoutList);
-  const [workoutName, setWorkoutName] = useState("");
+  const [workoutRemove, setWorkoutRemove] = useState("");
   
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   
-  const modalText = `Are you sure you want to delete ${workoutName}?`
+  const modalText = `Are you sure you want to delete ${workoutRemove.name}?`;
+  const actionButtons = [
+    <Container mt="40px" direction="row">
+
+      <Button variant="contained" color="error" sx={{ mr: 5 }} onClick={() => handleRemove(workoutRemove.id)}>
+        Delete
+      </Button>
+      <Button variant="contained" color="info" onClick={handleClose}>
+        Cancel
+      </Button>
+    </Container>
+  ]
 
   function handleEdit() {
     setEditMode(!editMode);
@@ -41,7 +52,7 @@ export const EditWorkouts = (props, workouts) => {
   }
 
   function confirmationPopup(workout) {
-    setWorkoutName(workout.name);
+    setWorkoutRemove(workout);
     handleOpen();
   }
 
@@ -49,6 +60,7 @@ export const EditWorkouts = (props, workouts) => {
 
     const newList = list.filter((workout) => workout.id !== removeWorkoutId);
     setList(newList);
+    handleClose();
   }
 
   function handleClick() {
@@ -123,7 +135,8 @@ export const EditWorkouts = (props, workouts) => {
         title={modalText}
         open={open}
         handleClose={handleClose}
-        
+        // children={<Button variant="contained" size="large" color="primary">Yes</Button>}
+        children={actionButtons}
       />
     </>
   );
