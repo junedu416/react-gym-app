@@ -10,8 +10,11 @@ import { MobileDatePicker, MobileTimePicker } from "@mui/lab";
 // services
 import { createNewEvent } from "../../services/eventsServices";
 import { gymClasses } from "../../data/classes";
+import { useGlobalState } from "../../config/globalStore";
 
 export const NewEvent = () => {
+  const {store} = useGlobalState();
+  const profileId = store.profile._id;
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
   const [image, setImage] = useState(null);
@@ -39,6 +42,7 @@ export const NewEvent = () => {
       ...formValues,
       startTime: startTime,
       endTime: endTime,
+      createdBy: profileId,
       eventImage: image,
     };
     const data = new FormData();
