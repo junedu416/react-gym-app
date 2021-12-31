@@ -2,31 +2,47 @@ import React, {useState, useEffect} from "react";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import moment from 'moment';
-// import { getAllEvents } from "../services/eventsServices";
-import {events} from "../data/events-dummy.js"
+// import {events} from "../data/events-dummy.js"
 import { PopupCard } from "./PopupCard";
+import { getAllEvents } from "../services/eventsServices.js";
 
 const CalendarView = ({eventCategory}) => {
     const localizer = momentLocalizer(moment);
-    // events currently loaded from data/dummy-data.js
-    const [eventsArray, setEventsArray] = useState(events);
+    const [eventsArray, setEventsArray] = useState([]);
     const [clickedEvent, setClickedEvent] = useState(null);
 
     //=======
     // load events from backend
     //=======
     useEffect(() => {
-        // console.log(eventsArray)
-        if(eventCategory) {
-            console.log(`event Category from prop is: ${eventCategory}`)
-            const filteredEvents = events.filter((event) => event.category.toLowerCase() === eventCategory.toLowerCase())
-            console.log(filteredEvents)
-            setEventsArray(filteredEvents)
-        } else {
-            setEventsArray(events)
-        }
-        return
-    }, [eventCategory])
+        getAllEvents()
+        .then((eventsList) => {
+            console.log(eventsList)
+            setEventsArray(eventsList)
+        })
+        .catch(error => console.log(`error caught fetching events: `, error))
+    }, [])
+
+    // ==========
+    // filter events  by category
+    // ===========
+    // useEffect(() => {
+    //     if(eventCategory) {
+    //         console.log(`event Category from prop is: ${eventCategory}`)
+    //         filterEventsByCategory(eventCategory)
+    //     } else {
+    //         setEventsArray(eventsArray)
+    //     }
+    //     return
+        
+    // }, [eventCategory])
+
+    function filterEventsByCategory(eventsList, category){
+        const filteredEvents = eventsList.filter((event) => event.category.toLowerCase() === category.toLowerCase())
+        setEventsArray(filteredEvents)
+    }
+
+    
 
     const onClickEvent = (e) => {
         console.log(e)

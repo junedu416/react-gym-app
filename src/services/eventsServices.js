@@ -7,7 +7,7 @@ export const getAllEvents = async () => {
     try {
         const response = await gymApi.get('/events')
         console.log(response)
-        return response
+        return response.data
     } catch (e) {
         return e.message
     }
@@ -18,7 +18,7 @@ export const getEventById = async (id) => {
     try {
         const response = await gymApi.get(`/events/${id}`)
         console.log(response)
-        return response
+        return response.data
     } catch (e) {
         return e.message
     }

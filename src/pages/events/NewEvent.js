@@ -11,10 +11,11 @@ import { MobileDatePicker, MobileTimePicker } from "@mui/lab";
 import { createNewEvent } from "../../services/eventsServices";
 import { gymClasses } from "../../data/classes";
 import { useGlobalState } from "../../config/globalStore";
+import { navigate } from "react-big-calendar/lib/utils/constants";
 
 export const NewEvent = () => {
   const {store} = useGlobalState();
-  const profileId = store.profile._id;
+  const profile = store.profile;
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
   const [image, setImage] = useState(null);
@@ -37,12 +38,16 @@ export const NewEvent = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if(!profile) {
+      setErrorMessage("You must be logged in to create an event!")
+      return
+    }
     console.log("submitted");
     const infoToSend = {
       ...formValues,
       startTime: startTime,
       endTime: endTime,
-      createdBy: profileId,
+      createdBy: profile._id,
       eventImage: image,
     };
     const data = new FormData();
@@ -52,13 +57,15 @@ export const NewEvent = () => {
     // post to event
     createNewEvent(data).then(result => {
       if (result.error){
-        console.log("error in darta validation: ", result.error)
+        console.log("error in data validation: ", result.error)
         setErrorMessage(result.error);
       } else {
         console.log("success")
         setErrorMessage("");
       }
-    }).catch(error => {
+    })
+    .then(() => navigate('/events'))
+    .catch(error => {
       setErrorMessage("Failed to connect to server.")
     });
   }
