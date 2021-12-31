@@ -13,22 +13,28 @@ import { Container } from "../../styled-components";
 import { ContactSubheadings } from "../../styled-components/contact";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import { postReport } from "../../services/reportServices";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
+import { useGlobalState } from "../../config/globalStore.js";
+import {ViewReports} from './ViewReports'
 
 // JUNE D 20/12/2021: UploadIcon has been removed. Can implement the function after MVP is done
 // JUNE D 20/12/2021: There is no back-end routes for General Inquiry. Can implement the function after MVP is done
 
 export const Reporting = () => {
+  const { store } = useGlobalState();
+  const { profile } = store;
 
   const [inquiryType, setInquiryType] = useState("");
   const [value, setValue] = useState("");
   const [message, setMessage] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
-	const [isFilePicked, setIsFilePicked] = useState(false);
+  const [isFilePicked, setIsFilePicked] = useState(false);
 
   const uploadImage = (event) => {
     setSelectedFile(event.target.files[0]);
     setIsFilePicked(true);
-  }
+  };
 
   const handleSelection = (event) => {
     setInquiryType(event.target.value);
@@ -38,31 +44,38 @@ export const Reporting = () => {
     setValue(event.target.value);
   };
 
-  const handleSend =  async (event) => {
+  const handleSend = async (event) => {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append('type', inquiryType);
-    formData.append('description', value);
-    formData.append('reportImage', selectedFile);
+    formData.append("type", inquiryType);
+    formData.append("description", value);
+    formData.append("reportImage", selectedFile);
+    formData.append("userId", profile.userId);
 
     await postReport(formData);
     setIsFilePicked(false);
-    setMessage("report sent successfully!")
+    setMessage("report sent successfully!");
 
     setTimeout(() => {
-      setMessage("")
+      setMessage("");
     }, 5000);
-  }
+  };
 
   return (
     <MainWindow>
-      <Heading>Contact</Heading>
-
+     { console.log(profile)}
+      {!profile && (
+        <Stack sx={{ width: "100%" }} spacing={2}>
+          <Alert severity="error">
+            You need to login to report!
+          </Alert>
+        </Stack>
+      )}
+      {profile &&!profile.isStaff && <div>
+      <Heading>Report</Heading>
       <FormControl required sx={{ m: 1, minWidth: 340 }}>
-        <InputLabel id="inquiryType">
-          Inquiry Type
-        </InputLabel>
+        <InputLabel id="inquiryType">Inquiry Type</InputLabel>
         <Select
           labelId="inquiryType"
           id="inquiryType"
@@ -70,9 +83,12 @@ export const Reporting = () => {
           label="Inquiry Type *"
           onChange={handleSelection}
           name="type"
+          inputProps={{ "data-testid": "select-input" }}
         >
           <MenuItem value="Faulty Equipment">Report Faulty Equipment</MenuItem>
-          <MenuItem value="Unsocial Behaviour">Report Unsocial Behaviour</MenuItem>
+          <MenuItem value="Unsocial Behaviour">
+            Report Unsocial Behaviour
+          </MenuItem>
           {/* <MenuItem value="General Inquiry">General Inquiry</MenuItem> */}
         </Select>
         <FormHelperText>Please select inquiry type (required)</FormHelperText>
@@ -83,41 +99,50 @@ export const Reporting = () => {
         : [
             <Container align="flex-start" justify="flex-start">
               <form encType="multipart/form-data">
-              <ContactSubheadings justify="flex-start">
-                {inquiryType === "General Inquiry"
-                  ? "General Inquiry"
-                  : [
-                      <CampaignIcon style={{ marginRight: "5px" }} />,
-                      [
-                        inquiryType === "Faulty Equipment"
-                          ? "Report Faulty Equipment"
-                          : "Report Unsocial Behaviour",
-                      ],
-                    ]}
-              </ContactSubheadings>
-              <Container direction="row" align="flex-start">
-                <TextField
-                  id="outlined-multiline-flexible"
-                  label="Your Message"
-                  multiline
-                  rows={4}
-                  maxRows={4}
-                  style={{ width: "300px" }}
-                  value={value}
-                  name="description"
-                  onChange={handleChange}
-                ></TextField>
-                <Container>
-                  <Send btnFunction={handleSend} />
-                  {/* <UploadIcon /> */}
-                  <AttachmentIcon btnFunction={uploadImage} />
+                <ContactSubheadings justify="flex-start">
+                  {inquiryType === "General Inquiry"
+                    ? "General Inquiry"
+                    : [
+                        <CampaignIcon style={{ marginRight: "5px" }} />,
+                        [
+                          inquiryType === "Faulty Equipment"
+                            ? "Report Faulty Equipment"
+                            : "Report Unsocial Behaviour",
+                        ],
+                      ]}
+                </ContactSubheadings>
+                <Container direction="row" align="flex-start">
+                  <TextField
+                    id="outlined-multiline-flexible"
+                    label="Your Message"
+                    multiline
+                    rows={4}
+                    style={{ width: "300px" }}
+                    value={value}
+                    name="description"
+                    onChange={handleChange}
+                    inputProps={{ "data-testid": "description" }}
+                  ></TextField>
+                  <Container>
+                    <Send btnFunction={handleSend} />
+                    {/* <UploadIcon /> */}
+                    <AttachmentIcon btnFunction={uploadImage} />
+                  </Container>
                 </Container>
-              </Container>
               </form>
-              {isFilePicked === true && <ContactSubheadings>Image selected!</ContactSubheadings>}
-              {message !=="" && <ContactSubheadings>{message}</ContactSubheadings>}
+              {isFilePicked === true && (
+                <ContactSubheadings>Image selected!</ContactSubheadings>
+              )}
+              {message !== "" && (
+                <ContactSubheadings data-testid="message">
+                  {message}
+                </ContactSubheadings>
+              )}
             </Container>,
           ]}
+        </div>}
+        
+        {profile && profile.isStaff &&<ViewReports/>}
     </MainWindow>
   );
 };

@@ -41,3 +41,13 @@ export const signInUser = async (userDetails) => {
         throw e;
     }
 }
+
+export const getUserProfile = async (uid) => {
+    try {
+        const response = await gymApi.get(`/profiles/${uid}`)
+        return response.data
+    } catch (e) {
+        console.log("get user profile error:", e);
+        throw e;
+    }
+}

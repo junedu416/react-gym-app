@@ -14,3 +14,13 @@ export const postReport = async (formData) => {
         throw e
     }
 }
+
+export const getAllReports = async () => {
+    try {
+        const response = await gymApi.get('/reports')
+        return response.data
+    } catch (e) {
+        console.log("get all reports error:", e);
+        throw e;
+    }
+}
