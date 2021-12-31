@@ -32,15 +32,33 @@ export const popupMiddle = () => {
   `;
 };
 
-export const mt = () => {
+export const mt = (props) => {
   return `
-    margin-top: 90px;
+    margin-top: ${props.mt ? props.mt : "90px" };
   `;
 };
 
-export const pt = () => {
+export const ml = (props) => {
   return `
-    padding-top: 90px;
+    margin-left: ${props.ml ? props.ml : "0" };
+  `;
+};
+
+export const m = (props) => {
+  return `
+    margin: ${props.m ? props.m : "0" };
+  `;
+};
+
+export const pt = (props) => {
+  return `
+    padding-top: ${props.pt ? props.pt : "90px" };
+  `;
+};
+
+export const p = (props) => {
+  return `
+    padding: ${props.p ? props.p : "0" };
   `;
 };
 

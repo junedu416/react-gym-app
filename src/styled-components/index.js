@@ -1,8 +1,9 @@
 // import { css } from 'styled-components'; // turn this into a 1-liner?
 import styled from "styled-components";
-import { flexbox, centered, link, greyBorder, shadow, mt, vcentered, hcentered } from "./mixins";
+import { flexbox, centered, link, greyBorder, shadow, vcentered, hcentered, mt, ml, p, m } from "./mixins";
 import { Link } from "react-router-dom";
-import Modal from "@mui/material/Modal";
+// import Modal from "@mui/material/Modal";
+import { Dialog } from "@mui/material";
 
 export const Container = styled.div`
   ${flexbox};
@@ -27,9 +28,9 @@ export const Heading = styled.h1`
 `;
 
 export const SmallHeading = styled.h2`
+  ${p}
+  ${m}
   font-size: ${props => props.size ? props.size: "2.5rem"};
-  padding: 0;
-  margin: 0 0 20px 0;
   color: ${(props) => (props.color ? props.color : "blue")};
 `;
 
@@ -48,10 +49,16 @@ export const ButtonLink = styled(Link)`
 export const TextLink = styled.u`
   ${link}
   color: blue;
+  ${flexbox}
+  ${centered}
+  ${mt}
+  ${ml}
+  ${p}
 `
 
 // custom settings for MUI modal backdrop
-export const StyledModal = styled(Modal)`
+export const StyledModal = styled(Dialog)`
+  z-index: 20;
   .MuiBackdrop-root {
     background-color: rgba(0, 0, 0, 0.9);
     backdrop-filter: blur(1px);
