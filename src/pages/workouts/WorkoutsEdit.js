@@ -19,7 +19,7 @@ import EditButton from "../../components/buttons/Edit";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { Button } from "@mui/material";
 import { workoutList } from "../../data/workouts-dummy";
-import { ReusableModal, ReuseableModal } from "../../components/ReusableModal";
+import { ReusableModal } from "../../components/ReusableModal";
 
 export const EditWorkouts = (props, workouts) => {
   const navigate = useNavigate();
@@ -144,7 +144,6 @@ export const EditWorkouts = (props, workouts) => {
         title={modalText}
         open={open}
         handleClose={handleClose}
-        // children={<Button variant="contained" size="large" color="primary">Yes</Button>}
         children={actionButtons}
       />
     </>
