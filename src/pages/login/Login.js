@@ -10,6 +10,9 @@ import SignInButton from "../../components/buttons/SignIn";
 import { signInUser } from "../../services/userServices";
 import { useGlobalState } from "../../config/globalStore";
 import { useNavigate } from "react-router-dom";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
 
 export const SignIn = () => {
   const [rememberMe, setRememberMe] = useState(true);
@@ -26,6 +29,25 @@ export const SignIn = () => {
     // NEED TO ADD LOGIC HERE FOR FIREBASE PASSWORD RESET
   }
 
+  const handleFormChange = (event) => {
+    setFormValues({
+      ...formValues,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleClickShowPassword = () => {
+    setFormValues({
+      ...formValues,
+      showPassword: !formValues.showPassword,
+    });
+  };
+
+  // Prevents passwording being reset when toggle visibility is clicked.
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   const handleChange = (event) => {
     setFormValues({
       ...formValues,
@@ -40,6 +62,7 @@ export const SignIn = () => {
   const initialFormValues = {
     email: "",
     password: "",
+    showPassword: false,
   };
 
   const [formValues, setFormValues] = useState(initialFormValues);
@@ -58,6 +81,9 @@ export const SignIn = () => {
     });
   }
   
+  function displayPassword(show) {
+    return show ? <Visibility /> : <VisibilityOff />;
+  }
 
   return (
     <MainWindow verticalMiddle>
@@ -72,13 +98,25 @@ export const SignIn = () => {
             onChange={handleChange}
             name="email"
           />
-          <TextField
-            id="standard-basic"
-            label="Password"
-            type="password"
+         <OutlinedInput
+            placeholder="Password"
             style={formStyling}
-            onChange={handleChange}
+            onChange={handleFormChange}
             name="password"
+            type={formValues.showPassword ? "text" : "password"}
+            value={formValues.password}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {displayPassword(formValues.showPassword)}
+                </IconButton>
+              </InputAdornment>
+            }
           />
 
           <FormControlLabel

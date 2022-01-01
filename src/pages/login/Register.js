@@ -111,9 +111,7 @@ export const Register = (props) => {
             onChange={handleFormChange}
             name="email"
           />
-          {/* <InputLabel>Password</InputLabel> */}
           <OutlinedInput
-            // label="Password"
             placeholder="Password"
             style={formStyling}
             onChange={handleFormChange}
@@ -134,7 +132,6 @@ export const Register = (props) => {
             }
           />
           <OutlinedInput
-            // label="Confirm Password"
             placeholder="Confirm Password"
             style={formStyling}
             onChange={handleFormChange}
