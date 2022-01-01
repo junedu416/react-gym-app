@@ -95,6 +95,7 @@ export const Register = (props) => {
           <TextField 
             id="standard-basic" 
             label="Password" 
+            type="password"
             style={formStyling} 
             onChange={handleFormChange} 
             name="password" 
@@ -102,6 +103,7 @@ export const Register = (props) => {
           <TextField
             id="standard-basic"
             label="Confirm Password"
+            type="password"
             style={formStyling}
             onChange={handleFormChange}
             name="passwordConfirm"

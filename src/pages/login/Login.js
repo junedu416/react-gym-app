@@ -75,6 +75,7 @@ export const SignIn = () => {
           <TextField
             id="standard-basic"
             label="Password"
+            type="password"
             style={formStyling}
             onChange={handleChange}
             name="password"
