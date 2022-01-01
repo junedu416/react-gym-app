@@ -6,12 +6,20 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { Container, Heading, MainWindow } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
-import { useGlobalState } from "../../config/globalStore"
+import { useGlobalState } from "../../config/globalStore";
 import { signUpUser } from "../../services/userServices";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import {
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+} from "@mui/material";
 
 export const Register = (props) => {
   const navigate = useNavigate();
-  const {dispatch} = useGlobalState();
+  const { dispatch } = useGlobalState();
 
   const [rememberMe, setRememberMe] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
@@ -20,13 +28,13 @@ export const Register = (props) => {
   const handleCheckChange = (event) => {
     setRememberMe(!rememberMe);
   };
-  
+
   const handleFormChange = (event) => {
     setFormValues({
       ...formValues,
-      [event.target.name] : event.target.value
+      [event.target.name]: event.target.value,
     });
-  }
+  };
 
   const initialFormValues = {
     firstName: "",
@@ -34,13 +42,23 @@ export const Register = (props) => {
     membershipNumber: 0,
     email: "",
     password: "",
-    passwordConfirm: ""
-  }
+    passwordConfirm: "",
+    showPassword: false,
+  };
 
   const [formValues, setFormValues] = useState(initialFormValues);
 
-  //use global state or local storage for this
-  //const [login, setLogin] = useState(false);
+  const handleClickShowPassword = () => {
+    setFormValues({
+      ...formValues,
+      showPassword: !formValues.showPassword,
+    });
+  };
+
+  // Prevents passwording being reset when toggle visibility is clicked.
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   //sign up user and console log profile -> save to state later
   async function handleSubmit(event) {
@@ -53,10 +71,14 @@ export const Register = (props) => {
     if (response.error) {
       setErrorMsg(response.error);
     } else {
-      dispatch({type: "setProfile", data: response});
+      dispatch({ type: "setProfile", data: response });
       setErrorMsg("");
       navigate("/welcome");
     }
+  }
+
+  function displayPassword(show) {
+    return show ? <VisibilityOff /> : <Visibility />;
   }
 
   return (
@@ -66,47 +88,71 @@ export const Register = (props) => {
       <form onSubmit={handleSubmit}>
         <Container>
           <TextField
-            id="standard-basic"
             label="First Name"
             style={formStyling}
             onChange={handleFormChange}
             name="firstName"
           />
           <TextField
-            id="standard-basic"
             label="Last Name"
             style={formStyling}
             onChange={handleFormChange}
             name="lastName"
           />
           <TextField
-            id="standard-basic"
             label="Membership ID"
             style={formStyling}
             onChange={handleFormChange}
             name="membershipNumber"
           />
-          <TextField 
-            id="standard-basic" 
-            label="Email" style={formStyling} 
-            onChange={handleFormChange} 
-            name="email" 
-          />
-          <TextField 
-            id="standard-basic" 
-            label="Password" 
-            type="password"
-            style={formStyling} 
-            onChange={handleFormChange} 
-            name="password" 
-          />
           <TextField
-            id="standard-basic"
-            label="Confirm Password"
-            type="password"
+            label="Email"
+            style={formStyling}
+            onChange={handleFormChange}
+            name="email"
+          />
+          {/* <InputLabel>Password</InputLabel> */}
+          <OutlinedInput
+            // label="Password"
+            placeholder="Password"
+            style={formStyling}
+            onChange={handleFormChange}
+            name="password"
+            type={formValues.showPassword ? "text" : "password"}
+            value={formValues.password}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {displayPassword(formValues.showPassword)}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+          <OutlinedInput
+            // label="Confirm Password"
+            placeholder="Confirm Password"
             style={formStyling}
             onChange={handleFormChange}
             name="passwordConfirm"
+            type={formValues.showPassword ? "text" : "password"}
+            value={formValues.passwordConfirm}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {displayPassword(formValues.showPassword)}
+                </IconButton>
+              </InputAdornment>
+            }
           />
 
           <FormControlLabel
