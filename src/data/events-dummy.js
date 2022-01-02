@@ -6,8 +6,8 @@ export const events = [
         category: "Personal Training",
         description: "Let's build muscles together",
         spotsAvailable: '1',
-        startTime: new Date("2021-12-15 08:00"),
-        endTime: new Date("2021-12-15 08:45")
+        startTime: "2022-01-01T01:00:16.000Z",
+        endTime: "2022-01-07T03:06:16.000Z"
     },
     //Example Single day and Multi Day Event - Daniel
     {
