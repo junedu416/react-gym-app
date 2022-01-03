@@ -4,17 +4,18 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Container, Heading, MainWindow } from "../../styled-components";
+import {
+  Container,
+  Heading,
+  MainWindow,
+  TextLink,
+} from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
 import { useGlobalState } from "../../config/globalStore";
 import { signUpUser } from "../../services/userServices";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import {
-  IconButton,
-  InputAdornment,
-  OutlinedInput,
-} from "@mui/material";
+import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
 
 export const Register = (props) => {
   const navigate = useNavigate();
@@ -54,6 +55,10 @@ export const Register = (props) => {
     });
   };
 
+  function navigateToLogin() {
+    navigate("/auth/login");
+  }
+
   // Prevents passwording being reset when toggle visibility is clicked.
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -64,9 +69,12 @@ export const Register = (props) => {
     console.log("clicked!");
     event.preventDefault();
     setDisableSubmit(true);
+
     const response = await signUpUser(formValues);
     setDisableSubmit(false);
+
     //console.log("profile", response);
+
     if (response.error) {
       setErrorMsg(response.error);
     } else {
@@ -77,7 +85,7 @@ export const Register = (props) => {
   }
 
   function displayPassword(show) {
-    return show ? <Visibility /> : <VisibilityOff />;
+    return show ? <VisibilityOff /> : <Visibility />;
   }
 
   return (
@@ -91,14 +99,17 @@ export const Register = (props) => {
             style={formStyling}
             onChange={handleFormChange}
             name="firstName"
+            required
           />
           <TextField
             label="Last Name"
             style={formStyling}
             onChange={handleFormChange}
             name="lastName"
+            required
           />
           <TextField
+            required
             label="Membership ID"
             style={formStyling}
             onChange={handleFormChange}
@@ -109,9 +120,12 @@ export const Register = (props) => {
             style={formStyling}
             onChange={handleFormChange}
             name="email"
+            type="email"
+            required
           />
           <OutlinedInput
-            placeholder="Password"
+            placeholder="Password *"
+            required
             style={formStyling}
             onChange={handleFormChange}
             name="password"
@@ -131,7 +145,8 @@ export const Register = (props) => {
             }
           />
           <OutlinedInput
-            placeholder="Confirm Password"
+            required
+            placeholder="Confirm Password *"
             style={formStyling}
             onChange={handleFormChange}
             name="passwordConfirm"
@@ -174,6 +189,12 @@ export const Register = (props) => {
           >
             Create Account
           </Button>
+          <Container direction="row" mt="20px">
+            <p>Already have an account?</p>
+            <TextLink mt="0" p="0 10px" onClick={navigateToLogin}>
+              Login
+            </TextLink>
+          </Container>
         </Container>
       </form>
     </MainWindow>
