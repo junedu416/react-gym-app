@@ -11,6 +11,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { RegisterIcon } from "../../components/RegisterIcon";
 import GroupsIcon from "@mui/icons-material/Groups";
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
 
 // Dashboard components
@@ -93,8 +94,8 @@ export const SidebarData = [
     route: "/"
   },
   {
-    title: [<RegisterIcon style={iconMargin} />, "Register"],
-    display: <Register />,
+    title: [<AppRegistrationIcon style={iconMargin} />, "Register"],
+    display: <Register />,  
     route: "/register"
   }
 ];

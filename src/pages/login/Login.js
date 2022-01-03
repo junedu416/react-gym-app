@@ -4,12 +4,20 @@ import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 // import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import { Container, Heading, MainWindow, TextLink } from "../../styled-components";
+import {
+  Container,
+  Heading,
+  MainWindow,
+  TextLink,
+} from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
 import SignInButton from "../../components/buttons/SignIn";
 import { signInUser } from "../../services/userServices";
 import { useGlobalState } from "../../config/globalStore";
 import { useNavigate } from "react-router-dom";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
 
 export const SignIn = () => {
   const [rememberMe, setRememberMe] = useState(true);
@@ -18,13 +26,32 @@ export const SignIn = () => {
   const { dispatch } = useGlobalState();
   const navigate = useNavigate();
 
-  function handleClick() {
+  function navigateToRegister() {
     navigate("/register");
   }
 
   function forgotPassword() {
     // NEED TO ADD LOGIC HERE FOR FIREBASE PASSWORD RESET
   }
+
+  const handleFormChange = (event) => {
+    setFormValues({
+      ...formValues,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleClickShowPassword = () => {
+    setFormValues({
+      ...formValues,
+      showPassword: !formValues.showPassword,
+    });
+  };
+
+  // Prevents passwording being reset when toggle visibility is clicked.
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const handleChange = (event) => {
     setFormValues({
@@ -40,6 +67,7 @@ export const SignIn = () => {
   const initialFormValues = {
     email: "",
     password: "",
+    showPassword: false,
   };
 
   const [formValues, setFormValues] = useState(initialFormValues);
@@ -48,16 +76,21 @@ export const SignIn = () => {
   // Change out this logic for auth later
   function handleSubmit(event) {
     event.preventDefault();
-    signInUser(formValues).then((profile) => {
-      dispatch({ type: "setProfile", data: profile });
-      setErrorMessage("");
-      navigate("/overview");
-    }).catch((error) => {
-      console.log(`error caught in login handle submit:`, error);
-      setErrorMessage("Incorrect email or password");
-    });
+    signInUser(formValues)
+      .then((profile) => {
+        dispatch({ type: "setProfile", data: profile });
+        setErrorMessage("");
+        navigate("/overview");
+      })
+      .catch((error) => {
+        console.log(`error caught in login handle submit:`, error);
+        setErrorMessage("Incorrect email or password");
+      });
   }
-  
+
+  function displayPassword(show) {
+    return show ? <Visibility /> : <VisibilityOff />;
+  }
 
   return (
     <MainWindow verticalMiddle>
@@ -72,12 +105,25 @@ export const SignIn = () => {
             onChange={handleChange}
             name="email"
           />
-          <TextField
-            id="standard-basic"
-            label="Password"
+          <OutlinedInput
+            placeholder="Password"
             style={formStyling}
-            onChange={handleChange}
+            onChange={handleFormChange}
             name="password"
+            type={formValues.showPassword ? "text" : "password"}
+            value={formValues.password}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {displayPassword(formValues.showPassword)}
+                </IconButton>
+              </InputAdornment>
+            }
           />
 
           <FormControlLabel
@@ -93,8 +139,14 @@ export const SignIn = () => {
             style={formStyling}
           />
           <SignInButton />
-          <p style={{ marginTop: "50px" }}>Forgot Password? <TextLink onClick={forgotPassword}>Reset Password</TextLink></p>
-          <p>Don't have an account? <TextLink onClick={handleClick}>Register</TextLink></p>
+          <p style={{ marginTop: "50px", display: "flex"}}>
+            Forgot Password?
+            <TextLink mt="0" p="0 10px" onClick={forgotPassword}>Reset Password</TextLink>
+          </p>
+          <p style={{ display: "flex"}}>
+            Don't have an account?
+            <TextLink mt="0" p="0 10px" onClick={navigateToRegister}>Register</TextLink>
+          </p>
         </Container>
       </form>
     </MainWindow>
