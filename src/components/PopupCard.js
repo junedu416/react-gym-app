@@ -1,7 +1,6 @@
 import React from "react";
-import { Link, Routes, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import moment from "moment";
-import { ShowEvent } from "../pages/events/ShowEvent";
 
 export const PopupCard = ({selectedEvent}) => {
     const startDate = moment(selectedEvent.startTime).format('Do [of] MMM')
@@ -18,10 +17,6 @@ export const PopupCard = ({selectedEvent}) => {
                 <p>Spots left: {selectedEvent.spotsAvailable}</p>
                 <Link to={`/events/${selectedEvent._id}`}>More Details</Link>
             </div>
-
-            <Routes>
-                <Route path="events/:id" element={<ShowEvent selectedEvent={selectedEvent}/>}></Route>
-            </Routes>
         </>
     )
 }
