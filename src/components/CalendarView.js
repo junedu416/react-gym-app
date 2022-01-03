@@ -16,8 +16,11 @@ const CalendarView = ({eventCategory}) => {
     const [clickedEvent, setClickedEvent] = useState(null);
  
     const filterEventsByCategory = useCallback(() => {
-        console.log(`event Category from prop is: ${eventCategory}`)
-        dispatchEventsVars({type: 'setCategorisedEventsList', data: eventCategory})
+        if(eventCategory){
+            console.log(`event Category from prop is: ${eventCategory}`)
+            dispatchEventsVars({type: 'setCategorisedEventsList', data: eventCategory})
+        }
+        return
     }, [eventCategory])
 
     //=======
