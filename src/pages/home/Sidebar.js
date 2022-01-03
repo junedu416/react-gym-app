@@ -1,29 +1,17 @@
-import React, { useState, useEffect, useReducer } from "react";
-import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-// import InboxIcon from "@mui/icons-material/MoveToInbox";
-// import MailIcon from "@mui/icons-material/Mail";
-import { Container, Grid } from "../../styled-components";
+import { Container } from "../../styled-components";
 import { SidebarData } from "./sidebarData";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { dashItem } from "../../styled-components/dashboard";
 import PropTypes from "prop-types";
-
-import { Overview } from "./Overview";
 import { useGlobalState } from "../../config/globalStore";
-
 import { signOutUser } from "../../services/userServices";
 
 const StyledTabs = styled((props) => (
@@ -112,24 +100,17 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-// function a11yProps(index) {
-//   return {
-//     id: `vertical-tab-${index}`,
-//     "aria-controls": `vertical-tabpanel-${index}`,
-//   };
-// }
-
 export const Sidebar = () => {
-  const [dashboardView, setDashboardView] = useState(<Overview />);
+  // const [dashboardView, setDashboardView] = useState(<Overview />);
   const [value, setValue] = useState(0);
   const {store, dispatch} = useGlobalState();
   const {profile} = store;
   const navigate = useNavigate();
   const [sbData, setSbData] = useState([]);
 
-  function handleClick(event) {
-    event.preventDefault();
-  }
+  // function handleClick(event) {
+  //   event.preventDefault();
+  // }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

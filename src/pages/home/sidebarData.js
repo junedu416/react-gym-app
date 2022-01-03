@@ -9,7 +9,6 @@ import CampaignIcon from "@mui/icons-material/Campaign";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { RegisterIcon } from "../../components/RegisterIcon";
 import GroupsIcon from "@mui/icons-material/Groups";
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 

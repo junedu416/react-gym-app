@@ -17,9 +17,9 @@ export const ViewReports = () => {
     const fetchReportsInfo = async () => {
       const reports = await getAllReports();
       for (let report of reports) {
-        let repoterProfile = await getUserProfile(report.userId);
-        const reporterFullName = repoterProfile ?
-          (repoterProfile.firstName + " " + repoterProfile.lastName):"Unknown User";
+        let reporterProfile = await getUserProfile(report.userId);
+        const reporterFullName = reporterProfile ?
+          (reporterProfile.firstName + " " + reporterProfile.lastName) : "Unknown User";
         report.reporterFullName = reporterFullName;
       }
 
@@ -71,12 +71,16 @@ export const ViewReports = () => {
             <li key={index}>
               Type: {report.type}
               <br />
-              Reporter Name: {report.reporterFullName}
+              Name: {report.reporterFullName}
               <br />
-              Report Time: <Moment fromNow>{report.reportDate}</Moment>
+              Reported: <Moment fromNow>{report.reportDate}</Moment>
               <br />
               Description: {report.description}
               <br />
+              {/* Can we have a status property for each report in backend:  
+              
+              Status: Unresolved || In-progress || Resolved */}
+              Status: {report.status}
               <button onClick={() => handleResolveBtn(index)}>
                 {resolved.includes(index) ? "Unresolved" : "Issue Resolved"}
               </button>
@@ -86,7 +90,7 @@ export const ViewReports = () => {
               <button onClick={() => handleImageBtn(index)}>
                 {open.includes(index) ? "Hide Photo" : "Show Photo"}
               </button>
-              {open.includes(index) && <img src={report.reportImage} />}
+              {open.includes(index) && <img src={report.reportImage} alt="user uploaded" />}
             </li>
           );
         })}

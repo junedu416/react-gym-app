@@ -9,7 +9,7 @@ const Info = (props) => {
       <Button
         variant="contained"
         size="large"
-        color="info"
+        // color="info"
         onClick={btnFunction}
         // style={{ marginLeft: "10px" }}
       >
