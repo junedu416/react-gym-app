@@ -38,8 +38,8 @@ export const NewEvent = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(!profile) {
-      setErrorMessage("You must be logged in to create an event!")
+    if(!profile || !profile.isStaff) {
+      setErrorMessage("You are not authorised to create an event!")
       return
     }
     console.log("submitted");

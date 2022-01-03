@@ -19,6 +19,7 @@ const CalendarView = ({eventCategory}) => {
         console.log(`event Category from prop is: ${eventCategory}`)
         dispatchEventsVars({type: 'setCategorisedEventsList', data: eventCategory})
     }, [eventCategory])
+
     //=======
     // load events from backend
     //=======
@@ -45,9 +46,6 @@ const CalendarView = ({eventCategory}) => {
         return
     }, [eventCategory])
 
-    
-
-    
 
     const onClickEvent = (e) => {
         console.log(e)
