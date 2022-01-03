@@ -1,5 +1,7 @@
 import React from "react";
+import { Link, Routes, Route } from "react-router-dom";
 import moment from "moment";
+import { ShowEvent } from "../pages/events/ShowEvent";
 
 export const PopupCard = ({selectedEvent}) => {
     const startDate = moment(selectedEvent.startTime).format('Do [of] MMM')
@@ -8,12 +10,18 @@ export const PopupCard = ({selectedEvent}) => {
     const endTime = moment(selectedEvent.endTime).format('h:mm A')
     
     return(
-        <div>
-            <h3>{selectedEvent.title}</h3>
-            <p>{selectedEvent.description}</p>
-            <p>{startDate} at {startTime} ~ {endDate} {endTime}</p>
-            <p>Spots left: {selectedEvent.spotsAvailable}</p>
-            <button>Details</button>
-        </div>
+        <>
+            <div>
+                <h3>{selectedEvent.title}</h3>
+                <p>{selectedEvent.description}</p>
+                <p>{startDate} at {startTime} ~ {endDate} {endTime}</p>
+                <p>Spots left: {selectedEvent.spotsAvailable}</p>
+                <Link to={`/events/${selectedEvent._id}`}>More Details</Link>
+            </div>
+
+            <Routes>
+                <Route path="events/:id" element={<ShowEvent selectedEvent={selectedEvent}/>}></Route>
+            </Routes>
+        </>
     )
 }
