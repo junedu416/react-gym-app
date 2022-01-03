@@ -33,15 +33,14 @@ export const ShowEvent = () => {
 
     return(
         <MainWindow>
-            <h1>Show Event Page</h1>
             {loading && <p>Loading...</p>}
             {errorMsg && <p>{errorMsg}</p>}
             {event && 
                 <div>
                     <div>
-                        <h2>{event.name}</h2>
-                        <h3>{event.category}</h3>
-                        <h4>Event Listed by {event.creatorName}</h4>
+                        <h1>{event.name}</h1>
+                        <h2>{event.category}</h2>
+                        <h3>Event Listed by {event.creatorName}</h3>
                         {event.eventImage ?  <img href={event.eventImage} alt={event.name}/> : <p>-no image available-</p>}
                         <p>{event.description}</p>
                         {event.isFinished ? <p>This event has already ended.</p> : <>
