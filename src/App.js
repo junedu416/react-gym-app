@@ -25,6 +25,7 @@ import { NewEvent } from "./pages/events/NewEvent";
 // import { Classes } from "./pages/events/Classes";
 // import { Class } from "./pages/events/Class";
 import { TrainerBookings } from "./pages/events/TrainerBookings";
+import { ShowEvent } from "./pages/events/ShowEvent";
 
 // Workouts
 import { Workouts } from "./pages/workouts/Workouts";
@@ -73,6 +74,7 @@ const App = () => {
         <Route path="/events" element={<Events />} />
         {/* <Route path="/events/:id" element={<Event />} /> */}
         <Route path="/events/new" element={<NewEvent />} />
+        <Route path="events/:id" element={<ShowEvent />}></Route>
         {/* <Route path="/events/classes" element={<Classes />} /> */}
         {/* <Route path="/events/classes/:id" element={<Class />} /> */}
         <Route path="/events/leaderboards" element={<Leaderboards />} />
