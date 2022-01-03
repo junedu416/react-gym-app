@@ -4,7 +4,6 @@ import { MainWindow } from '../../styled-components';
 import { getEventById } from '../../services/eventsServices';
 import { showEventReducer } from '../../utils/showEvent-reducer';
 import Book from '../../components/buttons/Book';
-import { ElevenMpTwoTone } from '@mui/icons-material';
 
 export const ShowEvent = () => {
     const {id} = useParams();
