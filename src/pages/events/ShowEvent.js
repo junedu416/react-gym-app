@@ -4,6 +4,7 @@ import { MainWindow } from '../../styled-components';
 import { getEventById } from '../../services/eventsServices';
 import { showEventReducer } from '../../utils/showEvent-reducer';
 import Book from '../../components/buttons/Book';
+import { ElevenMpTwoTone } from '@mui/icons-material';
 
 export const ShowEvent = () => {
     const {id} = useParams();
@@ -41,15 +42,17 @@ export const ShowEvent = () => {
                         <h2>{event.name}</h2>
                         <h3>{event.category}</h3>
                         <h4>Event Listed by {event.creatorName}</h4>
-                        {event.eventImage ?  <img href={event.eventImage} alt={event.name}/> : <p>no image available</p>}
+                        {event.eventImage ?  <img href={event.eventImage} alt={event.name}/> : <p>-no image available-</p>}
                         <p>{event.description}</p>
-                        {(event.startDate !== event.endDate) && <p>{event.startDate} at {event.startTime} ~ {event.endDate} at {event.endTime}</p>}
-                        {(event.startDate === event.endDate) && <p>{event.startDate} from {event.startTime} ~ {event.endTime}</p>}
-                        {event.spotsAvailable !== 0 && <>
+                        {event.isFinished ? <p>This event has already ended.</p> : <>
+                            {(event.startDate !== event.endDate) && <p>{event.startDate} at {event.startTime} ~ {event.endDate} at {event.endTime}</p>}
+                            {(event.startDate === event.endDate) && <p>{event.startDate} from {event.startTime} ~ {event.endTime}</p>}
+                            </>
+                        }
+                        {!event.isFinished && event.spotsAvailable !== 0 && <>
                             <p>{event.spotsAvailable} {event.spotsAvailable === 1 ? "spot" : "spots"} left!</p>
-                            <Book></Book>
+                            <Book />
                             </>}
-
                     </div>
                 </div>
             }

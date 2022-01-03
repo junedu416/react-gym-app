@@ -22,12 +22,14 @@ export const showEventReducer = (state, action) => {
             const startTime = moment(action.data.startTime).format('h:mm A')
             const endDate = moment(action.data.endTime).format('Do [of] MMM')
             const endTime = moment(action.data.endTime).format('h:mm A')
+            const isFinished = Date.now() >= action.data.endTime
             return {
                 ...state,
                 startDate: startDate,
                 startTime: startTime,
                 endDate: endDate,
-                endTime: endTime
+                endTime: endTime,
+                isFinished: isFinished
             }
         }
         default: {
