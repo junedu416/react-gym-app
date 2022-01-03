@@ -1,6 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
-import { Button } from "@mui/material";
+import { Button, Modal } from "@mui/material";
+// import Backdrop from "@mui/material/Backdrop";
+import Box from "@mui/material/Box";
+import Fade from "@mui/material/Fade";
+// import { modalStyling } from "../styled-components/modal";
+import { StyledModal } from "../styled-components";
+// import CloseIcon from "@mui/icons-material/Close";
+// import IconButton from "@mui/material/IconButton";
 
 import "./DropZone.css";
 import { Container } from "../styled-components";
@@ -10,13 +17,18 @@ const Dropzone = () => {
   const fileInputRef = useRef();
   const modalImageRef = useRef();
   const modalRef = useRef();
-  const progressRef = useRef();
-  const uploadRef = useRef();
+  let progressRef = useRef();
+  let uploadRef = useRef();
   const uploadModalRef = useRef();
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [validFiles, setValidFiles] = useState([]);
   const [unsupportedFiles, setUnsupportedFiles] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [ModalContent, setModalContent] = useState(null);
 
   useEffect(() => {
     let filteredArr = selectedFiles.reduce((acc, current) => {
@@ -122,13 +134,32 @@ const Dropzone = () => {
       setUnsupportedFiles([...unsupportedFiles]);
     }
   };
+// const modalStyle = {
+//   position: "absolute",
+//   top: "50%",
+//   left: "calc(50% + 115px)",
+//   transform: "translate(-50%, -50%)",
+//   overflow: "hidden",
+//   objectFit: "cover",
+//   width: "100%",
+//   height: "300px",
+//   backgroundSize: "contain",
+//   backgroundRepeat: "no-repeat",
+//   backgroundPosition: "center",
+// }
 
   const openImageModal = (file) => {
     const reader = new FileReader();
-    modalRef.current.style.display = "block";
+
+
+    // modalRef.current.style.display = "block";
+
     reader.readAsDataURL(file);
     reader.onload = function (e) {
-      modalImageRef.current.style.backgroundImage = `url(${e.target.result})`;
+        setModalContent(<div style={{ backgroundImage:`url(${e.target.result})`}}></div>)
+        handleOpen();
+    //   modalImageRef.backgroundImage = <img src={`url(${e.target.result})`} />;
+    //   modalImageRef.current.style.backgroundImage = `url(${e.target.result})`;
     };
   };
 
@@ -138,8 +169,15 @@ const Dropzone = () => {
   };
 
   const uploadFiles = async () => {
+    // ============================================================
     uploadModalRef.current.style.display = "block";
+    // ============================================================
+
+    handleOpen();
+    // ============================================================
     uploadRef.current.innerHTML = "File(s) Uploading...";
+    // ============================================================
+
     for (let i = 0; i < validFiles.length; i++) {
       const formData = new FormData();
       formData.append("image", validFiles[i]);
@@ -152,11 +190,19 @@ const Dropzone = () => {
             const uploadPercentage = Math.floor(
               (progressEvent.loaded / progressEvent.total) * 100
             );
-            progressRef.current.innerHTML = `${uploadPercentage}%`;
+
+            // ============================================================
+            progressRef = `${uploadPercentage}%`;
+            // progressRef.current.innerHTML = `${uploadPercentage}%`;
             progressRef.current.style.width = `${uploadPercentage}%`;
+            // ============================================================
 
             if (uploadPercentage === 100) {
-              uploadRef.current.innerHTML = "File(s) Uploaded";
+              // ============================================================
+              uploadRef = "File(s) Uploaded";
+              // uploadRef.current.innerHTML = "File(s) Uploaded";
+              // ============================================================
+
               validFiles.length = 0;
               setValidFiles([...validFiles]);
               setSelectedFiles([...validFiles]);
@@ -165,8 +211,11 @@ const Dropzone = () => {
           },
         })
         .catch(() => {
-          uploadRef.current.innerHTML = `<span class="error">Error Uploading File(s)</span>`;
+          // ============================================================
+          uploadRef = `<span class="error">Error Uploading File(s)</span>`;
+          //   uploadRef.current.innerHTML = `<span class="error">Error Uploading File(s)</span>`;
           progressRef.current.style.backgroundColor = "red";
+          // ============================================================
         });
     }
   };
@@ -188,6 +237,7 @@ const Dropzone = () => {
         >
           <div className="drop-message">
             <div>
+              {/* DIFFERENT ICONS FOR UPLOAD in DROPZONE */}
               {/* <CloudUpload sx={{ fontSize: "8rem" }} /> */}
               <UploadFile sx={{ fontSize: "8rem" }} />
               {/* <Upload sx={{ fontSize: "8rem" }} /> */}
@@ -256,6 +306,24 @@ const Dropzone = () => {
           ))}
         </div>
       </div>
+
+      <StyledModal ref={modalRef} open={open} onClose={handleClose}>
+        <Fade>
+          <Box>
+            {ModalContent}
+            <div className="modal-image" ref={modalImageRef}></div>
+          </Box>
+        </Fade>
+      </StyledModal>
+      <Modal children={uploadModalRef} open={open} onClose={handleClose}>
+        <div className="progress-container">
+          <span ref={uploadRef}></span>
+          <div className="progress">
+            <div className="progress-bar" ref={progressRef}></div>
+          </div>
+        </div>
+      </Modal>
+
       <div className="modal" ref={modalRef}>
         <div className="overlay"></div>
         <span className="close" onClick={() => closeModal()}>

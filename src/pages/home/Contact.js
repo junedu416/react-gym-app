@@ -1,7 +1,7 @@
 import React from "react";
 import { Heading, Container, MainWindow } from "../../styled-components/";
 
-export const Contact = (props) => {
+export const Contact = () => {
     
   return (
     <MainWindow>
@@ -10,7 +10,7 @@ export const Contact = (props) => {
   );
 };
 
-export const EquipmentReports = (props) => {
+export const EquipmentReports = () => {
     
   return (
     <Container>
@@ -19,7 +19,7 @@ export const EquipmentReports = (props) => {
   );
 };
 
-export const BehaviourReports = (props) => {
+export const BehaviourReports = () => {
 
   return (
     <Container>

@@ -6,6 +6,9 @@ export const PerformanceStats = (props) => {
   return (
     <MainWindow>
       <Heading>Performance Stats</Heading>
+      <Container>
+        
+      </Container>
     </MainWindow>
   );
 };

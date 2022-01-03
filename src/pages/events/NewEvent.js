@@ -86,18 +86,18 @@ export const NewEvent = () => {
   // const gymClasses = ["A", "b", "c"];
   const eventCategories = ["Class", "Competition", "Personal Training"];
 
-  function autoFillDescription(props) {
-    const { formValues: input } = props;
-    if (input.category === "Class" && input.name === "") return null
-    else {
-      console.log("Category: ", input.category)
-      console.log("Name: ", input.name)
-      const output = gymClasses.filter( gymClass => gymClass.name === input.name )
-      console.log(output)
-      // setFormValues.description = output.description
-      return output.description
-    }
-  }
+  // function autoFillDescription(props) {
+  //   const { formValues: input } = props;
+  //   if (input.category === "Class" && input.name === "") return null
+  //   else {
+  //     console.log("Category: ", input.category)
+  //     console.log("Name: ", input.name)
+  //     const output = gymClasses.filter( gymClass => gymClass.name === input.name )
+  //     console.log(output)
+  //     // setFormValues.description = output.description
+  //     return output.description
+  //   }
+  // }
 
   return (
     <MainWindow>

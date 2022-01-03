@@ -1,5 +1,5 @@
 import React from "react";
-import { UploadButton } from "../../components/buttons/Upload";
+// import { UploadButton } from "../../components/buttons/Upload";
 import { Container, Heading, MainWindow } from "../../styled-components/";
 import DropZone from "../../components/DropZone";
 // import "../../App.css";

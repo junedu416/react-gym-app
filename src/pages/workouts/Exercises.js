@@ -10,7 +10,7 @@ import {
 import { ExerciseCardStyling } from "../../styled-components/exercises";
 import { NavBarLink } from "../../styled-components/navbar";
 
-export const Exercises = (props) => {
+export const Exercises = () => {
   const exerciseCategories = [
     "Callisthenics",
     "Cardio",

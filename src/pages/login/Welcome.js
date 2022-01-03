@@ -1,7 +1,7 @@
 import React from "react";
 import { MainWindow } from "../../styled-components";
 
-export const Welcome = (props) => {
+export const Welcome = () => {
   return (
     <MainWindow>
       
