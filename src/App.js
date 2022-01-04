@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 // import { NavBar } from "./components/NavBar";
-import { Sidebar } from "./pages/home/Sidebar"
+import { Sidebar } from "./pages/home/Sidebar";
 
 // Log in
 import { Landing } from "./pages/login/Landing";
@@ -43,55 +43,56 @@ import { TrainerPage } from "./pages/ourTeam/TrainerPage";
 import { Reporting } from "./pages/contact/Reporting";
 
 //Global State
-import {useReducer} from "react"
+import { useReducer } from "react";
 import globalReducer from "./config/globalReducer";
 import initialGlobalState from "./config/initialGlobalState";
 import { StateContext } from "./config/globalStore";
 import { AuthProvider } from "./contexts/AuthContext";
-
+import { ForgotPassword } from "./pages/login/ForgotPassword";
 
 const App = () => {
-  const [store, dispatch] = useReducer(globalReducer, initialGlobalState)
+  const [store, dispatch] = useReducer(globalReducer, initialGlobalState);
 
   return (
     <>
-      <AuthProvider>
-      <StateContext.Provider value={{store, dispatch}}>
-      {/*<NavBar />*/}
-      <Sidebar />
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/auth/login" element={<SignIn />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/welcome" element={<Welcome />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/workouts" element={<Workouts />} />
-        <Route path="/workouts/start" element={<WorkoutStart />} />
-        <Route path="/workouts/new" element={<NewWorkout />} />
-        <Route path="/workouts/edit" element={<EditWorkouts />} />
-        <Route path="/exercises" element={<Exercises />} />
-        <Route path="/exercises/:id" element={<Exercise />} />
-        <Route path="/exercises/new" element={<NewExercise />} />
-        <Route path="/events" element={<Events />} />
-        {/* <Route path="/events/:id" element={<Event />} /> */}
-        <Route path="/events/new" element={<NewEvent />} />
-        {/* <Route path="/events/classes" element={<Classes />} /> */}
-        {/* <Route path="/events/classes/:id" element={<Class />} /> */}
-        <Route path="/events/leaderboards" element={<Leaderboards />} />
-        <Route path="/events/leaderboards/:id" element={<Leaderboards />} />
-        <Route path="/trainerbookings" element={<TrainerBookings />} />
-        <Route path="/our-team" element={<MeetTheTeam />} />
-        <Route path="/our-team/:id" element={<TrainerPage />} />
-        <Route path="/contact" element={<Reporting />} />
-        <Route path="/myprofile" element={<MyProfile />} />
-        <Route path="/overview" element={<Overview />} />
-        <Route path="/checkins" element={<Checkins />} />
-        <Route path="/mystats" element={<PerformanceStats />} />
-        <Route path="/leaderboards" element={<Leaderboards />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
-    </StateContext.Provider>
-    </AuthProvider>
+      {/* <AuthProvider> */}
+        <StateContext.Provider value={{ store, dispatch }}>
+          {/*<NavBar />*/}
+          <Sidebar />
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/auth/login" element={<SignIn />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword /> } />
+            <Route path="/welcome" element={<Welcome />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/workouts" element={<Workouts />} />
+            <Route path="/workouts/start" element={<WorkoutStart />} />
+            <Route path="/workouts/new" element={<NewWorkout />} />
+            <Route path="/workouts/edit" element={<EditWorkouts />} />
+            <Route path="/exercises" element={<Exercises />} />
+            <Route path="/exercises/:id" element={<Exercise />} />
+            <Route path="/exercises/new" element={<NewExercise />} />
+            <Route path="/events" element={<Events />} />
+            {/* <Route path="/events/:id" element={<Event />} /> */}
+            <Route path="/events/new" element={<NewEvent />} />
+            {/* <Route path="/events/classes" element={<Classes />} /> */}
+            {/* <Route path="/events/classes/:id" element={<Class />} /> */}
+            <Route path="/events/leaderboards" element={<Leaderboards />} />
+            <Route path="/events/leaderboards/:id" element={<Leaderboards />} />
+            <Route path="/trainerbookings" element={<TrainerBookings />} />
+            <Route path="/our-team" element={<MeetTheTeam />} />
+            <Route path="/our-team/:id" element={<TrainerPage />} />
+            <Route path="/contact" element={<Reporting />} />
+            <Route path="/myprofile" element={<MyProfile />} />
+            <Route path="/overview" element={<Overview />} />
+            <Route path="/checkins" element={<Checkins />} />
+            <Route path="/mystats" element={<PerformanceStats />} />
+            <Route path="/leaderboards" element={<Leaderboards />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </StateContext.Provider>
+      {/* </AuthProvider> */}
     </>
   );
 };

@@ -17,25 +17,26 @@ import { useGlobalState } from "../../config/globalStore";
 import { useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import CloseIcon from '@mui/icons-material/Close';
+import LoginIcon from '@mui/icons-material/Login';
 import {
   Alert,
+  Button,
   IconButton,
   InputAdornment,
   OutlinedInput,
 } from "@mui/material";
 
-import { useAuth } from "../contexts/AuthContext";
-import { Link, useHistory } from "react-router-dom";
+// import { useAuth } from "../../contexts/AuthContext";
 
 export const SignIn = () => {
   const [rememberMe, setRememberMe] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { login } = useAuth();
+  // const { login } = useAuth();
   const [open, setOpen] = useState(true);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
 
   const { dispatch } = useGlobalState();
   const navigate = useNavigate();
@@ -86,14 +87,14 @@ export const SignIn = () => {
 
   const [formValues, setFormValues] = useState(initialFormValues);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     try {
       setError("");
       setLoading(true);
-      await login(formValues.email, formValues.password);
-      history.push("/overview");
+      // await login(formValues.email, formValues.password);
+      navigate("/overview");
     } catch {
       setError("Incorrect email or password");
     }
@@ -150,6 +151,7 @@ export const SignIn = () => {
             style={formStyling}
             onChange={handleChange}
             name="email"
+            type="email"
           />
           <OutlinedInput
             placeholder="Password"
@@ -180,6 +182,7 @@ export const SignIn = () => {
                 onChange={handleCheckChange}
                 name="checked"
                 color="primary"
+                sx={{ '& .MuiSvgIcon-root': { fontSize: 36 } }}
               />
             }
             style={formStyling}
