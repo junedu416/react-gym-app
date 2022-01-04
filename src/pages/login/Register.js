@@ -15,10 +15,15 @@ import { useGlobalState } from "../../config/globalStore";
 import { signUpUser } from "../../services/userServices";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { Alert, IconButton, InputAdornment, OutlinedInput } from "@mui/material";
+import {
+  Alert,
+  IconButton,
+  InputAdornment,
+  OutlinedInput,
+} from "@mui/material";
 
 import { useAuth } from "../../contexts/AuthContext";
-import { Link, useHistory } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom";
 
 export const Register = (props) => {
   const navigate = useNavigate();
@@ -27,9 +32,10 @@ export const Register = (props) => {
   const [rememberMe, setRememberMe] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
   const [disableSubmit, setDisableSubmit] = useState(false);
-  
+
   const { signup } = useAuth();
-  const [error, setError] = useState('');
+  const [open, setOpen] = useState(true);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
@@ -74,28 +80,34 @@ export const Register = (props) => {
 
   //sign up user and console log profile -> save to state later
   async function handleSubmit(event) {
-    console.log("clicked! ", "Email: ", formValues.email, "Password: ", formValues.password );
+    console.log(
+      "clicked! ",
+      "Email: ",
+      formValues.email,
+      "Password: ",
+      formValues.password
+    );
     event.preventDefault();
 
     if (formValues.password !== formValues.passwordConfirm) {
-      return setError('Passwords do not match')
+      return setError("Passwords do not match");
     }
 
     try {
-      setError('')
+      setError("");
       setLoading(true);
       // same thing?
       // setDisableSubmit(true);
 
-      await signup(formValues.email, formValues.password)
-      history.push("/home")
+      await signup(formValues.email, formValues.password);
+      history.push("/home");
     } catch {
-      setError('Failed to create an account')
+      setError("Failed to create an account");
     }
-  
+
     // Same as line 90?
     const response = await signUpUser(formValues);
-    
+
     setLoading(false);
     // setDisableSubmit(false);
 
@@ -117,7 +129,25 @@ export const Register = (props) => {
   return (
     <MainWindow verticalMiddle>
       <Heading>Register Account</Heading>
-      {error && <Alert variant="error">{error}</Alert>}
+      {error && (
+        <Alert
+          severity="error"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="regular"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          {error}
+        </Alert>
+      )}
       {/* {errorMsg && <h3>{errorMsg}</h3>} */}
       <form onSubmit={handleSubmit}>
         <Container>

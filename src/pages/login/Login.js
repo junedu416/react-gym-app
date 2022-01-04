@@ -17,11 +17,25 @@ import { useGlobalState } from "../../config/globalStore";
 import { useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
+import {
+  Alert,
+  IconButton,
+  InputAdornment,
+  OutlinedInput,
+} from "@mui/material";
+
+import { useAuth } from "../contexts/AuthContext";
+import { Link, useHistory } from "react-router-dom";
 
 export const SignIn = () => {
   const [rememberMe, setRememberMe] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const { login } = useAuth();
+  const [open, setOpen] = useState(true);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   const { dispatch } = useGlobalState();
   const navigate = useNavigate();
@@ -31,7 +45,7 @@ export const SignIn = () => {
   }
 
   function forgotPassword() {
-    // NEED TO ADD LOGIC HERE FOR FIREBASE PASSWORD RESET
+    navigate("/forgot-password");
   }
 
   const handleFormChange = (event) => {
@@ -72,30 +86,62 @@ export const SignIn = () => {
 
   const [formValues, setFormValues] = useState(initialFormValues);
 
-  // =======================================================
-  // Change out this logic for auth later
   function handleSubmit(event) {
     event.preventDefault();
-    signInUser(formValues)
-      .then((profile) => {
-        dispatch({ type: "setProfile", data: profile });
-        setErrorMessage("");
-        navigate("/overview");
-      })
-      .catch((error) => {
-        console.log(`error caught in login handle submit:`, error);
-        setErrorMessage("Incorrect email or password");
-      });
+
+    try {
+      setError("");
+      setLoading(true);
+      await login(formValues.email, formValues.password);
+      history.push("/overview");
+    } catch {
+      setError("Incorrect email or password");
+    }
+
+    setLoading(false);
   }
 
+  // ================================  Original code with handleSubmit ================================
+
+  //   signInUser(formValues)
+  //     .then((profile) => {
+  //       dispatch({ type: "setProfile", data: profile });
+  //       setErrorMessage("");
+  //       navigate("/overview");
+  //     })
+  //     .catch((error) => {
+  //       console.log(`error caught in login handle submit:`, error);
+  //       setErrorMessage("Incorrect email or password");
+  //     });
+  // }
+
   function displayPassword(show) {
-    return show ? <Visibility /> : <VisibilityOff />;
+    return show ? <VisibilityOff /> : <Visibility />;
   }
 
   return (
     <MainWindow verticalMiddle>
-      {errorMessage && <p>{errorMessage}</p>}
+      {/* {errorMessage && <p>{errorMessage}</p>} */}
       <Heading>Login</Heading>
+      {error && (
+        <Alert
+          severity="error"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="regular"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          {error}
+        </Alert>
+      )}
       <form onSubmit={handleSubmit}>
         <Container>
           <TextField
@@ -138,14 +184,30 @@ export const SignIn = () => {
             }
             style={formStyling}
           />
-          <SignInButton />
-          <p style={{ marginTop: "50px", display: "flex"}}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            size="large"
+            startIcon={<LoginIcon />}
+            style={{ height: "55px" }}
+            onClick={handleSubmit}
+            disabled={loading}
+          >
+            Sign In
+          </Button>
+          {/* <SignInButton disabled={loading} /> */}
+          <p style={{ marginTop: "50px", display: "flex" }}>
             Forgot Password?
-            <TextLink mt="0" p="0 10px" onClick={forgotPassword}>Reset Password</TextLink>
+            <TextLink mt="0" p="0 10px" onClick={forgotPassword}>
+              Reset Password
+            </TextLink>
           </p>
-          <p style={{ display: "flex"}}>
+          <p style={{ display: "flex" }}>
             Don't have an account?
-            <TextLink mt="0" p="0 10px" onClick={navigateToRegister}>Register</TextLink>
+            <TextLink mt="0" p="0 10px" onClick={navigateToRegister}>
+              Register
+            </TextLink>
           </p>
         </Container>
       </form>
