@@ -47,6 +47,7 @@ import {useReducer} from "react"
 import globalReducer from "./config/globalReducer";
 import initialGlobalState from "./config/initialGlobalState";
 import { StateContext } from "./config/globalStore";
+import { AuthProvider } from "./contexts/AuthContext";
 
 
 const App = () => {
@@ -54,6 +55,7 @@ const App = () => {
 
   return (
     <>
+      <AuthProvider>
       <StateContext.Provider value={{store, dispatch}}>
       {/*<NavBar />*/}
       <Sidebar />
@@ -89,6 +91,7 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </StateContext.Provider>
+    </AuthProvider>
     </>
   );
 };

@@ -20,6 +20,9 @@
 .env
 .env.development
 
+# Nam - testing auth stuff
+/keys
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

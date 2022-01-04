@@ -15,7 +15,10 @@ import { useGlobalState } from "../../config/globalStore";
 import { signUpUser } from "../../services/userServices";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
+import { Alert, IconButton, InputAdornment, OutlinedInput } from "@mui/material";
+
+import { useAuth } from "../../contexts/AuthContext";
+import { Link, useHistory } from "react-router-dom"
 
 export const Register = (props) => {
   const navigate = useNavigate();
@@ -24,6 +27,11 @@ export const Register = (props) => {
   const [rememberMe, setRememberMe] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
   const [disableSubmit, setDisableSubmit] = useState(false);
+  
+  const { signup } = useAuth();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   const handleCheckChange = (event) => {
     setRememberMe(!rememberMe);
@@ -66,12 +74,30 @@ export const Register = (props) => {
 
   //sign up user and console log profile -> save to state later
   async function handleSubmit(event) {
-    console.log("clicked!");
+    console.log("clicked! ", "Email: ", formValues.email, "Password: ", formValues.password );
     event.preventDefault();
-    setDisableSubmit(true);
 
+    if (formValues.password !== formValues.passwordConfirm) {
+      return setError('Passwords do not match')
+    }
+
+    try {
+      setError('')
+      setLoading(true);
+      // same thing?
+      // setDisableSubmit(true);
+
+      await signup(formValues.email, formValues.password)
+      history.push("/home")
+    } catch {
+      setError('Failed to create an account')
+    }
+  
+    // Same as line 90?
     const response = await signUpUser(formValues);
-    setDisableSubmit(false);
+    
+    setLoading(false);
+    // setDisableSubmit(false);
 
     //console.log("profile", response);
 
@@ -91,7 +117,8 @@ export const Register = (props) => {
   return (
     <MainWindow verticalMiddle>
       <Heading>Register Account</Heading>
-      {errorMsg && <h3>{errorMsg}</h3>}
+      {error && <Alert variant="error">{error}</Alert>}
+      {/* {errorMsg && <h3>{errorMsg}</h3>} */}
       <form onSubmit={handleSubmit}>
         <Container>
           <TextField
@@ -99,6 +126,7 @@ export const Register = (props) => {
             style={formStyling}
             onChange={handleFormChange}
             name="firstName"
+            value={formValues.firstName}
             required
           />
           <TextField
@@ -106,30 +134,34 @@ export const Register = (props) => {
             style={formStyling}
             onChange={handleFormChange}
             name="lastName"
+            value={formValues.lastName}
             required
           />
           <TextField
             required
+            type="number"
             label="Membership ID"
             style={formStyling}
             onChange={handleFormChange}
             name="membershipNumber"
+            value={formValues.membershipNumber}
           />
           <TextField
+            required
             label="Email"
             style={formStyling}
             onChange={handleFormChange}
-            name="email"
             type="email"
-            required
+            name="email"
+            value={formValues.email}
           />
           <OutlinedInput
-            placeholder="Password *"
             required
+            placeholder="Password *"
             style={formStyling}
             onChange={handleFormChange}
-            name="password"
             type={formValues.showPassword ? "text" : "password"}
+            name="password"
             value={formValues.password}
             endAdornment={
               <InputAdornment position="end">
@@ -149,8 +181,8 @@ export const Register = (props) => {
             placeholder="Confirm Password *"
             style={formStyling}
             onChange={handleFormChange}
-            name="passwordConfirm"
             type={formValues.showPassword ? "text" : "password"}
+            name="passwordConfirm"
             value={formValues.passwordConfirm}
             endAdornment={
               <InputAdornment position="end">
@@ -185,7 +217,8 @@ export const Register = (props) => {
             color="primary"
             size="large"
             style={{ height: "55px", width: "200px" }}
-            disabled={disableSubmit}
+            // disabled={disableSubmit}
+            disabled={loading}
           >
             Create Account
           </Button>
