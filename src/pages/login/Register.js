@@ -72,7 +72,7 @@ export const Register = (props) => {
     } else {
       dispatch({ type: "setProfile", data: response });
       setErrorMsg("");
-      navigate("/welcome");
+      navigate("/overview");
     }
   }
 
