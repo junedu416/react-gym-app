@@ -12,13 +12,16 @@ const Notification = () => {
 
     return (
         <>
-        {
-            notificationMsg &&
-            <NotificationContainer>
+        <NotificationContainer active={!!notificationMsg}>
+            {
+                notificationMsg 
+                && 
+                <>
                 <h3>{notificationMsg}</h3>
                 <button onClick={handleClick}>Dismiss</button>
-            </NotificationContainer>
-        }
+                </>
+            }
+        </NotificationContainer>
         </>
     )
 }
