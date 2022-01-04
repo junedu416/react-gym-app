@@ -1,11 +1,13 @@
 import React, {useState, useEffect, useReducer} from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { MainWindow } from '../../styled-components';
 import { getEventById } from '../../services/eventsServices';
 import { showEventReducer } from '../../utils/showEvent-reducer';
 import { EventPopup } from './EventPopup';
+import BasicButton from '../../components/buttons/BasicButton';
 
 export const ShowEvent = () => {
+    const navigate = useNavigate();
     const {id} = useParams();
     const [loading, setLoading] = useState(true)
     const [errorMsg, setErrorMsg] = useState("");
@@ -29,10 +31,15 @@ export const ShowEvent = () => {
         })
     }, [id])
 
+    const navigateBack = (e) => {
+        e.preventDefault();
+        navigate(-1);
+    }
 
 
     return(
         <MainWindow>
+            <BasicButton text="back" size="small" color="primary" btnFunction={navigateBack} />
             {loading && <p>Loading...</p>}
             {errorMsg && <p>{errorMsg}</p>}
             {event && 
