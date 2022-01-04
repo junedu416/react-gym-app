@@ -4,7 +4,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css"
 import moment from 'moment';
 import { getAllEvents } from "../services/eventsServices.js";
 import { eventsReducer } from "../utils/events-reducer";
-import { EventPopup } from "../pages/events/Confirmation";
+import { EventPopup } from "../pages/events/EventPopup";
 
 const CalendarView = ({eventCategory}) => {
     const localizer = momentLocalizer(moment);

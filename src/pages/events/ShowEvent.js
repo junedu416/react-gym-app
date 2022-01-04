@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { MainWindow } from '../../styled-components';
 import { getEventById } from '../../services/eventsServices';
 import { showEventReducer } from '../../utils/showEvent-reducer';
-import { EventPopup } from './Confirmation';
+import { EventPopup } from './EventPopup';
 
 export const ShowEvent = () => {
     const {id} = useParams();
