@@ -3,13 +3,13 @@ import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
-import Confirm from "../../components/buttons/Confirm";
 import { modalStyling } from "../../styled-components/modal";
 import { StyledModal } from "../../styled-components";
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import Chip from '@mui/material/Chip';
 import { showEventReducer } from "../../utils/showEvent-reducer";
+import BasicButton from "../../components/buttons/BasicButton";
 
 export const EventPopup = ({open, setOpen, event}) => {
   const handleClose = () => setOpen(false);
@@ -36,8 +36,12 @@ useEffect(() => {
 }, [event])
 
 
-  function handleClick() {
-    // ADD LOGIC HERE FOR BOOKING CONFIRMATION
+  const bookClass = (e) => {
+    e.preventDefault();
+  }
+
+  const navigateToShowPage = (e) => {
+    e.preventDefault();
   }
 
   function determineColor(category) {
@@ -86,11 +90,8 @@ useEffect(() => {
               <p><b>Date: </b> {eventDates.startDate} {(eventDates.startDate !== eventDates.endDate) && ` - ${eventDates.endDate}`}</p>
               <p><b>Time: </b> {eventDates.startTime} - {eventDates.endTime}</p>
             </Typography>
-            <Confirm 
-              btnFunction = {() => {
-                handleClick()
-              }} 
-            />
+            <BasicButton text="Count me in!" color="success" size="large" btnFunction={bookClass}/>
+            <BasicButton text="More Details" color="secondary" size="large" btnFunction={navigateToShowPage} />
           </Box>
         </Fade>
       </StyledModal>

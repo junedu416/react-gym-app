@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 const Cancel = (props) => {
   const { btnFunction } = props;
   const {text} = props;
+ 
   return (
     <Button
       variant="contained"
