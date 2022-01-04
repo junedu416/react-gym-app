@@ -7,6 +7,7 @@ export async function checkIn(user) {
                 'Content-Type': 'application/json'
             }
         });
+        console.log(response.data);
         return response.data;
     } catch(e) {
         console.log(e);
@@ -20,6 +21,16 @@ export async function checkOut(user) {
                 'Content-Type': 'application/json'
             }
         });
+        console.log(response.data);
+        return response.data;
+    } catch(e) {
+        console.log(e);
+    }
+}
+
+export async function getCheckedIn() {
+    try {
+        const response = await gymApi.get("/checkin");
         return response.data;
     } catch(e) {
         console.log(e);

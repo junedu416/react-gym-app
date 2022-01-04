@@ -5,6 +5,14 @@ const globalReducer = (state, action) => {
                 ...state,
                 profile: action.data
             };
+        case "toggleCheckIn":
+            return {
+                ...state,
+                profile: {
+                    ...state.profile,
+                    checkedIn: !state.profile.checkedIn
+                }
+            }
         default: 
             throw new Error("Undefined global action");
     }

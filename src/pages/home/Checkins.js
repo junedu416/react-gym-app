@@ -1,17 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Heading, MainWindow } from "../../styled-components/";
-import { checkIn, checkOut } from "../../services/checkinServices";
+import { checkIn, checkOut, getCheckedIn } from "../../services/checkinServices";
 import { useGlobalState } from "../../config/globalStore";
 
 export const Checkins = () => {
 
-  const {store} = useGlobalState();
+  const {store, dispatch} = useGlobalState();
   const {profile} = store;
+
+  const [checkedIn, setCheckedIn] = useState(0);
+
+  useEffect(() => {
+    getCheckedIn().then(data => {
+      //console.log(data);
+      setCheckedIn(data.num)
+    });
+  }, []);
 
   function handleCheckIn() {
     if (profile) {
       if (!profile.checkedIn) {
-        checkIn({userId: profile.userId}).then(() => console.log("checked in"));
+        checkIn({userId: profile.userId}).then((data) => {
+          setCheckedIn(data.num);
+          dispatch({type: "toggleCheckIn"});
+        });
       } else {
         console.log("Already checked In");
       }
@@ -23,7 +35,10 @@ export const Checkins = () => {
   function handleCheckOut() {
     if (profile) {
       if (profile.checkedIn) {
-        checkOut({userId: profile.userId}).then(() => console.log("checked out"));
+        checkOut({userId: profile.userId}).then((data) => {
+          setCheckedIn(data.num);
+          dispatch({type: "toggleCheckIn"});
+        });
       } else {
         console.log("Already checked out")
       }
@@ -38,6 +53,7 @@ export const Checkins = () => {
       <Container>
         <button onClick={handleCheckIn}>Check In</button>
         <button onClick={handleCheckOut}>Check Out</button>
+        <p>Num checked in: {checkedIn}</p>
       </Container>
     </MainWindow>
   );
