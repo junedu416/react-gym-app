@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Heading, MainWindow } from "../../styled-components/";
 import { checkIn, checkOut, getCheckedIn } from "../../services/checkinServices";
 import { useGlobalState } from "../../config/globalStore";
+import BasicButton from "../../components/buttons/BasicButton";
 
 export const Checkins = () => {
 
@@ -59,8 +60,10 @@ export const Checkins = () => {
       <Heading>Check-ins</Heading>
       <Container>
         {msg && <p>{msg}</p>}
-        <button onClick={handleCheckIn}>Check In</button>
-        <button onClick={handleCheckOut}>Check Out</button>
+        <div>
+          <BasicButton style={{marginRight: "5em"}} btnFunction={handleCheckIn} text="Check In" color="primary" size="large">Check In</BasicButton>
+          <BasicButton btnFunction={handleCheckOut} text="Check Out" color="primary" size="large">Check Out</BasicButton>
+        </div>
         <p>Num checked in: {checkedIn}</p>
       </Container>
     </MainWindow>
