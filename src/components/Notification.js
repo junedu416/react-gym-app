@@ -1,4 +1,5 @@
 import { useGlobalState } from "../config/globalStore"
+import { NotificationContainer } from "../styled-components/notification";
 
 const Notification = () => {
     const {store, dispatch} = useGlobalState();
@@ -13,11 +14,13 @@ const Notification = () => {
         <>
         {
             notificationMsg &&
-            <div>
+            <NotificationContainer>
                 <h3>{notificationMsg}</h3>
                 <button onClick={handleClick}>Dismiss</button>
-            </div>
+            </NotificationContainer>
         }
         </>
     )
 }
+
+export default Notification

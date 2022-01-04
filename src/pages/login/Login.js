@@ -79,6 +79,7 @@ export const SignIn = () => {
     signInUser(formValues)
       .then((profile) => {
         dispatch({ type: "setProfile", data: profile });
+        dispatch({type: "setNotification", data: "Successfully Logged In"});
         setErrorMessage("");
         navigate("/overview");
       })
