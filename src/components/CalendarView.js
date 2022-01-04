@@ -2,10 +2,9 @@ import React, {useState, useEffect, useReducer, useCallback} from "react";
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import moment from 'moment';
-// import {events} from "../data/events-dummy.js";
-import { PopupCard } from "./PopupCard";
 import { getAllEvents } from "../services/eventsServices.js";
 import { eventsReducer } from "../utils/events-reducer";
+import { EventPopup } from "../pages/events/Confirmation";
 
 const CalendarView = ({eventCategory}) => {
     const localizer = momentLocalizer(moment);
@@ -14,6 +13,7 @@ const CalendarView = ({eventCategory}) => {
     }
     const [eventsVars, dispatchEventsVars] = useReducer(eventsReducer, initialEventsVars);
     const [clickedEvent, setClickedEvent] = useState(null);
+    const [open, setOpen] = useState(false);
  
     const filterEventsByCategory = useCallback(() => {
         if(eventCategory){
@@ -55,13 +55,16 @@ const CalendarView = ({eventCategory}) => {
         if(clickedEvent) {
             setClickedEvent(null)
         } else {
+            setOpen(true)
             setClickedEvent(e)
+            
         }
     }
 
     return(
         <div>
-        {clickedEvent && <PopupCard selectedEvent={clickedEvent}/>}
+        {/* {clickedEvent && <PopupCard selectedEvent={clickedEvent}/>} */}
+        {clickedEvent && <EventPopup event={clickedEvent} open={open} setOpen={setOpen}/>}
         <Calendar 
             localizer={localizer}
             defaultView="week"

@@ -1,43 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Confirm from "../../components/buttons/Confirm";
-import Cancel from "../../components/buttons/Cancel";
 import { modalStyling } from "../../styled-components/modal";
 import { StyledModal } from "../../styled-components";
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import Chip from '@mui/material/Chip';
+import { showEventReducer } from "../../utils/showEvent-reducer";
 
-export const BookingConfirmation = ({title, eventName, instructor, date, time, level}) => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+export const EventPopup = ({open, setOpen, event}) => {
   const handleClose = () => setOpen(false);
+
+  const initialEventDates = {
+    startDate: null,
+    startTime: null,
+    endDate: null,
+    endTime: null,
+    isFinished: false
+}
+const [eventDates, dispatchEventDates] = useReducer(showEventReducer, initialEventDates)
+
+useEffect(() => {
+  if(event){
+    dispatchEventDates({
+        type: "setEventTimes",
+        data: {
+            startTime: event.startTime,
+            endTime: event.endTime
+        }
+    })
+  }
+}, [event])
+
 
   function handleClick() {
     // ADD LOGIC HERE FOR BOOKING CONFIRMATION
   }
 
-  function determineColor(level) {
-    if (level === "Beginner") return "success";
-    else if (level === "Intermediate") return "warning";
-    else if (level === "Advance") return "error";
+  function determineColor(category) {
+    if (category === "Class") return "success";
+    else if (category === "Personal Training") return "warning";
+    else if (category === "Competition") return "error";
     else return "primary";
   }
 
   return (
+    <>
+    {event && 
     <div>
-      <Button
-        variant="contained"
-        size="large"
-        style={{ height: "50px" }}
-        onClick={handleOpen}
-      >
-        Book - popup confirmation
-      </Button>
       <StyledModal
         aria-labelledby="booking-confirmation"
         aria-describedby="booking-confirmation"
@@ -65,25 +78,24 @@ export const BookingConfirmation = ({title, eventName, instructor, date, time, l
               fontWeight="bold"
               component="h2"
             >
-              {title}
+              {event.name}
             </Typography>
             <Typography id="booking-confirmation-description" sx={{ my: 3 }}>
-              <p><b>Class:</b> <u>{eventName}</u></p>
-              <p><b>Instructor: </b> {instructor}</p>
-              <p><b>Level: </b> <Chip label={level} color={determineColor(level)} variant="outlined" /></p>
-              <p><b>Date: </b> {date}</p>
-              <p><b>Time: </b> {time}</p>
+              {/* <p><b>Instructor: </b> {event.creatorName}</p> */}
+              <p><Chip label={event.category} color={determineColor(event.category)} variant="outlined" /></p>
+              <p><b>Date: </b> {eventDates.startDate} {(eventDates.startDate !== eventDates.endDate) && ` - ${eventDates.endDate}`}</p>
+              <p><b>Time: </b> {eventDates.startTime} - {eventDates.endTime}</p>
             </Typography>
             <Confirm 
               btnFunction = {() => {
                 handleClick()
               }} 
             />
-            <Cancel btnFunction={handleClose} />
           </Box>
         </Fade>
       </StyledModal>
       
-    </div>
+    </div> }
+    </>
   );
 }

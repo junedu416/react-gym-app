@@ -4,7 +4,7 @@ import Info from "../../components/buttons/Info";
 // import Book from "../../components/buttons/Book"
 import { MainWindow } from "../../styled-components";
 import { Calendar } from "./Calendar";
-import { BookingConfirmation } from "./Confirmation";
+import { EventPopup } from "./Confirmation";
 // import { NewEvent } from "./NewEvent";
 import CreateEvent from "../../components/buttons/CreateEvent";
 
@@ -26,7 +26,7 @@ export const Events = (props) => {
     <>
       <MainWindow>
         <Calendar style={{ marginBottom: "50px", padding: "50px" }} />
-        <BookingConfirmation
+        <EventPopup
           title={title}
           eventName={eventName}
           instructor={instructor}
