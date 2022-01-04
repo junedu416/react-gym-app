@@ -20,11 +20,13 @@ import { Contact } from "./pages/home/Contact";
 
 // Events
 import { Events } from "./pages/events/Events";
-// import { Event } from "./pages/events/Event";
 import { NewEvent } from "./pages/events/NewEvent";
 // import { Classes } from "./pages/events/Classes";
 // import { Class } from "./pages/events/Class";
 import { TrainerBookings } from "./pages/events/TrainerBookings";
+import { ShowEvent } from "./pages/events/ShowEvent";
+import { EventPopup } from './pages/events/EventPopup';
+
 
 // Workouts
 import { Workouts } from "./pages/workouts/Workouts";
