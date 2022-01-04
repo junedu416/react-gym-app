@@ -52,13 +52,13 @@ useEffect(() => {
     navigate(`./${event._id}`)
   }
 
-  const confirmBooking =(e) => {
+  const registerToEvent =(e) => {
     event.registeredUsers.push(profile._id);
     event.spotsAvailable -= 1;
     console.log("current event object is: ", event);
     editEvent(event._id, event)
     .then((response) => {
-      console.log(`response back from backend: `, response)
+      console.log(`successfully updates event: `, response)
       navigate("/overview")})
     .catch(e => console.log(e))
   }
@@ -113,8 +113,8 @@ useEffect(() => {
               <BasicButton text="More Details" color="secondary" size="medium" btnFunction={navigateToShowPage} />
             {confirmMessage && 
               <div>
-                <p>Confirm booking?</p>
-                <BasicButton text="Confirm" color="error" size="medium" btnFunction={confirmBooking} />
+                <p>Confirm registration?</p>
+                <BasicButton text="Confirm" color="error" size="medium" btnFunction={registerToEvent} />
               </div>
             }
           </Box>

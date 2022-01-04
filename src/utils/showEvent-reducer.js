@@ -7,7 +7,7 @@ export const showEventReducer = (state, action) => {
                 ...state,
                 name: action.data.name,
                 category: action.data.category,
-                creatorName: `${action.data.createdBy.firstName} ${action.data.createdBy.lastName}`,
+                // creatorName: `${action.data.createdBy.firstName} ${action.data.createdBy.lastName}`,
                 description: action.data.description,
                 startTime: action.data.startTime,
                 endTime: action.data.endTime,
