@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { MainWindow } from '../../styled-components';
 import { getEventById } from '../../services/eventsServices';
 import { showEventReducer } from '../../utils/showEvent-reducer';
-import Book from '../../components/buttons/Book';
+import { EventPopup } from './EventPopup';
 
 export const ShowEvent = () => {
     const {id} = useParams();
@@ -30,6 +30,7 @@ export const ShowEvent = () => {
     }, [id])
 
 
+
     return(
         <MainWindow>
             {loading && <p>Loading...</p>}
@@ -49,7 +50,7 @@ export const ShowEvent = () => {
                         }
                         {!event.isFinished && event.spotsAvailable !== 0 && <>
                             <p>{event.spotsAvailable} {event.spotsAvailable === 1 ? "spot" : "spots"} left!</p>
-                            <Book />
+                            <EventPopup event={event} /> 
                             </>}
                     </div>
                 </div>

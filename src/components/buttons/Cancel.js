@@ -2,6 +2,8 @@ import Button from "@mui/material/Button";
 
 const Cancel = (props) => {
   const { btnFunction } = props;
+  const {text} = props;
+ 
   return (
     <Button
       variant="contained"
@@ -10,7 +12,7 @@ const Cancel = (props) => {
       style={{ height: "55px", width: "116px" }}
       onClick={btnFunction}
     >
-      Cancel
+      {text}
     </Button>
   );
 };
