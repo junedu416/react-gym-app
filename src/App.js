@@ -44,11 +44,15 @@ import { TrainerPage } from "./pages/ourTeam/TrainerPage";
 // Contact
 import { Reporting } from "./pages/contact/Reporting";
 
+// Notification
+import Notification from "./components/Notification";
+
 //Global State
 import {useReducer} from "react"
 import globalReducer from "./config/globalReducer";
 import initialGlobalState from "./config/initialGlobalState";
 import { StateContext } from "./config/globalStore";
+import RememberMe from "./components/RememberMe";
 
 
 const App = () => {
@@ -58,6 +62,8 @@ const App = () => {
     <>
       <StateContext.Provider value={{store, dispatch}}>
       {/*<NavBar />*/}
+      <RememberMe />
+      <Notification />
       <Sidebar />
       <Routes>
         <Route path="/" element={<Landing />} />
