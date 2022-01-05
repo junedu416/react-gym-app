@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
+import { RegisterLink, ResetPasswordText } from "../../components/RegisterLink";
 
 export const SignIn = () => {
   const [rememberMe, setRememberMe] = useState(true);
@@ -31,7 +32,7 @@ export const SignIn = () => {
   }
 
   function forgotPassword() {
-    // NEED TO ADD LOGIC HERE FOR FIREBASE PASSWORD RESET
+    navigate("/forgot-password");
   }
 
   const handleFormChange = (event) => {
@@ -72,8 +73,6 @@ export const SignIn = () => {
 
   const [formValues, setFormValues] = useState(initialFormValues);
 
-  // =======================================================
-  // Change out this logic for auth later
   function handleSubmit(event) {
     event.preventDefault();
     signInUser(formValues)
@@ -144,10 +143,13 @@ export const SignIn = () => {
             Forgot Password?
             <TextLink mt="0" p="0 10px" onClick={forgotPassword}>Reset Password</TextLink>
           </p>
-          <p style={{ display: "flex"}}>
+          
+          <RegisterLink navigateLink={navigateToRegister} />
+
+          {/* <p style={{ display: "flex"}}>
             Don't have an account?
             <TextLink mt="0" p="0 10px" onClick={navigateToRegister}>Register</TextLink>
-          </p>
+          </p> */}
         </Container>
       </form>
     </MainWindow>

@@ -52,6 +52,7 @@ import {useReducer} from "react"
 import globalReducer from "./config/globalReducer";
 import initialGlobalState from "./config/initialGlobalState";
 import { StateContext } from "./config/globalStore";
+import { ForgotPassword } from "./pages/login/ForgotPassword";
 
 
 const App = () => {
@@ -67,6 +68,7 @@ const App = () => {
         <Route path="/" element={<Landing />} />
         <Route path="/auth/login" element={<SignIn />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/home" element={<Home />} />
         <Route path="/workouts" element={<Workouts />} />
