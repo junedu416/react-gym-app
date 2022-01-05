@@ -14,6 +14,15 @@ const CalendarView = ({eventCategory}) => {
     const [eventsVars, dispatchEventsVars] = useReducer(eventsReducer, initialEventsVars);
     const [clickedEvent, setClickedEvent] = useState(null);
     const [open, setOpen] = useState(false);
+
+    // const minTime = new Date();
+    // const maxTime = new Date();
+    // minTime.setHours(9, 0, 0);
+    // maxTime.setHours(18, 0, 0);
+    const scrollToTime = new Date();
+    scrollToTime.setHours(9, 0, 0);
+
+   
  
     const filterEventsByCategory = useCallback(() => {
         if(eventCategory){
@@ -73,8 +82,16 @@ const CalendarView = ({eventCategory}) => {
             startAccessor="startTime"
             endAccessor="endTime"
             onSelectEvent={onClickEvent}
+
+            // Set min and max range for time displayed on calendar
+            min={new Date(0, 0, 0, 7, 0, 0)}
+            max={new Date(0, 0, 0, 21, 0, 0)}
+            
             // showMultiDayTimes //Needs to be included to show times for multi-day events instead of it being treated as all day - Daniel
-            style={{height: "50vh"}}
+            style={{height: "60vh"}}
+            scrollToTime={scrollToTime}
+            views={['month', 'week', 'day']}
+
         />
         </div>
     )

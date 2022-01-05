@@ -19,7 +19,7 @@ export const signUpUser = async (userDetails) => {
 export const signOutUser = async () => {
     try {
         const response = await gymApi.post('/users/sign-out');
-        console.log(response.data)
+        console.log("signed-out:", response.data)
         return response.data
     } catch(e) {
         console.log("sign out error", e);

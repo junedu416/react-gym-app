@@ -13,6 +13,11 @@ const globalReducer = (state, action) => {
                     checkedIn: !state.profile.checkedIn
                 }
             }
+        case "setNotification":
+            return {
+                ...state,
+                notificationMsg: action.data
+            }
         default: 
             throw new Error("Undefined global action");
     }
