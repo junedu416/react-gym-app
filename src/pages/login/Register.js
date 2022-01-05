@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Container, Heading, MainWindow } from "../../styled-components";
+import { Container, Heading, MainWindow, TextLink } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
 import { useGlobalState } from "../../config/globalStore";
 import { signUpUser } from "../../services/userServices";
@@ -78,6 +78,10 @@ export const Register = (props) => {
 
   function displayPassword(show) {
     return show ? <VisibilityOff /> : <Visibility />;
+  }
+
+  function navigateLogin () {
+    navigate("/auth/login")
   }
 
   return (
@@ -181,6 +185,12 @@ export const Register = (props) => {
           >
             Create Account
           </Button>
+
+          <p style={{ marginTop: "50px", display: "flex"}}>
+            Already have an account?
+            <TextLink mt="0" p="0 10px" onClick={navigateLogin}>Login</TextLink>
+          </p>
+
         </Container>
       </form>
     </MainWindow>

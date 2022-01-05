@@ -99,6 +99,7 @@ export const SignIn = () => {
       <form onSubmit={handleSubmit}>
         <Container>
           <TextField
+            required
             id="standard-basic"
             label="Email"
             style={formStyling}
@@ -106,7 +107,8 @@ export const SignIn = () => {
             name="email"
           />
           <OutlinedInput
-            placeholder="Password"
+            required
+            placeholder="Password *"
             style={formStyling}
             onChange={handleFormChange}
             name="password"

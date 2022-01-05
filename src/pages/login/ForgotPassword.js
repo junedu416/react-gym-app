@@ -52,7 +52,7 @@ export const ForgotPassword = () => {
       });
     } catch {
       setError("Failed to reset password");
-      setOpen(true)
+      setOpen(true);
     }
     setLoading(false);
   }
@@ -64,15 +64,22 @@ export const ForgotPassword = () => {
   function login() {
     navigate("/auth/login");
   }
-  
+
+  const alertStyling = {
+    position: "absolute",
+    top: "30px",
+    width: "50%",
+    transform: "translate(-50%)",
+  };
+
   // {/* <ReusableAlert open type="error" message={error} btnFunction={() => setOpen(false)} /> */}
   return (
     <MainWindow verticalMiddle>
       <Container>
-      {error && (
+        {error && (
           <Collapse in={open}>
             <Alert
-              style={{ position: "absolute", top: "30px", width:"50%", transform: "translate(-50%)"  }}
+              style={alertStyling}
               severity="error"
               action={
                 <IconButton
@@ -122,12 +129,11 @@ export const ForgotPassword = () => {
           <Container>
             <TextField
               required
-              id="standard-basic"
+              name="email"
+              type="email"
               label="Email"
               style={formStyling}
               onChange={handleFormChange}
-              name="email"
-              type="email"
             />
             <Button
               type="submit"
@@ -135,7 +141,6 @@ export const ForgotPassword = () => {
               variant="contained"
               size="large"
               sx={{ height: "55px", mb: "50px", mt: "15px" }}
-              onClick={handleSubmit}
             >
               Reset Password
             </Button>
@@ -143,15 +148,15 @@ export const ForgotPassword = () => {
         </form>
 
         <Container>
-          <TextLink mt="0" p="0 10px" onClick={login}>
-            Back to Login
-          </TextLink>
           <p style={{ display: "flex" }}>
             Don't have an account?
             <TextLink mt="0" p="0 10px" onClick={navigateToRegister}>
               Register
             </TextLink>
           </p>
+          <TextLink mt="0" onClick={login}>
+            Back to Login
+          </TextLink>
         </Container>
       </Container>
     </MainWindow>
