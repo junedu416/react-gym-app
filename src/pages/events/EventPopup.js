@@ -53,10 +53,16 @@ useEffect(() => {
   }
 
   const registerToEvent =(e) => {
-    event.registeredUsers.push(profile._id);
-    event.spotsAvailable -= 1;
-    console.log("current event object is: ", event);
-    editEvent(event._id, event)
+    const columnsToUpdate = {
+      registeredUsers: [...event.registeredUsers, profile._id],
+      spotsAvailable: event.spotsAvailable - 1
+    }
+    const updatedEvent = {
+      ...event,
+      ...columnsToUpdate
+    }
+    console.log("updated event object is: ", updatedEvent);
+    editEvent(event._id, updatedEvent)
     .then((response) => {
       console.log(`successfully updates event: `, response)
       navigate("/overview")})
