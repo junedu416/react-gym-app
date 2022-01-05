@@ -1,4 +1,5 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
@@ -10,9 +11,15 @@ import IconButton from '@mui/material/IconButton';
 import Chip from '@mui/material/Chip';
 import { showEventReducer } from "../../utils/showEvent-reducer";
 import BasicButton from "../../components/buttons/BasicButton";
+import { useGlobalState } from "../../config/globalStore";
+import { editEvent } from "../../services/eventsServices";
 
 export const EventPopup = ({open, setOpen, event}) => {
+  const {store} = useGlobalState();
+  const {profile} = store;
+  const navigate = useNavigate();
   const handleClose = () => setOpen(false);
+  const [confirmMessage, setConfirmMessage] = useState(false)
 
   const initialEventDates = {
     startDate: null,
@@ -38,10 +45,28 @@ useEffect(() => {
 
   const bookClass = (e) => {
     e.preventDefault();
+    setConfirmMessage(true)
   }
 
   const navigateToShowPage = (e) => {
-    e.preventDefault();
+    navigate(`./${event._id}`)
+  }
+
+  const registerToEvent =(e) => {
+    const columnsToUpdate = {
+      registeredUsers: [...event.registeredUsers, profile._id],
+      spotsAvailable: event.spotsAvailable - 1
+    }
+    const updatedEvent = {
+      ...event,
+      ...columnsToUpdate
+    }
+    console.log("updated event object is: ", updatedEvent);
+    editEvent(event._id, updatedEvent)
+    .then((response) => {
+      console.log(`successfully updates event: `, response)
+      navigate("/overview")})
+    .catch(e => console.log(e))
   }
 
   function determineColor(category) {
@@ -85,13 +110,19 @@ useEffect(() => {
               {event.name}
             </Typography>
             <Typography id="booking-confirmation-description" sx={{ my: 3 }}>
-              {/* <p><b>Instructor: </b> {event.creatorName}</p> */}
               <p><Chip label={event.category} color={determineColor(event.category)} variant="outlined" /></p>
               <p><b>Date: </b> {eventDates.startDate} {(eventDates.startDate !== eventDates.endDate) && ` - ${eventDates.endDate}`}</p>
               <p><b>Time: </b> {eventDates.startTime} - {eventDates.endTime}</p>
             </Typography>
-            <BasicButton text="Count me in!" color="success" size="large" btnFunction={bookClass}/>
-            <BasicButton text="More Details" color="secondary" size="large" btnFunction={navigateToShowPage} />
+            {!eventDates.isFinished && 
+              <BasicButton text="Count me in!" color="success" size="medium" btnFunction={bookClass}/>}
+              <BasicButton text="More Details" color="secondary" size="medium" btnFunction={navigateToShowPage} />
+            {confirmMessage && 
+              <div>
+                <p>Confirm registration?</p>
+                <BasicButton text="Confirm" color="error" size="medium" btnFunction={registerToEvent} />
+              </div>
+            }
           </Box>
         </Fade>
       </StyledModal>
