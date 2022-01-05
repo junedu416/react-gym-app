@@ -18,6 +18,7 @@ export const ShowEvent = () => {
     const [formatDates, dispatchformatDates] = useReducer(showEventReducer, {})
     const [instructor, setInstructor] = useState("")
     const [initialSpots, setInitialSpots] = useState(null)
+    const [userIsRegistered, setUserIsRegistered] = useState(false)
 
     useEffect(() => {
         getEventById(id)
@@ -41,6 +42,10 @@ export const ShowEvent = () => {
     useEffect(() => {
         if(event) {
             setInitialSpots(event.spotsAvailable)
+            if (profile){
+                const userIsRegistered = event.registeredUsers ? event.registeredUsers.includes(profile._id) : false;
+                setUserIsRegistered(userIsRegistered);
+            }
         }
     }, [event])
 
@@ -57,12 +62,17 @@ export const ShowEvent = () => {
         }})
     }
 
+    const cancelRegistration = (e) => {
+        e.preventDefault();
+        dispatchEvent({type: 'cancelRegistration', data: { profileId: profile._id }})
+    }
+
     useEffect(() => {
         if(initialSpots && (event.spotsAvailable !== initialSpots)){
         editEvent(id, event)
             .then((response) => {
                 console.log(`successfully updated event: `, response)
-                navigate("/overview")
+                // navigate("/overview")
             })
             .catch(e => {
                 console.log(e)
@@ -89,10 +99,14 @@ export const ShowEvent = () => {
                             {(formatDates.startDate === formatDates.endDate) && <p>{formatDates.startDate} from {formatDates.startTime} ~ {formatDates.endTime}</p>}
                             </>
                         }
-                        {!event.isFinished && event.spotsAvailable !== 0 && <>
+                        {!event.isFinished && event.spotsAvailable !== 0 && !userIsRegistered && <>
                             <p>{event.spotsAvailable} {event.spotsAvailable === 1 ? "spot" : "spots"} left!</p>
                             <BasicButton text="Register" color="success" size="large" btnFunction={registerForEvent} /> 
                             </>}
+                        {!event.isFinished && userIsRegistered && <>
+                            <p>You are already registered in this event</p>
+                            <BasicButton text="Cancel Registration" color="error" size="large" btnFunction={cancelRegistration}/>
+                        </>}
                     </div>
                 </div>
             }

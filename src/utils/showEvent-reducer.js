@@ -27,6 +27,18 @@ export const showEventReducer = (state, action) => {
                 registeredUsers: registeredClone
             }
         }
+        case 'cancelRegistration': {
+            const unregisteringUserId = action.data.profileId;
+            const spotsLeft = state.spotsAvailable + 1;
+            const registeredClone = [...state.registeredUsers];
+            const updatedRegisteredUsers = registeredClone.filter((id) => id !== unregisteringUserId)
+
+            return{
+                ...state,
+                spotsAvailable: spotsLeft,
+                registeredUsers: updatedRegisteredUsers
+            }
+        }
         case "setEventTimes": {
             const startDate = moment(action.data.startTime).format('Do [of] MMM')
             const startTime = moment(action.data.startTime).format('h:mm A')
