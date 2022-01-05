@@ -76,7 +76,7 @@ export const ShowEvent = () => {
             })
             .catch(e => {
                 console.log(e)
-                setErrorMsg("Failed to register")
+                setErrorMsg("Failed to connect to server")
             })
         }
     }, [event.spotsAvailable, initialSpots, event, id, navigate])
