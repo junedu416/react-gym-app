@@ -44,6 +44,9 @@ import { TrainerPage } from "./pages/ourTeam/TrainerPage";
 // Contact
 import { Reporting } from "./pages/contact/Reporting";
 
+// Notification
+import Notification from "./components/Notification";
+
 //Global State
 import {useReducer} from "react"
 import globalReducer from "./config/globalReducer";
@@ -58,6 +61,7 @@ const App = () => {
     <>
       <StateContext.Provider value={{store, dispatch}}>
       {/*<NavBar />*/}
+      <Notification />
       <Sidebar />
       <Routes>
         <Route path="/" element={<Landing />} />
