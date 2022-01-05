@@ -89,7 +89,7 @@ export const SignIn = () => {
   }
 
   function displayPassword(show) {
-    return show ? <Visibility /> : <VisibilityOff />;
+    return show ? <VisibilityOff /> : <Visibility />;
   }
 
   return (

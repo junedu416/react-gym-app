@@ -77,7 +77,7 @@ export const Register = (props) => {
   }
 
   function displayPassword(show) {
-    return show ? <Visibility /> : <VisibilityOff />;
+    return show ? <VisibilityOff /> : <Visibility />;
   }
 
   return (
