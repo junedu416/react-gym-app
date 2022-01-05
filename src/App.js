@@ -8,6 +8,7 @@ import { Landing } from "./pages/login/Landing";
 import { Register } from "./pages/login/Register";
 import { SignIn } from "./pages/login/Login";
 import { Welcome } from "./pages/login/Welcome";
+import { ForgotPassword } from "./pages/login/ForgotPassword";
 
 // Home
 import { Home } from "./pages/home/Home";
@@ -69,6 +70,7 @@ const App = () => {
         <Route path="/" element={<Landing />} />
         <Route path="/auth/login" element={<SignIn />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/home" element={<Home />} />
         <Route path="/workouts" element={<Workouts />} />
