@@ -58,13 +58,7 @@ export const ShowEvent = () => {
     }
 
     useEffect(() => {
-        console.log("useEffect is called")
-        console.log("initialSpots is", initialSpots)
-        console.log("availableSpots is", event.spotsAvailable)
-        console.log("registeredUsers is", event.registeredUsers)
-
         if(initialSpots && (event.spotsAvailable !== initialSpots)){
-            console.log("meets condition, updating", event)
         editEvent(id, event)
             .then((response) => {
                 console.log(`successfully updated event: `, response)
@@ -88,7 +82,7 @@ export const ShowEvent = () => {
                         <h1>{event.name}</h1>
                         <h2>{event.category}</h2>
                         <h3>Event Listed by {instructor}</h3>
-                        {event.eventImage ?  <img href={event.eventImage} alt={event.name}/> : <p>-no image available-</p>}
+                        {event.eventImage ?  <img src={event.eventImage} alt={event.name}/> : <p>-no image available-</p>}
                         <p>{event.description}</p>
                         {formatDates.isFinished ? <p>This event has already ended.</p> : <>
                             {(formatDates.startDate !== formatDates.endDate) && <p>{formatDates.startDate} at {formatDates.startTime} ~ {formatDates.endDate} at {formatDates.endTime}</p>}
