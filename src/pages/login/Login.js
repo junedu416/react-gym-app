@@ -134,6 +134,7 @@ export const SignIn = () => {
                 onChange={handleCheckChange}
                 name="checked"
                 color="primary"
+                size="large"
               />
             }
             style={formStyling}

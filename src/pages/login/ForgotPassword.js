@@ -10,6 +10,8 @@ import {
   TextLink,
 } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
+import { sendPasswordResetEmail } from "../../services/userServices";
+import { ReusableAlert } from "../../components/ReusableAlert";
 
 // import { useAuth } from "../contexts/AuthContext";
 
@@ -27,39 +29,32 @@ export const ForgotPassword = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
 
   const handleFormChange = (event) => {
-    setFormValues({...formValues, [event.target.name]: event.target.value});
+    setFormValues({ ...formValues, [event.target.name]: event.target.value });
   };
 
-function timeout(delay) {
-  return new Promise ( res => setTimeout(res, delay));
-}
+  function timeout(delay) {
+    return new Promise((res) => setTimeout(res, delay));
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
-
 
     try {
       setMessage("");
       setError("");
       setLoading(true);
 
-      // ADD LOGIC TO CONNECT TO BACKEND
-      // ====================================================================
-      //   await resetPassword(formValues.email);
-      // ====================================================================
-
-
-      
-      setMessage("Please check your inbox for further instructions");
-      await timeout(5000);
-      navigate("/auth/login");
+      await sendPasswordResetEmail(formValues.email).then(() => {
+        setMessage("Please check your inbox for further instructions");
+        setOpen(true);
+        timeout(5000);
+        navigate("/auth/login");
+      });
     } catch {
       setError("Failed to reset password");
+      setOpen(true)
     }
-    if (error || message ) setOpen(true);
     setLoading(false);
-
-
   }
 
   function navigateToRegister() {
@@ -69,56 +64,55 @@ function timeout(delay) {
   function login() {
     navigate("/auth/login");
   }
-
+  
+  // {/* <ReusableAlert open type="error" message={error} btnFunction={() => setOpen(false)} /> */}
   return (
     <MainWindow verticalMiddle>
       <Container>
-        <Heading>Password Reset</Heading>
-        {error && (
+      {error && (
           <Collapse in={open}>
-          <Alert
-            severity="error"
-            action={
-              <IconButton
-                aria-label="close"
-                color="inherit"
-                size="regular"
-                onClick={() => {
-                  setOpen(false);
-                }}
-              >
-                <CloseIcon />
-              </IconButton>
-            }
-          >
-            {error}
-          </Alert>
+            <Alert
+              style={{ position: "absolute", top: "30px", width:"50%", transform: "translate(-50%)"  }}
+              severity="error"
+              action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    setOpen(false);
+                  }}
+                >
+                  <CloseIcon />
+                </IconButton>
+              }
+            >
+              {error}
+            </Alert>
           </Collapse>
         )}
         {message && (
           <Collapse in={open}>
-          <Alert
-            
-            severity="success"
-            variant="standard"
-            action={
-              <IconButton
-                aria-label="close"
-                color="inherit"
-                size="regular"
-                onClick={() => {
-                  setOpen(false);
-                }}
-              >
-                <CloseIcon />
-              </IconButton>
-            }
-          >
-            {message}
-          </Alert>
+            <Alert
+              severity="success"
+              action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    setOpen(false);
+                  }}
+                >
+                  <CloseIcon />
+                </IconButton>
+              }
+            >
+              {message}
+            </Alert>
           </Collapse>
-          
         )}
+        <Heading>Password Reset</Heading>
 
         <p style={{ width: "75%", marginBottom: "50px" }}>
           Don't worry! Just fill in your email and we'll send you a link to

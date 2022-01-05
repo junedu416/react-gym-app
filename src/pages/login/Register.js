@@ -87,31 +87,36 @@ export const Register = (props) => {
       <form onSubmit={handleSubmit}>
         <Container>
           <TextField
+            required
             label="First Name"
             style={formStyling}
             onChange={handleFormChange}
             name="firstName"
           />
           <TextField
+          required
             label="Last Name"
             style={formStyling}
             onChange={handleFormChange}
             name="lastName"
           />
           <TextField
+          required
             label="Membership ID"
             style={formStyling}
             onChange={handleFormChange}
             name="membershipNumber"
           />
           <TextField
+          required
             label="Email"
             style={formStyling}
             onChange={handleFormChange}
             name="email"
           />
           <OutlinedInput
-            placeholder="Password"
+          required
+            placeholder="Password *"
             style={formStyling}
             onChange={handleFormChange}
             name="password"
@@ -131,7 +136,8 @@ export const Register = (props) => {
             }
           />
           <OutlinedInput
-            placeholder="Confirm Password"
+          required
+            placeholder="Confirm Password *"
             style={formStyling}
             onChange={handleFormChange}
             name="passwordConfirm"
@@ -159,6 +165,7 @@ export const Register = (props) => {
                 onChange={handleCheckChange}
                 name="checked"
                 color="primary"
+                size="large"
               />
             }
             style={formStyling}
