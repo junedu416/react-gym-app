@@ -118,6 +118,7 @@ export const Sidebar = () => {
 
   function handleSignOut() {
     signOutUser().then(() => {
+      window.localStorage.setItem('uid', null);
       dispatch({ type: "setProfile", data: null });
     });
   }

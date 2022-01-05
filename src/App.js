@@ -52,6 +52,7 @@ import {useReducer} from "react"
 import globalReducer from "./config/globalReducer";
 import initialGlobalState from "./config/initialGlobalState";
 import { StateContext } from "./config/globalStore";
+import RememberMe from "./components/RememberMe";
 
 
 const App = () => {
@@ -61,6 +62,7 @@ const App = () => {
     <>
       <StateContext.Provider value={{store, dispatch}}>
       {/*<NavBar />*/}
+      <RememberMe />
       <Notification />
       <Sidebar />
       <Routes>
