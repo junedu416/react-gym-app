@@ -8,6 +8,7 @@ import { Landing } from "./pages/login/Landing";
 import { Register } from "./pages/login/Register";
 import { SignIn } from "./pages/login/Login";
 import { Welcome } from "./pages/login/Welcome";
+import { ForgotPassword } from "./pages/login/ForgotPassword";
 
 // Home
 import { Home } from "./pages/home/Home";
@@ -52,7 +53,7 @@ import {useReducer} from "react"
 import globalReducer from "./config/globalReducer";
 import initialGlobalState from "./config/initialGlobalState";
 import { StateContext } from "./config/globalStore";
-import { ForgotPassword } from "./pages/login/ForgotPassword";
+import RememberMe from "./components/RememberMe";
 
 
 const App = () => {
@@ -62,6 +63,7 @@ const App = () => {
     <>
       <StateContext.Provider value={{store, dispatch}}>
       {/*<NavBar />*/}
+      <RememberMe />
       <Notification />
       <Sidebar />
       <Routes>

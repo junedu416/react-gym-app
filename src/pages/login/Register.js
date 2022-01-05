@@ -70,6 +70,9 @@ export const Register = (props) => {
     if (response.error) {
       setErrorMsg(response.error);
     } else {
+      if (rememberMe) {
+        window.localStorage.setItem('uid', response.userId);
+      }
       dispatch({ type: "setProfile", data: response });
       setErrorMsg("");
       navigate("/overview");
