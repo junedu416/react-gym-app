@@ -14,6 +14,13 @@ const CalendarView = ({eventCategory}) => {
     const [eventsVars, dispatchEventsVars] = useReducer(eventsReducer, initialEventsVars);
     const [clickedEvent, setClickedEvent] = useState(null);
     const [open, setOpen] = useState(false);
+
+    // const minTime = new Date();
+    // const maxTime = new Date();
+    // minTime.setHours(9, 0, 0);
+    // maxTime.setHours(18, 0, 0);
+    const scrollToTime = new Date();
+    scrollToTime.setHours(9, 0, 0);
  
     const filterEventsByCategory = useCallback(() => {
         if(eventCategory){
@@ -74,7 +81,10 @@ const CalendarView = ({eventCategory}) => {
             endAccessor="endTime"
             onSelectEvent={onClickEvent}
             // showMultiDayTimes //Needs to be included to show times for multi-day events instead of it being treated as all day - Daniel
-            style={{height: "50vh"}}
+            style={{height: "60vh"}}
+            scrollToTime={scrollToTime}
+            views={['month', 'week', 'day']}
+
         />
         </div>
     )
