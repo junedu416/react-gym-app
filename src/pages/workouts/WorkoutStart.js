@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import EditButton from "../../components/buttons/Edit";
 import {
   Container,
@@ -90,6 +90,25 @@ export const WorkoutStart = (props) => {
   const totalExercises = workoutList.length - 1;
   const [btnDisabled, setBtnDisabled] = useState(false);
 
+
+  // Daniel refactor 5th Jan //
+  const [disableExButtons, setDisableExButtons] = useState(new Array(workoutEx.length));
+
+  useEffect(() => {
+    const tempDisableExButtons = [...disableExButtons];
+    for(let i = 0; i < tempDisableExButtons.length; i++) {
+      tempDisableExButtons[i] = false;
+    }
+    setDisableExButtons(tempDisableExButtons);
+  }, [])
+
+  function toggleDisabledButtons(index) {
+    const tempDisableExButtons = [...disableExButtons];
+    tempDisableExButtons[index] = !tempDisableExButtons[index];
+    setDisableExButtons(tempDisableExButtons);
+  }
+
+  // END // 
 
   const disableGroup = (exercise) => {
     console.log("ID: ", exercise.id);
@@ -228,25 +247,31 @@ export const WorkoutStart = (props) => {
                       //   handleCompleted(e, true);
                         // disableButton(e);
                         finishExercise(e, exercise, true)
+                        toggleDisabledButtons(index); // Daniel Refactor 5th Jan
                       }}
+                      disabled={disableExButtons[index]} // Daniel Refactor 5th Jan
                     >
                       <DoneIcon
                         sx={{ fontSize: "5rem" }}
                         // color="success"
                         // color={completedExercise ? "disabled" : "success"}
-                        color={btnDisabled ? "disabled" : "success"}
+                        color={disableExButtons[index] ? "disabled" : "success"} // Daniel Refactor 5th Jan
                       />
                     </Button>
                     <Button
                       key={index + "Incomplete"}
                       // disabled={disableButton}
-                      onClick={(e) => finishExercise(e, exercise, false)}
+                      onClick={(e) => {
+                        finishExercise(e, exercise, false);
+                        toggleDisabledButtons(index); // Daniel Refactor 5th Jan
+                      }}
+                      disabled={disableExButtons[index]} // Daniel Refactor 5th Jan
                     >
                       <ClearIcon
                         sx={{ fontSize: "5rem" }}
                         // color="error"
                         // color={completedExercise ? "disabled" : "error"}
-                        color={btnDisabled ? "disabled" : "error"}
+                        color={disableExButtons[index] ? "disabled" : "error"} // Daniel Refactor 5th Jan
                       />
                     </Button>
                   </ButtonGroup>
