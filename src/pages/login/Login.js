@@ -78,6 +78,7 @@ export const SignIn = () => {
     event.preventDefault();
     signInUser(formValues)
       .then((profile) => {
+        window.localStorage.setItem('uid', profile.userId);
         dispatch({ type: "setProfile", data: profile });
         dispatch({type: "setNotification", data: "Successfully Logged In"});
         setErrorMessage("");
