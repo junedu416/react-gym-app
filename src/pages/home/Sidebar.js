@@ -119,7 +119,6 @@ export const Sidebar = () => {
   function handleSignOut() {
     signOutUser().then(() => {
       dispatch({ type: "setProfile", data: null });
-      console.log(store);
     });
   }
 

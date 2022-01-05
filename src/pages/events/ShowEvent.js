@@ -3,17 +3,21 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { MainWindow } from '../../styled-components';
 import { getEventById } from '../../services/eventsServices';
 import { showEventReducer } from '../../utils/showEvent-reducer';
-import { EventPopup } from './EventPopup';
 import BasicButton from '../../components/buttons/BasicButton';
+import { useGlobalState } from '../../config/globalStore';
+import { editEvent } from '../../services/eventsServices';
 
 export const ShowEvent = () => {
     const navigate = useNavigate();
+    const {store} = useGlobalState();
+    const {profile} = store;
     const {id} = useParams();
     const [loading, setLoading] = useState(true)
     const [errorMsg, setErrorMsg] = useState("");
     const [event, dispatchEvent] = useReducer(showEventReducer, {})
     const [formatDates, dispatchformatDates] = useReducer(showEventReducer, {})
     const [instructor, setInstructor] = useState("")
+    const [initialSpots, setInitialSpots] = useState(null)
 
     useEffect(() => {
         getEventById(id)
@@ -34,11 +38,44 @@ export const ShowEvent = () => {
         })
     }, [id])
 
+    useEffect(() => {
+        if(event) {
+            setInitialSpots(event.spotsAvailable)
+        }
+    }, [event])
+
     const navigateBack = (e) => {
         e.preventDefault();
         navigate(-1);
     }
 
+    const registerForEvent = (e) => {
+        e.preventDefault();
+        console.log(typeof event.spotsAvailable)
+        dispatchEvent({type: 'registerToEvent', data: {
+            profileId: profile._id
+        }})
+    }
+
+    useEffect(() => {
+        console.log("useEffect is called")
+        console.log("initialSpots is", initialSpots)
+        console.log("availableSpots is", event.spotsAvailable)
+        console.log("registeredUsers is", event.registeredUsers)
+
+        if(initialSpots && (event.spotsAvailable !== initialSpots)){
+            console.log("meets condition, updating", event)
+        editEvent(id, event)
+            .then((response) => {
+                console.log(`successfully updated event: `, response)
+                navigate("/overview")
+            })
+            .catch(e => {
+                console.log(e)
+                setErrorMsg("Failed to register")
+            })
+        }
+    }, [event.spotsAvailable, initialSpots, event, id, navigate])
 
     return(
         <MainWindow>
@@ -60,7 +97,7 @@ export const ShowEvent = () => {
                         }
                         {!event.isFinished && event.spotsAvailable !== 0 && <>
                             <p>{event.spotsAvailable} {event.spotsAvailable === 1 ? "spot" : "spots"} left!</p>
-                            <EventPopup event={event} /> 
+                            <BasicButton text="Register" color="success" size="large" btnFunction={registerForEvent} /> 
                             </>}
                     </div>
                 </div>

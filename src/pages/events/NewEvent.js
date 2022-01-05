@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Container, Heading, MainWindow } from "../../styled-components";
 import AttachmentIcon from "../../components/buttons/AttachmentIcon";
 import CreateEvent from "../../components/buttons/CreateEvent";
@@ -11,11 +12,12 @@ import { MobileDatePicker, MobileTimePicker } from "@mui/lab";
 import { createNewEvent } from "../../services/eventsServices";
 import { gymClasses } from "../../data/classes";
 import { useGlobalState } from "../../config/globalStore";
-import { navigate } from "react-big-calendar/lib/utils/constants";
+
 
 export const NewEvent = () => {
   const {store} = useGlobalState();
   const profile = store.profile;
+  const navigate = useNavigate();
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
   const [image, setImage] = useState(null);
@@ -82,22 +84,7 @@ export const NewEvent = () => {
   };
 
  
-
-  // const gymClasses = ["A", "b", "c"];
   const eventCategories = ["Class", "Competition", "Personal Training"];
-
-  // function autoFillDescription(props) {
-  //   const { formValues: input } = props;
-  //   if (input.category === "Class" && input.name === "") return null
-  //   else {
-  //     console.log("Category: ", input.category)
-  //     console.log("Name: ", input.name)
-  //     const output = gymClasses.filter( gymClass => gymClass.name === input.name )
-  //     console.log(output)
-  //     // setFormValues.description = output.description
-  //     return output.description
-  //   }
-  // }
 
   return (
     <MainWindow>

@@ -7,7 +7,6 @@ export const showEventReducer = (state, action) => {
                 ...state,
                 name: action.data.name,
                 category: action.data.category,
-                // creatorName: `${action.data.createdBy.firstName} ${action.data.createdBy.lastName}`,
                 description: action.data.description,
                 startTime: action.data.startTime,
                 endTime: action.data.endTime,
@@ -15,6 +14,17 @@ export const showEventReducer = (state, action) => {
                 registeredUsers: action.data.registeredUsers,
                 _id: action.data._id,
                 eventImage: action.data.eventImage
+            }
+        }
+        case "registerToEvent": {
+            const registeringUserId = action.data.profileId;
+            const spotsLeft = state.spotsAvailable - 1;
+            const registeredClone = [...state.registeredUsers]
+            registeredClone.push(registeringUserId)
+            return {
+                ...state,
+                spotsAvailable: spotsLeft,
+                registeredUsers: registeredClone
             }
         }
         case "setEventTimes": {
