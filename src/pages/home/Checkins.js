@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Heading, MainWindow } from "../../styled-components/";
-import { checkIn, checkOut, getCheckedIn } from "../../services/checkinServices";
+import { checkIn, checkOut, getCheckedIn, getStats } from "../../services/checkinServices";
 import { useGlobalState } from "../../config/globalStore";
 import BasicButton from "../../components/buttons/BasicButton";
 
@@ -16,8 +16,10 @@ export const Checkins = () => {
 
   useEffect(() => {
     getCheckedIn().then(data => {
-      //console.log(data);
       if (data) setCheckedIn(data.num)
+    });
+    getStats().then(data => {
+      if (data) console.log(data);
     });
   }, []);
 
@@ -30,6 +32,9 @@ export const Checkins = () => {
           dispatch({type: "toggleCheckIn"});
           setMsg("Checked In");
           setLoading(false);
+        });
+        getStats().then((data) => {
+          console.log(data);
         });
       } else {
         setMsg("You are already checked in.");
