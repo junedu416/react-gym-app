@@ -16,27 +16,10 @@ export const showEventReducer = (state, action) => {
                 eventImage: action.data.eventImage
             }
         }
-        case "registerToEvent": {
-            const registeringUserId = action.data.profileId;
-            const spotsLeft = state.spotsAvailable - 1;
-            const registeredClone = [...state.registeredUsers]
-            registeredClone.push(registeringUserId)
+        case "updateEvent" : {
             return {
                 ...state,
-                spotsAvailable: spotsLeft,
-                registeredUsers: registeredClone
-            }
-        }
-        case 'cancelRegistration': {
-            const unregisteringUserId = action.data.profileId;
-            const spotsLeft = state.spotsAvailable + 1;
-            const registeredClone = [...state.registeredUsers];
-            const updatedRegisteredUsers = registeredClone.filter((id) => id !== unregisteringUserId)
-
-            return{
-                ...state,
-                spotsAvailable: spotsLeft,
-                registeredUsers: updatedRegisteredUsers
+                ...action.data
             }
         }
         case "setEventTimes": {
@@ -44,7 +27,7 @@ export const showEventReducer = (state, action) => {
             const startTime = moment(action.data.startTime).format('h:mm A')
             const endDate = moment(action.data.endTime).format('Do [of] MMM')
             const endTime = moment(action.data.endTime).format('h:mm A')
-            const isFinished = Date.now() >= action.data.endTime
+            const isFinished = moment().isAfter(action.data.endTime)
             return {
                 ...state,
                 startDate: startDate,

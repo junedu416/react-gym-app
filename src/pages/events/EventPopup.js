@@ -16,7 +16,7 @@ import { editEvent } from "../../services/eventsServices";
 import { isUserRegistered } from "../../utils/events-helper-functions";
 
 export const EventPopup = ({open, setOpen, event, setEvent, dispatchEventsVars}) => {
-  const {store} = useGlobalState();
+  const {store, dispatch} = useGlobalState();
   const {profile} = store;
   const navigate = useNavigate();
   const [confirmMessage, setConfirmMessage] = useState("")
@@ -65,11 +65,7 @@ export const EventPopup = ({open, setOpen, event, setEvent, dispatchEventsVars})
     navigate(`./${event._id}`)
   }
 
-  const registerToEvent =(e) => {
-    const columnsToUpdate = {
-      registeredUsers: [...event.registeredUsers, profile._id],
-      spotsAvailable: event.spotsAvailable - 1
-    }
+  const updateEvent = (columnsToUpdate, message) => {
     const updatedEvent = {
       ...event,
       ...columnsToUpdate
@@ -80,10 +76,19 @@ export const EventPopup = ({open, setOpen, event, setEvent, dispatchEventsVars})
       console.log(`successfully updates event: `, response)
       dispatchEventsVars({type: "updateSingleEvent", data: response})
     }).then(() => {
+      dispatch({type: 'setNotification', data: message})
       setEvent(null)
       setOpen(false);
     })
     .catch(e => console.log(e))
+  }
+
+  const registerToEvent =(e) => {
+    const columnsToUpdate = {
+      registeredUsers: [...event.registeredUsers, profile._id],
+      spotsAvailable: event.spotsAvailable - 1
+    }
+    updateEvent(columnsToUpdate, "Successfully registered")
   }
 
   const cancelRegistration = (e) => {
@@ -94,21 +99,7 @@ export const EventPopup = ({open, setOpen, event, setEvent, dispatchEventsVars})
       spotsAvailable: event.spotsAvailable + 1,
       registeredUsers: updatedRegisteredUsers
     }
-
-    const updatedEvent = {
-      ...event,
-      ...columnsToUpdate
-    }
-    console.log("updated event object is: ", updatedEvent);
-    editEvent(event._id, updatedEvent)
-    .then((response) => {
-      console.log(`successfully updates event: `, response)
-      dispatchEventsVars({type: "updateSingleEvent", data: response})
-    }).then(() => {
-      setEvent(null)
-      setOpen(false);
-    })
-    .catch(e => console.log(e))
+    updateEvent(columnsToUpdate, "Successfully cancelled your registration")
   }
 
   function determineColor(category) {

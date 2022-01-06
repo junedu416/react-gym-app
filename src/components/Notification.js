@@ -1,6 +1,7 @@
 import { useGlobalState } from "../config/globalStore"
 import { NotificationContainer } from "../styled-components/notification";
 import CancelIcon from '@mui/icons-material/Cancel';
+import { useEffect } from "react";
 
 const Notification = () => {
     const {store, dispatch} = useGlobalState();
@@ -10,6 +11,14 @@ const Notification = () => {
         event.preventDefault();
         dispatch({type: "setNotification", data: ""});
     }
+
+    useEffect(() => {
+        if(notificationMsg) {
+            setTimeout(() => {
+                dispatch({type: 'setNotification', data: ""})
+            }, 10000)
+        }
+    }, [notificationMsg, dispatch])
 
     return (
         <>
