@@ -6,6 +6,7 @@ import { showEventReducer } from '../../utils/showEvent-reducer';
 import BasicButton from '../../components/buttons/BasicButton';
 import { useGlobalState } from '../../config/globalStore';
 import { editEvent } from '../../services/eventsServices';
+import { isUserRegistered } from '../../utils/events-helper-functions';
 
 export const ShowEvent = () => {
     const navigate = useNavigate();
@@ -42,12 +43,10 @@ export const ShowEvent = () => {
     useEffect(() => {
         if(event) {
             setInitialSpots(event.spotsAvailable)
-            if (profile){
-                const userIsRegistered = event.registeredUsers ? event.registeredUsers.includes(profile._id) : false;
-                setUserIsRegistered(userIsRegistered);
-            }
+            const userIsRegistered = isUserRegistered(profile, event.registeredUsers)
+            setUserIsRegistered(userIsRegistered)
         }
-    }, [event])
+    }, [event, profile])
 
     const navigateBack = (e) => {
         e.preventDefault();

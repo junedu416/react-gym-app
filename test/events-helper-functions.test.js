@@ -1,4 +1,4 @@
-import { isUserRegistered } from "../src/utils/events-helper-functions"
+import { isUserRegistered, convertTimeToAcceptedFormat } from "../src/utils/events-helper-functions"
 
 describe("isUserRegistered", () => {
     let registeredUsers = ["1111", "2222", "3333"]
@@ -29,4 +29,27 @@ describe("isUserRegistered", () => {
         const returnValue = isUserRegistered(profile, [])
         expect(returnValue).toEqual(false)
     })
+})
+
+describe ('convertTimeToAcceptedFormat', () => {
+    const eventObj = {
+        startTime:  "2022-01-06T01:00:40.000Z",
+        endTime:  "2022-01-06T01:45:40.000Z",
+        name: "test event"
+    }
+    const returnValue = convertTimeToAcceptedFormat(eventObj);
+
+    test('that it returns an object', () => {
+        expect(typeof returnValue).toEqual('object')
+    })
+
+    test('that it correctly converts startTime and endTime to Date', () => {
+        expect(typeof returnValue.startTime).toBe('object')
+        expect(typeof returnValue.endTime).toBe('object')
+    })
+
+    test('that it does not mutate the other values in the event object', () => {
+        expect(returnValue.name).toEqual("test event")
+    })
+
 })
