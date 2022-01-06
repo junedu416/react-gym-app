@@ -18,12 +18,15 @@ import { editProfile } from "../../services/profileServices";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Alert, Collapse, IconButton } from "@mui/material";
+import { Collapse, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import ToggleButton from "@mui/material/ToggleButton";
+import { Star, StarOutline } from "@mui/icons-material";
 
 export const Exercises = () => {
   const [display, setDisplay] = useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selected, setSelected] = useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -152,6 +155,18 @@ export const Exercises = () => {
     return workout;
   };
 
+  const handleToggle = (selected) => {
+    setSelected(!selected);
+    if (selected === true) {
+      // ====================================================================================
+      // NEED BACKEND LOGIC
+      // ADD TO FAVOURITES
+      // ====================================================================================
+    } else {
+      // REMOVE FROM FAVOURITES
+    }
+  };
+
   return (
     <MainWindow>
       {!profile && (
@@ -192,15 +207,39 @@ export const Exercises = () => {
         <Container>
           <Grid>
             {exerciseList.map((exercise, index) => (
-              <ExerciseCardStyling p="15px 20px" align="flex-start" justify="space-between"  key={index}>
-                {/* <h4> */}
-                <SmallHeading style={{ fontSize:"1.3rem" }}>
+              <ExerciseCardStyling
+                p="10px 15px"
+                // align="flex-start"
+                justify="space-between"
+                key={index}
+              >
+                <Container>
+                  <Container
+                    direction="row"
+                    justify="space-between"
+                    style={{ width: "100%" }}
+                  >
+                    <SmallHeading style={{ fontSize: "1.3rem" }}>
+                      {exercise.name}
+                    </SmallHeading>
 
-                  {/* {index + 1}.  */}
-                  {exercise.name}
-                </SmallHeading>
-                {/* </h4> */}
-                <p>{exercise.description}</p>
+                    <ToggleButton
+                      disableRipple={true}
+                      value="check"
+                      selected={selected}
+                      size="small"
+                      style={{ border: "none", background: "none", "&:focus": { border: "none", outline: "none"} }}
+                      onChange={() => {
+                        handleToggle(selected);
+                      }}
+                    >
+                      {selected ? <Star sx={{ fontSize:"2.5rem" }} /> : <StarOutline sx={{ fontSize:"2.5rem" }} />}
+                    </ToggleButton>
+                  </Container>
+
+                  <p>{exercise.description}</p>
+                </Container>
+
                 {/* <p>
                   {exercise.defaultReps ? exercise.defaultReps : 0} reps,
                   {exercise.defaultSets ? exercise.defaultSets : 0} sets,
@@ -244,27 +283,29 @@ export const Exercises = () => {
           </Grid>
         </Container>
       )}
-
-      {/* <Container>
-        <SmallHeading>Category Type</SmallHeading>
-        <Grid>
-          {exerciseCategories.map((category) => (
-            <ExerciseCardStyling>
-              <NavBarLink to="/exercises">{category}</NavBarLink>
-            </ExerciseCardStyling>
-          ))}
-        </Grid>
-      </Container>
-      <Container>
-      <SmallHeading>Muscle Group</SmallHeading>
-        <Grid>
-          {muscleGroups.map((muscleGroup) => (
-            <ExerciseCardStyling>
-              <NavBarLink to="/exercises">{muscleGroup}</NavBarLink>
-            </ExerciseCardStyling>
-          ))}
-        </Grid>
-      </Container> */}
     </MainWindow>
   );
 };
+
+{
+  /* <Container>
+  <SmallHeading>Category Type</SmallHeading>
+  <Grid>
+    {exerciseCategories.map((category) => (
+      <ExerciseCardStyling>
+        <NavBarLink to="/exercises">{category}</NavBarLink>
+      </ExerciseCardStyling>
+    ))}
+  </Grid>
+</Container>
+<Container>
+  <SmallHeading>Muscle Group</SmallHeading>
+  <Grid>
+    {muscleGroups.map((muscleGroup) => (
+      <ExerciseCardStyling>
+        <NavBarLink to="/exercises">{muscleGroup}</NavBarLink>
+      </ExerciseCardStyling>
+    ))}
+  </Grid>
+</Container> */
+}
