@@ -83,7 +83,7 @@ const App = () => {
         <Route path="/events" element={<Events />} />
         <Route path="/events/new" element={<NewEvent />} />
         <Route path="/events/:id" element={<ShowEvent />} />
-        <Route path="/events/edit" element={<EditEvent />} />
+        <Route path="/events/:id/edit" element={<EditEvent />} />
         {/* <Route path="/events/classes" element={<Classes />} /> */}
         {/* <Route path="/events/classes/:id" element={<Class />} /> */}
         <Route path="/events/leaderboards" element={<Leaderboards />} />
