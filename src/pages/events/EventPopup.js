@@ -13,13 +13,14 @@ import { showEventReducer } from "../../utils/showEvent-reducer";
 import BasicButton from "../../components/buttons/BasicButton";
 import { useGlobalState } from "../../config/globalStore";
 import { editEvent } from "../../services/eventsServices";
+import { isUserRegistered } from "../../utils/events-helper-functions";
 
-export const EventPopup = ({open, setOpen, event}) => {
-  const {store} = useGlobalState();
+export const EventPopup = ({open, setOpen, event, setEvent, dispatchEventsVars}) => {
+  const {store, dispatch} = useGlobalState();
   const {profile} = store;
   const navigate = useNavigate();
-  const handleClose = () => setOpen(false);
-  const [confirmMessage, setConfirmMessage] = useState(false)
+  const [confirmMessage, setConfirmMessage] = useState("")
+  const [userIsRegistered, setUserIsRegistered] = useState(false)
 
   const initialEventDates = {
     startDate: null,
@@ -28,35 +29,43 @@ export const EventPopup = ({open, setOpen, event}) => {
     endTime: null,
     isFinished: false
 }
-const [eventDates, dispatchEventDates] = useReducer(showEventReducer, initialEventDates)
+  const [eventDates, dispatchEventDates] = useReducer(showEventReducer, initialEventDates)
 
-useEffect(() => {
-  if(event){
-    dispatchEventDates({
-        type: "setEventTimes",
-        data: {
-            startTime: event.startTime,
-            endTime: event.endTime
-        }
-    })
+  useEffect(() => {
+    if(event){
+      dispatchEventDates({
+          type: "setEventTimes",
+          data: {
+              startTime: event.startTime,
+              endTime: event.endTime
+          }
+      })
+      const userIsRegistered = isUserRegistered(profile, event.registeredUsers)
+      setUserIsRegistered(userIsRegistered)
+    }
+  }, [event, profile])
+
+
+  const handleClose = () => {
+    setOpen(false);
+    setEvent(null);
   }
-}, [event])
-
 
   const bookClass = (e) => {
     e.preventDefault();
-    setConfirmMessage(true)
+    setConfirmMessage("confirm")
+  }
+
+  const cancelBooking = (e) => {
+    e.preventDefault();
+    setConfirmMessage("cancel")
   }
 
   const navigateToShowPage = (e) => {
     navigate(`./${event._id}`)
   }
 
-  const registerToEvent =(e) => {
-    const columnsToUpdate = {
-      registeredUsers: [...event.registeredUsers, profile._id],
-      spotsAvailable: event.spotsAvailable - 1
-    }
+  const updateEvent = (columnsToUpdate, message) => {
     const updatedEvent = {
       ...event,
       ...columnsToUpdate
@@ -65,8 +74,32 @@ useEffect(() => {
     editEvent(event._id, updatedEvent)
     .then((response) => {
       console.log(`successfully updates event: `, response)
-      navigate("/overview")})
+      dispatchEventsVars({type: "updateSingleEvent", data: response})
+    }).then(() => {
+      dispatch({type: 'setNotification', data: message})
+      setEvent(null)
+      setOpen(false);
+    })
     .catch(e => console.log(e))
+  }
+
+  const registerToEvent =(e) => {
+    const columnsToUpdate = {
+      registeredUsers: [...event.registeredUsers, profile._id],
+      spotsAvailable: event.spotsAvailable - 1
+    }
+    updateEvent(columnsToUpdate, "Successfully registered")
+  }
+
+  const cancelRegistration = (e) => {
+    const registeredClone = [...event.registeredUsers];
+    const updatedRegisteredUsers = registeredClone.filter((id) => id !== profile._id)
+
+    const columnsToUpdate = {
+      spotsAvailable: event.spotsAvailable + 1,
+      registeredUsers: updatedRegisteredUsers
+    }
+    updateEvent(columnsToUpdate, "Successfully cancelled your registration")
   }
 
   function determineColor(category) {
@@ -114,13 +147,16 @@ useEffect(() => {
               <p><b>Date: </b> {eventDates.startDate} {(eventDates.startDate !== eventDates.endDate) && ` - ${eventDates.endDate}`}</p>
               <p><b>Time: </b> {eventDates.startTime} - {eventDates.endTime}</p>
             </Typography>
-            {!eventDates.isFinished && 
+            {!eventDates.isFinished && !userIsRegistered && 
               <BasicButton text="Count me in!" color="success" size="medium" btnFunction={bookClass}/>}
+            {!eventDates.isFinished && userIsRegistered && 
+              <BasicButton text="Cancel Registration" color="success" size="medium" btnFunction={cancelBooking}/>}
               <BasicButton text="More Details" color="secondary" size="medium" btnFunction={navigateToShowPage} />
             {confirmMessage && 
               <div>
-                <p>Confirm registration?</p>
-                <BasicButton text="Confirm" color="error" size="medium" btnFunction={registerToEvent} />
+                <p>Are you sure?</p>
+                {confirmMessage === 'confirm' && <BasicButton text="Confirm" color="error" size="medium" btnFunction={registerToEvent} />}
+                {confirmMessage === 'cancel' && <BasicButton text="Cancel" color="error" size="medium" btnFunction={cancelRegistration} />}
               </div>
             }
           </Box>

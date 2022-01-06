@@ -5,11 +5,13 @@ import moment from 'moment';
 import { getAllEvents } from "../services/eventsServices.js";
 import { eventsReducer } from "../utils/events-reducer";
 import { EventPopup } from "../pages/events/EventPopup";
+import { convertTimeToAcceptedFormat } from "../utils/events-helper-functions.js";
 
 const CalendarView = ({eventCategory}) => {
     const localizer = momentLocalizer(moment);
     const initialEventsVars = {
-        events: []
+        events: [],
+        filteredEvents: []
     }
     const [eventsVars, dispatchEventsVars] = useReducer(eventsReducer, initialEventsVars);
     const [clickedEvent, setClickedEvent] = useState(null);
@@ -36,18 +38,21 @@ const CalendarView = ({eventCategory}) => {
     // load events from backend
     //=======
     useEffect(() => {
-        getAllEvents()
-        .then((eventsList) => {
-            console.log("fetched data")
-            eventsList.forEach((event) => {
-                event.startTime = new Date(event.startTime);
-                event.endTime = new Date(event.endTime);
+        if(eventsVars.events.length === 0) {
+            getAllEvents()
+            .then((eventsList) => {
+                console.log("fetched data")
+                eventsList.forEach((event) => {
+                    // event.startTime = new Date(event.startTime);
+                    // event.endTime = new Date(event.endTime);
+                    convertTimeToAcceptedFormat(event)
+                })
+                dispatchEventsVars({type: 'setEventsList', data: eventsList})
+                filterEventsByCategory();
             })
-            dispatchEventsVars({type: 'setEventsList', data: eventsList})
-            filterEventsByCategory();
-        })
-        .catch(error => console.log(`error caught fetching events: `, error))
-    }, [filterEventsByCategory])
+            .catch(error => console.log(`error caught fetching events: `, error))
+        }
+    }, [eventsVars.events, filterEventsByCategory])
 
     // ==========
     // filter events  by category
@@ -56,7 +61,9 @@ const CalendarView = ({eventCategory}) => {
         console.log(`event category changed.`)
         dispatchEventsVars({type: 'setCategorisedEventsList', data: eventCategory})
         return
-    }, [eventCategory])
+    }, [eventCategory, eventsVars.events])
+
+   
 
 
     const onClickEvent = (e) => {
@@ -66,18 +73,16 @@ const CalendarView = ({eventCategory}) => {
         } else {
             setOpen(true)
             setClickedEvent(e)
-            
         }
     }
 
     return(
         <div>
-        {/* {clickedEvent && <PopupCard selectedEvent={clickedEvent}/>} */}
-        {clickedEvent && <EventPopup event={clickedEvent} open={open} setOpen={setOpen}/>}
+        {clickedEvent && <EventPopup event={clickedEvent} setEvent={setClickedEvent} open={open} setOpen={setOpen} dispatchEventsVars={dispatchEventsVars}/>}
         <Calendar 
             localizer={localizer}
             defaultView="week"
-            events={eventsVars.events}
+            events={eventsVars.filteredEvents}
             titleAccessor="name"
             startAccessor="startTime"
             endAccessor="endTime"
