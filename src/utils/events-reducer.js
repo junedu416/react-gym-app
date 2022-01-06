@@ -1,3 +1,4 @@
+import { convertTimeToAcceptedFormat } from "./events-helper-functions"
 
 export const eventsReducer = (state, action) => {
     switch(action.type) {
@@ -11,7 +12,17 @@ export const eventsReducer = (state, action) => {
             const filteredEvents = state.events.filter((event) => event.category.toLowerCase() === action.data.toLowerCase())
             return {
                 ...state,
-                events: filteredEvents
+                filteredEvents: filteredEvents
+            }
+        }
+        case 'updateSingleEvent': {
+            const indexOfeventToUpdate = state.events.findIndex((event) => event._id === action.data._id)
+            const clonedEvents = [...state.events]
+            const updatedEvent = convertTimeToAcceptedFormat(action.data)
+            clonedEvents[indexOfeventToUpdate] = updatedEvent;
+            return {
+                ...state,
+                events: clonedEvents
             }
         }
         default: return state

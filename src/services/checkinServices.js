@@ -36,3 +36,12 @@ export async function getCheckedIn() {
         console.log(e);
     }
 }
+
+export async function getStats() {
+    try {
+        const response = await gymApi.get("/checkin/stats");
+        return response.data;
+    } catch(e) {
+        console.log(e);
+    }
+}

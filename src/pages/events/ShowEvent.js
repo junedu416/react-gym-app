@@ -6,18 +6,24 @@ import { showEventReducer } from '../../utils/showEvent-reducer';
 import BasicButton from '../../components/buttons/BasicButton';
 import { useGlobalState } from '../../config/globalStore';
 import { editEvent } from '../../services/eventsServices';
+import { isUserRegistered } from '../../utils/events-helper-functions';
 
 export const ShowEvent = () => {
     const navigate = useNavigate();
-    const {store} = useGlobalState();
+    const {store, dispatch} = useGlobalState();
     const {profile} = store;
     const {id} = useParams();
     const [loading, setLoading] = useState(true)
     const [errorMsg, setErrorMsg] = useState("");
     const [event, dispatchEvent] = useReducer(showEventReducer, {})
     const [formatDates, dispatchformatDates] = useReducer(showEventReducer, {})
-    const [instructor, setInstructor] = useState("")
-    const [initialSpots, setInitialSpots] = useState(null)
+    const initialInstructor = {
+        _id: "",
+        firstName: "",
+        lastName: ""
+    }
+    const [instructor, setInstructor] = useState(initialInstructor)
+    const [userIsRegistered, setUserIsRegistered] = useState(false)
 
     useEffect(() => {
         getEventById(id)
@@ -29,7 +35,7 @@ export const ShowEvent = () => {
                     startTime: response.startTime,
                     endTime: response.endTime
                 }})
-            setInstructor(`${response.createdBy.firstName} ${response.createdBy.lastName}`)
+            setInstructor(response.createdBy)
         }).then(() => setLoading(false))
         .catch((error) => {
             console.log(error)
@@ -40,36 +46,58 @@ export const ShowEvent = () => {
 
     useEffect(() => {
         if(event) {
-            setInitialSpots(event.spotsAvailable)
+            const userIsRegistered = isUserRegistered(profile, event.registeredUsers)
+            setUserIsRegistered(userIsRegistered)
         }
-    }, [event])
+    }, [event, profile])
 
     const navigateBack = (e) => {
         e.preventDefault();
         navigate(-1);
     }
 
-    const registerForEvent = (e) => {
-        e.preventDefault();
-        console.log(typeof event.spotsAvailable)
-        dispatchEvent({type: 'registerToEvent', data: {
-            profileId: profile._id
-        }})
+    const updateEvent = (columnsToUpdate, message) => {
+        const updatedEvent = {
+          ...event,
+          ...columnsToUpdate
+        }
+        console.log("updated event object is: ", updatedEvent);
+        editEvent(event._id, updatedEvent)
+        .then((response) => {
+          console.log(`successfully updates event: `, response)
+          dispatchEvent({type: 'updateEvent', data: response})
+        })
+        .then(() => {
+            dispatch({type: 'setNotification', data: message})
+            navigate('/events')
+        })
+        .catch(e => console.log(e))
+    }
+    
+    const registerToEvent =(e) => {
+        const columnsToUpdate = {
+            registeredUsers: [...event.registeredUsers, profile._id],
+            spotsAvailable: event.spotsAvailable - 1
+        }
+        updateEvent(columnsToUpdate, "Successfully registered")
     }
 
-    useEffect(() => {
-        if(initialSpots && (event.spotsAvailable !== initialSpots)){
-        editEvent(id, event)
-            .then((response) => {
-                console.log(`successfully updated event: `, response)
-                navigate("/overview")
-            })
-            .catch(e => {
-                console.log(e)
-                setErrorMsg("Failed to register")
-            })
+    const cancelRegistration = (e) => {
+        const registeredClone = [...event.registeredUsers];
+        const updatedRegisteredUsers = registeredClone.filter((id) => id !== profile._id)
+
+        const columnsToUpdate = {
+            spotsAvailable: event.spotsAvailable + 1,
+            registeredUsers: updatedRegisteredUsers
         }
-    }, [event.spotsAvailable, initialSpots, event, id, navigate])
+        updateEvent(columnsToUpdate, "Successfully cancelled your registration")
+    }
+
+    const goToEditPage = (e) => {
+        e.preventDefault();
+        navigate('./edit', {state: {event: event, createdBy: instructor._id}})
+    }
+
 
     return(
         <MainWindow>
@@ -81,7 +109,7 @@ export const ShowEvent = () => {
                     <div>
                         <h1>{event.name}</h1>
                         <h2>{event.category}</h2>
-                        <h3>Event Listed by {instructor}</h3>
+                        {instructor && <h3>Event Listed by {`${instructor.firstName} ${instructor.lastName}`}</h3>}
                         {event.eventImage ?  <img src={event.eventImage} alt={event.name}/> : <p>-no image available-</p>}
                         <p>{event.description}</p>
                         {formatDates.isFinished ? <p>This event has already ended.</p> : <>
@@ -89,10 +117,19 @@ export const ShowEvent = () => {
                             {(formatDates.startDate === formatDates.endDate) && <p>{formatDates.startDate} from {formatDates.startTime} ~ {formatDates.endTime}</p>}
                             </>
                         }
-                        {!event.isFinished && event.spotsAvailable !== 0 && <>
+                        {!formatDates.isFinished && (event.spotsAvailable === 0) &&
+                            <p>There are no more spots available for this event</p>}
+                        {!formatDates.isFinished && (event.spotsAvailable !== 0) && !userIsRegistered && <>
                             <p>{event.spotsAvailable} {event.spotsAvailable === 1 ? "spot" : "spots"} left!</p>
-                            <BasicButton text="Register" color="success" size="large" btnFunction={registerForEvent} /> 
+                            <BasicButton text="Register" color="success" size="large" btnFunction={registerToEvent} /> 
                             </>}
+                        {!formatDates.isFinished && userIsRegistered && <>
+                            <p>You are already registered in this event</p>
+                            <BasicButton text="Cancel Registration" color="error" size="large" btnFunction={cancelRegistration}/>
+                        </>}
+                        {instructor && (instructor._id === profile._id) && <>
+                            <BasicButton text="Edit" color="warning" size="large" btnFunction={goToEditPage} />
+                        </>}
                     </div>
                 </div>
             }
