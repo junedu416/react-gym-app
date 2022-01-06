@@ -17,7 +17,12 @@ export const ShowEvent = () => {
     const [errorMsg, setErrorMsg] = useState("");
     const [event, dispatchEvent] = useReducer(showEventReducer, {})
     const [formatDates, dispatchformatDates] = useReducer(showEventReducer, {})
-    const [instructor, setInstructor] = useState("")
+    const initialInstructor = {
+        _id: "",
+        firstName: "",
+        lastName: ""
+    }
+    const [instructor, setInstructor] = useState(initialInstructor)
     const [userIsRegistered, setUserIsRegistered] = useState(false)
 
     useEffect(() => {
@@ -30,11 +35,8 @@ export const ShowEvent = () => {
                     startTime: response.startTime,
                     endTime: response.endTime
                 }})
-            setInstructor(`${response.createdBy.firstName} ${response.createdBy.lastName}`)
-        }).then(() => {
-            console.log("endTime: ", formatDates.endDate, formatDates.endTime)
-            console.log("isFinished: ", formatDates.isFinished)
-            setLoading(false)})
+            setInstructor(response.createdBy)
+        }).then(() => setLoading(false))
         .catch((error) => {
             console.log(error)
             setLoading(false)
@@ -91,6 +93,11 @@ export const ShowEvent = () => {
         updateEvent(columnsToUpdate, "Successfully cancelled your registration")
     }
 
+    const goToEditPage = (e) => {
+        e.preventDefault();
+        navigate('./edit', {state: {event: event, createdBy: instructor._id}})
+    }
+
 
     return(
         <MainWindow>
@@ -102,7 +109,7 @@ export const ShowEvent = () => {
                     <div>
                         <h1>{event.name}</h1>
                         <h2>{event.category}</h2>
-                        <h3>Event Listed by {instructor}</h3>
+                        {instructor && <h3>Event Listed by {`${instructor.firstName} ${instructor.lastName}`}</h3>}
                         {event.eventImage ?  <img src={event.eventImage} alt={event.name}/> : <p>-no image available-</p>}
                         <p>{event.description}</p>
                         {formatDates.isFinished ? <p>This event has already ended.</p> : <>
@@ -119,6 +126,9 @@ export const ShowEvent = () => {
                         {!formatDates.isFinished && userIsRegistered && <>
                             <p>You are already registered in this event</p>
                             <BasicButton text="Cancel Registration" color="error" size="large" btnFunction={cancelRegistration}/>
+                        </>}
+                        {instructor && (instructor._id === profile._id) && <>
+                            <BasicButton text="Edit" color="warning" size="large" btnFunction={goToEditPage} />
                         </>}
                     </div>
                 </div>
