@@ -18,7 +18,7 @@ import { editProfile } from "../../services/profileServices";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Collapse, IconButton, Menu } from "@mui/material";
+import { Collapse, IconButton, Menu, MenuItem } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import ToggleButton from "@mui/material/ToggleButton";
 import { Star, StarOutline } from "@mui/icons-material";
@@ -226,9 +226,10 @@ export const Exercises = () => {
 
                     <ToggleButton
                       disableRipple={true}
-                      value="check"
+                      // value="check"     // Don't know if we need this or not.. 
                       selected={selected}
                       size="small"
+                      // Removes button outline and background
                       style={{ border: "none", background: "none", "&:focus": { border: "none", outline: "none"} }}
                       onChange={() => {
                         handleToggle(selected);
@@ -254,6 +255,7 @@ export const Exercises = () => {
                   variant="contained"
                   btnFunction={handleClick}
                   text="Add To Workout"
+                  style={{ marginBottom: "10px" }}
                 />
                   
                 <Menu
@@ -269,16 +271,17 @@ export const Exercises = () => {
                 >
                   <Typography sx={{ p: 2, width: "100px" }}>
                     {profile.workouts.map((el, i) => (
-                      <li
+                      <MenuItem
                         key={i}
                         name={el.name}
                         onClick={(event) => handleAddExercise(event, index)}
                       >
                         {el.name}
-                      </li>
-                    ))}
+                      </MenuItem>
+                  ))}
                   </Typography>
                 </Menu>
+
               </ExerciseCardStyling>
             ))}
           </Grid>
