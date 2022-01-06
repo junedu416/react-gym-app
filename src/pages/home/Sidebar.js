@@ -102,7 +102,7 @@ TabPanel.propTypes = {
 
 export const Sidebar = () => {
   // const [dashboardView, setDashboardView] = useState(<Overview />);
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(9);
   const {store, dispatch} = useGlobalState();
   const {profile} = store;
   const navigate = useNavigate();
