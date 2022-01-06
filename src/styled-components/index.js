@@ -11,6 +11,7 @@ export const Container = styled.div`
   ${props => props.shadow && shadow }
   ${props => props.greyBorder && greyBorder }
   ${props => props.mt && mt }
+  ${props => props.p && p }
 `;
 
 export const MainWindow = styled.div`

@@ -12,13 +12,8 @@ import { WorkoutText } from "../../styled-components/workouts";
 import moment from "moment";
 import { Button, ButtonGroup } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-// import { blueGrey } from "@mui/material/colors";
-// import ToggleButton from "@mui/material/ToggleButton";
-// import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { workoutList } from "../../data/workouts-dummy";
 import { ReusableModal } from "../../components/ReusableModal";
-
-// const borderOutline = blueGrey[200];
 
 export const WorkoutStart = (props) => {
   const navigate = useNavigate();
@@ -84,13 +79,16 @@ export const WorkoutStart = (props) => {
     }
   };
 
-  console.log("Total Exercises: ", `${totalExercises + 1}`);
-  console.log("Completed Exercises: ", counter);
+  const determineUnits = (distance) => {
+    if (distance > 1000) return `${distance / 1000} km`
+    else if (distance > 0) return `${distance} m`
+    else return null
+  }
 
   return (
     <>
       <MainWindow verticalMiddle>
-        <Container p="0 25px" br="20px" greyBorder shadow>
+        <Container p="0 25px" br="20px" greyBorder shadow style={{ borderRadius: "15px" }}>
           <p style={{ alignSelf: "flex-end" }}>{moment().format("LL")}</p>
           <Container
             direction="row"
@@ -116,12 +114,6 @@ export const WorkoutStart = (props) => {
                 key={exercise.id}
                 active={false}
                 align="flex-start"
-                pb="10px"
-                style={{
-                  
-                  // paddingBottom: "10px",
-                  // padding: "0 30px 10px 30px",
-                }}
               >
                 <SmallHeading
                   size="1.6rem"
@@ -137,33 +129,38 @@ export const WorkoutStart = (props) => {
                   justify="space-between"
                 >
                   <Container direction="row" style={{ gap: "50px" }}>
+                    { exercise.sets && (
                     <Container>
                       <WorkoutText mb="0">Sets</WorkoutText>
                       <WorkoutText>{exercise.sets}</WorkoutText>
-                    </Container>
+                    </Container>)}
+                    { exercise.reps && (
                     <Container>
                       <WorkoutText mb="0">Reps</WorkoutText>
                       <WorkoutText>{exercise.reps}</WorkoutText>
-                    </Container>
+                    </Container>)}
+                    { exercise.weight && (
                     <Container>
                       <WorkoutText mb="0">Weight</WorkoutText>
-                      <WorkoutText>{exercise.weight}</WorkoutText>
-                    </Container>
+                      <WorkoutText>{exercise.weight} kg</WorkoutText>
+                    </Container>)}
+                    { exercise.distance && (
+                      <Container>
+                      <WorkoutText mb="0">Distance</WorkoutText>
+                      <WorkoutText>{determineUnits(exercise.distance)}</WorkoutText>
+                    </Container>)}
                   </Container>
 
                   <ButtonGroup
                     id={`group${index}`}
-                    variant={btnDisabled ? "contained" : "text"}
-                    disableElevation={btnDisabled}
-                    // color="success"
+                    variant="text"
+                    color="inherit"
                     aria-label="complete workout button group"
                     onClick={() => disableGroup(exercise)}
-                    disabled={btnDisabled}
                     sx={{ mx: 3 }}
                   >
                     <Button
                       key={index + "Completed"}
-                      // color={btnDisabled ? "success" : "primary"}
                       onClick={(e) => {
                         finishExercise(e, exercise, true)
                         toggleDisabledButtons(index); // Daniel Refactor 5th Jan
