@@ -29,7 +29,7 @@ export const Exercises = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selected, setSelected] = useState(false);
 
-  const handleClick = (event) => {
+  const handleBtnClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -40,26 +40,11 @@ export const Exercises = () => {
   const open = Boolean(anchorEl);
 
   const id = open ? "simple-popover" : undefined;
-  // const exerciseCategories = [
-  //   "Callisthenics",
-  //   "Cardio",
-  //   "Fat Burn",
-  //   "Free Weights",
-  //   "Muscle Gain",
-  //   "Tone",
-  // ];
-  // const muscleGroups = [
-  //   "Arms",
-  //   "Chest",
-  //   "Core",
-  //   "Glutes",
-  //   "Legs",
-  //   "Lower Back",
-  //   "Shoulders",
-  //   "Upper Back",
-  // ];
+
   const { store, dispatch } = useGlobalState();
-  const { profile } = store;
+  const { profile, newExercise } = store;
+  console.log(profile)
+  
 
   useEffect(() => {
     getAllExercises().then((exercises) => {
@@ -67,21 +52,18 @@ export const Exercises = () => {
     });
   }, []);
 
-  const initialValues = {
-    sets: null,
-    reps: null,
-    weight: null,
-    distance: null,
-    // sets: 0,
-    // reps: 0,
-    // weight: 0,
-    // distance: 0,
-  };
+  // const initialValues = {
+  //   _id: null,
+  //   sets: null,
+  //   reps: null,
+  //   weight: null,
+  //   distance: null
+  // };
 
-  const [newExercise, setNewExercise] = useState(initialValues);
-  const [message, setMessage] = useState("");
+  // const [newExercise, setNewExercise] = useState(initialValues);
   const [exerciseList, setExerciseList] = useState([]);
   const [added, setAdded] = useState([]);
+  const [selectedWorkoutId, setSelectedWorkoutId] = useState(0);
 
   const navigate = useNavigate();
 
@@ -99,8 +81,17 @@ export const Exercises = () => {
     return false;
   };
 
+  const findWorkoutAddExercise = async (workouts, index, exercise) => {
+    workouts[index].exercises.push(exercise)
+    return workouts
+  }
+  
   //this function adds exercise to profile workout array
   const handleAddExercise = async (event, index) => {
+
+    // set workout list index
+    setSelectedWorkoutId(event.target.getAttribute("value"))
+
     if (added.includes(index)) {
       setAdded(added.filter((sindex) => sindex !== index));
     } else {
@@ -109,8 +100,7 @@ export const Exercises = () => {
       setAdded(newAdded);
     }
 
-    setNewExercise({
-      ...newExercise,
+    dispatch ({type: "setNewExercise", data: {
       _id: exerciseList[index]._id,
       sets: exerciseList[index].defaultSets
         ? exerciseList[index].defaultSets
@@ -124,16 +114,38 @@ export const Exercises = () => {
       distance: exerciseList[index].defaultDistance
         ? exerciseList[index].defaultDistance
         : null,
-    });
+    }
+    })
+    // setNewExercise({
+    //   ...newExercise,
+    //   _id: exerciseList[index]._id,
+    //   sets: exerciseList[index].defaultSets
+    //     ? exerciseList[index].defaultSets
+    //     : null,
+    //   reps: exerciseList[index].defaultSets
+    //     ? exerciseList[index].defaultSets
+    //     : null,
+    //   weight: exerciseList[index].defaultWeight
+    //     ? exerciseList[index].defaultWeight
+    //     : null,
+    //   distance: exerciseList[index].defaultDistance
+    //     ? exerciseList[index].defaultDistance
+    //     : null,
+    // });
 
-    const workout = await selectWorkoutList(event);
-
-    if (containExercise(workout.exercises, newExercise)) {
-      workout.exercises.push(newExercise);
+    console.log("selected new exercise:", newExercise)
+    const workouts = await findWorkoutAddExercise(profile.workouts, selectedWorkoutId, newExercise )
+    
+    if (containExercise(profile.workouts.exercises, newExercise)) {
+      dispatch({type: "addExerciseToProfile", data: workouts});
+      dispatch({
+        type: "setNotification",
+        data: "Add exercise successfully!"
+      });
     } else {
       dispatch({
         type: "setNotification",
-        data: "You already have this exercise in your workout",
+        data: "You already have this exercise in your workout"
       });
     }
 
@@ -146,15 +158,6 @@ export const Exercises = () => {
       });
   };
 
-  const [workoutListName, setWorkoutListName] = useState("My Workouts");
-  const selectWorkoutList = async (event) => {
-    setWorkoutListName(event.target.getAttribute("name"));
-    console.log("Selected Workout List:", workoutListName);
-    const workout = await profile.workouts.find(
-      (el) => el.name === workoutListName
-    );
-    return workout;
-  };
 
   const handleToggle = (selected) => {
     setSelected(!selected);
@@ -167,6 +170,7 @@ export const Exercises = () => {
       // REMOVE FROM FAVOURITES
     }
   };
+
 
   return (
     <MainWindow>
@@ -198,11 +202,6 @@ export const Exercises = () => {
         </Collapse>
       )}
 
-      {/* <div>
-        Please log in to view exercises{" "}
-        <button onClick={navigateToLogin}> Log in</button>
-      </div> */}
-
       <Heading>Select Exercise</Heading>
       {profile && (
         <Container>
@@ -210,7 +209,6 @@ export const Exercises = () => {
             {exerciseList.map((exercise, index) => (
               <ExerciseCardStyling
                 p="10px 15px"
-                // align="flex-start"
                 justify="space-between"
                 key={index}
               >
@@ -242,22 +240,12 @@ export const Exercises = () => {
                   <p>{exercise.description}</p>
                 </Container>
 
-                {/* <p>
-                  {exercise.defaultReps ? exercise.defaultReps : 0} reps,
-                  {exercise.defaultSets ? exercise.defaultSets : 0} sets,
-                  {exercise.defaultWeight ? exercise.defaultWeight : 0}kg,
-                  {exercise.defaultDistance
-                    ? exercise.defaultDistance / 1000
-                    : 0}
-                  km(s)
-                </p> */}
                 <BasicButton
                   variant="contained"
-                  btnFunction={handleClick}
+                  btnFunction={handleBtnClick}
                   text="Add To Workout"
                   style={{ marginBottom: "10px" }}
                 />
-                  
                 <Menu
                   id={id}
                   open={open}
@@ -269,14 +257,14 @@ export const Exercises = () => {
                     horizontal: "left",
                   }}
                 >
-                  <Typography sx={{ p: 2, width: "100px" }}>
+                  <Typography sx={{ p: 2, width: "150px" }}>
                     {profile.workouts.map((el, i) => (
                       <MenuItem
                         key={i}
-                        name={el.name}
+                        value={i}
                         onClick={(event) => handleAddExercise(event, index)}
                       >
-                        {el.name}
+                        {index} {el.name}
                       </MenuItem>
                   ))}
                   </Typography>
@@ -291,25 +279,3 @@ export const Exercises = () => {
   );
 };
 
-{
-  /* <Container>
-  <SmallHeading>Category Type</SmallHeading>
-  <Grid>
-    {exerciseCategories.map((category) => (
-      <ExerciseCardStyling>
-        <NavBarLink to="/exercises">{category}</NavBarLink>
-      </ExerciseCardStyling>
-    ))}
-  </Grid>
-</Container>
-<Container>
-  <SmallHeading>Muscle Group</SmallHeading>
-  <Grid>
-    {muscleGroups.map((muscleGroup) => (
-      <ExerciseCardStyling>
-        <NavBarLink to="/exercises">{muscleGroup}</NavBarLink>
-      </ExerciseCardStyling>
-    ))}
-  </Grid>
-</Container> */
-}
