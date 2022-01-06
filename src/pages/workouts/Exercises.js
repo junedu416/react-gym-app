@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import {Container, Grid, Heading, MainWindow } from "../../styled-components";
+import {
+  Container,
+  Grid,
+  Heading,
+  MainWindow,
+  SmallHeading,
+  StyledAlert,
+  Text,
+  TextLink,
+} from "../../styled-components";
 import { ExerciseCardStyling } from "../../styled-components/exercises";
 import { useGlobalState } from "../../config/globalStore";
 import { getAllExercises } from "../../services/exerciseServices";
@@ -9,8 +18,11 @@ import { editProfile } from "../../services/profileServices";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { Alert, Collapse, IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 export const Exercises = () => {
+  const [display, setDisplay] = useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -22,6 +34,7 @@ export const Exercises = () => {
   };
 
   const open = Boolean(anchorEl);
+
   const id = open ? "simple-popover" : undefined;
   // const exerciseCategories = [
   //   "Callisthenics",
@@ -50,34 +63,37 @@ export const Exercises = () => {
     });
   }, []);
 
-  const initialValue = {
-    sets: 0,
-    reps: 0,
-    weight: 0,
-    distance: 0,
+  const initialValues = {
+    sets: null,
+    reps: null,
+    weight: null,
+    distance: null,
+    // sets: 0,
+    // reps: 0,
+    // weight: 0,
+    // distance: 0,
   };
 
-  const [newExercise, setNewExercise] = useState(initialValue);
+  const [newExercise, setNewExercise] = useState(initialValues);
   const [message, setMessage] = useState("");
   const [exerciseList, setExerciseList] = useState([]);
   const [added, setAdded] = useState([]);
 
   const navigate = useNavigate();
-  
 
-  const navigateToLogIn = () => {
+  const navigateToLogin = () => {
     navigate("/auth/login");
-  }
+  };
 
   const containExercise = (obj, list) => {
     var exercise;
     for (exercise in list) {
-        if (list.hasOwnProperty(exercise) && list[exercise] === obj) {
-            return true;
-        }
+      if (list.hasOwnProperty(exercise) && list[exercise] === obj) {
+        return true;
+      }
     }
     return false;
-}
+  };
 
   //this function adds exercise to profile workout array
   const handleAddExercise = async (event, index) => {
@@ -92,81 +108,143 @@ export const Exercises = () => {
     setNewExercise({
       ...newExercise,
       _id: exerciseList[index]._id,
-      sets: exerciseList[index].defaultSets? exerciseList[index].defaultSets: 0,
-      reps: exerciseList[index].defaultSets? exerciseList[index].defaultSets: 0,
-      weight: exerciseList[index].defaultWeight? exerciseList[index].defaultWeight: 0,
-      distance: exerciseList[index].defaultDistance? exerciseList[index].defaultDistance: 0
+      sets: exerciseList[index].defaultSets
+        ? exerciseList[index].defaultSets
+        : null,
+      reps: exerciseList[index].defaultSets
+        ? exerciseList[index].defaultSets
+        : null,
+      weight: exerciseList[index].defaultWeight
+        ? exerciseList[index].defaultWeight
+        : null,
+      distance: exerciseList[index].defaultDistance
+        ? exerciseList[index].defaultDistance
+        : null,
     });
 
-    const workout = await selectWorkoutList(event)
+    const workout = await selectWorkoutList(event);
 
-   if (containExercise(workout.exercises, newExercise)){
-    workout.exercises.push(newExercise)
-   }else{
-    dispatch({type: "setNotification", data: "Exercise already in your workout list"})
-   }
-    
-    editProfile(profile.userId, profile).then((data) => {
-      console.log("profile data", data)
-    }).catch((err) => {console.log(err.message)})
-    
+    if (containExercise(workout.exercises, newExercise)) {
+      workout.exercises.push(newExercise);
+    } else {
+      dispatch({
+        type: "setNotification",
+        data: "You already have this exercise in your workout",
+      });
+    }
+
+    editProfile(profile.userId, profile)
+      .then((data) => {
+        console.log("profile data", data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   const [workoutListName, setWorkoutListName] = useState("My Workouts");
   const selectWorkoutList = async (event) => {
     setWorkoutListName(event.target.getAttribute("name"));
     console.log("Selected Workout List:", workoutListName);
-    const workout = await profile.workouts.find((el) => el.name === workoutListName)
-    return workout
+    const workout = await profile.workouts.find(
+      (el) => el.name === workoutListName
+    );
+    return workout;
   };
- 
 
   return (
     <MainWindow>
-      <Heading>Select Exercise</Heading>
       {!profile && (
-        <p>Please log in to view exercises <button onClick={navigateToLogIn}> Log in</button></p>
+        <Collapse in={display}>
+          <StyledAlert
+            severity="error"
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setDisplay(false);
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            }
+          >
+            <Text>
+              Please
+              <TextLink mt="0" p="0 6px" onClick={navigateToLogin}>
+                login
+              </TextLink>
+              to view exercises
+            </Text>
+          </StyledAlert>
+        </Collapse>
       )}
 
+      {/* <div>
+        Please log in to view exercises{" "}
+        <button onClick={navigateToLogin}> Log in</button>
+      </div> */}
+
+      <Heading>Select Exercise</Heading>
       {profile && (
-      <Container>
-        <Grid>
-          {exerciseList.map((exercise, index) => (
-            <ExerciseCardStyling key={index}>
-              <h4>{index+1}. {exercise.name}</h4>
-              <p>{exercise.description}</p>
-              <p>
-                {exercise.defaultReps? exercise.defaultReps: 0} reps, 
-                {exercise.defaultSets? exercise.defaultSets: 0} sets, 
-                {exercise.defaultWeight? exercise.defaultWeight: 0}kg,
-                {exercise.defaultDistance? exercise.defaultDistance/1000: 0}km(s)
-              </p>
-              <Button baria-describedby={id} variant="contained" onClick={handleClick}>
-              Add To My Workout
-              </Button>
-              <Popover
-                id={id}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-              > 
-                <Typography sx={{ p: 2 }}>
-                  {profile.workouts.map((el, i) => (
-                    <li key={i} name={el.name} onClick={(event)=> handleAddExercise(event, index)}>
-                       {el.name}
-                    </li>
-                  ))}
-                </Typography>
-              </Popover>
-            </ExerciseCardStyling>
-          ))}
-        </Grid>
-      </Container>
-    )}
+        <Container>
+          <Grid>
+            {exerciseList.map((exercise, index) => (
+              <ExerciseCardStyling p="15px 20px" align="flex-start" justify="space-between"  key={index}>
+                {/* <h4> */}
+                <SmallHeading style={{ fontSize:"1.3rem" }}>
+
+                  {/* {index + 1}.  */}
+                  {exercise.name}
+                </SmallHeading>
+                {/* </h4> */}
+                <p>{exercise.description}</p>
+                {/* <p>
+                  {exercise.defaultReps ? exercise.defaultReps : 0} reps,
+                  {exercise.defaultSets ? exercise.defaultSets : 0} sets,
+                  {exercise.defaultWeight ? exercise.defaultWeight : 0}kg,
+                  {exercise.defaultDistance
+                    ? exercise.defaultDistance / 1000
+                    : 0}
+                  km(s)
+                </p> */}
+                <Button
+                  // aria-describedby={id}
+                  variant="contained"
+                  onClick={handleClick}
+                >
+                  Add To Workout
+                </Button>
+                <Popover
+                  id={id}
+                  open={open}
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                >
+                  <Typography sx={{ p: 2 }}>
+                    {profile.workouts.map((el, i) => (
+                      <li
+                        key={i}
+                        name={el.name}
+                        onClick={(event) => handleAddExercise(event, index)}
+                      >
+                        {el.name}
+                      </li>
+                    ))}
+                  </Typography>
+                </Popover>
+              </ExerciseCardStyling>
+            ))}
+          </Grid>
+        </Container>
+      )}
+
       {/* <Container>
         <SmallHeading>Category Type</SmallHeading>
         <Grid>

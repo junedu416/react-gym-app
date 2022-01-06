@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
-import { RegisterLink, ResetPasswordText } from "../../components/RegisterLink";
+import { RegisterLink } from "../../components/RegisterLink";
 
 export const SignIn = () => {
   const [rememberMe, setRememberMe] = useState(true);
@@ -150,10 +150,6 @@ export const SignIn = () => {
           
           <RegisterLink navigateLink={navigateToRegister} />
 
-          {/* <p style={{ display: "flex"}}>
-            Don't have an account?
-            <TextLink mt="0" p="0 10px" onClick={navigateToRegister}>Register</TextLink>
-          </p> */}
         </Container>
       </form>
     </MainWindow>
