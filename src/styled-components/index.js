@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { flexbox, centered, link, greyBorder, shadow, vcentered, hcentered, mt, ml, p, m } from "./mixins";
 import { Link } from "react-router-dom";
 // import Modal from "@mui/material/Modal";
-import { Dialog } from "@mui/material";
+import { Alert, Dialog } from "@mui/material";
 
 export const Container = styled.div`
   ${flexbox};
@@ -64,3 +64,17 @@ export const StyledModal = styled(Dialog)`
     backdrop-filter: blur(1px);
   }
 `;
+
+export const StyledAlert = styled(Alert)`
+  position: absolute;
+  top: 0px;
+  width: 50%;
+  transform: translate(-50%);
+
+`
+
+export const Text = styled.p`
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+`

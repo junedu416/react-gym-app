@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Container, Heading, MainWindow } from "../../styled-components";
+import { Container, Heading, MainWindow, TextLink } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
 import { useGlobalState } from "../../config/globalStore";
 import { signUpUser } from "../../services/userServices";
@@ -80,7 +80,11 @@ export const Register = (props) => {
   }
 
   function displayPassword(show) {
-    return show ? <Visibility /> : <VisibilityOff />;
+    return show ? <VisibilityOff /> : <Visibility />;
+  }
+
+  function navigateLogin () {
+    navigate("/auth/login")
   }
 
   return (
@@ -90,31 +94,36 @@ export const Register = (props) => {
       <form onSubmit={handleSubmit}>
         <Container>
           <TextField
+            required
             label="First Name"
             style={formStyling}
             onChange={handleFormChange}
             name="firstName"
           />
           <TextField
+          required
             label="Last Name"
             style={formStyling}
             onChange={handleFormChange}
             name="lastName"
           />
           <TextField
+          required
             label="Membership ID"
             style={formStyling}
             onChange={handleFormChange}
             name="membershipNumber"
           />
           <TextField
+          required
             label="Email"
             style={formStyling}
             onChange={handleFormChange}
             name="email"
           />
           <OutlinedInput
-            placeholder="Password"
+          required
+            placeholder="Password *"
             style={formStyling}
             onChange={handleFormChange}
             name="password"
@@ -134,7 +143,8 @@ export const Register = (props) => {
             }
           />
           <OutlinedInput
-            placeholder="Confirm Password"
+          required
+            placeholder="Confirm Password *"
             style={formStyling}
             onChange={handleFormChange}
             name="passwordConfirm"
@@ -162,6 +172,7 @@ export const Register = (props) => {
                 onChange={handleCheckChange}
                 name="checked"
                 color="primary"
+                size="large"
               />
             }
             style={formStyling}
@@ -177,6 +188,12 @@ export const Register = (props) => {
           >
             Create Account
           </Button>
+
+          <p style={{ marginTop: "50px", display: "flex"}}>
+            Already have an account?
+            <TextLink mt="0" p="0 10px" onClick={navigateLogin}>Login</TextLink>
+          </p>
+
         </Container>
       </form>
     </MainWindow>
