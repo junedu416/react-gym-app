@@ -31,10 +31,7 @@ export const ShowEvent = () => {
                     endTime: response.endTime
                 }})
             setInstructor(`${response.createdBy.firstName} ${response.createdBy.lastName}`)
-        }).then(() => {
-            console.log("endTime: ", formatDates.endDate, formatDates.endTime)
-            console.log("isFinished: ", formatDates.isFinished)
-            setLoading(false)})
+        }).then(() => setLoading(false))
         .catch((error) => {
             console.log(error)
             setLoading(false)
