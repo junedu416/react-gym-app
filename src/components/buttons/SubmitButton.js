@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 
-const CreateEvent = (props) => {
+const SubmitButton = (props) => {
   const { btnFunction } = props;
   return (
     <Button
@@ -11,9 +11,9 @@ const CreateEvent = (props) => {
       onClick={btnFunction}
       type="submit"
     >
-      Create Event
+      Submit
     </Button>
   );
 };
 
-export default CreateEvent;
+export default SubmitButton;

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useGlobalState } from "../../config/globalStore";
 import { Container } from "../../styled-components";
 import AttachmentIcon from "../../components/buttons/AttachmentIcon";
-import CreateEvent from "../../components/buttons/CreateEvent";
+import SubmitButton from "../../components/buttons/SubmitButton";
 import { MenuItem, TextField, Stack } from "@mui/material";
 // Date/Time Selection
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -215,7 +215,7 @@ export const EventForm = ({submitFunction, event, eventId}) => {
                 onChange={handleImageUpload}/>
               </Container>
 
-              <CreateEvent />
+              <SubmitButton />
             </>
           )}
         </Container>

@@ -7,6 +7,7 @@ import BasicButton from '../../components/buttons/BasicButton';
 import { useGlobalState } from '../../config/globalStore';
 import { editEvent } from '../../services/eventsServices';
 import { isUserRegistered } from '../../utils/events-helper-functions';
+import { DeleteEvent } from './DeleteEvent';
 
 export const ShowEvent = () => {
     const navigate = useNavigate();
@@ -129,6 +130,7 @@ export const ShowEvent = () => {
                         </>}
                         {instructor && (instructor._id === profile._id) && <>
                             <BasicButton text="Edit" color="warning" size="large" btnFunction={goToEditPage} />
+                            <DeleteEvent eventId={event._id}/>
                         </>}
                     </div>
                 </div>
