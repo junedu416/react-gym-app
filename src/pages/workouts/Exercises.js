@@ -18,10 +18,11 @@ import { editProfile } from "../../services/profileServices";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Collapse, IconButton } from "@mui/material";
+import { Collapse, IconButton, Menu } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import ToggleButton from "@mui/material/ToggleButton";
 import { Star, StarOutline } from "@mui/icons-material";
+import BasicButton from "../../components/buttons/BasicButton";
 
 export const Exercises = () => {
   const [display, setDisplay] = useState(true);
@@ -249,24 +250,24 @@ export const Exercises = () => {
                     : 0}
                   km(s)
                 </p> */}
-                <Button
-                  // aria-describedby={id}
+                <BasicButton
                   variant="contained"
-                  onClick={handleClick}
-                >
-                  Add To Workout
-                </Button>
-                <Popover
+                  btnFunction={handleClick}
+                  text="Add To Workout"
+                />
+                  
+                <Menu
                   id={id}
                   open={open}
                   anchorEl={anchorEl}
                   onClose={handleClose}
+                  
                   anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "left",
                   }}
                 >
-                  <Typography sx={{ p: 2 }}>
+                  <Typography sx={{ p: 2, width: "100px" }}>
                     {profile.workouts.map((el, i) => (
                       <li
                         key={i}
@@ -277,7 +278,7 @@ export const Exercises = () => {
                       </li>
                     ))}
                   </Typography>
-                </Popover>
+                </Menu>
               </ExerciseCardStyling>
             ))}
           </Grid>
