@@ -16,7 +16,7 @@ import { postReport } from "../../services/reportServices";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import { useGlobalState } from "../../config/globalStore.js";
-import {ViewReports} from './ViewReports'
+import { ViewReports } from "./ViewReports";
 
 // JUNE D 20/12/2021: UploadIcon has been removed. Can implement the function after MVP is done
 // JUNE D 20/12/2021: There is no back-end routes for General Inquiry. Can implement the function after MVP is done
@@ -64,85 +64,89 @@ export const Reporting = () => {
 
   return (
     <MainWindow>
-     { console.log(profile)}
+      {console.log(profile)}
       {!profile && (
         <Stack sx={{ width: "100%" }} spacing={2}>
-          <Alert severity="error">
-            You need to login to report!
-          </Alert>
+          <Alert severity="error">You need to login to report!</Alert>
         </Stack>
       )}
-      {profile &&!profile.isStaff && <div>
-      <Heading>Report</Heading>
-      <FormControl required sx={{ m: 1, minWidth: 340 }}>
-        <InputLabel id="inquiryType">Inquiry Type</InputLabel>
-        <Select
-          labelId="inquiryType"
-          id="inquiryType"
-          value={inquiryType}
-          label="Inquiry Type *"
-          onChange={handleSelection}
-          name="type"
-          inputProps={{ "data-testid": "select-input" }}
-        >
-          <MenuItem value="Faulty Equipment">Report Faulty Equipment</MenuItem>
-          <MenuItem value="Unsocial Behaviour">
-            Report Unsocial Behaviour
-          </MenuItem>
-          {/* <MenuItem value="General Inquiry">General Inquiry</MenuItem> */}
-        </Select>
-        <FormHelperText>Please select inquiry type (required)</FormHelperText>
-      </FormControl>
+      {profile && !profile.isStaff && (
+        <Container>
+          <Heading>Report</Heading>
+          <FormControl required sx={{ m: 1, minWidth: 340 }}>
+            <InputLabel id="inquiryType">Inquiry Type</InputLabel>
+            <Select
+              labelId="inquiryType"
+              id="inquiryType"
+              value={inquiryType}
+              label="Inquiry Type *"
+              onChange={handleSelection}
+              name="type"
+              inputProps={{ "data-testid": "select-input" }}
+            >
+              <MenuItem value="Faulty Equipment">
+                Report Faulty Equipment
+              </MenuItem>
+              <MenuItem value="Unsocial Behaviour">
+                Report Unsocial Behaviour
+              </MenuItem>
+              {/* <MenuItem value="General Inquiry">General Inquiry</MenuItem> */}
+            </Select>
+            <FormHelperText>
+              Please select inquiry type (required)
+            </FormHelperText>
+          </FormControl>
 
-      {inquiryType === ""
-        ? null
-        : [
-            <Container align="flex-start" justify="flex-start">
-              <form encType="multipart/form-data">
-                <ContactSubheadings justify="flex-start">
-                  {inquiryType === "General Inquiry"
-                    ? "General Inquiry"
-                    : [
-                        <CampaignIcon style={{ marginRight: "5px" }} />,
-                        [
-                          inquiryType === "Faulty Equipment"
-                            ? "Report Faulty Equipment"
-                            : "Report Unsocial Behaviour",
-                        ],
-                      ]}
-                </ContactSubheadings>
-                <Container direction="row" align="flex-start">
-                  <TextField
-                    id="outlined-multiline-flexible"
-                    label="Your Message"
-                    multiline
-                    rows={4}
-                    style={{ width: "300px" }}
-                    value={value}
-                    name="description"
-                    onChange={handleChange}
-                    inputProps={{ "data-testid": "description" }}
-                  ></TextField>
-                  <Container>
-                    <Send btnFunction={handleSend} />
-                    {/* <UploadIcon /> */}
-                    <AttachmentIcon btnFunction={uploadImage} />
-                  </Container>
-                </Container>
-              </form>
-              {isFilePicked === true && (
-                <ContactSubheadings>Image selected!</ContactSubheadings>
-              )}
-              {message !== "" && (
-                <ContactSubheadings data-testid="message">
-                  {message}
-                </ContactSubheadings>
-              )}
-            </Container>,
-          ]}
-        </div>}
-        
-        {profile && profile.isStaff &&<ViewReports/>}
+          {inquiryType === ""
+            ? null
+            : [
+                <Container align="flex-start" justify="flex-start">
+                  <form encType="multipart/form-data">
+                    <ContactSubheadings justify="flex-start">
+                      {inquiryType === "General Inquiry"
+                        ? "General Inquiry"
+                        : [
+                            <CampaignIcon style={{ marginRight: "5px" }} />,
+                            [
+                              inquiryType === "Faulty Equipment"
+                                ? "Report Faulty Equipment"
+                                : "Report Unsocial Behaviour",
+                            ],
+                          ]}
+                    </ContactSubheadings>
+                    <Container direction="row" align="flex-start">
+                      <TextField
+                        id="outlined-multiline-flexible"
+                        label="Your Message"
+                        multiline
+                        rows={4}
+                        style={{ width: "300px" }}
+                        value={value}
+                        name="description"
+                        onChange={handleChange}
+                        inputProps={{ "data-testid": "description" }}
+                      ></TextField>
+                      <Container>
+                        <Send btnFunction={handleSend} />
+                        {/* <UploadIcon /> */}
+                        <AttachmentIcon btnFunction={uploadImage} />
+                      </Container>
+                    </Container>
+                  </form>
+                  {isFilePicked === true && (
+                    <ContactSubheadings>Image selected!</ContactSubheadings>
+                  )}
+                  {message !== "" && (
+                    <ContactSubheadings data-testid="message">
+                      {message}
+                    </ContactSubheadings>
+                  )}
+                </Container>,
+              ]}
+        </Container>
+      )}
+
+      {profile && profile.isStaff && <ViewReports />}
     </MainWindow>
   );
 };

@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
-// import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-// import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import {
   Container,
   Heading,
@@ -11,7 +9,6 @@ import {
   TextLink,
 } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
-import SignInButton from "../../components/buttons/SignIn";
 import { signInUser } from "../../services/userServices";
 import { useGlobalState } from "../../config/globalStore";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +16,8 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
 import { RegisterLink, ResetPasswordText } from "../../components/RegisterLink";
+import LoginIcon from "@mui/icons-material/Login";
+import BasicButton from "../../components/buttons/BasicButton";
 
 export const SignIn = () => {
   const [rememberMe, setRememberMe] = useState(true);
@@ -77,9 +76,9 @@ export const SignIn = () => {
     event.preventDefault();
     signInUser(formValues)
       .then((profile) => {
-        window.localStorage.setItem('uid', profile.userId);
+        window.localStorage.setItem("uid", profile.userId);
         dispatch({ type: "setProfile", data: profile });
-        dispatch({type: "setNotification", data: "Successfully Logged In"});
+        dispatch({ type: "setNotification", data: "Successfully Logged In" });
         setErrorMessage("");
         navigate("/overview");
       })
@@ -142,18 +141,21 @@ export const SignIn = () => {
             }
             style={formStyling}
           />
-          <SignInButton />
-          <p style={{ marginTop: "50px", display: "flex"}}>
-            Forgot Password?
-            <TextLink mt="0" p="0 10px" onClick={forgotPassword}>Reset Password</TextLink>
-          </p>
-          
-          <RegisterLink navigateLink={navigateToRegister} />
+          <BasicButton
+            type="submit"
+            text="Sign In"
+            sx={{ my: 0 }}
+            startIcon={<LoginIcon />}
+          />
 
-          {/* <p style={{ display: "flex"}}>
-            Don't have an account?
-            <TextLink mt="0" p="0 10px" onClick={navigateToRegister}>Register</TextLink>
-          </p> */}
+          <p style={{ marginTop: "50px", display: "flex" }}>
+            Forgot Password?
+            <TextLink mt="0" p="0 10px" onClick={forgotPassword}>
+              Reset Password
+            </TextLink>
+          </p>
+
+          <RegisterLink navigateLink={navigateToRegister} />
         </Container>
       </form>
     </MainWindow>

@@ -2,10 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router";
 // import LandingS from "../../assets/LandingS.jpg";
 import LandingL from "../../assets/LandingL.jpg";
-// import Button from "@mui/material/Button";
-import GetStarted from "../../components/buttons/Get Started";
-import { useGlobalState } from "../../config/globalStore";
+import BasicButton from "../../components/buttons/BasicButton";
 import { MainWindow } from "../../styled-components";
+
+import { useGlobalState } from "../../config/globalStore";
 
 export const Landing = (props) => {
   const navigate = useNavigate();
@@ -72,7 +72,7 @@ export const Landing = (props) => {
         >
           Take your training to the <strong style={{color: "red", fontSize: "7rem"}}>NEXT</strong> level
         </h1>
-        <GetStarted btnFunction={() => {
+        <BasicButton text="Get Started" variant="outlined" color="success" style={{ color: "lime", borderColor: "lime" }} btnFunction={() => {
           handleClick()
          }} />
       </div>

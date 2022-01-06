@@ -15,6 +15,7 @@ import {
   InputAdornment,
   OutlinedInput,
 } from "@mui/material";
+import BasicButton from "../../components/buttons/BasicButton";
 
 export const Register = (props) => {
   const navigate = useNavigate();
@@ -178,7 +179,9 @@ export const Register = (props) => {
             style={formStyling}
           />
 
-          <Button
+            <BasicButton type="submit" text="Create Account" sx={{ my: 0 }} disabled={disableSubmit} />
+
+          {/* <Button
             type="submit"
             variant="contained"
             color="primary"
@@ -187,7 +190,7 @@ export const Register = (props) => {
             disabled={disableSubmit}
           >
             Create Account
-          </Button>
+          </Button> */}
 
           <p style={{ marginTop: "50px", display: "flex"}}>
             Already have an account?
