@@ -1,6 +1,6 @@
 // import { css } from 'styled-components'; // turn this into a 1-liner?
 import styled from "styled-components";
-import { flexbox, centered, link, greyBorder, shadow, vcentered, hcentered, mt, ml, p, m } from "./mixins";
+import { flexbox, centered, link, greyBorder, shadow, vcentered, hcentered, mt, ml, p, m, w } from "./mixins";
 import { Link } from "react-router-dom";
 // import Modal from "@mui/material/Modal";
 import { Dialog } from "@mui/material";
@@ -12,6 +12,7 @@ export const Container = styled.div`
   ${props => props.greyBorder && greyBorder }
   ${props => props.mt && mt }
   ${props => props.p && p }
+  ${props => props.w && w }
 `;
 
 export const MainWindow = styled.div`
