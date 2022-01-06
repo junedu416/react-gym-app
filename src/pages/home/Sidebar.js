@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -102,7 +102,7 @@ TabPanel.propTypes = {
 
 export const Sidebar = () => {
   // const [dashboardView, setDashboardView] = useState(<Overview />);
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(9);
   const {store, dispatch} = useGlobalState();
   const {profile} = store;
   const navigate = useNavigate();
@@ -122,6 +122,13 @@ export const Sidebar = () => {
       dispatch({ type: "setProfile", data: null });
     });
   }
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const index = sbData.findIndex((data) => data.route === location.pathname);
+    setValue(index);
+  }, [location, sbData])
 
   useEffect(() => {
     let temp;
