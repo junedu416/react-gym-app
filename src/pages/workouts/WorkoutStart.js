@@ -22,77 +22,29 @@ import { ReusableModal } from "../../components/ReusableModal";
 
 export const WorkoutStart = (props) => {
   const navigate = useNavigate();
+  const selectedWorkout = workoutList[0];
+  const workoutEx = selectedWorkout.exercises;
+
+  const [btnDisabled, setBtnDisabled] = useState(false);
+  const [counter, setCounter] = useState(0);
+  const [disableExButtons, setDisableExButtons] = useState(new Array(workoutEx.length));
+  const [disabledList, setDisabledList] = useState([]);
+  const [exerciseCompleted, setExerciseCompleted] = useState([]);
+  const [list, setList] = useState(workoutEx);
   const [open, setOpen] = useState(false);
+  const [workoutCompleted, setWorkoutCompleted] = useState(false);
+
+  const totalExercises = workoutList.length - 1;
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     navigate("/workouts");
   };
 
-  const selectedWorkout = workoutList[0];
-  const workoutEx = selectedWorkout.exercises;
-  console.log("url: ", workoutEx);
-
-  const [list, setList] = useState(workoutEx);
-
-  const [disabledList, setDisabledList] = useState([]);
-
-
-
-  // function handleCompleted(completedExerciseId, isCompleted) {
-  //   console.log("List: ",list)
-  //   const completedExercise = list.find((exercise) => exercise.id === completedExerciseId);
-  //   completedExercise.completed = isCompleted;
-  //   setList(list);
-  // }
-
-
-  // ======================================== SOMETHING LIKE THIS MIGHT WORK?? ================================
-  // this.state = {
-  //   exercise: [],
-  //   disabledButtons: []
-  // }
-
-  // exerciseClicked(index, param, e) {
-  //   this.setState(prevState => {
-  //     const newDisabledButtons = [...prevState.disabledButtons];
-  //     newDisabledButtons[index] = true;
-  //     return {
-  //       completedExercise: true,
-  //       disabledButtons: newDisabledButtons
-  //     }
-  //   })
-  // }
-  // ======================================== SOMETHING LIKE THIS MIGHT WORK?? ================================
-
-  // const [myMap, setMyMap] = useState(new Map(workoutList));
-  // const updateMap = (k, v) => {
-  //   setMyMap(Map(workoutList.set(k, v)));
-  // };
-
-  // const exercises = workoutList.length
-
-  // const initialValues = {
-  //   // for (let i = 0; i < exercises; i++) {
-  //   //   return `group${index}: 'false'`
-  //   // }
-  // }
-
-  const [exerciseCompleted, setExerciseCompleted] = useState([]);
   const handleExerciseCompleted = (newExerciseCompleted) => {
     setExerciseCompleted(prevState => [...prevState, newExerciseCompleted]);
-    console.log("COMPLETED LIST: ", exerciseCompleted)
-  };
-
-  const [counter, setCounter] = useState(0);
-  // const [disableButton, setDisableButton] = useState(false);
-  const [workoutCompleted, setWorkoutCompleted] = useState(false);
-  const totalExercises = workoutList.length - 1;
-  const [btnDisabled, setBtnDisabled] = useState(false);
-
-
-  // Daniel refactor 5th Jan //
-  const [disableExButtons, setDisableExButtons] = useState(new Array(workoutEx.length));
+  };  
 
   useEffect(() => {
     const tempDisableExButtons = [...disableExButtons];
@@ -108,20 +60,13 @@ export const WorkoutStart = (props) => {
     setDisableExButtons(tempDisableExButtons);
   }
 
-  // END // 
-
   const disableGroup = (exercise) => {
-    console.log("ID: ", exercise.id);
-    console.log("exercise: ", exercise);
     setDisabledList({...disabledList, exercise})
   };
 
   const finishExercise = (event, exercise, isCompleted) => {
     setCounter(counter + 1);
-    console.log("Completed (True/False): ", isCompleted);
-    console.log("Button Click Event : ", event);
     exercise.completed = isCompleted
-    console.log("EX Completed: ", exercise.completed) 
     handleExerciseCompleted(exercise)
     isWorkoutCompleted(counter);
   };
@@ -138,7 +83,6 @@ export const WorkoutStart = (props) => {
       // =========================================================================================
     }
   };
-
 
   console.log("Total Exercises: ", `${totalExercises + 1}`);
   console.log("Completed Exercises: ", counter);
@@ -166,7 +110,6 @@ export const WorkoutStart = (props) => {
             </span>
           </Container>
 
-          {/* {list.map((exercise, index) => ( */}
           {list.map((exercise, index) => (
             <>
               <Container
@@ -183,7 +126,7 @@ export const WorkoutStart = (props) => {
                 <SmallHeading
                   size="1.6rem"
                   // color="rgba(40, 40, 40, 0.8)"
-                  color={btnDisabled ? "grey" : "lime"}
+                  color={disableExButtons[index] ? "grey" : "lime"}
                   style={{ margin: "20px 0 0 0" }}
                 >
                   {exercise.name}
@@ -208,44 +151,20 @@ export const WorkoutStart = (props) => {
                     </Container>
                   </Container>
 
-                  {/* <Container>
-                    <ToggleButtonGroup
-                      exclusive
-                      value={exerciseCompleted}
-                      onChange={handleExerciseCompleted}
-                      aria-label="exercise completed"
-                      key={index}
-                    >
-                      <ToggleButton value="completed" aria-label="completed">
-                        <DoneIcon />
-                      </ToggleButton>
-                      <ToggleButton value="incomplete" aria-label="incomplete">
-                        <ClearIcon />
-                      </ToggleButton>
-                    </ToggleButtonGroup>
-                  </Container> */}
-
-                  {/* <Container direction="row"> */}
                   <ButtonGroup
-                    // key={index}
                     id={`group${index}`}
                     variant={btnDisabled ? "contained" : "text"}
                     disableElevation={btnDisabled}
-                    color="success"
+                    // color="success"
                     aria-label="complete workout button group"
-
-///////////////////////////////////////////////////////////////////////////////////////////
                     onClick={() => disableGroup(exercise)}
                     disabled={btnDisabled}
                     sx={{ mx: 3 }}
                   >
                     <Button
                       key={index + "Completed"}
-                      // color={completedExercise ? "success" : "primary"}
                       // color={btnDisabled ? "success" : "primary"}
                       onClick={(e) => {
-                      //   handleCompleted(e, true);
-                        // disableButton(e);
                         finishExercise(e, exercise, true)
                         toggleDisabledButtons(index); // Daniel Refactor 5th Jan
                       }}
@@ -253,14 +172,11 @@ export const WorkoutStart = (props) => {
                     >
                       <DoneIcon
                         sx={{ fontSize: "5rem" }}
-                        // color="success"
-                        // color={completedExercise ? "disabled" : "success"}
                         color={disableExButtons[index] ? "disabled" : "success"} // Daniel Refactor 5th Jan
                       />
                     </Button>
                     <Button
                       key={index + "Incomplete"}
-                      // disabled={disableButton}
                       onClick={(e) => {
                         finishExercise(e, exercise, false);
                         toggleDisabledButtons(index); // Daniel Refactor 5th Jan
@@ -269,14 +185,10 @@ export const WorkoutStart = (props) => {
                     >
                       <ClearIcon
                         sx={{ fontSize: "5rem" }}
-                        // color="error"
-                        // color={completedExercise ? "disabled" : "error"}
                         color={disableExButtons[index] ? "disabled" : "error"} // Daniel Refactor 5th Jan
                       />
                     </Button>
                   </ButtonGroup>
-
-                  {/* </Container> */}
                 </Container>
               </Container>
               <Divider sx={{ width: "90%" }} />
