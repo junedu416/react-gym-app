@@ -3,6 +3,16 @@ import { Container, Heading, MainWindow } from "../../styled-components/";
 import { checkIn, checkOut, getCheckedIn, getStats } from "../../services/checkinServices";
 import { useGlobalState } from "../../config/globalStore";
 import BasicButton from "../../components/buttons/BasicButton";
+import { Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 
 export const Checkins = () => {
 
@@ -14,14 +24,47 @@ export const Checkins = () => {
 
   const [loading, setLoading] = useState(false);
 
+  const [chartData, setChartData] = useState([]);
+
   useEffect(() => {
     getCheckedIn().then(data => {
       if (data) setCheckedIn(data.num)
     });
     getStats().then(data => {
-      if (data) console.log(data);
+      if (data) {
+        console.log(data);
+        setChartData(Object.values(data.dailyStats).map((num) => Math.floor(num / data.weeksActive)));
+      };
     });
   }, []);
+
+  //Chart setup
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+
+  const options = {
+    responsive: true
+  }
+
+  const labels = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Average Check-ins',
+        data: chartData,
+        backgroundColor: 'blue'
+      }
+    ]
+  }
+  //End chart setup
+
 
   function handleCheckIn() {
     if (profile) {
@@ -32,10 +75,14 @@ export const Checkins = () => {
           dispatch({type: "toggleCheckIn"});
           setMsg("Checked In");
           setLoading(false);
+        }).then(() => {
+          getStats().then((data) => {
+            console.log(data);
+            const newData = Object.values(data.dailyStats).map((num) => Math.floor(num / data.weeksActive))
+            setChartData(newData);
+          });
         });
-        getStats().then((data) => {
-          console.log(data);
-        });
+        
       } else {
         setMsg("You are already checked in.");
       }
@@ -72,6 +119,7 @@ export const Checkins = () => {
           <BasicButton disabled={loading} btnFunction={handleCheckOut} text="Check Out" color="primary" size="large">Check Out</BasicButton>
         </div>
         <p>Num checked in: {checkedIn}</p>
+        <Bar options={options} data={data} />
       </Container>
     </MainWindow>
   );
