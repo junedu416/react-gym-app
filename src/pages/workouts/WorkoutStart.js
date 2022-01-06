@@ -4,7 +4,7 @@ import { Container, MainWindow, SmallHeading } from "../../styled-components";
 import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
 import Divider from "@mui/material/Divider";
-import { WorkoutText } from "../../styled-components/workouts";
+import { WorkoutDate, WorkoutText } from "../../styled-components/workouts";
 import moment from "moment";
 import { Button, ButtonGroup } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -14,18 +14,15 @@ import { ReusableModal } from "../../components/ReusableModal";
 export const WorkoutStart = (props) => {
   const navigate = useNavigate();
   const selectedWorkout = workoutList[0];
-  const workoutEx = selectedWorkout.exercises;
+  const list = selectedWorkout.exercises;
 
-  const [btnDisabled, setBtnDisabled] = useState(false);
   const [counter, setCounter] = useState(0);
   const [disableExButtons, setDisableExButtons] = useState(
-    new Array(workoutEx.length)
+    new Array(list.length)
   );
   const [disabledList, setDisabledList] = useState([]);
   const [exerciseCompleted, setExerciseCompleted] = useState([]);
-  const [list, setList] = useState(workoutEx);
   const [open, setOpen] = useState(false);
-  const [workoutCompleted, setWorkoutCompleted] = useState(false);
 
   const totalExercises = workoutList.length - 1;
 
@@ -57,7 +54,7 @@ export const WorkoutStart = (props) => {
     setDisabledList({ ...disabledList, exercise });
   };
 
-  const finishExercise = (event, exercise, isCompleted) => {
+  const finishExercise = (exercise, isCompleted) => {
     setCounter(counter + 1);
     exercise.completed = isCompleted;
     handleExerciseCompleted(exercise);
@@ -66,9 +63,9 @@ export const WorkoutStart = (props) => {
 
   const isWorkoutCompleted = (counter) => {
     if (counter === totalExercises) {
-      setWorkoutCompleted(true);
-      handleOpen();
-
+      handleOpen()
+      setTimeout(() => handleClose(), 3500)
+      
       // ================================ ADD LOGIC TO SEND TO BACKEND ==========================
       // sendData();
       // navigate("/workouts");
@@ -87,15 +84,14 @@ export const WorkoutStart = (props) => {
     <>
       <MainWindow verticalMiddle>
         <Container
-          p="0 25px"
-          br="20px"
+          p="0 10px 0 30px"
           greyBorder
           shadow
           style={{ borderRadius: "15px" }}
         >
-          <p style={{ alignSelf: "flex-end", paddingTop:"10px", margin:"0" }}>
+          <WorkoutDate>
             {moment().format("LL")}
-          </p>
+          </WorkoutDate>
           <Container
             direction="row"
             style={{ width: "100%" }}
@@ -110,14 +106,9 @@ export const WorkoutStart = (props) => {
             justify="flex-end"
             direction="row"
             w="100%"
-            p="0 30px"
+            p="0 10px"
           >
-            <span
-              style={{
-                color: "lime",
-                paddingRight: "23px",
-              }}
-            >
+            <span style={{ color: "lime", paddingRight: "17px" }}>
               Completed
             </span>
             <span style={{ color: "red" }}>
@@ -127,21 +118,21 @@ export const WorkoutStart = (props) => {
 
           {list.map((exercise, index) => (
             <>
-              <Container key={exercise.id} active={false} align="flex-start">
+              <Container align="flex-start">
                 <SmallHeading
                   size="1.6rem"
-                  color="rgba(40, 40, 40, 0.8)"
+                  color="rgba(40, 40, 40, 0.65)"
                   // color={disableExButtons[index] ? "grey" : "lime"}
-                  style={{ margin: "20px 0 0 0" }}
+                  style={{ margin: "0" }}
                 >
                   {exercise.name}
                 </SmallHeading>
                 <Container
                   direction="row"
-                  style={{ width: "100%", marginRight: "40px" }}
+                  style={{ width: "100%" }}
                   justify="space-between"
                 >
-                  <Container direction="row" style={{ gap: "50px" }}>
+                  <Container direction="row" style={{ gap: "50px", marginRight: "30px" }}>
                     {exercise.sets && (
                       <Container>
                         <WorkoutText mb="0">Sets</WorkoutText>
@@ -171,17 +162,14 @@ export const WorkoutStart = (props) => {
                   </Container>
 
                   <ButtonGroup
-                    id={`group${index}`}
                     variant="text"
                     color="inherit"
                     aria-label="complete workout button group"
                     onClick={() => disableGroup(exercise)}
-                    sx={{ mx: 3 }}
                   >
                     <Button
-                      key={index + "Completed"}
                       onClick={(e) => {
-                        finishExercise(e, exercise, true);
+                        finishExercise(exercise, true);
                         toggleDisabledButtons(index); // Daniel Refactor 5th Jan
                       }}
                       disabled={disableExButtons[index]} // Daniel Refactor 5th Jan
@@ -192,9 +180,8 @@ export const WorkoutStart = (props) => {
                       />
                     </Button>
                     <Button
-                      key={index + "Incomplete"}
                       onClick={(e) => {
-                        finishExercise(e, exercise, false);
+                        finishExercise(exercise, false);
                         toggleDisabledButtons(index); // Daniel Refactor 5th Jan
                       }}
                       disabled={disableExButtons[index]} // Daniel Refactor 5th Jan
@@ -207,7 +194,7 @@ export const WorkoutStart = (props) => {
                   </ButtonGroup>
                 </Container>
               </Container>
-              <Divider sx={{ width: "90%" }} />
+              <Divider sx={{ width: "95%", pb: 2, mb: 1, mr: 3 }} />
             </>
           ))}
         </Container>
