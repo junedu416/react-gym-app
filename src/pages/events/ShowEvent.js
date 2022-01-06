@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useReducer} from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { MainWindow } from '../../styled-components';
 import { getEventById } from '../../services/eventsServices';
 import { showEventReducer } from '../../utils/showEvent-reducer';
@@ -95,7 +95,7 @@ export const ShowEvent = () => {
 
     const goToEditPage = (e) => {
         e.preventDefault();
-        navigate('./edit', {state: {event: event}})
+        navigate('./edit', {state: {event: event, createdBy: instructor._id}})
     }
 
 
@@ -109,7 +109,7 @@ export const ShowEvent = () => {
                     <div>
                         <h1>{event.name}</h1>
                         <h2>{event.category}</h2>
-                        <h3>Event Listed by {`${instructor.firstName} ${instructor.lastName}`}</h3>
+                        {instructor && <h3>Event Listed by {`${instructor.firstName} ${instructor.lastName}`}</h3>}
                         {event.eventImage ?  <img src={event.eventImage} alt={event.name}/> : <p>-no image available-</p>}
                         <p>{event.description}</p>
                         {formatDates.isFinished ? <p>This event has already ended.</p> : <>
@@ -127,8 +127,7 @@ export const ShowEvent = () => {
                             <p>You are already registered in this event</p>
                             <BasicButton text="Cancel Registration" color="error" size="large" btnFunction={cancelRegistration}/>
                         </>}
-                        {instructor._id === profile._id && <>
-                            <Link to="./edit">Edit</Link>
+                        {instructor && (instructor._id === profile._id) && <>
                             <BasicButton text="Edit" color="warning" size="large" btnFunction={goToEditPage} />
                         </>}
                     </div>
