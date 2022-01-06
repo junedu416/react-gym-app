@@ -4,13 +4,21 @@ import { useNavigate } from "react-router";
 import LandingL from "../../assets/LandingL.jpg";
 // import Button from "@mui/material/Button";
 import GetStarted from "../../components/buttons/Get Started";
+import { useGlobalState } from "../../config/globalStore";
 import { MainWindow } from "../../styled-components";
 
 export const Landing = (props) => {
   const navigate = useNavigate();
+  const {store} = useGlobalState();
+  const {profile} = store;
 
   function handleClick(event) {
-    navigate("/auth/login");
+    if (profile) {
+      navigate("/overview");
+    }
+    else {
+      navigate("/auth/login");
+    }
   }
   return (
     <MainWindow justify="center">
