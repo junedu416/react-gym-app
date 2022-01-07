@@ -15,8 +15,9 @@ export const FilterBox = styled(Box)`
   border: 1px solid lightgrey;
   box-shadow: 
     6px 6px 12px -5px #777,
-    0 20px 40px 10px rgba(0, 0, 0, 0.095);
-    
+    -1px 3px 12px -5px #888,
+    0 20px 40px 16px rgba(0, 0, 0, 0.095);
+
   /* filter: drop-shadow(0px 0px 20px rgba(0,0,0, 0.3)); */
   
   /* box-shadow:
