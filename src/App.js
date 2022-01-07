@@ -1,5 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 // import { NavBar } from "./components/NavBar";
 import { Sidebar } from "./pages/home/Sidebar"
 
@@ -54,10 +56,12 @@ import globalReducer from "./config/globalReducer";
 import initialGlobalState from "./config/initialGlobalState";
 import { StateContext } from "./config/globalStore";
 import RememberMe from "./components/RememberMe";
+import { Back } from "./components/Back";
 
 
 const App = () => {
   const [store, dispatch] = useReducer(globalReducer, initialGlobalState)
+  const navigate = useNavigate()
 
   return (
     <>
@@ -65,6 +69,7 @@ const App = () => {
       {/*<NavBar />*/}
       <RememberMe />
       <Notification />
+      <Back btnFunction={() => navigate(-1)} />
       <Sidebar />
       <Routes>
         <Route path="/" element={<Landing />} />
