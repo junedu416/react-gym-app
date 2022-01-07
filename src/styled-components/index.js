@@ -1,16 +1,30 @@
 // import { css } from 'styled-components'; // turn this into a 1-liner?
 import styled from "styled-components";
-import { flexbox, centered, link, greyBorder, shadow, vcentered, hcentered, mt, ml, p, m } from "./mixins";
+import {
+  flexbox,
+  centered,
+  link,
+  greyBorder,
+  shadow,
+  vcentered,
+  hcentered,
+  mt,
+  ml,
+  p,
+  m,
+  w,
+} from "./mixins";
 import { Link } from "react-router-dom";
-// import Modal from "@mui/material/Modal";
-import { Dialog } from "@mui/material";
+import { Alert, Dialog } from "@mui/material";
 
 export const Container = styled.div`
   ${flexbox};
   ${centered};
-  ${props => props.shadow && shadow }
-  ${props => props.greyBorder && greyBorder }
-  ${props => props.mt && mt }
+  ${(props) => props.shadow && shadow}
+  ${(props) => props.greyBorder && greyBorder}
+  ${(props) => props.mt && mt}
+  ${(props) => props.p && p}
+  ${(props) => props.w && w}
 `;
 
 export const MainWindow = styled.div`
@@ -19,7 +33,7 @@ export const MainWindow = styled.div`
   width: calc(100vw - 230px);
   min-height: 100vh;
   margin-left: 230px;
-  ${props => props.verticalMiddle && hcentered}
+  ${(props) => props.verticalMiddle && hcentered}
 `;
 
 export const Heading = styled.h1`
@@ -30,7 +44,7 @@ export const Heading = styled.h1`
 export const SmallHeading = styled.h2`
   ${p}
   ${m}
-  font-size: ${props => props.size ? props.size: "2.5rem"};
+  font-size: ${(props) => (props.size ? props.size : "2.5rem")};
   color: ${(props) => (props.color ? props.color : "blue")};
 `;
 
@@ -54,7 +68,7 @@ export const TextLink = styled.u`
   ${mt}
   ${ml}
   ${p}
-`
+`;
 
 // custom settings for MUI modal backdrop
 export const StyledModal = styled(Dialog)`
@@ -63,4 +77,17 @@ export const StyledModal = styled(Dialog)`
     background-color: rgba(0, 0, 0, 0.9);
     backdrop-filter: blur(1px);
   }
+`;
+
+export const StyledAlert = styled(Alert)`
+  position: absolute;
+  top: 0px;
+  width: 70%;
+  transform: translate(-50%);
+`;
+
+export const Text = styled.p`
+  display: flex;
+  flex-direction: row;
+  margin: 0;
 `;

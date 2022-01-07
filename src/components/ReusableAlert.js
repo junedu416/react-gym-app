@@ -1,16 +1,16 @@
-import { Alert, Collapse, IconButton } from "@mui/material";
+import { Collapse, IconButton } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
+import { StyledAlert } from "../styled-components";
 
 export const ReusableAlert = (props) => {
-  const { type, btnFunction, message } = props;
-  const [open, setOpen] = useState(true);
+  const { severity, btnFunction, text, open } = props;
 
   return (
     <Collapse in={open}>
-      <Alert
-        severity={type}
+      <StyledAlert
+        severity={severity}
         action={
           <IconButton
             aria-label="close"
@@ -22,8 +22,8 @@ export const ReusableAlert = (props) => {
           </IconButton>
         }
       >
-        {message}
-      </Alert>
+        {text}
+      </StyledAlert>
     </Collapse>
   );
 };

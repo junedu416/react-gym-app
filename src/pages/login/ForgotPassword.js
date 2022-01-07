@@ -7,11 +7,14 @@ import {
   Container,
   Heading,
   MainWindow,
+  StyledAlert,
   TextLink,
 } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
 import { sendPasswordResetEmail } from "../../services/userServices";
-import { ReusableAlert } from "../../components/ReusableAlert";
+// import { ReusableAlert } from "../../components/ReusableAlert";
+import BasicButton from "../../components/buttons/BasicButton";
+// import { alertStyling } from "../../styled-components/"
 
 // import { useAuth } from "../contexts/AuthContext";
 
@@ -65,21 +68,13 @@ export const ForgotPassword = () => {
     navigate("/auth/login");
   }
 
-  const alertStyling = {
-    position: "absolute",
-    top: "30px",
-    width: "50%",
-    transform: "translate(-50%)",
-  };
-
   // {/* <ReusableAlert open type="error" message={error} btnFunction={() => setOpen(false)} /> */}
   return (
     <MainWindow verticalMiddle>
       <Container>
         {error && (
           <Collapse in={open}>
-            <Alert
-              style={alertStyling}
+            <StyledAlert
               severity="error"
               action={
                 <IconButton
@@ -95,12 +90,12 @@ export const ForgotPassword = () => {
               }
             >
               {error}
-            </Alert>
+            </StyledAlert>
           </Collapse>
         )}
         {message && (
           <Collapse in={open}>
-            <Alert
+            <StyledAlert
               severity="success"
               action={
                 <IconButton
@@ -116,7 +111,7 @@ export const ForgotPassword = () => {
               }
             >
               {message}
-            </Alert>
+            </StyledAlert>
           </Collapse>
         )}
         <Heading>Password Reset</Heading>
@@ -135,15 +130,8 @@ export const ForgotPassword = () => {
               style={formStyling}
               onChange={handleFormChange}
             />
-            <Button
-              type="submit"
-              disabled={loading}
-              variant="contained"
-              size="large"
-              sx={{ height: "55px", mb: "50px", mt: "15px" }}
-            >
-              Reset Password
-            </Button>
+
+            <BasicButton text="Reset Password" type="submit" disabled={loading} />
           </Container>
         </form>
 

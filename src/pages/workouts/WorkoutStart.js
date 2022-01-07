@@ -1,106 +1,48 @@
 import React, { useState, useEffect } from "react";
 import EditButton from "../../components/buttons/Edit";
-import {
-  Container,
-  MainWindow,
-  SmallHeading,
-} from "../../styled-components";
+import { Container, MainWindow, SmallHeading } from "../../styled-components";
 import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
 import Divider from "@mui/material/Divider";
-import { WorkoutText } from "../../styled-components/workouts";
+import { WorkoutDate, WorkoutText } from "../../styled-components/workouts";
 import moment from "moment";
 import { Button, ButtonGroup } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-// import { blueGrey } from "@mui/material/colors";
-// import ToggleButton from "@mui/material/ToggleButton";
-// import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { workoutList } from "../../data/workouts-dummy";
 import { ReusableModal } from "../../components/ReusableModal";
 
-// const borderOutline = blueGrey[200];
-
 export const WorkoutStart = (props) => {
   const navigate = useNavigate();
+  const selectedWorkout = workoutList[0];
+  const list = selectedWorkout.exercises;
+
+  const [counter, setCounter] = useState(0);
+  const [disableExButtons, setDisableExButtons] = useState(
+    new Array(list.length)
+  );
+  const [disabledList, setDisabledList] = useState([]);
+  const [exerciseCompleted, setExerciseCompleted] = useState([]);
   const [open, setOpen] = useState(false);
+
+  const totalExercises = workoutList.length - 1;
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     navigate("/workouts");
   };
 
-  const selectedWorkout = workoutList[0];
-  const workoutEx = selectedWorkout.exercises;
-  console.log("url: ", workoutEx);
-
-  const [list, setList] = useState(workoutEx);
-
-  const [disabledList, setDisabledList] = useState([]);
-
-
-
-  // function handleCompleted(completedExerciseId, isCompleted) {
-  //   console.log("List: ",list)
-  //   const completedExercise = list.find((exercise) => exercise.id === completedExerciseId);
-  //   completedExercise.completed = isCompleted;
-  //   setList(list);
-  // }
-
-
-  // ======================================== SOMETHING LIKE THIS MIGHT WORK?? ================================
-  // this.state = {
-  //   exercise: [],
-  //   disabledButtons: []
-  // }
-
-  // exerciseClicked(index, param, e) {
-  //   this.setState(prevState => {
-  //     const newDisabledButtons = [...prevState.disabledButtons];
-  //     newDisabledButtons[index] = true;
-  //     return {
-  //       completedExercise: true,
-  //       disabledButtons: newDisabledButtons
-  //     }
-  //   })
-  // }
-  // ======================================== SOMETHING LIKE THIS MIGHT WORK?? ================================
-
-  // const [myMap, setMyMap] = useState(new Map(workoutList));
-  // const updateMap = (k, v) => {
-  //   setMyMap(Map(workoutList.set(k, v)));
-  // };
-
-  // const exercises = workoutList.length
-
-  // const initialValues = {
-  //   // for (let i = 0; i < exercises; i++) {
-  //   //   return `group${index}: 'false'`
-  //   // }
-  // }
-
-  const [exerciseCompleted, setExerciseCompleted] = useState([]);
   const handleExerciseCompleted = (newExerciseCompleted) => {
-    setExerciseCompleted(prevState => [...prevState, newExerciseCompleted]);
-    console.log("COMPLETED LIST: ", exerciseCompleted)
+    setExerciseCompleted((prevState) => [...prevState, newExerciseCompleted]);
   };
-
-  const [counter, setCounter] = useState(0);
-  // const [disableButton, setDisableButton] = useState(false);
-  const [workoutCompleted, setWorkoutCompleted] = useState(false);
-  const totalExercises = workoutList.length - 1;
-  const [btnDisabled, setBtnDisabled] = useState(false);
-
-
-  // Daniel refactor 5th Jan //
-  const [disableExButtons, setDisableExButtons] = useState(new Array(workoutEx.length));
 
   useEffect(() => {
     const tempDisableExButtons = [...disableExButtons];
-    for(let i = 0; i < tempDisableExButtons.length; i++) {
+    for (let i = 0; i < tempDisableExButtons.length; i++) {
       tempDisableExButtons[i] = false;
     }
     setDisableExButtons(tempDisableExButtons);
-  }, [])
+  }, []);
 
   function toggleDisabledButtons(index) {
     const tempDisableExButtons = [...disableExButtons];
@@ -108,29 +50,22 @@ export const WorkoutStart = (props) => {
     setDisableExButtons(tempDisableExButtons);
   }
 
-  // END // 
-
   const disableGroup = (exercise) => {
-    console.log("ID: ", exercise.id);
-    console.log("exercise: ", exercise);
-    setDisabledList({...disabledList, exercise})
+    setDisabledList({ ...disabledList, exercise });
   };
 
-  const finishExercise = (event, exercise, isCompleted) => {
+  const finishExercise = (exercise, isCompleted) => {
     setCounter(counter + 1);
-    console.log("Completed (True/False): ", isCompleted);
-    console.log("Button Click Event : ", event);
-    exercise.completed = isCompleted
-    console.log("EX Completed: ", exercise.completed) 
-    handleExerciseCompleted(exercise)
+    exercise.completed = isCompleted;
+    handleExerciseCompleted(exercise);
     isWorkoutCompleted(counter);
   };
 
   const isWorkoutCompleted = (counter) => {
     if (counter === totalExercises) {
-      setWorkoutCompleted(true);
-      handleOpen();
-
+      handleOpen()
+      setTimeout(() => handleClose(), 3500)
+      
       // ================================ ADD LOGIC TO SEND TO BACKEND ==========================
       // sendData();
       // navigate("/workouts");
@@ -139,15 +74,24 @@ export const WorkoutStart = (props) => {
     }
   };
 
-
-  console.log("Total Exercises: ", `${totalExercises + 1}`);
-  console.log("Completed Exercises: ", counter);
+  const determineUnits = (distance) => {
+    if (distance > 1000) return `${distance / 1000} km`;
+    else if (distance > 0) return `${distance} m`;
+    else return null;
+  };
 
   return (
     <>
       <MainWindow verticalMiddle>
-        <Container p="0 25px" br="20px" greyBorder shadow>
-          <p style={{ alignSelf: "flex-end" }}>{moment().format("LL")}</p>
+        <Container
+          p="0 10px 0 30px"
+          greyBorder
+          shadow
+          style={{ borderRadius: "15px" }}
+        >
+          <WorkoutDate>
+            {moment().format("LL")}
+          </WorkoutDate>
           <Container
             direction="row"
             style={{ width: "100%" }}
@@ -157,129 +101,100 @@ export const WorkoutStart = (props) => {
             <EditButton />
           </Container>
 
-          <Container align="flex-end" justify="flex-end" direction="row" w="100%">
-            <span style={{ color: "lime", paddingRight: "23px", alignSelf: "flex-end" }}>
+          <Container
+            align="flex-start"
+            justify="flex-end"
+            direction="row"
+            w="100%"
+            p="0 10px"
+          >
+            <span style={{ color: "lime", paddingRight: "17px" }}>
               Completed
             </span>
-            <span style={{ color: "red", paddingRight: "15px" }}>
+            <span style={{ color: "red" }}>
               Incomplete
             </span>
           </Container>
 
-          {/* {list.map((exercise, index) => ( */}
           {list.map((exercise, index) => (
             <>
-              <Container
-                key={exercise.id}
-                active={false}
-                align="flex-start"
-                pb="10px"
-                style={{
-                  
-                  // paddingBottom: "10px",
-                  // padding: "0 30px 10px 30px",
-                }}
-              >
+              <Container align="flex-start">
                 <SmallHeading
                   size="1.6rem"
-                  // color="rgba(40, 40, 40, 0.8)"
-                  color={btnDisabled ? "grey" : "lime"}
-                  style={{ margin: "20px 0 0 0" }}
+                  color="rgba(40, 40, 40, 0.65)"
+                  // color={disableExButtons[index] ? "grey" : "lime"}
+                  style={{ margin: "0" }}
                 >
                   {exercise.name}
                 </SmallHeading>
                 <Container
                   direction="row"
-                  style={{ width: "100%", marginRight: "40px" }}
+                  style={{ width: "100%" }}
                   justify="space-between"
                 >
-                  <Container direction="row" style={{ gap: "50px" }}>
-                    <Container>
-                      <WorkoutText mb="0">Sets</WorkoutText>
-                      <WorkoutText>{exercise.sets}</WorkoutText>
-                    </Container>
-                    <Container>
-                      <WorkoutText mb="0">Reps</WorkoutText>
-                      <WorkoutText>{exercise.reps}</WorkoutText>
-                    </Container>
-                    <Container>
-                      <WorkoutText mb="0">Weight</WorkoutText>
-                      <WorkoutText>{exercise.weight}</WorkoutText>
-                    </Container>
+                  <Container direction="row" style={{ gap: "50px", marginRight: "30px" }}>
+                    {exercise.sets && (
+                      <Container>
+                        <WorkoutText mb="0">Sets</WorkoutText>
+                        <WorkoutText>{exercise.sets}</WorkoutText>
+                      </Container>
+                    )}
+                    {exercise.reps && (
+                      <Container>
+                        <WorkoutText mb="0">Reps</WorkoutText>
+                        <WorkoutText>{exercise.reps}</WorkoutText>
+                      </Container>
+                    )}
+                    {exercise.weight && (
+                      <Container>
+                        <WorkoutText mb="0">Weight</WorkoutText>
+                        <WorkoutText>{exercise.weight} kg</WorkoutText>
+                      </Container>
+                    )}
+                    {exercise.distance && (
+                      <Container>
+                        <WorkoutText mb="0">Distance</WorkoutText>
+                        <WorkoutText>
+                          {determineUnits(exercise.distance)}
+                        </WorkoutText>
+                      </Container>
+                    )}
                   </Container>
 
-                  {/* <Container>
-                    <ToggleButtonGroup
-                      exclusive
-                      value={exerciseCompleted}
-                      onChange={handleExerciseCompleted}
-                      aria-label="exercise completed"
-                      key={index}
-                    >
-                      <ToggleButton value="completed" aria-label="completed">
-                        <DoneIcon />
-                      </ToggleButton>
-                      <ToggleButton value="incomplete" aria-label="incomplete">
-                        <ClearIcon />
-                      </ToggleButton>
-                    </ToggleButtonGroup>
-                  </Container> */}
-
-                  {/* <Container direction="row"> */}
                   <ButtonGroup
-                    // key={index}
-                    id={`group${index}`}
-                    variant={btnDisabled ? "contained" : "text"}
-                    disableElevation={btnDisabled}
-                    color="success"
+                    variant="text"
+                    color="inherit"
                     aria-label="complete workout button group"
-
-///////////////////////////////////////////////////////////////////////////////////////////
                     onClick={() => disableGroup(exercise)}
-                    disabled={btnDisabled}
-                    sx={{ mx: 3 }}
                   >
                     <Button
-                      key={index + "Completed"}
-                      // color={completedExercise ? "success" : "primary"}
-                      // color={btnDisabled ? "success" : "primary"}
                       onClick={(e) => {
-                      //   handleCompleted(e, true);
-                        // disableButton(e);
-                        finishExercise(e, exercise, true)
+                        finishExercise(exercise, true);
                         toggleDisabledButtons(index); // Daniel Refactor 5th Jan
                       }}
                       disabled={disableExButtons[index]} // Daniel Refactor 5th Jan
                     >
                       <DoneIcon
                         sx={{ fontSize: "5rem" }}
-                        // color="success"
-                        // color={completedExercise ? "disabled" : "success"}
                         color={disableExButtons[index] ? "disabled" : "success"} // Daniel Refactor 5th Jan
                       />
                     </Button>
                     <Button
-                      key={index + "Incomplete"}
-                      // disabled={disableButton}
                       onClick={(e) => {
-                        finishExercise(e, exercise, false);
+                        finishExercise(exercise, false);
                         toggleDisabledButtons(index); // Daniel Refactor 5th Jan
                       }}
                       disabled={disableExButtons[index]} // Daniel Refactor 5th Jan
                     >
                       <ClearIcon
                         sx={{ fontSize: "5rem" }}
-                        // color="error"
-                        // color={completedExercise ? "disabled" : "error"}
                         color={disableExButtons[index] ? "disabled" : "error"} // Daniel Refactor 5th Jan
                       />
                     </Button>
                   </ButtonGroup>
-
-                  {/* </Container> */}
                 </Container>
               </Container>
-              <Divider sx={{ width: "90%" }} />
+              <Divider sx={{ width: "95%", pb: 2, mb: 1, mr: 3 }} />
             </>
           ))}
         </Container>

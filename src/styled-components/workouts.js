@@ -28,5 +28,11 @@ export const WorkoutText = styled.p`
 export const ListItems = styled.li`
   display: flex;
   flex-direction: column;
-  align-items:center;
+  align-items: center;
+`
+
+export const WorkoutDate = styled.p`
+  align-self: flex-end;
+  padding-top: 10px;
+  margin: 0;
 `
