@@ -11,6 +11,7 @@ export const Back = (props) => {
         TransitionComponent={Fade}
         TransitionProps={{ timeout: 800 }}
         title="Back"
+        arrow
       >
         <IconButton color="primary" aria-label="back" size="large">
           <ArrowBackIosNewIcon
