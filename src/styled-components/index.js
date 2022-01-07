@@ -82,7 +82,7 @@ export const StyledModal = styled(Dialog)`
 export const StyledAlert = styled(Alert)`
   position: absolute;
   top: 0px;
-  width: 50%;
+  width: 70%;
   transform: translate(-50%);
 `;
 

@@ -25,6 +25,7 @@ import { useGlobalState } from "../../config/globalStore.js";
 import { ViewReports } from "./ViewReports";
 import { Collapse, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { ReusableAlert } from "../../components/ReusableAlert";
 
 // JUNE D 20/12/2021: UploadIcon has been removed. Can implement the function after MVP is done
 // JUNE D 20/12/2021: There is no back-end routes for General Inquiry. Can implement the function after MVP is done
@@ -77,22 +78,12 @@ export const Reporting = () => {
       {console.log(profile)}
       <Container>
         {!profile && (
-          <Collapse in={open}>
-            <StyledAlert
-              severity="error"
-              action={
-                <IconButton
-                  aria-label="close"
-                  color="inherit"
-                  size="small"
-                  onClick={() => {
-                    setOpen(false);
-                  }}
-                >
-                  <CloseIcon />
-                </IconButton>
-              }
-            >
+          <ReusableAlert
+            open={open}
+            btnFunction={() => {
+              setOpen(false);
+            }}
+            text={
               <Container direction="row">
                 {"Unauthorized access. Please"}
                 <TextLink
@@ -104,8 +95,9 @@ export const Reporting = () => {
                 </TextLink>
                 {"first"}
               </Container>
-            </StyledAlert>
-          </Collapse>
+            }
+            severity="error"
+          />
         )}
         {profile && !profile.isStaff && (
           <Container>
