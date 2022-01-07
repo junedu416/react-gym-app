@@ -29,12 +29,6 @@ const globalReducer = (state, action) => {
                 }  
             }
 
-        case "setNewExercise":
-            return {
-                ...state,
-                newExercise: action.data
-            }
-            
         default: 
             throw new Error("Undefined global action");
     }
