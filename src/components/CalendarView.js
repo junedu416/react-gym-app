@@ -77,7 +77,7 @@ const CalendarView = ({ eventCategory }) => {
   };
 
   return (
-    <div style={{ height: "80vh", width: "80%" }}>
+    <div style={{ height: "80vh", width: "80%", overflow: "scroll" }}>
       {clickedEvent && (
         <EventPopup
           event={clickedEvent}
@@ -96,13 +96,12 @@ const CalendarView = ({ eventCategory }) => {
         endAccessor="endTime"
         onSelectEvent={onClickEvent}
         step={30}
-
+        style={{ height: 1500 }}
         // Set min and max range for time displayed on calendar
         min={new Date(0, 0, 0, 7, 0, 0)}
         max={new Date(0, 0, 0, 21, 0, 0)}
         
         // showMultiDayTimes //Needs to be included to show times for multi-day events instead of it being treated as all day - Daniel
-        style={{ height: "100%" }}
         scrollToTime={scrollToTime}
         views={["month", "week", "day"]}
       />
