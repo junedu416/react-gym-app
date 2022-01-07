@@ -45,8 +45,23 @@ export const gymClasses = [
   },
 ];
 
-export const eventCategories = ["Class", "Competition", "Personal Training"]; 
+export const eventCategories = ["Class", "Competition", "Personal Training"];
 
-export const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+export const weekdays = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
 
-export const trainers = ["Mike Thompson", "Amy Wheeler", "Jame Kelly", "Grant Hollingsworth"]
+export const trainers = [
+  "Amy Williams",
+  "Brian Jones",
+  "Jenny Bourke",
+  "Kathyrn Wheeler",
+  "Mark Hill",
+  "Mike Thompson",
+];
