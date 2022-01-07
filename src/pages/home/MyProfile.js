@@ -1,8 +1,7 @@
 import React from "react";
 // import { UploadButton } from "../../components/buttons/Upload";
 import { Container, Heading, MainWindow } from "../../styled-components/";
-import DropZone from "../../components/DropZone";
-// import "../../App.css";
+// import DropZone from "../../components/DropZone";
 
 export const MyProfile = (props) => {
   return (
@@ -10,7 +9,7 @@ export const MyProfile = (props) => {
       <Heading>My Profile</Heading>
       <Container>
         <div className="content">
-          <DropZone />
+          {/* <DropZone /> */}
         </div>
         {/* <UploadButton /> */}
       </Container>
