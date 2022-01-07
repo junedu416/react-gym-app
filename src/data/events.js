@@ -46,3 +46,7 @@ export const gymClasses = [
 ];
 
 export const eventCategories = ["Class", "Competition", "Personal Training"]; 
+
+export const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+export const trainers = ["Mike Thompson", "Amy Wheeler", "Jame Kelly", "Grant Hollingsworth"]

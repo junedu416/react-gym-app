@@ -8,6 +8,8 @@ import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import { FilterBox } from "../../styled-components/events";
+import { gymClasse, weekdays } from "../../data/events"
+import DoneIcon from '@mui/icons-material/Done';
 
 export const Calendar = () => {
   const [eventSelect, setEventSelect] = useState("class");
@@ -44,9 +46,29 @@ export const Calendar = () => {
             style={{ gap: "20px" }}
           >
             <ClickAwayListener onClickAway={handleClickAway}>
-              <Container style={{ position: "relative" }}>
-                <Chip label="Class" variant="outlined" onClick={handleClick} />
-                {open ? <FilterBox>CONTENT</FilterBox> : null}
+              <Container direction="row" style={{ position: "relative", gap: "30px" }}>
+                <Chip label="Class" color={open ? "primary" : "default"}  variant="outlined" onClick={handleClick} />
+                {/* {open ? <FilterBox sx={{ pl: "20px"}}>
+                  {gymClasses.map((item, index) => {
+                    return (
+                    <Container align="center" justify="space-between" direction="row" >
+                     <p><strong>{item.name}</strong></p>
+                        <DoneIcon color="success" />
+                    </Container>
+                  )})}
+                </FilterBox> : null} */}
+                <Chip label="Day" color={open ? "primary" : "default"} variant="outlined" onClick={handleClick} />
+                {open ? <FilterBox>
+                  {weekdays.map((day, index) => {
+                    return (
+                    <Container align="center" justify="space-between" direction="row" >
+                     <p><strong>{day}</strong></p>
+                        <DoneIcon color="success" />
+                    </Container>
+                  )})}
+                </FilterBox> : null}
+                <Chip label="Trainer" color={open ? "primary" : "default"} variant="outlined" onClick={handleClick} />
+                {/* {open ? <FilterBox>Trainer</FilterBox> : null} */}
               </Container>
             </ClickAwayListener>
           </Container>
