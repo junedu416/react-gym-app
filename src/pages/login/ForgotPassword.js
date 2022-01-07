@@ -12,9 +12,9 @@ import {
 } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
 import { sendPasswordResetEmail } from "../../services/userServices";
-import { ReusableAlert } from "../../components/ReusableAlert";
+// import { ReusableAlert } from "../../components/ReusableAlert";
 import BasicButton from "../../components/buttons/BasicButton";
-import { alertStyling } from "../../styled-components/"
+// import { alertStyling } from "../../styled-components/"
 
 // import { useAuth } from "../contexts/AuthContext";
 
@@ -130,15 +130,6 @@ export const ForgotPassword = () => {
               style={formStyling}
               onChange={handleFormChange}
             />
-            {/* <Button
-              type="submit"
-              disabled={loading}
-              variant="contained"
-              size="large"
-              sx={{ height: "55px", mb: "50px", mt: "15px" }}
-            >
-              Reset Password
-            </Button> */}
 
             <BasicButton text="Reset Password" type="submit" disabled={loading} />
           </Container>
