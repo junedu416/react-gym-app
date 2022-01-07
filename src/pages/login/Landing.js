@@ -9,14 +9,13 @@ import { useGlobalState } from "../../config/globalStore";
 
 export const Landing = (props) => {
   const navigate = useNavigate();
-  const {store} = useGlobalState();
-  const {profile} = store;
+  const { store } = useGlobalState();
+  const { profile } = store;
 
   function handleClick(event) {
     if (profile) {
       navigate("/overview");
-    }
-    else {
+    } else {
       navigate("/auth/login");
     }
   }
@@ -70,11 +69,18 @@ export const Landing = (props) => {
             textShadow: "2px 2px 5px black",
           }}
         >
-          Take your training to the <strong style={{color: "red", fontSize: "7rem"}}>NEXT</strong> level
+          Take your training to the{" "}
+          <strong style={{ color: "red", fontSize: "7rem" }}>NEXT</strong> level
         </h1>
-        <BasicButton text="Get Started" variant="outlined" color="success" style={{ color: "lime", borderColor: "lime" }} btnFunction={() => {
-          handleClick()
-         }} />
+        <BasicButton
+          text="Get Started"
+          variant="outlined"
+          color="success"
+          style={{ color: "lime", borderColor: "lime" }}
+          btnFunction={() => {
+            handleClick();
+          }}
+        />
       </div>
     </MainWindow>
   );

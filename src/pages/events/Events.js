@@ -14,12 +14,12 @@ export const Events = (props) => {
   return (
     <>
       <MainWindow>
-        <Calendar style={{ marginBottom: "50px", padding: "50px" }} />
+        <Calendar />
 
         <BasicButton
           btnFunction={handleNewEvent}
           text="Create Event"
-          style={{ marginTop: "30px" }}
+          sx={{ mt: 4 }}
         />
       </MainWindow>
     </>
