@@ -18,6 +18,9 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import { FilterHeading } from "../../components/FilterHeading";
+import BasicButton from "../../components/buttons/BasicButton";
+// import CloseIcon from '@mui/icons-material/Close';
+import CancelIcon from "@mui/icons-material/Cancel";
 
 // const ListItem = styled('li')(({ theme }) => ({
 //   margin: theme.spacing(2),
@@ -49,13 +52,13 @@ const AccordionSummary = styled((props) => (
   flexDirection: "row-reverse",
   "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
     transform: "rotate(90deg)",
-    color: "#0288d1"
+    color: "#0288d1",
   },
   "& .MuiAccordionSummary-content": {
     marginLeft: theme.spacing(0.9),
   },
   "& .MuiAccordionSummary-content.Mui-expanded": {
-    color: "#0288d1"
+    color: "#0288d1",
   },
 }));
 
@@ -102,14 +105,6 @@ export const Calendar = () => {
     if (eventSelect === "personal training") return trainerFilters;
   };
 
-  // const [chipData, setChipData] = useState(eventSelection);
-
-  // const handleSelect = (filterToRemove) => () => {
-  //   setChipData((chips) =>
-  //     chips.filter((chip) => chip.key !== filterToRemove.key)
-  //   );
-  // };
-
   const handleClick = () => {
     setOpen((prev) => !prev);
   };
@@ -152,26 +147,12 @@ export const Calendar = () => {
                   >
                     {/* <FilterHeading text="Day" expanded={expanded} panel="panel1" /> */}
                     <AccordionSummary>
-                      <Typography
-                        fontWeight="bold"
-                      >
-                        Day
-                      </Typography>
+                      <Typography fontWeight="bold">Day</Typography>
                     </AccordionSummary>
                     <AccordionDetails sx={{ p: 1 }}>
                       {weekdays.map((day) => {
                         return (
-                          <FilterItem
-                            key={day.key}
-                            align="center"
-                            justify="space-between"
-                            direction="row"
-                            p="10px 0"
-                            style={{ "&:hover": {
-                                color: "red" 
-                              }
-                            }}
-                          >
+                          <FilterItem key={day.key}>
                             <Typography>{day.label}</Typography>
                             <DoneIcon color="success" />
                           </FilterItem>
@@ -184,22 +165,12 @@ export const Calendar = () => {
                     onChange={handleChange("panel2")}
                   >
                     <AccordionSummary>
-                      <Typography
-                        fontWeight="bold"
-                      >
-                        Trainer
-                      </Typography>
+                      <Typography fontWeight="bold">Trainer</Typography>
                     </AccordionSummary>
                     <AccordionDetails sx={{ p: 1 }}>
                       {trainers.map((trainer) => {
                         return (
-                          <FilterItem
-                            key={trainer.key}
-                            align="center"
-                            justify="space-between"
-                            direction="row"
-                            p="10px 0"
-                          >
+                          <FilterItem key={trainer.key}>
                             <Typography>{trainer.name}</Typography>
                             <DoneIcon color="success" />
                           </FilterItem>
@@ -212,22 +183,12 @@ export const Calendar = () => {
                     onChange={handleChange("panel3")}
                   >
                     <AccordionSummary>
-                      <Typography
-                        fontWeight="bold"
-                      >
-                        Class
-                      </Typography>
+                      <Typography fontWeight="bold">Class</Typography>
                     </AccordionSummary>
                     <AccordionDetails sx={{ p: 1 }}>
                       {gymClasses.map((groupClass, index) => {
                         return (
-                          <FilterItem
-                            key={index}
-                            align="center"
-                            justify="space-between"
-                            direction="row"
-                            p="10px 0"
-                          >
+                          <FilterItem key={index}>
                             <Typography>{groupClass.name}</Typography>
                             <DoneIcon color="success" />
                           </FilterItem>
@@ -239,79 +200,30 @@ export const Calendar = () => {
               ) : null}
             </Container>
           </ClickAwayListener>
+
+          {
+            <BasicButton
+              text="Clear Filters"
+              endIcon={<CancelIcon sx={{ color: "rgba(40, 40, 40, 0.7)" }} />}
+              size="small"
+              variant="outlined"
+              sx={{
+                p: 0,
+                m: 0,
+                backgroundColor: "rgba(180,180,180, 0.8)",
+                border: "none",
+                color: "rgba(40, 40, 40, 0.7)",
+                "&:hover": {
+                  backgroundColor: "rgb(150, 150, 150)",
+                  border: "none",
+                },
+              }}
+              style={{ height: "37px" }}
+              // ADD FUNCTION HERE!!!!!!!!!
+              btnFunction={{}}
+            />
+          }
         </Container>
-
-        {/* <Container
-            direction="row"
-            w="100%"
-            justify="flex-start"
-            style={{ gap: "20px" }}
-          >
-
-            <ClickAwayListener onClickAway={handleClickAway}>
-              <Container
-                direction="row"
-                pl="20px"
-                style={{ position: "relative", gap: "30px" }}
-              >
-                <Chip
-                  label="Class"
-                  color={open ? "primary" : "default"}
-                  variant="outlined"
-                  onClick={handleClick}
-                />
-                {open ? <FilterBox sx={{ pl: "20px"}}>
-                  {gymClasses.map((item, index) => {
-                    return (
-                    <Container align="center" justify="space-between" direction="row" >
-                     <p><strong>{item.name}</strong></p>
-                        <DoneIcon color="success" />
-                    </Container>
-                  )})}
-                </FilterBox> : null}
-                <Chip
-                  label="Day"
-                  color={open ? "primary" : "default"}
-                  variant="outlined"
-                  onClick={handleClick}
-                />
-                {open ? <FilterBox>
-                  {weekdays.map((day, index) => {
-                    return (
-                    <Container align="center" justify="space-between" direction="row" >
-                     <p><strong>{day}</strong></p>
-                        <DoneIcon color="success" />
-                    </Container>
-                  )})}
-                </FilterBox> : null}
-                <Chip
-                  label="Trainer"
-                  color={open ? "primary" : "default"}
-                  variant="outlined"
-                  onClick={handleClick}
-                />
-                {open ? (
-                  <FilterBox>
-                    {trainers.map((trainer, index) => {
-                      return (
-                        <Container
-                          align="center"
-                          justify="space-between"
-                          direction="row"
-                        >
-                          <p>
-                            <strong>{trainer}</strong>
-                          </p>
-                          <DoneIcon color="success" />
-                        </Container>
-                      );
-                    })}
-                  </FilterBox>
-                ) : null}
-              </Container>
-            </ClickAwayListener>
-          </Container> */}
-        {/* </Container> */}
 
         <Container w="30%">
           <ToggleButtonGroup
