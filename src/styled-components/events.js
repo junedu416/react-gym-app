@@ -3,14 +3,14 @@ import Box from "@mui/material/Box";
 
 export const FilterBox = styled(Box)`
   position: absolute;
-  padding: 0 20px;
-  top: 40px;
+  /* padding: 0 20px; */
+  top: 50px;
   right: 0px;
-  left: 0px;
-  min-width: 250px;
-  min-height: 350px;
+  left: 70px;
+  min-width: 210px;
+  /* max-width: 350px; */
   z-index: 5;
-  background-color: white;
+  background-color: transparent;
   border-radius: 10px;
   border: 1px solid lightgrey;
   box-shadow: 

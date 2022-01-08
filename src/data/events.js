@@ -48,20 +48,20 @@ export const gymClasses = [
 export const eventCategories = ["Class", "Competition", "Personal Training"];
 
 export const weekdays = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
+  { key: 0, label: "Monday" },
+  { key: 1, label: "Tuesday" },
+  { key: 2, label: "Wednesday" },
+  { key: 3, label: "Thursday" },
+  { key: 4, label: "Friday" },
+  { key: 5, label: "Saturday" },
+  { key: 6, label: "Sunday" },
 ];
 
 export const trainers = [
-  "Amy Williams",
-  "Brian Jones",
-  "Jenny Bourke",
-  "Kathyrn Wheeler",
-  "Mark Hill",
-  "Mike Thompson",
+  { key: 0, name: "Amy Williams" },
+  { key: 1, name: "Brian Jones" },
+  { key: 2, name: "Jenny Bourke" },
+  { key: 3, name: "Kathryn Wheeler" },
+  { key: 4, name: "Mark Hill" },
+  { key: 5, name: "Mike Thompson" },
 ];
