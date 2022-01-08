@@ -20,9 +20,9 @@ export const Calendar = () => {
         exclusive
         onChange={handleEventSelect}
         aria-label="calendar event display toggle selection"
-        size="large"
+        size="medium"
         color="warning"
-        style={{backgroundColor: "lightBlue", margin:"50px"}}
+        style={{backgroundColor: "lightBlue", margin:"15px"}}
       >
         <ToggleButton value="class" aria-label="class" sx={{color:"grey"}}>
           Classes

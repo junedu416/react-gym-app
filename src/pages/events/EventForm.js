@@ -2,14 +2,16 @@ import React, {useEffect, useState} from 'react';
 import { useGlobalState } from "../../config/globalStore";
 import { Container } from "../../styled-components";
 import AttachmentIcon from "../../components/buttons/AttachmentIcon";
-import CreateEvent from "../../components/buttons/CreateEvent";
 import { MenuItem, TextField, Stack } from "@mui/material";
+
 // Date/Time Selection
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { MobileDatePicker, MobileTimePicker } from "@mui/lab";
+
 // services
 import { gymClasses } from "../../data/classes";
+import BasicButton from '../../components/buttons/BasicButton';
 
 export const EventForm = ({submitFunction, event, eventId}) => {
     const {store} = useGlobalState();
@@ -215,7 +217,7 @@ export const EventForm = ({submitFunction, event, eventId}) => {
                 onChange={handleImageUpload}/>
               </Container>
 
-              <CreateEvent />
+              <BasicButton text="Create Event" type="submit" />
             </>
           )}
         </Container>
