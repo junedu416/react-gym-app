@@ -33,7 +33,6 @@ export const Exercises = () => {
   const [workoutIndex, setWorkoutIndex] = useState(0);
   const { store, dispatch } = useGlobalState();
   const { profile} = store;
-  console.log(profile)
   const initialValues = {
     _id: null,
     sets: null,
@@ -238,7 +237,7 @@ export const Exercises = () => {
                         id={i}
                         onClick={handleAddExercise}
                       >
-                        + {el.name}
+                        {el.name}
                       </MenuItem>
                   ))}
                   </Typography>
