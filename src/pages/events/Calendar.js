@@ -144,6 +144,7 @@ export const Calendar = () => {
                   <Accordion
                     expanded={expanded === "panel1"}
                     onChange={handleChange("panel1")}
+                    sx={{ borderTopLeftRadius: "8px", borderTopRightRadius: "8px"}}
                   >
                     {/* <FilterHeading text="Day" expanded={expanded} panel="panel1" /> */}
                     <AccordionSummary>
@@ -181,6 +182,7 @@ export const Calendar = () => {
                   <Accordion
                     expanded={expanded === "panel3"}
                     onChange={handleChange("panel3")}
+                    sx={{ borderBottomLeftRadius: "8px", borderBottomRightRadius: "8px"}}
                   >
                     <AccordionSummary>
                       <Typography fontWeight="bold">Class</Typography>
