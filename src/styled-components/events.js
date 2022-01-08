@@ -8,15 +8,15 @@ export const FilterBox = styled(Box)`
   right: 0px;
   left: 0px;
   min-width: 250px;
-  min-height: 400px;
-  z-index: 1;
+  min-height: 350px;
+  z-index: 5;
   background-color: white;
   border-radius: 10px;
   border: 1px solid lightgrey;
   box-shadow: 
-    6px 6px 12px -5px #777,
-    -1px 3px 12px -5px #888,
-    0 20px 40px 16px rgba(0, 0, 0, 0.095);
+    6px 6px 8px -5px #777,
+    -1px 3px 10px -5px #888,
+    0 8px 30px 1px rgba(0, 0, 0, 0.095);
 
   /* filter: drop-shadow(0px 0px 20px rgba(0,0,0, 0.3)); */
   

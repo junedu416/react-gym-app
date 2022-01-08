@@ -8,7 +8,7 @@ import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import { FilterBox } from "../../styled-components/events";
-import { gymClasse, weekdays } from "../../data/events"
+import { gymClasse, weekdays, trainers } from "../../data/events"
 import DoneIcon from '@mui/icons-material/Done';
 
 export const Calendar = () => {
@@ -29,7 +29,6 @@ export const Calendar = () => {
       setEventSelect(newEventSelect);
     }
   };
-
 
   return (
     <>
@@ -58,7 +57,7 @@ export const Calendar = () => {
                   )})}
                 </FilterBox> : null} */}
                 <Chip label="Day" color={open ? "primary" : "default"} variant="outlined" onClick={handleClick} />
-                {open ? <FilterBox>
+                {/* {open ? <FilterBox>
                   {weekdays.map((day, index) => {
                     return (
                     <Container align="center" justify="space-between" direction="row" >
@@ -66,9 +65,17 @@ export const Calendar = () => {
                         <DoneIcon color="success" />
                     </Container>
                   )})}
-                </FilterBox> : null}
+                </FilterBox> : null} */}
                 <Chip label="Trainer" color={open ? "primary" : "default"} variant="outlined" onClick={handleClick} />
-                {/* {open ? <FilterBox>Trainer</FilterBox> : null} */}
+                {open ? <FilterBox>
+                  {trainers.map((trainer, index) => {
+                    return (
+                    <Container align="center" justify="space-between" direction="row" >
+                     <p><strong>{trainer}</strong></p>
+                        <DoneIcon color="success" />
+                    </Container>
+                  )})}
+                </FilterBox> : null}
               </Container>
             </ClickAwayListener>
           </Container>
