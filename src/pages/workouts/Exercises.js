@@ -24,9 +24,49 @@ import CloseIcon from "@mui/icons-material/Close";
 import BasicButton from "../../components/buttons/BasicButton";
 
 export const Exercises = () => {
+  // const [selected, setSelected] = useState(false);
+
   const [display, setDisplay] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
-  // const [selected, setSelected] = useState(false);
+  const [exerciseList, setExerciseList] = useState([]);
+  const [exerciseIndex, setExerciseIndex] = useState(0);
+  const [workoutIndex, setWorkoutIndex] = useState(0);
+  const { store, dispatch } = useGlobalState();
+  const { profile} = store;
+  console.log(profile)
+  const initialValues = {
+    _id: null,
+    sets: null,
+    reps: null,
+    weight: null,
+    distance: null
+  };
+
+  const [newExercise, setNewExercise] = useState(initialValues);
+
+
+  useEffect( async() => {
+     const exercises = await getAllExercises()
+     await setExerciseList(exercises)
+     if (exerciseList.length !==0 ){
+      setNewExercise({
+            ...newExercise,
+            _id: exerciseList[exerciseIndex]._id,
+            sets: exerciseList[exerciseIndex].defaultSets
+              ? exerciseList[exerciseIndex].defaultSets
+              : null,
+            reps: exerciseList[exerciseIndex].defaultReps
+              ? exerciseList[exerciseIndex].defaultReps
+              : null,
+            weight: exerciseList[exerciseIndex].defaultWeight
+              ? exerciseList[exerciseIndex].defaultWeight
+              : null,
+            distance: exerciseList[exerciseIndex].defaultDistance
+              ? exerciseList[exerciseIndex].defaultDistance
+              : null
+          })
+     }
+  }, [exerciseIndex]);
 
   const handleBtnClick = (event, index) => {
     setAnchorEl(event.currentTarget);
@@ -41,95 +81,56 @@ export const Exercises = () => {
 
   const id = open ? "simple-popover" : undefined;
 
-  const { store, dispatch } = useGlobalState();
-  const { profile } = store;
-
-  useEffect(() => {
-    getAllExercises().then((exercises) => {
-      setExerciseList(exercises);
-    });
-  }, []);
-
-  const initialValues = {
-    _id: null,
-    sets: null,
-    reps: null,
-    weight: null,
-    distance: null
-  };
-
-  const [newExercise, setNewExercise] = useState(initialValues);
-  const [exerciseList, setExerciseList] = useState([]);
-  const [exerciseIndex, setExerciseIndex] = useState(0);
-  const [workoutIndex, setWorkoutIndex] = useState(0);
-
   const navigate = useNavigate();
 
   const navigateToLogin = () => {
     navigate("/auth/login");
   };
   
-  const containExercise = async (list, newObj) => {
+  const containExercise = (list, newObj) => {
     for(var i = 0; i < list.length; i++) {
       if (list[i]._id === newObj._id) {
         return true
+      }
     }
     return false
-  }
-};
+  };
 
   const findWorkoutAddExercise = async (workouts, i, exercise) => {
     workouts[i].exercises.push(exercise)
     return workouts
   }
+
   
   //this function adds exercise to profile workout array
-  const handleAddExercise = async (event, index) => {
+  const handleAddExercise = async (event) => {
 
     //select workout list
     setWorkoutIndex(Number(event.target.getAttribute("id")))
 
-    setNewExercise({
-      ...newExercise,
-      _id: exerciseList[index]._id,
-      sets: exerciseList[index].defaultSets
-        ? exerciseList[index].defaultSets
-        : null,
-      reps: exerciseList[index].defaultReps
-        ? exerciseList[index].defaultReps
-        : null,
-      weight: exerciseList[index].defaultWeight
-        ? exerciseList[index].defaultWeight
-        : null,
-      distance: exerciseList[index].defaultDistance
-        ? exerciseList[index].defaultDistance
-        : null,
-    });
-    
-    
-    const isAdded = await containExercise(profile.workouts[workoutIndex].exercises, newExercise)
-    if (isAdded) {
+    console.log("profile :",profile)    
+
+    if (containExercise(profile.workouts[workoutIndex].exercises, newExercise)) {
       dispatch({
         type: "setNotification",
-        data: "You already have this exercise in your workout"
+        data: "You already have this exercise in your workout list"
       });
     } else {
-      console.log("select new exercise:", newExercise);
       const workouts = await findWorkoutAddExercise(profile.workouts, workoutIndex, newExercise )
-
       dispatch({type: "addWorkoutToProfile", data: workouts});
 
       editProfile(profile.userId, profile)
+      .then(() =>
+        dispatch({
+          type: "setNotification",
+          data: "Add exercise successfully!"
+        })
+      )
       .catch((err) => {
         console.log(err.message);
-      });
-
-      dispatch({
-        type: "setNotification",
-        data: "Add exercise successfully!"
-      });
+      })
     }
-  };
+};
 
 
   // const handleToggle = (selected) => {
@@ -143,7 +144,6 @@ export const Exercises = () => {
   //     // REMOVE FROM FAVOURITES
   //   }
   // };
-
 
   return (
     <MainWindow>
@@ -212,7 +212,6 @@ export const Exercises = () => {
                   </Container> */}
 
                   <p>{exercise.description}</p>
-                  <p>{exercise.defaultSets} {exercise.defaultReps} {exercise.defaultWeight}{exercise.defaultDistance}</p>
                 </Container>
 
                 <BasicButton
@@ -237,9 +236,9 @@ export const Exercises = () => {
                       <MenuItem
                         key={i}
                         id={i}
-                        onClick={(event) => handleAddExercise(event, exerciseIndex)}
+                        onClick={handleAddExercise}
                       >
-                        {exerciseIndex} {el.name}
+                        + {el.name}
                       </MenuItem>
                   ))}
                   </Typography>
