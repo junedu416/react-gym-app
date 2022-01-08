@@ -29,3 +29,17 @@ export const FilterBox = styled(Box)`
   0 12px 90px rgba(0, 0, 0, 0.15); */
 
 `;
+
+export const FilterItem = styled.div`
+  background-color: white;
+  border-radius: 8px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 10px;
+
+  &:hover {
+      background-color: rgba(0, 145, 250, 0.18);
+      cursor: pointer;
+  }
+`

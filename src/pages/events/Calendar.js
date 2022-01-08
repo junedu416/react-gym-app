@@ -6,7 +6,7 @@ import { Container } from "../../styled-components";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Chip from "@mui/material/Chip";
-import { FilterBox } from "../../styled-components/events";
+import { FilterBox, FilterItem } from "../../styled-components/events";
 import { gymClasses, trainers, weekdays } from "../../data/events";
 import DoneIcon from "@mui/icons-material/Done";
 import Button from "@mui/material/Button";
@@ -17,7 +17,7 @@ import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import { FilterHeading } from "../../components/FilterHeading"
+import { FilterHeading } from "../../components/FilterHeading";
 
 // const ListItem = styled('li')(({ theme }) => ({
 //   margin: theme.spacing(2),
@@ -35,9 +35,10 @@ const Accordion = styled((props) => (
   },
 }));
 
+// CUSTOM STYLING FOR MATERIAL UI ACCORDION COMPONENT
 const AccordionSummary = styled((props) => (
   <MuiAccordionSummary
-    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "1.2rem" }} />}
+    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "1.3rem" }} />}
     {...props}
   />
 ))(({ theme }) => ({
@@ -48,9 +49,13 @@ const AccordionSummary = styled((props) => (
   flexDirection: "row-reverse",
   "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
     transform: "rotate(90deg)",
+    color: "#0288d1"
   },
   "& .MuiAccordionSummary-content": {
-    marginLeft: theme.spacing(1),
+    marginLeft: theme.spacing(0.9),
+  },
+  "& .MuiAccordionSummary-content.Mui-expanded": {
+    color: "#0288d1"
   },
 }));
 
@@ -147,21 +152,29 @@ export const Calendar = () => {
                   >
                     {/* <FilterHeading text="Day" expanded={expanded} panel="panel1" /> */}
                     <AccordionSummary>
-<Typography fontWeight="bold" color={expanded === "panel1" ? "blue" : "black"}>Day</Typography>
-</AccordionSummary>
-                    <AccordionDetails>
+                      <Typography
+                        fontWeight="bold"
+                      >
+                        Day
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails sx={{ p: 1 }}>
                       {weekdays.map((day) => {
                         return (
-                          <Container
+                          <FilterItem
                             key={day.key}
                             align="center"
                             justify="space-between"
                             direction="row"
                             p="10px 0"
+                            style={{ "&:hover": {
+                                color: "red" 
+                              }
+                            }}
                           >
                             <Typography>{day.label}</Typography>
                             <DoneIcon color="success" />
-                          </Container>
+                          </FilterItem>
                         );
                       })}
                     </AccordionDetails>
@@ -171,12 +184,16 @@ export const Calendar = () => {
                     onChange={handleChange("panel2")}
                   >
                     <AccordionSummary>
-                      <Typography fontWeight="bold" color={expanded === "panel2" ? "blue" : "black"}>Trainer</Typography>
+                      <Typography
+                        fontWeight="bold"
+                      >
+                        Trainer
+                      </Typography>
                     </AccordionSummary>
-                    <AccordionDetails>
+                    <AccordionDetails sx={{ p: 1 }}>
                       {trainers.map((trainer) => {
                         return (
-                          <Container
+                          <FilterItem
                             key={trainer.key}
                             align="center"
                             justify="space-between"
@@ -185,7 +202,7 @@ export const Calendar = () => {
                           >
                             <Typography>{trainer.name}</Typography>
                             <DoneIcon color="success" />
-                          </Container>
+                          </FilterItem>
                         );
                       })}
                     </AccordionDetails>
@@ -195,12 +212,16 @@ export const Calendar = () => {
                     onChange={handleChange("panel3")}
                   >
                     <AccordionSummary>
-                      <Typography fontWeight="bold" color={expanded === "panel3" ? "blue" : "black"}>Class</Typography>
+                      <Typography
+                        fontWeight="bold"
+                      >
+                        Class
+                      </Typography>
                     </AccordionSummary>
-                    <AccordionDetails>
+                    <AccordionDetails sx={{ p: 1 }}>
                       {gymClasses.map((groupClass, index) => {
                         return (
-                          <Container
+                          <FilterItem
                             key={index}
                             align="center"
                             justify="space-between"
@@ -209,7 +230,7 @@ export const Calendar = () => {
                           >
                             <Typography>{groupClass.name}</Typography>
                             <DoneIcon color="success" />
-                          </Container>
+                          </FilterItem>
                         );
                       })}
                     </AccordionDetails>
