@@ -17,7 +17,8 @@ import { Line } from 'react-chartjs-2';
 export const PerformanceStats = (props) => {
   const {store} = useGlobalState();
   const {profile} = store;
-  const {workouts} = profile;
+  let workouts;
+  if (profile) workouts = profile.workouts;
   const dummyWorkout = workoutList[0];
   console.log(dummyWorkout);
 
@@ -37,13 +38,15 @@ export const PerformanceStats = (props) => {
 
   const colors = ["red", "blue", "yellow", "orange", "black"]
 
-  const labels = dummyWorkout.exercises[0].prevWeights.map(() => "");
+  const prevStats = dummyWorkout.exercises[0].prevWeights ?? dummyWorkout.exercises[0].prevDistances;
+  const labels = prevStats.map(() => "");
+   
   const data = {
     labels,
     datasets: dummyWorkout.exercises.map((e, i) => {
       return {
         label: e.name,
-        data: e.prevWeights,
+        data: e.prevWeights ?? e.prevDistances,
         borderColor: colors[i],
         backgroundColor: "black"
       }

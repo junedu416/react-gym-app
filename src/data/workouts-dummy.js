@@ -3,7 +3,7 @@ export const workoutList = [
     id: "0",
     name: "Workout A",
     exercises: [
-      { name: "deadlift", sets: 1, reps: 5, weight: 100, prevWeights: [80, 90, 95], distance: null },
+      { name: "deadlift", sets: 1, reps: 5, weight: 100, prevDistances: [150, 180, 190], distance: null },
       { name: "bench", sets: 3, reps: 5, weight: 60, prevWeights: [50, 55, 50], distance: null },
       { name: "squat", sets: 5, reps: 5, weight: 80, prevWeights: [70,70, 75], distance: null },
     ],
