@@ -12,7 +12,6 @@ import { MobileDatePicker, MobileTimePicker } from "@mui/lab";
 
 // services
 import { gymClasses } from "../../data/classes";
-import BasicButton from '../../components/buttons/BasicButton';
 
 export const EventForm = ({submitFunction, event, eventId}) => {
     const {store} = useGlobalState();
@@ -24,7 +23,7 @@ export const EventForm = ({submitFunction, event, eventId}) => {
         name: '',
         description: '',
         category: '',
-        spotsAvailable: 1
+        spotsAvailable: null,
     }
     const [formValues, setFormValues] = useState(initialValues)
 

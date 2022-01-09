@@ -123,7 +123,7 @@ export const ShowEvent = () => {
                             <p>There are no more spots available for this event</p>}
                         {!formatDates.isFinished && (event.spotsAvailable !== 0) && !userIsRegistered && <>
                             <p>{event.spotsAvailable} {event.spotsAvailable === 1 ? "spot" : "spots"} left!</p>
-                            {instructor && (instructor._id === profile._id) && <BasicButton text="Register" color="success" size="large" btnFunction={registerToEvent} />}
+                            {instructor && (instructor._id !== profile._id) && <BasicButton text="Register" color="success" size="large" btnFunction={registerToEvent} />}
                             </>}
                         {!formatDates.isFinished && userIsRegistered && <>
                             <p>You are already registered in this event</p>
