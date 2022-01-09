@@ -29,6 +29,15 @@ const globalReducer = (state, action) => {
                 }  
             }
 
+        case "addNewWorkout":  
+            return {
+                ...state,
+                profile: {
+                    ...state.profile,
+                    workouts:[...state.profile.workouts, action.data]
+                }  
+            }
+
         default: 
             throw new Error("Undefined global action");
     }

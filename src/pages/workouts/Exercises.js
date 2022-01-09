@@ -22,7 +22,6 @@ import BasicButton from "../../components/buttons/BasicButton";
 export const Exercises = () => {
   // const [selected, setSelected] = useState(false);
 
-
   const [anchorEl, setAnchorEl] = useState(null);
   const [exerciseList, setExerciseList] = useState([]);
   const [exerciseIndex, setExerciseIndex] = useState(0);

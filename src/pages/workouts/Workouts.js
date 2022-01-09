@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import EditButton from "../../components/buttons/Edit";
 import {
@@ -21,16 +21,63 @@ import Divider from "@mui/material/Divider";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import { getExerciseById } from "../../services/exerciseServices";
-import BasicButton from "../../components/buttons/BasicButton";
+
+import BasicButton from "../../components/buttons/BasicButton"
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
 import { useGlobalState } from "../../config/globalStore";
+import { editProfile } from "../../services/profileServices";
 
 export const Workouts = (props) => {
 
+  const [open, setOpen] = useState(false);
+  const initialWorkout = {
+    name: null, 
+    exercises:[]
+  }
+  const [newWorkout, setNewWorkout] = useState(initialWorkout)
   const [display, setDisplay] = useState(true);
   const navigate = useNavigate();
   const { store, dispatch } = useGlobalState();
   const { profile} = store;
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  useEffect(() => {
+      editProfile(profile.userId, profile)
+      .catch((err) => {
+        console.log(err.message);
+      })
+  },[profile])
+
+  const handleChange = (event) => {
+    const workoutObj = {
+      ...newWorkout,
+      name: event.target.value
+    }
+
+    setNewWorkout(workoutObj)
+  }
+
+  const handleCreateBtn = () => {
+    console.log(newWorkout)
+    dispatch({type: "addNewWorkout", data: newWorkout})
+    dispatch({
+      type: "setNotification",
+      data: "Successfully Create New Workout"
+    })
+
+    setOpen(false);
+  }
 
   const [activeWorkout, setActiveWorkout] = useState("");
   const handleClick = (selectedWorkout) => {
@@ -43,7 +90,7 @@ export const Workouts = (props) => {
     navigate("/auth/login");
   };
 
-  console.log(activeWorkout);
+  // console.log(activeWorkout);
 
   function workoutStart() {
     navigate("/workouts/start");
@@ -87,6 +134,30 @@ export const Workouts = (props) => {
       {profile && <Container>
         <Heading>Workouts</Heading>
 
+        <div>
+        <Button variant="outlined" onClick={handleClickOpen}>
+           Create Workout List
+        </Button>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="New Workout"
+              helperText="Please enter your workout list name"
+              fullWidth
+              variant="standard"
+              onChange ={handleChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleCreateBtn}>Create</Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+
         <Container>
           <Grid>
             {profile.workouts.map((workout, index) => {
@@ -106,7 +177,6 @@ export const Workouts = (props) => {
                       return (
                         <Container>
                           <WorkoutList p="0 5px 0 15px">
-                            {console.log(exercise)}
                             <p>{exercise.exerciseId.name}</p>
                             {exercise.sets === null ? null : (
                               <span style={{ display: "flex", width: "30px" }}>
@@ -158,20 +228,11 @@ export const Workouts = (props) => {
             <BasicButton text="Trainer Workouts" />
           </ButtonLink>
 
-          <ButtonLink to="/workouts/new">
-            <BasicButton text="Create Workout" />
-          </ButtonLink>
-
           <ButtonLink to="/exercises">
             <BasicButton
               text="View Exercises"
               variant="outlined"
               color="error"
-              // style={{
-              //   color: "lime",
-              //   borderColor: "lime",
-              //   borderRadius: "6px",
-              // }}
             />
           </ButtonLink>
         </Container>
