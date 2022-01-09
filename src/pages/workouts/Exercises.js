@@ -107,8 +107,6 @@ export const Exercises = () => {
     //select workout list
     setWorkoutIndex(Number(event.target.getAttribute("id")))
 
-    console.log("profile :",profile)    
-
     if (containExercise(profile.workouts[workoutIndex].exercises, newExercise)) {
       dispatch({
         type: "setNotification",
