@@ -52,11 +52,6 @@ export const ShowEvent = () => {
         }
     }, [event, profile])
 
-    const navigateBack = (e) => {
-        e.preventDefault();
-        navigate(-1);
-    }
-
     const updateEvent = (columnsToUpdate, message) => {
         const updatedEvent = {
           ...event,
@@ -102,7 +97,6 @@ export const ShowEvent = () => {
 
     return(
         <MainWindow>
-            <BasicButton text="back" size="small" color="primary" btnFunction={navigateBack} />
             {loading && <p>Loading...</p>}
             {errorMsg && <p>{errorMsg}</p>}
             {event && 
