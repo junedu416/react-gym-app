@@ -4,12 +4,15 @@ import { Container } from "../../styled-components";
 import AttachmentIcon from "../../components/buttons/AttachmentIcon";
 import SubmitButton from "../../components/buttons/SubmitButton";
 import { MenuItem, TextField, Stack } from "@mui/material";
+
 // Date/Time Selection
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { MobileDatePicker, MobileTimePicker } from "@mui/lab";
+
 // services
 import { gymClasses } from "../../data/classes";
+import BasicButton from '../../components/buttons/BasicButton';
 
 export const EventForm = ({submitFunction, event, eventId}) => {
     const {store} = useGlobalState();

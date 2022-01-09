@@ -14,8 +14,13 @@ export const Events = () => {
   return (
     <>
       <MainWindow>
-        <Calendar style={{ marginBottom: "50px", padding: "50px" }} />
-        <BasicButton text="Create Event" color="primary" size="large" btnFunction={handleNewEvent} />
+        <Calendar />
+
+        <BasicButton
+          btnFunction={handleNewEvent}
+          text="Create Event"
+          sx={{ mt: 4 }}
+        />
       </MainWindow>
     </>
   );

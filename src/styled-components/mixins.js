@@ -62,6 +62,12 @@ export const p = (props) => {
   `;
 };
 
+export const w = (props) => {
+  return `
+    width: ${props.w ? props.w : "" };
+  `;
+};
+
 export const shadow = () => {
   return `
     box-shadow: 2px 2px 6px 0px rgba(120, 120, 120, 0.8);

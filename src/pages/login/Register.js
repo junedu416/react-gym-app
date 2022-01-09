@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Container, Heading, MainWindow, TextLink } from "../../styled-components";
+import {
+  Container,
+  Heading,
+  MainWindow,
+  TextLink,
+} from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
 import { useGlobalState } from "../../config/globalStore";
 import { signUpUser } from "../../services/userServices";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import {
-  IconButton,
-  InputAdornment,
-  OutlinedInput,
-} from "@mui/material";
+import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
+// import BasicButton from "../../components/buttons/BasicButton";
+import { LoadButton } from "../../components/buttons/LoadButton";
+import HowToRegIcon from '@mui/icons-material/HowToReg';
 
 export const Register = (props) => {
   const navigate = useNavigate();
@@ -71,7 +74,7 @@ export const Register = (props) => {
       setErrorMsg(response.error);
     } else {
       if (rememberMe) {
-        window.localStorage.setItem('uid', response.userId);
+        window.localStorage.setItem("uid", response.userId);
       }
       dispatch({ type: "setProfile", data: response });
       setErrorMsg("");
@@ -83,8 +86,8 @@ export const Register = (props) => {
     return show ? <VisibilityOff /> : <Visibility />;
   }
 
-  function navigateLogin () {
-    navigate("/auth/login")
+  function navigateLogin() {
+    navigate("/auth/login");
   }
 
   return (
@@ -101,28 +104,28 @@ export const Register = (props) => {
             name="firstName"
           />
           <TextField
-          required
+            required
             label="Last Name"
             style={formStyling}
             onChange={handleFormChange}
             name="lastName"
           />
           <TextField
-          required
+            required
             label="Membership ID"
             style={formStyling}
             onChange={handleFormChange}
             name="membershipNumber"
           />
           <TextField
-          required
+            required
             label="Email"
             style={formStyling}
             onChange={handleFormChange}
             name="email"
           />
           <OutlinedInput
-          required
+            required
             placeholder="Password *"
             style={formStyling}
             onChange={handleFormChange}
@@ -143,7 +146,7 @@ export const Register = (props) => {
             }
           />
           <OutlinedInput
-          required
+            required
             placeholder="Confirm Password *"
             style={formStyling}
             onChange={handleFormChange}
@@ -178,22 +181,23 @@ export const Register = (props) => {
             style={formStyling}
           />
 
-          <Button
+          {/* <BasicButton type="submit" text="Create Account" sx={{ my: 0 }} disabled={disableSubmit} /> */}
+
+          <LoadButton
             type="submit"
-            variant="contained"
-            color="primary"
-            size="large"
-            style={{ height: "55px", width: "200px" }}
-            disabled={disableSubmit}
-          >
-            Create Account
-          </Button>
+            text={disableSubmit ? "Processing..." : "Create Account"}
+            sx={{ my: 0 }}
+            loading={disableSubmit}
+            loadPosition="start"
+            startIcon={<HowToRegIcon style={{ fontSize:"2.3rem" }} />}
+          />
 
-          <p style={{ marginTop: "50px", display: "flex"}}>
+          <p style={{ marginTop: "50px", display: "flex" }}>
             Already have an account?
-            <TextLink mt="0" p="0 10px" onClick={navigateLogin}>Login</TextLink>
+            <TextLink mt="0" p="0 10px" onClick={navigateLogin}>
+              Login
+            </TextLink>
           </p>
-
         </Container>
       </form>
     </MainWindow>
