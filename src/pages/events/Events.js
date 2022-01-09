@@ -4,7 +4,7 @@ import { MainWindow } from "../../styled-components";
 import { Calendar } from "./Calendar";
 import BasicButton from "../../components/buttons/BasicButton";
 
-export const Events = (props) => {
+export const Events = () => {
   const navigate = useNavigate();
 
   function handleNewEvent() {

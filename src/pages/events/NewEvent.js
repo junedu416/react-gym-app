@@ -18,11 +18,13 @@ export const NewEvent = () => {
         console.log("error in data validation: ", result.error)
         setErrorMessage(result.error);
       } else {
-        console.log("success")
         setErrorMessage("");
       }
     })
-    .then(() => navigate('/events'))
+    .then(() => {
+      dispatch({type: "setNotification", data: "Event successfully created"})
+      navigate('/events')
+    })
     .catch(error => {
       setErrorMessage("Failed to connect to server.")
     });
