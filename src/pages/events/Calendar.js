@@ -141,19 +141,39 @@ export const Calendar = () => {
               </Container>
               {open ? (
                 <FilterBox>
+                { eventSelect === "competition" ? (
+                  <Accordion
+                    expanded
+                    onChange={handleChange("panel3")}
+                    sx={{ borderBottomLeftRadius: "8px", borderBottomRightRadius: "8px"}}
+                  >
+                    <AccordionSummary>
+                      <Typography fontWeight="bold">Comp. Category</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails sx={{ p: 1 }}>
+                      {competitionFilters.map((category, index) => {
+                        return (
+                          <FilterItem key={category.label}>
+                            <Typography>{category.label}</Typography>
+                            <DoneIcon color="success" />
+                          </FilterItem>
+                        );
+                      })}
+                    </AccordionDetails>
+                  </Accordion>) :
+ (              <>
                   <Accordion
                     expanded={expanded === "panel1"}
                     onChange={handleChange("panel1")}
                     sx={{ borderTopLeftRadius: "8px", borderTopRightRadius: "8px"}}
                   >
-                    {/* <FilterHeading text="Day" expanded={expanded} panel="panel1" /> */}
                     <AccordionSummary>
                       <Typography fontWeight="bold">Day</Typography>
                     </AccordionSummary>
                     <AccordionDetails sx={{ p: 1 }}>
                       {weekdays.map((day) => {
                         return (
-                          <FilterItem key={day.key}>
+                          <FilterItem key={day.label}>
                             <Typography>{day.label}</Typography>
                             <DoneIcon color="success" />
                           </FilterItem>
@@ -161,28 +181,11 @@ export const Calendar = () => {
                       })}
                     </AccordionDetails>
                   </Accordion>
+
+                  { eventSelect === "class" && (
                   <Accordion
                     expanded={expanded === "panel2"}
                     onChange={handleChange("panel2")}
-                  >
-                    <AccordionSummary>
-                      <Typography fontWeight="bold">Trainer</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails sx={{ p: 1 }}>
-                      {trainers.map((trainer) => {
-                        return (
-                          <FilterItem key={trainer.key}>
-                            <Typography>{trainer.name}</Typography>
-                            <DoneIcon color="success" />
-                          </FilterItem>
-                        );
-                      })}
-                    </AccordionDetails>
-                  </Accordion>
-                  <Accordion
-                    expanded={expanded === "panel3"}
-                    onChange={handleChange("panel3")}
-                    sx={{ borderBottomLeftRadius: "8px", borderBottomRightRadius: "8px"}}
                   >
                     <AccordionSummary>
                       <Typography fontWeight="bold">Class</Typography>
@@ -198,6 +201,32 @@ export const Calendar = () => {
                       })}
                     </AccordionDetails>
                   </Accordion>
+                  
+                  )}
+
+                  <Accordion
+                    expanded={expanded === "panel4"}
+                    onChange={handleChange("panel4")}
+                    sx={{ borderBottomLeftRadius: "8px", borderBottomRightRadius: "8px"}}
+                  >
+                    <AccordionSummary>
+                      <Typography fontWeight="bold">Trainer</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails sx={{ p: 1 }}>
+                      {trainers.map((trainer) => {
+                        return (
+                          <FilterItem key={trainer.name}>
+                            <Typography>{trainer.name}</Typography>
+                            <DoneIcon color="success" />
+                          </FilterItem>
+                        );
+                      })}
+                    </AccordionDetails>
+                  </Accordion>
+
+  
+                  </>
+                )}
                 </FilterBox>
               ) : null}
             </Container>
@@ -221,8 +250,9 @@ export const Calendar = () => {
                 },
               }}
               style={{ height: "37px" }}
+
               // ADD FUNCTION HERE!!!!!!!!!
-              btnFunction={{}}
+              btnFunction={{   }}
             />
           }
         </Container>
