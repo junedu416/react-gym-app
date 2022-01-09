@@ -5,10 +5,7 @@ import {
   Grid,
   Heading,
   MainWindow,
-  SmallHeading,
-  StyledAlert,
-  Text,
-  TextLink,
+  SmallHeading
 } from "../../styled-components";
 import { ExerciseCardStyling } from "../../styled-components/exercises";
 import { useGlobalState } from "../../config/globalStore";
@@ -17,8 +14,7 @@ import { editProfile } from "../../services/profileServices";
 
 
 import Typography from "@mui/material/Typography";
-import { Collapse, IconButton, Menu, MenuItem } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import { Menu, MenuItem } from "@mui/material";
 // import ToggleButton from "@mui/material/ToggleButton";
 // import { Star, StarOutline } from "@mui/icons-material";
 import BasicButton from "../../components/buttons/BasicButton";
@@ -26,7 +22,7 @@ import BasicButton from "../../components/buttons/BasicButton";
 export const Exercises = () => {
   // const [selected, setSelected] = useState(false);
 
-  const [display, setDisplay] = useState(true);
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [exerciseList, setExerciseList] = useState([]);
   const [exerciseIndex, setExerciseIndex] = useState(0);
@@ -34,7 +30,7 @@ export const Exercises = () => {
   const { store, dispatch } = useGlobalState();
   const { profile} = store;
   const initialValues = {
-    _id: null,
+    exerciseId: null,
     sets: null,
     reps: null,
     weight: null,
@@ -50,7 +46,7 @@ export const Exercises = () => {
      if (exerciseList.length !==0 ){
       setNewExercise({
             ...newExercise,
-            _id: exerciseList[exerciseIndex]._id,
+            exerciseId: exerciseList[exerciseIndex]._id,
             sets: exerciseList[exerciseIndex].defaultSets
               ? exerciseList[exerciseIndex].defaultSets
               : null,
@@ -81,14 +77,10 @@ export const Exercises = () => {
   const id = open ? "simple-popover" : undefined;
 
   const navigate = useNavigate();
-
-  const navigateToLogin = () => {
-    navigate("/auth/login");
-  };
   
   const containExercise = (list, newObj) => {
     for(var i = 0; i < list.length; i++) {
-      if (list[i]._id === newObj._id) {
+      if (list[i].exerciseId === newObj.exerciseId) {
         return true
       }
     }
@@ -144,34 +136,6 @@ export const Exercises = () => {
 
   return (
     <MainWindow>
-      {!profile && (
-        <Collapse in={display}>
-          <StyledAlert
-            severity="error"
-            action={
-              <IconButton
-                aria-label="close"
-                color="inherit"
-                size="small"
-                onClick={() => {
-                  setDisplay(false);
-                }}
-              >
-                <CloseIcon />
-              </IconButton>
-            }
-          >
-            <Text>
-              Please
-              <TextLink mt="0" p="0 6px" onClick={navigateToLogin}>
-                login
-              </TextLink>
-              to view exercises
-            </Text>
-          </StyledAlert>
-        </Collapse>
-      )}
-
       <Heading>Select Exercise</Heading>
       {profile && (
         <Container>

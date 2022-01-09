@@ -8,26 +8,39 @@ import {
   MainWindow,
   Grid,
   ButtonLink,
+  StyledAlert,
+  Text, 
+  TextLink
 } from "../../styled-components";
+import { Collapse } from "@mui/material";
 import {
   WorkoutCardStyling,
   WorkoutList,
 } from "../../styled-components/workouts";
 import Divider from "@mui/material/Divider";
-// import { ContactSubheadings } from "../../styled-components/contact";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import IconButton from "@mui/material/IconButton";
-import { workoutList } from "../../data/workouts-dummy";
+import CloseIcon from "@mui/icons-material/Close";
+import { getExerciseById } from "../../services/exerciseServices";
 import BasicButton from "../../components/buttons/BasicButton";
+import { useGlobalState } from "../../config/globalStore";
 
 export const Workouts = (props) => {
+
+  const [display, setDisplay] = useState(true);
   const navigate = useNavigate();
+  const { store, dispatch } = useGlobalState();
+  const { profile} = store;
 
   const [activeWorkout, setActiveWorkout] = useState("");
   const handleClick = (selectedWorkout) => {
     if (selectedWorkout !== null) {
       setActiveWorkout(selectedWorkout);
     }
+  };
+
+  const navigateToLogin = () => {
+    navigate("/auth/login");
   };
 
   console.log(activeWorkout);
@@ -43,12 +56,40 @@ export const Workouts = (props) => {
 
   return (
     <MainWindow>
-      <Container>
+      {!profile && (
+        <Collapse in={display}>
+          <StyledAlert
+            severity="error"
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setDisplay(false);
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            }
+          >
+            <Text>
+              Please
+              <TextLink mt="0" p="0 6px" onClick={navigateToLogin}>
+                login
+              </TextLink>
+              to view workout
+            </Text>
+          </StyledAlert>
+        </Collapse>
+      )}
+
+      {profile && <Container>
         <Heading>Workouts</Heading>
 
         <Container>
           <Grid>
-            {workoutList.map((workout, index) => {
+            {profile.workouts.map((workout, index) => {
               return (
                 <Container>
                   <EditButton btnFunction={editWorkout} />
@@ -65,7 +106,8 @@ export const Workouts = (props) => {
                       return (
                         <Container>
                           <WorkoutList p="0 5px 0 15px">
-                            <p>{exercise.name}</p>
+                            {console.log(exercise)}
+                            <p>{exercise.exerciseId.name}</p>
                             {exercise.sets === null ? null : (
                               <span style={{ display: "flex", width: "30px" }}>
                                 <p>{exercise.sets}</p>
@@ -133,7 +175,7 @@ export const Workouts = (props) => {
             />
           </ButtonLink>
         </Container>
-      </Container>
+      </Container>}
     </MainWindow>
   );
 };
