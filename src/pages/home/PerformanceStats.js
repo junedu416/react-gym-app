@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useGlobalState } from "../../config/globalStore";
 import { Container, Heading, MainWindow } from "../../styled-components/";
 import { workoutList } from "../../data/workouts-dummy";
@@ -20,7 +20,36 @@ export const PerformanceStats = (props) => {
   let workouts;
   if (profile) workouts = profile.workouts;
   const dummyWorkout = workoutList[0];
-  console.log(dummyWorkout);
+
+  const [workoutIndex, setWorkoutIndex] = useState(0);
+  const [labels, setLabels] = useState();
+  const [data, setData] = useState();
+
+  const colors = ["red", "blue", "yellow", "orange", "black"]
+  const options = {
+    responsive: true
+  }
+
+  useEffect(() => {
+    const prevStats = workoutList[workoutIndex].exercises[0].prevWeights ?? workoutList[workoutIndex].exercises[0].prevDistances;
+    const newLabels = prevStats.map(() => "");
+    setLabels(newLabels);
+  }, [workoutIndex]);
+
+  useEffect(() => {
+      const newData = {
+        labels,
+        datasets: workoutList[workoutIndex].exercises.map((e, i) => {
+          return {
+            label: e.name,
+            data: e.prevWeights ?? e.prevDistances,
+            borderColor: colors[i],
+            backgroundColor: "black"
+          }
+        })
+      }
+      setData(newData);
+  }, [labels]);
 
   ChartJS.register(
     CategoryScale,
@@ -32,32 +61,21 @@ export const PerformanceStats = (props) => {
     Legend
   );
 
-  const options = {
-    responsive: true
-  }
+ 
 
-  const colors = ["red", "blue", "yellow", "orange", "black"]
+  function handleChange(event) {
+    setWorkoutIndex(event.target.value);
+  }  
 
-  const prevStats = dummyWorkout.exercises[0].prevWeights ?? dummyWorkout.exercises[0].prevDistances;
-  const labels = prevStats.map(() => "");
-   
-  const data = {
-    labels,
-    datasets: dummyWorkout.exercises.map((e, i) => {
-      return {
-        label: e.name,
-        data: e.prevWeights ?? e.prevDistances,
-        borderColor: colors[i],
-        backgroundColor: "black"
-      }
-    })
-  }
-
-    
   return (
     <MainWindow>
       <Heading>Performance Stats</Heading>
       <Container>
+        <select value={workoutIndex} onChange={handleChange}>
+          {
+            workoutList.map((workout, i) => <option value={i}>{workout.name}</option>)
+          }
+        </select>
         <Line options={options} data={data} style={{width: "75vw", height: "50vh"}}/>
       </Container>
     </MainWindow>
