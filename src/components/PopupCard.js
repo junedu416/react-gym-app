@@ -1,36 +1,37 @@
-import React, { useEffect, useReducer } from "react";
-import { Link } from "react-router-dom";
-import { showEventReducer } from "../utils/showEvent-reducer";
+import React from "react";
+import { modalStyling } from "../styled-components/modal";
+import { StyledModal } from "../styled-components";
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import Backdrop from "@mui/material/Backdrop";
+import Box from "@mui/material/Box";
+import Fade from "@mui/material/Fade";
 
-export const PopupCard = ({selectedEvent}) => {
-    const initialEventDates = {
-        startDate: null,
-        startTime: null,
-        endDate: null,
-        endTime: null,
-        isFinished: false
-    }
-    const [eventDates, dispatchEventDates] = useReducer(showEventReducer, initialEventDates)
-    
-    useEffect(() => {
-        dispatchEventDates({
-            type: "setEventTimes",
-            data: {
-                startTime: selectedEvent.startTime,
-                endTime: selectedEvent.endTime
-            }
-        })
-    }, [selectedEvent.startTime, selectedEvent.endTime])
 
+export const PopupCard = ({open, handleClose}) => {
+  
     return(
-        <>
-            <div>
-                <h3>{selectedEvent.title}</h3>
-                <p>{selectedEvent.description}</p>
-                <p>{eventDates.startDate} at {eventDates.startTime} ~ {eventDates.endDate} {eventDates.endTime}</p>
-                {!eventDates.isFinished && <p>Spots left: {selectedEvent.spotsAvailable}</p>}
-                <Link to={`/events/${selectedEvent._id}`}>More Details</Link>
-            </div>
-        </>
+        <div>
+            <StyledModal
+                aria-labelledby="booking-confirmation"
+                aria-describedby="booking-confirmation"
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                timeout: 600,
+                }}
+            >
+                
+                <Fade in={open}>
+                    <Box sx={modalStyling}>
+                        <IconButton onClick={handleClose} aria-label="close confirmation popup" style={{ position: "absolute", right:"0px", top:"0px" }}>
+                            <CloseIcon fontSize="large" />
+                        </IconButton>
+                    </Box>
+                </Fade>
+            </StyledModal>
+      </div>
     )
 }

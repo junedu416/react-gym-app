@@ -126,32 +126,22 @@ export const EventPopup = ({open, setOpen, event, setEvent, dispatchEventsVars})
       >
         <Fade in={open}>
           <Box sx={modalStyling}>
-          <IconButton 
-                  onClick={handleClose}
-                  aria-label="close confirmation popup"
-                  style={{ position: "absolute", right:"0px", top:"0px" }}
-                //   size="large"
-              >
-                <CloseIcon fontSize="large" />
-              </IconButton>
-            <Typography
-              id="booking-confirmation-title"
-              variant="h5"
-              fontWeight="bold"
-              component="h2"
-            >
-              {event.name}
-            </Typography>
-            <Typography id="booking-confirmation-description" sx={{ my: 3 }}>
-              <p><Chip label={event.category} color={determineColor(event.category)} variant="outlined" /></p>
-              <p><b>Date: </b> {eventDates.startDate} {(eventDates.startDate !== eventDates.endDate) && ` - ${eventDates.endDate}`}</p>
-              <p><b>Time: </b> {eventDates.startTime} - {eventDates.endTime}</p>
-            </Typography>
-            {!eventDates.isFinished && !userIsRegistered && 
+          <IconButton onClick={handleClose}
+                      aria-label="close confirmation popup"
+                      style={{ position: "absolute", right:"0px", top:"0px" }}>
+            <CloseIcon fontSize="large" />
+          </IconButton>
+          <Typography id="booking-confirmation-title" variant="h5" fontWeight="bold" component="h2">{event.name}</Typography>
+          <Typography id="booking-confirmation-description" sx={{ my: 3 }}>
+            <p><Chip label={event.category} color={determineColor(event.category)} variant="outlined" /></p>
+            <p><b>Date: </b> {eventDates.startDate} {(eventDates.startDate !== eventDates.endDate) && ` - ${eventDates.endDate}`}</p>
+            <p><b>Time: </b> {eventDates.startTime} - {eventDates.endTime}</p>
+          </Typography>
+            {!eventDates.isFinished && !userIsRegistered && (profile._id !== event.createdBy) &&
               <BasicButton text="Count me in!" color="success" size="medium" btnFunction={bookClass}/>}
             {!eventDates.isFinished && userIsRegistered && 
               <BasicButton text="Cancel Registration" color="success" size="medium" btnFunction={cancelBooking}/>}
-              <BasicButton text="More Details" color="secondary" size="medium" btnFunction={navigateToShowPage} />
+            <BasicButton text="More Details" color="secondary" size="medium" btnFunction={navigateToShowPage} />
             {confirmMessage && 
               <div>
                 <p>Are you sure?</p>
