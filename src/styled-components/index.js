@@ -95,3 +95,9 @@ export const Text = styled.p`
   flex-direction: row;
   margin: 0;
 `;
+
+export const BackWrapper = styled.div`
+  position: absolute;
+  top: 30px;
+  left: 250px;
+`
