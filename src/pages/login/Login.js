@@ -18,10 +18,12 @@ import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
 import { RegisterLink, ResetPasswordText } from "../../components/RegisterLink";
 import LoginIcon from "@mui/icons-material/Login";
 import BasicButton from "../../components/buttons/BasicButton";
+import { LoadButton } from "../../components/buttons/LoadButton";
 
 export const SignIn = () => {
   const [rememberMe, setRememberMe] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const { dispatch } = useGlobalState();
   const navigate = useNavigate();
@@ -74,16 +76,19 @@ export const SignIn = () => {
 
   function handleSubmit(event) {
     event.preventDefault();
+    setLoading(true);
     signInUser(formValues)
       .then((profile) => {
         window.localStorage.setItem("uid", profile.userId);
         dispatch({ type: "setProfile", data: profile });
         dispatch({ type: "setNotification", data: "Successfully Logged In" });
         setErrorMessage("");
+        setLoading(false);
         navigate("/overview");
       })
       .catch((error) => {
         console.log(`error caught in login handle submit:`, error);
+        setLoading(false);
         setErrorMessage("Incorrect email or password");
       });
   }
@@ -141,11 +146,21 @@ export const SignIn = () => {
             }
             style={formStyling}
           />
-          <BasicButton
+
+          {/* <BasicButton
             type="submit"
             text="Sign In"
             sx={{ my: 0 }}
             startIcon={<LoginIcon />}
+          /> */}
+
+          <LoadButton
+            type="submit"
+            text={ loading ? "Logging In" : "Sign In"}
+            sx={{ my: 0 }}
+            startIcon={<LoginIcon />}
+            loading={loading}
+            loadPosition="start"
           />
 
           <p style={{ marginTop: "50px", display: "flex" }}>
