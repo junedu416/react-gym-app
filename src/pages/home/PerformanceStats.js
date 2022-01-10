@@ -14,7 +14,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { ReusableAlert } from "../../components/ReusableAlert";
-import { Collapse } from "@mui/material";
+import { Collapse, MenuItem, Select } from "@mui/material";
 
 export const PerformanceStats = (props) => {
   const { store } = useGlobalState();
@@ -89,12 +89,12 @@ export const PerformanceStats = (props) => {
       <Heading>Performance Stats</Heading>
       <Container>
         {Object.keys(workoutList).length > 0 ? (
-          <>
-            <select value={workoutIndex} onChange={handleChange}>
+          <Container align="flex-end">
+            <Select value={workoutIndex} onChange={handleChange} sx={{ p: 1, mb: 2 }} style={{ height: "30px", background: "lightgrey"}}>
               {workoutList.map((workout, i) => (
-                <option value={i}>{workout.name}</option>
+                <MenuItem value={i}>{workout.name}</MenuItem>
               ))}
-            </select>
+            </Select>
             {labels && (
               <Line
                 options={options}
@@ -102,7 +102,7 @@ export const PerformanceStats = (props) => {
                 style={{ width: "75vw", height: "50vh" }}
               />
             )}
-          </>
+            </Container>
         ) : (
           <Collapse in={open}>
             <ReusableAlert
