@@ -8,6 +8,7 @@ import { useGlobalState } from '../../config/globalStore';
 import { editEvent } from '../../services/eventsServices';
 import { isUserRegistered, cancelUserRegistration, registerUserToEvent} from '../../utils/events-helper-functions';
 import { DeleteEvent } from './DeleteEvent';
+import { DateDisplay } from './DateDisplay';
 
 export const ShowEvent = () => {
     const navigate = useNavigate();
@@ -95,12 +96,7 @@ export const ShowEvent = () => {
                     {instructor && <h3>Event Listed by {`${instructor.firstName} ${instructor.lastName}`}</h3>}
                     {event.eventImage ?  <img src={event.eventImage} alt={event.name}/> : <p>-no image available-</p>}
                     <p>{event.description}</p>
-                    {formatDates.isFinished ? <p>This event has already ended.</p> : <>
-                        {(formatDates.startDate !== formatDates.endDate) ? 
-                                <p>{formatDates.startDate} at {formatDates.startTime} ~ {formatDates.endDate} at {formatDates.endTime}</p> :
-                                <p>{formatDates.startDate} from {formatDates.startTime} ~ {formatDates.endTime}</p>}
-                        </>
-                    }
+                    {formatDates.isFinished ? <p>This event has already ended.</p> : <DateDisplay formatDates={formatDates} />}
                     {!formatDates.isFinished && <>
                         {event.spotsAvailable && (event.spotsAvailable === 0) && <p>There are no more spots available for this event</p>}
                         {userIsRegistered && <>

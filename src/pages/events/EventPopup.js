@@ -1,19 +1,14 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
-import Backdrop from "@mui/material/Backdrop";
-import Box from "@mui/material/Box";
-import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
-import { modalStyling } from "../../styled-components/modal";
-import { StyledModal } from "../../styled-components";
-import CloseIcon from '@mui/icons-material/Close';
-import IconButton from '@mui/material/IconButton';
 import Chip from '@mui/material/Chip';
 import { showEventReducer } from "../../utils/showEvent-reducer";
 import BasicButton from "../../components/buttons/BasicButton";
 import { useGlobalState } from "../../config/globalStore";
 import { editEvent } from "../../services/eventsServices";
 import { cancelUserRegistration, isUserRegistered, registerUserToEvent } from "../../utils/events-helper-functions";
+import { DateDisplay } from "./DateDisplay";
+import { PopupCard } from "../../components/PopupCard";
 
 export const EventPopup = ({open, setOpen, event, setEvent, dispatchEventsVars}) => {
   const {store, dispatch} = useGlobalState();
@@ -101,53 +96,30 @@ export const EventPopup = ({open, setOpen, event, setEvent, dispatchEventsVars})
   return (
     <>
     {event && 
-    <div>
-      <StyledModal
-        aria-labelledby="booking-confirmation"
-        aria-describedby="booking-confirmation"
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 600,
-        }}
-      >
-        <Fade in={open}>
-          <Box sx={modalStyling}>
-          <IconButton onClick={handleClose}
-                      aria-label="close confirmation popup"
-                      style={{ position: "absolute", right:"0px", top:"0px" }}>
-            <CloseIcon fontSize="large" />
-          </IconButton>
-          <Typography id="booking-confirmation-title" variant="h5" fontWeight="bold" component="h2">{event.name}</Typography>
-          <Typography id="booking-confirmation-description" sx={{ my: 3 }}>
-            <p><Chip label={event.category} color={determineColor(event.category)} variant="outlined" /></p>
-            <p><b>Date: </b> {eventDates.startDate} {(eventDates.startDate !== eventDates.endDate) && ` - ${eventDates.endDate}`}</p>
-            <p><b>Time: </b> {eventDates.startTime} - {eventDates.endTime}</p>
-          </Typography>
-            {!eventDates.isFinished && <>
-              {!userIsRegistered && <>
-                {event.category === "Competition" ? <BasicButton text="Count me in!" color="success" size="medium" btnFunction={bookClass}/> : <>
-                  {(profile._id !== event.createdBy) && <BasicButton text="Count me in!" color="success" size="medium" btnFunction={bookClass}/>}
-                  </>}
-              </>}
-              {userIsRegistered && <BasicButton text="Cancel Registration" color="success" size="medium" btnFunction={cancelBooking}/>}
+      <PopupCard open={open} handleClose={handleClose} >
+        <Typography id="booking-confirmation-title" variant="h5" fontWeight="bold" component="h2">{event.name}</Typography>
+        <Typography id="booking-confirmation-description" sx={{ my: 3 }}>
+          <p><Chip label={event.category} color={determineColor(event.category)} variant="outlined" /></p>
+          <DateDisplay formatDates={eventDates} />
+        </Typography>
+          {!eventDates.isFinished && <>
+            {!userIsRegistered && <>
+              {event.category === "Competition" ? <BasicButton text="Count me in!" color="success" size="medium" btnFunction={bookClass}/> : <>
+                {(profile._id !== event.createdBy) && <BasicButton text="Count me in!" color="success" size="medium" btnFunction={bookClass}/>}
+                </>}
             </>}
-            
-            <BasicButton text="More Details" color="secondary" size="medium" btnFunction={navigateToShowPage} />
-            {confirmMessage && 
-              <div>
-                <p>Are you sure?</p>
-                {confirmMessage === 'confirm' && <BasicButton text="Confirm" color="error" size="medium" btnFunction={registerToEvent} />}
-                {confirmMessage === 'cancel' && <BasicButton text="Cancel" color="error" size="medium" btnFunction={cancelRegistration} />}
-              </div>
-            }
-          </Box>
-        </Fade>
-      </StyledModal>
-      
-    </div> }
+            {userIsRegistered && <BasicButton text="Cancel Registration" color="success" size="medium" btnFunction={cancelBooking}/>}
+          </>}
+          
+          <BasicButton text="More Details" color="secondary" size="medium" btnFunction={navigateToShowPage} />
+          {confirmMessage && 
+            <div>
+              <p>Are you sure?</p>
+              {confirmMessage === 'confirm' && <BasicButton text="Confirm" color="error" size="medium" btnFunction={registerToEvent} />}
+              {confirmMessage === 'cancel' && <BasicButton text="Cancel" color="error" size="medium" btnFunction={cancelRegistration} />}
+            </div>
+          }
+      </PopupCard> }
     </>
   );
 }
