@@ -148,11 +148,9 @@ export const Checkins = () => {
         <div>
           <BasicButton
             disabled={loading}
-            style={{ marginRight: "5em" }}
+            sx={{ mr: 7 }}
             btnFunction={handleCheckIn}
             text="Check In"
-            color="primary"
-            size="large"
           >
             Check In
           </BasicButton>
@@ -160,8 +158,6 @@ export const Checkins = () => {
             disabled={loading}
             btnFunction={handleCheckOut}
             text="Check Out"
-            color="primary"
-            size="large"
           >
             Check Out
           </BasicButton>
