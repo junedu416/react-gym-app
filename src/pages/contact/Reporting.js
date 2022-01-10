@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import {
-  Heading,
-  MainWindow,
-  StyledAlert,
-  TextLink,
-} from "../../styled-components";
+import { Heading, MainWindow, TextLink } from "../../styled-components";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
@@ -19,12 +14,9 @@ import { Container } from "../../styled-components";
 import { ContactSubheadings } from "../../styled-components/contact";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import { postReport } from "../../services/reportServices";
-import Alert from "@mui/material/Alert";
-import Stack from "@mui/material/Stack";
 import { useGlobalState } from "../../config/globalStore.js";
 import { ViewReports } from "./ViewReports";
-import { Collapse, IconButton } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import { Collapse } from "@mui/material";
 import { ReusableAlert } from "../../components/ReusableAlert";
 
 // JUNE D 20/12/2021: UploadIcon has been removed. Can implement the function after MVP is done
@@ -78,25 +70,27 @@ export const Reporting = () => {
       {console.log(profile)}
       <Container>
         {!profile && (
-          <ReusableAlert
-            open={open}
-            btnFunction={() => {
-              setOpen(false);
-            }}
-            text={
-              <Container direction="row">
-                {"Unauthorized access. Please"}
-                <TextLink
-                  mt="0"
-                  p="0 5px"
-                  onClick={() => navigate("/auth/login")}
-                >
-                  login
-                </TextLink>
-                {"first"}
-              </Container>
-            }
-          />
+          <Collapse in={open}>
+            <ReusableAlert
+              open={open}
+              btnFunction={() => {
+                setOpen(false);
+              }}
+              text={
+                <Container direction="row">
+                  {"Unauthorized access. Please"}
+                  <TextLink
+                    mt="0"
+                    p="0 5px"
+                    onClick={() => navigate("/auth/login")}
+                  >
+                    login
+                  </TextLink>
+                  {"first"}
+                </Container>
+              }
+            />
+          </Collapse>
         )}
         {profile && !profile.isStaff && (
           <Container>

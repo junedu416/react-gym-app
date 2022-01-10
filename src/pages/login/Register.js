@@ -14,7 +14,7 @@ import { useGlobalState } from "../../config/globalStore";
 import { signUpUser } from "../../services/userServices";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
+import { Collapse, IconButton, InputAdornment, OutlinedInput } from "@mui/material";
 // import BasicButton from "../../components/buttons/BasicButton";
 import { LoadButton } from "../../components/buttons/LoadButton";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
@@ -96,13 +96,15 @@ export const Register = (props) => {
     <MainWindow verticalMiddle>
       <Heading>Register Account</Heading>
       {errorMsg && (
-        <ReusableAlert
-          text={errorMsg}
-          open={open}
-          btnFunction={() => {
-            setOpen(false);
-          }}
-        />
+        <Collapse in={open}>
+          <ReusableAlert
+            text={errorMsg}
+            open={open}
+            btnFunction={() => {
+              setOpen(false);
+            }}
+          />
+        </Collapse>
       )}
       <form onSubmit={handleSubmit}>
         <Container>

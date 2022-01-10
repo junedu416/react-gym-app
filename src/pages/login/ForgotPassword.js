@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-
-import { Alert, Button, Collapse, IconButton, TextField } from "@mui/material";
+import { Collapse, IconButton, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import {
@@ -12,11 +11,9 @@ import {
 } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
 import { sendPasswordResetEmail } from "../../services/userServices";
-// import { ReusableAlert } from "../../components/ReusableAlert";
 import BasicButton from "../../components/buttons/BasicButton";
-// import { alertStyling } from "../../styled-components/"
-
-// import { useAuth } from "../contexts/AuthContext";
+import { ReusableAlert } from "../../components/ReusableAlert";
+// import { ReusableAlert } from "../../components/ReusableAlert";
 
 export const ForgotPassword = () => {
   const [open, setOpen] = useState(true);
@@ -74,22 +71,13 @@ export const ForgotPassword = () => {
       <Container>
         {error && (
           <Collapse in={open}>
-            <StyledAlert
-              action={
-                <IconButton
-                  aria-label="close"
-                  color="inherit"
-                  size="small"
-                  onClick={() => {
-                    setOpen(false);
-                  }}
-                >
-                  <CloseIcon />
-                </IconButton>
-              }
-            >
-              {error}
-            </StyledAlert>
+            <ReusableAlert
+              open={open}
+              btnFunction={() => {
+                setOpen(false);
+              }}
+              text={error}
+            />
           </Collapse>
         )}
         {message && (
@@ -130,7 +118,11 @@ export const ForgotPassword = () => {
               onChange={handleFormChange}
             />
 
-            <BasicButton text="Reset Password" type="submit" disabled={loading} />
+            <BasicButton
+              text="Reset Password"
+              type="submit"
+              disabled={loading}
+            />
           </Container>
         </form>
 
