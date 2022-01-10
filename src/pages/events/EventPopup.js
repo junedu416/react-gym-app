@@ -13,7 +13,7 @@ import { showEventReducer } from "../../utils/showEvent-reducer";
 import BasicButton from "../../components/buttons/BasicButton";
 import { useGlobalState } from "../../config/globalStore";
 import { editEvent } from "../../services/eventsServices";
-import { isUserRegistered } from "../../utils/events-helper-functions";
+import { cancelUserRegistration, isUserRegistered, registerUserToEvent } from "../../utils/events-helper-functions";
 
 export const EventPopup = ({open, setOpen, event, setEvent, dispatchEventsVars}) => {
   const {store, dispatch} = useGlobalState();
@@ -84,22 +84,11 @@ export const EventPopup = ({open, setOpen, event, setEvent, dispatchEventsVars})
   }
 
   const registerToEvent =(e) => {
-    const columnsToUpdate = {
-      registeredUsers: [...event.registeredUsers, profile._id],
-      spotsAvailable: event.spotsAvailable - 1
-    }
-    updateEvent(columnsToUpdate, "Successfully registered")
+    registerUserToEvent(event, profile._id, updateEvent)
   }
 
   const cancelRegistration = (e) => {
-    const registeredClone = [...event.registeredUsers];
-    const updatedRegisteredUsers = registeredClone.filter((id) => id !== profile._id)
-
-    const columnsToUpdate = {
-      spotsAvailable: event.spotsAvailable + 1,
-      registeredUsers: updatedRegisteredUsers
-    }
-    updateEvent(columnsToUpdate, "Successfully cancelled your registration")
+    cancelUserRegistration(event, profile._id, updateEvent)
   }
 
   function determineColor(category) {
@@ -137,10 +126,15 @@ export const EventPopup = ({open, setOpen, event, setEvent, dispatchEventsVars})
             <p><b>Date: </b> {eventDates.startDate} {(eventDates.startDate !== eventDates.endDate) && ` - ${eventDates.endDate}`}</p>
             <p><b>Time: </b> {eventDates.startTime} - {eventDates.endTime}</p>
           </Typography>
-            {!eventDates.isFinished && !userIsRegistered && (profile._id !== event.createdBy) &&
-              <BasicButton text="Count me in!" color="success" size="medium" btnFunction={bookClass}/>}
-            {!eventDates.isFinished && userIsRegistered && 
-              <BasicButton text="Cancel Registration" color="success" size="medium" btnFunction={cancelBooking}/>}
+            {!eventDates.isFinished && <>
+              {!userIsRegistered && <>
+                {event.category === "Competition" ? <BasicButton text="Count me in!" color="success" size="medium" btnFunction={bookClass}/> : <>
+                  {(profile._id !== event.createdBy) && <BasicButton text="Count me in!" color="success" size="medium" btnFunction={bookClass}/>}
+                  </>}
+              </>}
+              {userIsRegistered && <BasicButton text="Cancel Registration" color="success" size="medium" btnFunction={cancelBooking}/>}
+            </>}
+            
             <BasicButton text="More Details" color="secondary" size="medium" btnFunction={navigateToShowPage} />
             {confirmMessage && 
               <div>

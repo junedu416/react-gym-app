@@ -206,7 +206,6 @@ export const EventForm = ({submitFunction, event, eventId}) => {
                 label="Description"
                 multiline
                 rows={4}
-                // value={formValues.category === "Class" && formValues.name !== "" ? {autoFillDescription} : formValues.description }
                 value={formValues.description}
                 name="description"
                 onChange={handleChange}

@@ -45,11 +45,7 @@ export const createNewEvent = async (eventObj) => {
 // PUTS (update) existing event (staff only (?))
 export const editEvent = async (id, eventObj) => {
     try {
-        const response = await gymApi.put(`/events/${id}`, eventObj, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
+        const response = await gymApi.put(`/events/${id}`, eventObj)
         console.log(response.data)
         return response.data
     } catch (e) {
