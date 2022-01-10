@@ -90,7 +90,12 @@ export const PerformanceStats = (props) => {
       <Container>
         {Object.keys(workoutList).length > 0 ? (
           <Container align="flex-end">
-            <Select value={workoutIndex} onChange={handleChange} sx={{ p: 1, mb: 2 }} style={{ height: "30px", background: "lightgrey"}}>
+            <Select
+              value={workoutIndex}
+              onChange={handleChange}
+              sx={{ p: 1, mb: 2 }}
+              style={{ height: "30px", background: "lightgrey" }}
+            >
               {workoutList.map((workout, i) => (
                 <MenuItem value={i}>{workout.name}</MenuItem>
               ))}
@@ -102,7 +107,7 @@ export const PerformanceStats = (props) => {
                 style={{ width: "75vw", height: "50vh" }}
               />
             )}
-            </Container>
+          </Container>
         ) : (
           <Collapse in={open}>
             <ReusableAlert
