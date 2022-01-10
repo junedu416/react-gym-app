@@ -11,7 +11,7 @@ export const ReusableAlert = (props) => {
     <Collapse in={open}>
       <StyledAlert
         severity={severity}
-        variant={variant ? variant : "filled"}
+        variant={variant}
         action={
           <IconButton
             aria-label="close"
