@@ -26,45 +26,6 @@ import { id } from "date-fns/locale";
 //   margin: theme.spacing(2),
 // }));
 
-const ACTIONS = {
-  ADD_FILTER: 'add-filter',
-  REMOVE_FILTER: 'remove-filter',
-  TOGGLE_FILTER: 'toggle-filter',
-}
-
-// function reducer(state, action) {
-//   switch (action.type) {
-//     case 'addFilter':
-//       return [...filterList, state.payload]
-//     case 'removeFilter':
-//       return filterList.filter(filter => filter.id !== state.payload.id)
-//     case 'toggle':
-//       return allFilters.map(filter => {
-//         if (filter.id === action.payload.id) {
-//           return { ...allFilters, filter: !filter.selected }
-//         }
-//         return filter
-//       })
-//     case 'reset':
-//       return []
-//     default:
-//       return state
-//   }
-// }
-
-function reducer(filterList, action) {
-  switch (action.type) {
-    case ACTIONS.ADD_FILTER: 
-      // return [...filterList, newFilter(action.payload.label)]
-    case ACTIONS.TOGGLE_FILTER:
-      return [];
-    case ACTIONS.REMOVE_FILTER:
-      return allFilters.filter(item => item.id !== action.payload.id)
-    default: 
-      return filterList
-  }
-}
-
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
@@ -77,7 +38,7 @@ const Accordion = styled((props) => (
   },
 }));
 
-// CUSTOM STYLING FOR MATERIAL UI ACCORDION COMPONENT
+// CUSTOM STYLING FOR MATERIAL UI ACCORDION COMPONENT: rotation for arrow icon and text color when expanded
 const AccordionSummary = styled((props) => (
   <MuiAccordionSummary
     expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "1.3rem" }} />}
@@ -111,16 +72,35 @@ export const Calendar = () => {
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState("panel1");
 
-  
-  const [filter, setFilter] = useState("");
+  const [filters, setFilters]= useState(() => [])
 
-  
+  const [filterList, setFilterList] = useState([]);
 
-  const [filterList, dispatch] = useReducer(reducer, []);
+  const handleFilterSelect = (filter) => {
+    const isSelected = filterList.includes(filter);
+    
+    // If the option has already been selected, removes it from the array.
+    // Otherwise, adds it.
+    const newSelection = isSelected ? filterList.filter(item => item !== filter)
+    : [...filterList, filter];
+    setFilterList(newSelection);
+  };
 
-  function newFilter(name) {
-    return allFilters.filter(item => item.label === name) 
+  // Clears all filters
+  useEffect(() => {
+    const tempFilterList = [...filterList];
+    for (let i = 0; i < tempFilterList.length; i++) {
+      tempFilterList[i] = false;
+    }
+    setFilterList(tempFilterList);
+  }, []);
+
+  function toggleFilters(id) {
+    const tempFilterList = [...filterList];
+    tempFilterList[id] = !tempFilterList[id];
+    setFilterList(tempFilterList);
   }
+
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -141,10 +121,10 @@ export const Calendar = () => {
     }
   }
 
-  function handleFilterSelect(e) {
-    dispatch({ type: ACTIONS.ADD_FILTER, payload: { name: filter } })
-    
+  const clearFilters = () => {
+    setFilterList([]);
   }
+ 
 
   // function toggleFilter(id) {
   //   return allFilters.filter(item => {
@@ -160,13 +140,6 @@ export const Calendar = () => {
   //   }
   //   setFilters(filters);
   // }, []);
-
-
-  // function selectFilter(key) {
-  //   const tempFilterList = [...filterList];
-  //   tempFilterList[key] = !tempFilterList[key];
-  //   setFilterList(tempFilterList);
-  // }
 
   return (
     <>
@@ -199,9 +172,9 @@ export const Calendar = () => {
                       <AccordionDetails sx={{ p: 1 }}>
                         {competitionFilters.map((category, index) => {
                           return (
-                            <FilterItem key={category.label}>
+                            <FilterItem key={category.label} onClick={() => {handleFilterSelect(category.label)}}>
                               <Typography>{category.label}</Typography>
-                              <DoneIcon color="success" />
+                              {filterList.includes(category.label) && <DoneIcon color="success" />}
                             </FilterItem>
                           );
                         })}
@@ -223,9 +196,9 @@ export const Calendar = () => {
                         <AccordionDetails sx={{ p: 1 }}>
                           {weekdays.map((day) => {
                             return (
-                              <FilterItem key={day.label} onClick={ () => {} }>
+                              <FilterItem key={day.label} onClick={() => {handleFilterSelect(day.label)} }>
                                 <Typography>{day.label}</Typography>
-                                <DoneIcon color="success" />
+                                {filterList.includes(day.label) && <DoneIcon color="success" />}
                               </FilterItem>
                             );
                           })}
@@ -241,11 +214,11 @@ export const Calendar = () => {
                             <Typography fontWeight="bold">Class</Typography>
                           </AccordionSummary>
                           <AccordionDetails sx={{ p: 1 }}>
-                            {gymClasses.map((groupClass, index) => {
+                            {gymClasses.map((groupClass) => {
                               return (
-                                <FilterItem key={groupClass.name} onClick={ {}}>
+                                <FilterItem key={groupClass.name} onClick={() => {handleFilterSelect(groupClass.name)}}>
                                   <Typography>{groupClass.name}</Typography>
-                                  <DoneIcon color="success" />
+                                  {filterList.includes(groupClass.name) && <DoneIcon color="success" />}
                                 </FilterItem>
                               );
                             })}
@@ -262,14 +235,14 @@ export const Calendar = () => {
                         }}
                       >
                         <AccordionSummary>
-                          <Typography fontWeight="bold">Trainer</Typography>
+                          <Typography fontWeight="bold">Instructor</Typography>
                         </AccordionSummary>
                         <AccordionDetails sx={{ p: 1 }}>
-                          {trainers.map((trainer) => {
+                          {trainers.map((instructor) => {
                             return (
-                              <FilterItem key={trainer.name}>
-                                <Typography>{trainer.name}</Typography>
-                                <DoneIcon color="success" />
+                              <FilterItem key={instructor.name} onClick={() => handleFilterSelect(instructor.name)}>
+                                <Typography>{instructor.name}</Typography>
+                                {filterList.includes(instructor.name) && <DoneIcon color="success" />}
                               </FilterItem>
                             );
                           })}
@@ -300,8 +273,9 @@ export const Calendar = () => {
                 },
               }}
               style={{ height: "37px" }}
+
               // ADD FUNCTION HERE!!!!!!!!!
-              btnFunction={{}}
+              btnFunction={clearFilters}
             />
           }
         </Container>
