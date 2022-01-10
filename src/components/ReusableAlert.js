@@ -12,7 +12,6 @@ export const ReusableAlert = (props) => {
       <StyledAlert
         severity={severity}
         variant={variant ? variant : "filled"}
-        sx={{ minWidth: "200px" }}
         action={
           <IconButton
             aria-label="close"
