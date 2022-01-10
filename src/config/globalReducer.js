@@ -29,6 +29,15 @@ const globalReducer = (state, action) => {
                 }  
             }
 
+        case "deleteWorkoutout":
+            return {
+                ...state,
+                profile: {
+                    ...state.profile,
+                    workouts: action.data
+                }  
+            }
+
         case "addNewWorkout":  
             return {
                 ...state,
@@ -36,6 +45,11 @@ const globalReducer = (state, action) => {
                     ...state.profile,
                     workouts:[...state.profile.workouts, action.data]
                 }  
+            }
+        case "selectWorkout":
+            return {
+                ...state,
+                workoutId: action.data
             }
 
         default: 

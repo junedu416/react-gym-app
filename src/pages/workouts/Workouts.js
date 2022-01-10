@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+// import { Link } from 'react-router-dom';
 import EditButton from "../../components/buttons/Edit";
 import {
   Container,
@@ -31,8 +32,7 @@ import DialogContent from '@mui/material/DialogContent';
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
 
-export const Workouts = (props) => {
-
+export const Workouts = () => {
   const [open, setOpen] = useState(false);
   const initialWorkout = {
     name: null, 
@@ -43,7 +43,7 @@ export const Workouts = (props) => {
   const navigate = useNavigate();
   const { store, dispatch } = useGlobalState();
   const { profile} = store;
-
+ 
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -53,10 +53,12 @@ export const Workouts = (props) => {
   };
 
   useEffect(() => {
+    if (profile){
       editProfile(profile.userId, profile)
       .catch((err) => {
         console.log(err.message);
       })
+    }
   },[profile])
 
   const handleChange = (event) => {
@@ -64,7 +66,6 @@ export const Workouts = (props) => {
       ...newWorkout,
       name: event.target.value
     }
-
     setNewWorkout(workoutObj)
   }
 
@@ -75,7 +76,6 @@ export const Workouts = (props) => {
       type: "setNotification",
       data: "Successfully Create New Workout"
     })
-
     setOpen(false);
   }
 
@@ -95,12 +95,13 @@ export const Workouts = (props) => {
   function workoutStart() {
     navigate("/workouts/start");
   }
+  
 
-  function editWorkout(workout) {
-    navigate(`/workouts/edit`);
-    // navigate(`/workouts/edit?${workout}`)
-  }
-
+  function editWorkout(index) {
+    dispatch ({type: "selectWorkout", data: profile.workouts[index]._id })
+    navigate("/workouts/edit")
+  } 
+  
   return (
     <MainWindow>
       {!profile && (
@@ -163,9 +164,9 @@ export const Workouts = (props) => {
             {profile.workouts.map((workout, index) => {
               return (
                 <Container>
-                  <EditButton btnFunction={editWorkout} />
+                  <EditButton btnFunction={() => editWorkout(index)}/>
                   <WorkoutCardStyling value={index} onClick={handleClick}>
-                    <SmallHeading
+                  <SmallHeading
                       p="10px 0 0 20px"
                       m="0 0 10px"
                       style={{ fontSize: "1.5rem" }}
