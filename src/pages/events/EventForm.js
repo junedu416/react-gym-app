@@ -13,8 +13,10 @@ import { MobileDatePicker, MobileTimePicker } from "@mui/lab";
 // services
 import { gymClasses } from "../../data/classes";
 import BasicButton from '../../components/buttons/BasicButton';
+import { useNavigate } from 'react-router-dom';
 
 export const EventForm = ({submitFunction, event, eventId}) => {
+    const navigate = useNavigate();
     const {store} = useGlobalState();
     const {profile} = store;
     const [startTime, setStartTime] = useState(new Date());
@@ -24,7 +26,7 @@ export const EventForm = ({submitFunction, event, eventId}) => {
         name: '',
         description: '',
         category: '',
-        spotsAvailable: 1
+        spotsAvailable: null,
     }
     const [formValues, setFormValues] = useState(initialValues)
 
@@ -70,6 +72,11 @@ export const EventForm = ({submitFunction, event, eventId}) => {
         console.log(event.target.files[0]);
         setImage(event.target.files[0]);
     };
+
+    const goBack = (e) => {
+        e.preventDefault();
+        navigate(-1);
+    }
     
     const alignLeft = {
     alignSelf: "flex-start",
@@ -199,7 +206,6 @@ export const EventForm = ({submitFunction, event, eventId}) => {
                 label="Description"
                 multiline
                 rows={4}
-                // value={formValues.category === "Class" && formValues.name !== "" ? {autoFillDescription} : formValues.description }
                 value={formValues.description}
                 name="description"
                 onChange={handleChange}
@@ -221,6 +227,7 @@ export const EventForm = ({submitFunction, event, eventId}) => {
               <SubmitButton />
             </>
           )}
+          <BasicButton text="Cancel" color="error" btnFunction={goBack} />
         </Container>
       </form>
     )
