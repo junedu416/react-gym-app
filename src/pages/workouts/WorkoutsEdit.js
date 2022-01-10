@@ -79,7 +79,7 @@ export const EditWorkouts = () => {
 
   function handleDelete() {
     const updatedWorkout = profile.workouts.filter((workout) => workout._id !== workoutId)
-    dispatch({type: "deleteWorkoutout", data: updatedWorkout})
+    dispatch({type: "setWorkout", data: updatedWorkout})
     dispatch({type: "setNotification", data: "Delete workout successfully!"})
     navigate("/workouts")
   }
@@ -130,7 +130,7 @@ export const EditWorkouts = () => {
                 {workoutList[0].exercises.map((exercise) => (
                   <ListItems>
                     <WorkoutList p="10px 0px" ml="20px">
-                      {exercise.name}
+                      {exercise.exerciseId.name}
                       <IconButton>
                         {editMode ? (
                           <RemoveCircleIcon

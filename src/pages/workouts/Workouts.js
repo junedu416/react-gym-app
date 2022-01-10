@@ -59,7 +59,6 @@ export const Workouts = () => {
         console.log(err.message);
       })
     }
-
   },[profile])
 
   const handleChange = (event) => {
