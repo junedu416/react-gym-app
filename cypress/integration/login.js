@@ -30,7 +30,7 @@ describe('Login Page', () => {
 
     it('should log in an existing user', () => {
         cy.visit('/auth/login')
-        cy.get('input[name=email]').type('cytest@email.com')
+        cy.get('input[name=email]').type('cyptest@email.com')
         cy.get('input[name=password]').type(`passWord1{enter}`)
         cy.url().should('include', '/overview')
     })
