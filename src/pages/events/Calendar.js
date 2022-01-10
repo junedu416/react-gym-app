@@ -6,7 +6,13 @@ import { Container } from "../../styled-components";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 // import Chip from "@mui/material/Chip";
 import { FilterBox, FilterItem } from "../../styled-components/events";
-import { gymClasses, trainers, weekdays, competitionFilters, allFilters } from "../../data/events";
+import {
+  gymClasses,
+  trainers,
+  weekdays,
+  competitionFilters,
+  allFilters,
+} from "../../data/events";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
@@ -72,17 +78,18 @@ export const Calendar = () => {
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState("panel1");
 
-  const [filters, setFilters]= useState(() => [])
+  const [filters, setFilters] = useState(() => []);
 
   const [filterList, setFilterList] = useState([]);
 
   const handleFilterSelect = (filter) => {
     const isSelected = filterList.includes(filter);
-    
+
     // If the option has already been selected, removes it from the array.
     // Otherwise, adds it.
-    const newSelection = isSelected ? filterList.filter(item => item !== filter)
-    : [...filterList, filter];
+    const newSelection = isSelected
+      ? filterList.filter((item) => item !== filter)
+      : [...filterList, filter];
     setFilterList(newSelection);
   };
 
@@ -101,7 +108,6 @@ export const Calendar = () => {
     setFilterList(tempFilterList);
   }
 
-
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
@@ -119,12 +125,11 @@ export const Calendar = () => {
     else {
       setEventSelect(newEventSelect);
     }
-  }
+  };
 
   const clearFilters = () => {
     setFilterList([]);
-  }
- 
+  };
 
   // function toggleFilter(id) {
   //   return allFilters.filter(item => {
@@ -147,7 +152,7 @@ export const Calendar = () => {
         <Container direction="row" w="35%" justify="flex-start">
           <ClickAwayListener onClickAway={handleClickAway}>
             <Container pl="20px" style={{ position: "relative" }}>
-              <Container direction="row" ml="70px" mr="20px">
+              <Container direction="row" ml="100px" mr="20px">
                 <Button variant="outlined" onClick={handleClick} sx={{ pl: 1 }}>
                   <FilterAltIcon sx={{ mr: "5px" }} />
                   Filters
@@ -172,9 +177,16 @@ export const Calendar = () => {
                       <AccordionDetails sx={{ p: 1 }}>
                         {competitionFilters.map((category, index) => {
                           return (
-                            <FilterItem key={category.label} onClick={() => {handleFilterSelect(category.label)}}>
+                            <FilterItem
+                              key={category.label}
+                              onClick={() => {
+                                handleFilterSelect(category.label);
+                              }}
+                            >
                               <Typography>{category.label}</Typography>
-                              {filterList.includes(category.label) && <DoneIcon color="success" />}
+                              {filterList.includes(category.label) && (
+                                <DoneIcon color="success" />
+                              )}
                             </FilterItem>
                           );
                         })}
@@ -185,10 +197,12 @@ export const Calendar = () => {
                       <Accordion
                         expanded={expanded === "panel1"}
                         onChange={handleChange("panel1")}
-                        sx={{
-                          borderTopLeftRadius: "8px",
-                          borderTopRightRadius: "8px",
-                        }}
+                        sx={
+                          {
+                            // borderTopLeftRadius: "8px",
+                            // borderTopRightRadius: "8px",
+                          }
+                        }
                       >
                         <AccordionSummary>
                           <Typography fontWeight="bold">Day</Typography>
@@ -196,9 +210,16 @@ export const Calendar = () => {
                         <AccordionDetails sx={{ p: 1 }}>
                           {weekdays.map((day) => {
                             return (
-                              <FilterItem key={day.label} onClick={() => {handleFilterSelect(day.label)} }>
+                              <FilterItem
+                                key={day.label}
+                                onClick={() => {
+                                  handleFilterSelect(day.label);
+                                }}
+                              >
                                 <Typography>{day.label}</Typography>
-                                {filterList.includes(day.label) && <DoneIcon color="success" />}
+                                {filterList.includes(day.label) && (
+                                  <DoneIcon color="success" />
+                                )}
                               </FilterItem>
                             );
                           })}
@@ -216,9 +237,16 @@ export const Calendar = () => {
                           <AccordionDetails sx={{ p: 1 }}>
                             {gymClasses.map((groupClass) => {
                               return (
-                                <FilterItem key={groupClass.name} onClick={() => {handleFilterSelect(groupClass.name)}}>
+                                <FilterItem
+                                  key={groupClass.name}
+                                  onClick={() => {
+                                    handleFilterSelect(groupClass.name);
+                                  }}
+                                >
                                   <Typography>{groupClass.name}</Typography>
-                                  {filterList.includes(groupClass.name) && <DoneIcon color="success" />}
+                                  {filterList.includes(groupClass.name) && (
+                                    <DoneIcon color="success" />
+                                  )}
                                 </FilterItem>
                               );
                             })}
@@ -229,10 +257,6 @@ export const Calendar = () => {
                       <Accordion
                         expanded={expanded === "panel4"}
                         onChange={handleChange("panel4")}
-                        sx={{
-                          borderBottomLeftRadius: "8px",
-                          borderBottomRightRadius: "8px",
-                        }}
                       >
                         <AccordionSummary>
                           <Typography fontWeight="bold">Instructor</Typography>
@@ -240,9 +264,16 @@ export const Calendar = () => {
                         <AccordionDetails sx={{ p: 1 }}>
                           {trainers.map((instructor) => {
                             return (
-                              <FilterItem key={instructor.name} onClick={() => handleFilterSelect(instructor.name)}>
+                              <FilterItem
+                                key={instructor.name}
+                                onClick={() =>
+                                  handleFilterSelect(instructor.name)
+                                }
+                              >
                                 <Typography>{instructor.name}</Typography>
-                                {filterList.includes(instructor.name) && <DoneIcon color="success" />}
+                                {filterList.includes(instructor.name) && (
+                                  <DoneIcon color="success" />
+                                )}
                               </FilterItem>
                             );
                           })}
@@ -250,12 +281,26 @@ export const Calendar = () => {
                       </Accordion>
                     </>
                   )}
+                  <Container
+                    style={{
+                      backgroundColor: "white",
+                      borderBottomLeftRadius: "8px",
+                      borderBottomRightRadius: "8px",
+                    }}
+                  >
+                    <BasicButton
+                      text="Apply"
+                      size="small"
+                      sx={{ m: "10px auto" }}
+                      style={{ height: "40px" }}
+                    />
+                  </Container>
                 </FilterBox>
               ) : null}
             </Container>
           </ClickAwayListener>
 
-          {
+          { filterList.length > 0 &&
             <BasicButton
               text="Clear Filters"
               endIcon={<CancelIcon sx={{ color: "rgba(40, 40, 40, 0.7)" }} />}
@@ -273,8 +318,6 @@ export const Calendar = () => {
                 },
               }}
               style={{ height: "37px" }}
-
-              // ADD FUNCTION HERE!!!!!!!!!
               btnFunction={clearFilters}
             />
           }
@@ -319,5 +362,5 @@ export const Calendar = () => {
       </Container>
       <CalendarView eventCategory={eventSelect} />
     </>
-  )
-}
+  );
+};

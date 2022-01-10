@@ -5,7 +5,7 @@ export const FilterBox = styled(Box)`
   position: absolute;
   top: 50px;
   right: 0px;
-  left: 70px;
+  left: 100px;
   min-width: 210px;
   z-index: 5;
   border-radius: 10px;
