@@ -20,7 +20,7 @@ const globalReducer = (state, action) => {
                 notificationMsg: action.data
             }
 
-        case "addWorkoutToProfile":  
+        case "addExerciseToProfile":
             return {
                 ...state,
                 profile: {

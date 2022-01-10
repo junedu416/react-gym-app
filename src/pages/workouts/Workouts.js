@@ -59,6 +59,7 @@ export const Workouts = () => {
         console.log(err.message);
       })
     }
+
   },[profile])
 
   const handleChange = (event) => {
@@ -134,7 +135,6 @@ export const Workouts = () => {
 
       {profile && <Container>
         <Heading>Workouts</Heading>
-
         <div>
         <Button variant="outlined" onClick={handleClickOpen}>
            Create Workout List
@@ -158,7 +158,7 @@ export const Workouts = () => {
           </DialogActions>
         </Dialog>
       </div>
-
+      {profile.workouts.length === 0 && <Text>You don't have a workout list yet! Click the button above to create your first workout</Text>}
         <Container>
           <Grid>
             {profile.workouts.map((workout, index) => {
@@ -178,7 +178,7 @@ export const Workouts = () => {
                       return (
                         <Container>
                           <WorkoutList p="0 5px 0 15px">
-                            <p>{exercise.exerciseId.name}</p>
+                            <p>{exercise.exerciseId && exercise.exerciseId.name}</p>
                             {exercise.sets === null ? null : (
                               <span style={{ display: "flex", width: "30px" }}>
                                 <p>{exercise.sets}</p>
