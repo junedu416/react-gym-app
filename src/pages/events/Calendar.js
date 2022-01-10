@@ -79,8 +79,8 @@ export const Calendar = () => {
   const [expanded, setExpanded] = useState("panel1");
 
   const [filters, setFilters] = useState(() => []);
-
   const [filterList, setFilterList] = useState([]);
+  const hasFilters = Boolean(filterList.length > 0);
 
   const handleFilterSelect = (filter) => {
     const isSelected = filterList.includes(filter);
@@ -131,20 +131,14 @@ export const Calendar = () => {
     setFilterList([]);
   };
 
-  // function toggleFilter(id) {
-  //   return allFilters.filter(item => {
-  //     if(item.id === action.payload.id) {
-  //       item.filter = !item.filter
-  //     }
-  //   }
-  // }
+  const applyFilters = () => {
 
-  // useEffect(() => {
-  //   for (let i = 0; i < filters.length; i++) {
-  //     filters[i] = false;
-  //   }
-  //   setFilters(filters);
-  // }, []);
+
+    // ====================================================================================================
+    // FILTERING CODE HERE
+    // ====================================================================================================
+  }
+
 
   return (
     <>
@@ -288,19 +282,22 @@ export const Calendar = () => {
                       borderBottomRightRadius: "8px",
                     }}
                   >
+                  { hasFilters &&
                     <BasicButton
                       text="Apply"
                       size="small"
                       sx={{ m: "10px auto" }}
                       style={{ height: "40px" }}
+                      btnFunction={applyFilters}
                     />
+                  }
                   </Container>
                 </FilterBox>
               ) : null}
             </Container>
           </ClickAwayListener>
 
-          { filterList.length > 0 &&
+          { hasFilters &&
             <BasicButton
               text="Clear Filters"
               endIcon={<CancelIcon sx={{ color: "rgba(40, 40, 40, 0.7)" }} />}
