@@ -19,13 +19,12 @@ export const PerformanceStats = (props) => {
   const {profile} = store;
   let workouts;
   if (profile) workouts = profile.workouts;
-  const dummyWorkout = workoutList[0];
 
   const [workoutIndex, setWorkoutIndex] = useState(0);
   const [labels, setLabels] = useState();
   const [data, setData] = useState();
 
-  const colors = ["red", "blue", "yellow", "orange", "black"]
+  const colors = ["red", "blue", "yellow", "orange", "blueviolet", "brown", "darkgoldenrod", "seagreen", "powderblue", "darkgrey"];
   const options = {
     responsive: true
   }
@@ -61,8 +60,6 @@ export const PerformanceStats = (props) => {
     Legend
   );
 
- 
-
   function handleChange(event) {
     setWorkoutIndex(event.target.value);
   }  
@@ -76,7 +73,7 @@ export const PerformanceStats = (props) => {
             workoutList.map((workout, i) => <option value={i}>{workout.name}</option>)
           }
         </select>
-        <Line options={options} data={data} style={{width: "75vw", height: "50vh"}}/>
+        {labels && <Line options={options} data={data} style={{width: "75vw", height: "50vh"}}/>}
       </Container>
     </MainWindow>
   );
