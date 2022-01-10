@@ -52,7 +52,7 @@ export const Checkins = () => {
     responsive: true
   }
 
-  const labels = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const labels = ['Sun', 'Mon', 'Tues', 'Weds', 'Thurs', 'Fri', 'Sat'];
   const data = {
     labels,
     datasets: [
