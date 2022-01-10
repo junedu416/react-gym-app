@@ -97,12 +97,11 @@ export const Register = (props) => {
       <Heading>Register Account</Heading>
       {errorMsg && (
         <ReusableAlert
-          severity="error"
+          text={errorMsg}
           open={open}
           btnFunction={() => {
             setOpen(false);
           }}
-          text={errorMsg}
         />
       )}
       <form onSubmit={handleSubmit}>

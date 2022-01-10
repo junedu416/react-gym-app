@@ -75,7 +75,6 @@ export const ForgotPassword = () => {
         {error && (
           <Collapse in={open}>
             <StyledAlert
-              severity="error"
               action={
                 <IconButton
                   aria-label="close"

@@ -10,7 +10,7 @@ export const ReusableAlert = (props) => {
   return (
     <Collapse in={open}>
       <StyledAlert
-        severity={severity}
+        severity={severity ? severity : "error"}
         variant={variant}
         action={
           <IconButton

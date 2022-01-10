@@ -103,12 +103,11 @@ export const SignIn = () => {
     <MainWindow verticalMiddle>
       {errorMessage && (
         <ReusableAlert
-          severity="error"
+          text={errorMessage}
           open={open}
           btnFunction={() => {
             setOpen(false);
           }}
-          text={errorMessage}
         />
       )}
       <Heading>Login</Heading>

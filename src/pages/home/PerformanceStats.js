@@ -13,6 +13,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { ReusableAlert } from "../../components/ReusableAlert";
 
 export const PerformanceStats = (props) => {
   const {store} = useGlobalState();
@@ -84,7 +85,7 @@ export const PerformanceStats = (props) => {
           {labels && <Line options={options} data={data} style={{width: "75vw", height: "50vh"}}/>}
           </>
           :
-          <p>You have no workouts.</p>
+          <ReusableAlert text="You have no workouts" />
         }
       </Container>
     </MainWindow>

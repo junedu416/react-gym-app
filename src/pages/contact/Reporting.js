@@ -96,7 +96,6 @@ export const Reporting = () => {
                 {"first"}
               </Container>
             }
-            severity="error"
           />
         )}
         {profile && !profile.isStaff && (
