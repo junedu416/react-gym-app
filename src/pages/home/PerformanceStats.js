@@ -30,12 +30,15 @@ export const PerformanceStats = (props) => {
   }
 
   useEffect(() => {
-    const prevStats = workoutList[workoutIndex].exercises[0].prevWeights ?? workoutList[workoutIndex].exercises[0].prevDistances;
-    const newLabels = prevStats.map(() => "");
-    setLabels(newLabels);
+    if (Object.keys(workoutList).length > 0) {
+      const prevStats = workoutList[workoutIndex].exercises[0].prevWeights ?? workoutList[workoutIndex].exercises[0].prevDistances;
+      const newLabels = prevStats.map(() => "");
+      setLabels(newLabels);
+    }
   }, [workoutIndex]);
 
   useEffect(() => {
+    if (Object.keys(workoutList).length > 0) {
       const newData = {
         labels,
         datasets: workoutList[workoutIndex].exercises.map((e, i) => {
@@ -48,6 +51,7 @@ export const PerformanceStats = (props) => {
         })
       }
       setData(newData);
+    }
   }, [labels]);
 
   ChartJS.register(
@@ -68,12 +72,20 @@ export const PerformanceStats = (props) => {
     <MainWindow>
       <Heading>Performance Stats</Heading>
       <Container>
-        <select value={workoutIndex} onChange={handleChange}>
-          {
-            workoutList.map((workout, i) => <option value={i}>{workout.name}</option>)
-          }
-        </select>
-        {labels && <Line options={options} data={data} style={{width: "75vw", height: "50vh"}}/>}
+        {
+          (Object.keys(workoutList).length > 0)
+          ?
+          <>
+          <select value={workoutIndex} onChange={handleChange}>
+            {
+              workoutList.map((workout, i) => <option value={i}>{workout.name}</option>)
+            }
+          </select>
+          {labels && <Line options={options} data={data} style={{width: "75vw", height: "50vh"}}/>}
+          </>
+          :
+          <p>You have no workouts.</p>
+        }
       </Container>
     </MainWindow>
   );
