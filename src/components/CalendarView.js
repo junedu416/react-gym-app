@@ -77,7 +77,7 @@ const CalendarView = ({ eventCategory }) => {
   };
 
   return (
-    <div style={{ height: "80vh", width: "80%", overflow: "scroll" }}>
+    <div style={{ height: "80vh", width: "80%", overflowY: "scroll" }}>
       {clickedEvent && (
         <EventPopup
           event={clickedEvent}

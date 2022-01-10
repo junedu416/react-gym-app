@@ -50,9 +50,9 @@ export const WorkoutStart = (props) => {
     setDisableExButtons(tempDisableExButtons);
   }
 
-  const disableGroup = (exercise) => {
-    setDisabledList({ ...disabledList, exercise });
-  };
+  // const disableGroup = (exercise) => {
+  //   setDisabledList({ ...disabledList, exercise });
+  // };
 
   const finishExercise = (exercise, isCompleted) => {
     setCounter(counter + 1);
@@ -165,7 +165,7 @@ export const WorkoutStart = (props) => {
                     variant="text"
                     color="inherit"
                     aria-label="complete workout button group"
-                    onClick={() => disableGroup(exercise)}
+                    // onClick={() => disableGroup(exercise)}    // Don't need this
                   >
                     <Button
                       onClick={(e) => {
