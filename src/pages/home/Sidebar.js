@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
-import { Container } from "../../styled-components";
+import { Container } from "../../styled-components/";
 import { SidebarData } from "./sidebarData";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
@@ -13,6 +13,7 @@ import { dashItem } from "../../styled-components/dashboard";
 import PropTypes from "prop-types";
 import { useGlobalState } from "../../config/globalStore";
 import { signOutUser } from "../../services/userServices";
+import MenuIcon from '@mui/icons-material/Menu';
 
 const StyledTabs = styled((props) => (
   <Tabs
@@ -107,6 +108,7 @@ export const Sidebar = () => {
   const {profile} = store;
   const navigate = useNavigate();
   const [sbData, setSbData] = useState([]);
+  const [open, setOpen] = useState(true);
 
   // function handleClick(event) {
   //   event.preventDefault();
@@ -141,11 +143,20 @@ export const Sidebar = () => {
     console.log("changing sidebardata");
   }, [profile])
 
+  function handleOpen() {
+    setOpen(!open);
+  }
 
   return (
     <Container style={{ position: "fixed",flexDirection: "row" }}>
+      <div style={{position: "absolute", top: 0, left: 0, zIndex: 2}}>
+        <button style={{border: "none", backgroundColor: "rgba(0,0,0,0)"}} onClick={handleOpen}>
+          <MenuIcon style={{color: open ? "white" : "blue", height: "7vh", width: "7vh"}}/>
+        </button>
+      </div>
       <CssBaseline />
       <Drawer
+      open={open}
         sx={{
           width: drawerWidth,
           // height: `calc(100vh - 90px)`,
@@ -153,7 +164,7 @@ export const Sidebar = () => {
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             paddingTop: `calc(100vh / 8)`,
-            position: "fixed",
+            //position: "fixed",
             zIndex: "1",
             width: drawerWidth,
             boxSizing: "border-box",
@@ -162,7 +173,7 @@ export const Sidebar = () => {
             backgroundColor: "blue",
           },
         }}
-        variant="permanent"
+        variant="persistent"
       >
         <StyledTabs
           orientation="vertical"

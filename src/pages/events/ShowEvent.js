@@ -6,7 +6,9 @@ import { showEventReducer } from '../../utils/showEvent-reducer';
 import BasicButton from '../../components/buttons/BasicButton';
 import { useGlobalState } from '../../config/globalStore';
 import { editEvent } from '../../services/eventsServices';
-import { isUserRegistered } from '../../utils/events-helper-functions';
+import { isUserRegistered, cancelUserRegistration, registerUserToEvent} from '../../utils/events-helper-functions';
+import { DeleteEvent } from './DeleteEvent';
+import { DateDisplay } from './DateDisplay';
 
 export const ShowEvent = () => {
     const navigate = useNavigate();
@@ -51,11 +53,6 @@ export const ShowEvent = () => {
         }
     }, [event, profile])
 
-    const navigateBack = (e) => {
-        e.preventDefault();
-        navigate(-1);
-    }
-
     const updateEvent = (columnsToUpdate, message) => {
         const updatedEvent = {
           ...event,
@@ -64,8 +61,8 @@ export const ShowEvent = () => {
         console.log("updated event object is: ", updatedEvent);
         editEvent(event._id, updatedEvent)
         .then((response) => {
-          console.log(`successfully updates event: `, response)
-          dispatchEvent({type: 'updateEvent', data: response})
+        console.log(`successfully updates event: `, response)
+        dispatchEvent({type: 'updateEvent', data: response})
         })
         .then(() => {
             dispatch({type: 'setNotification', data: message})
@@ -75,22 +72,11 @@ export const ShowEvent = () => {
     }
     
     const registerToEvent =(e) => {
-        const columnsToUpdate = {
-            registeredUsers: [...event.registeredUsers, profile._id],
-            spotsAvailable: event.spotsAvailable - 1
-        }
-        updateEvent(columnsToUpdate, "Successfully registered")
+        registerUserToEvent(event, profile._id, updateEvent)
     }
 
     const cancelRegistration = (e) => {
-        const registeredClone = [...event.registeredUsers];
-        const updatedRegisteredUsers = registeredClone.filter((id) => id !== profile._id)
-
-        const columnsToUpdate = {
-            spotsAvailable: event.spotsAvailable + 1,
-            registeredUsers: updatedRegisteredUsers
-        }
-        updateEvent(columnsToUpdate, "Successfully cancelled your registration")
+        cancelUserRegistration(event, profile._id, updateEvent)
     }
 
     const goToEditPage = (e) => {
@@ -101,36 +87,33 @@ export const ShowEvent = () => {
 
     return(
         <MainWindow>
-            <BasicButton text="back" size="small" color="primary" btnFunction={navigateBack} />
             {loading && <p>Loading...</p>}
             {errorMsg && <p>{errorMsg}</p>}
             {event && 
                 <div>
-                    <div>
-                        <h1>{event.name}</h1>
-                        <h2>{event.category}</h2>
-                        {instructor && <h3>Event Listed by {`${instructor.firstName} ${instructor.lastName}`}</h3>}
-                        {event.eventImage ?  <img src={event.eventImage} alt={event.name}/> : <p>-no image available-</p>}
-                        <p>{event.description}</p>
-                        {formatDates.isFinished ? <p>This event has already ended.</p> : <>
-                            {(formatDates.startDate !== formatDates.endDate) && <p>{formatDates.startDate} at {formatDates.startTime} ~ {formatDates.endDate} at {formatDates.endTime}</p>}
-                            {(formatDates.startDate === formatDates.endDate) && <p>{formatDates.startDate} from {formatDates.startTime} ~ {formatDates.endTime}</p>}
-                            </>
-                        }
-                        {!formatDates.isFinished && (event.spotsAvailable === 0) &&
-                            <p>There are no more spots available for this event</p>}
-                        {!formatDates.isFinished && (event.spotsAvailable !== 0) && !userIsRegistered && <>
-                            <p>{event.spotsAvailable} {event.spotsAvailable === 1 ? "spot" : "spots"} left!</p>
-                            <BasicButton text="Register" color="success" size="large" btnFunction={registerToEvent} /> 
-                            </>}
-                        {!formatDates.isFinished && userIsRegistered && <>
+                    <h1>{event.name}</h1>
+                    <h2>{event.category}</h2>
+                    {instructor && <h3>Event Listed by {`${instructor.firstName} ${instructor.lastName}`}</h3>}
+                    {event.eventImage ?  <img src={event.eventImage} alt={event.name}/> : <p>-no image available-</p>}
+                    <p>{event.description}</p>
+                    {formatDates.isFinished ? <p>This event has already ended.</p> : <DateDisplay formatDates={formatDates} />}
+                    {!formatDates.isFinished && <>
+                        {event.spotsAvailable && (event.spotsAvailable === 0) && <p>There are no more spots available for this event</p>}
+                        {userIsRegistered && <>
                             <p>You are already registered in this event</p>
                             <BasicButton text="Cancel Registration" color="error" size="large" btnFunction={cancelRegistration}/>
                         </>}
-                        {instructor && (instructor._id === profile._id) && <>
-                            <BasicButton text="Edit" color="warning" size="large" btnFunction={goToEditPage} />
-                        </>}
-                    </div>
+                        {event.category !== "Competition" && event.spotsAvailable !== 0 && !userIsRegistered && <>
+                            <p>{event.spotsAvailable} {event.spotsAvailable === 1 ? "spot" : "spots"} left!</p>
+                            {instructor && (instructor._id !== profile._id) && <BasicButton text="Register" color="success" size="large" btnFunction={registerToEvent} />}
+                            </>}
+                        {event.category === "Competition" && !userIsRegistered && <BasicButton text="Register" color="success" size="large" btnFunction={registerToEvent} />}
+                    </>
+                    }
+                    {instructor && (instructor._id === profile._id) && <>
+                        <BasicButton text="Edit" color="warning" size="large" btnFunction={goToEditPage} />
+                        <DeleteEvent eventId={event._id}/>
+                    </>}
                 </div>
             }
         </MainWindow>
