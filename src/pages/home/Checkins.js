@@ -27,6 +27,7 @@ export const Checkins = () => {
 
   const [checkedIn, setCheckedIn] = useState(0);
   const [msg, setMsg] = useState("");
+  const [alertType, setAlertType] = useState("");
 
   const [loading, setLoading] = useState(false);
 
@@ -85,6 +86,7 @@ export const Checkins = () => {
             if (data) setCheckedIn(data.num);
             dispatch({ type: "toggleCheckIn" });
             setMsg("Checked In");
+            setAlertType("success");
             setLoading(false);
           })
           .then(() => {
@@ -98,9 +100,11 @@ export const Checkins = () => {
           });
       } else {
         setMsg("You are already checked in.");
+        setAlertType("error")
       }
     } else {
       setMsg("You must be logged in first");
+      setAlertType("error")
     }
   }
 
@@ -112,13 +116,16 @@ export const Checkins = () => {
           if (data) setCheckedIn(data.num);
           dispatch({ type: "toggleCheckIn" });
           setMsg("Checked out");
+          setAlertType("success")
           setLoading(false);
         });
       } else {
         setMsg("You are already checked out.");
+        setAlertType("error")
       }
     } else {
       setMsg("You must be logged in first.");
+      setAlertType("error")
     }
   }
 
@@ -130,6 +137,7 @@ export const Checkins = () => {
           <Collapse in={open}>
             <ReusableAlert
               text={msg}
+              severity={alertType}
               open={open}
               btnFunction={() => {
                 setOpen(false);
