@@ -12,6 +12,7 @@ import {
   p,
   m,
   w,
+  mr,
 } from "./mixins";
 import { Link } from "react-router-dom";
 import { Alert, Dialog } from "@mui/material";
@@ -22,6 +23,9 @@ export const Container = styled.div`
   ${(props) => props.shadow && shadow}
   ${(props) => props.greyBorder && greyBorder}
   ${(props) => props.mt && mt}
+  ${(props) => props.ml && ml}
+  ${(props) => props.mr && mr}
+  ${(props) => props.m && m}
   ${(props) => props.p && p}
   ${(props) => props.w && w}
 `;

@@ -50,6 +50,12 @@ export const m = (props) => {
   `;
 };
 
+export const mr = (props) => {
+  return `
+    margin-right: ${props.mr ? props.mr : "0" };
+  `;
+};
+
 export const pt = (props) => {
   return `
     padding-top: ${props.pt ? props.pt : "90px" };

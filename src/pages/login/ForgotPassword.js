@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Collapse, IconButton, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { Collapse, IconButton, TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Container,
@@ -13,7 +14,7 @@ import { formStyling } from "../../styled-components/login";
 import { sendPasswordResetEmail } from "../../services/userServices";
 import BasicButton from "../../components/buttons/BasicButton";
 import { ReusableAlert } from "../../components/ReusableAlert";
-// import { ReusableAlert } from "../../components/ReusableAlert";
+
 
 export const ForgotPassword = () => {
   const [open, setOpen] = useState(true);
