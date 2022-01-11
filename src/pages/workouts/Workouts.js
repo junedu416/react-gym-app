@@ -192,7 +192,7 @@ export const Workouts = () => {
                                 <p>{exercise.reps === null||0 ? null:exercise.reps}</p>
                               </span>
                             )}
-                            {exercise.distance == null||"0" ? null: <p>{exercise.distance}</p>}   
+                            {exercise.distance == null||0 ? null: <p>{exercise.distance}</p>}   
                             <IconButton>
                               <ArrowForwardIosIcon />
                             </IconButton>

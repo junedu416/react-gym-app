@@ -22,7 +22,6 @@ import { Button } from "@mui/material";
 import { ReusableModal } from "../../components/ReusableModal";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
-import { getUserProfile } from "../../services/userServices";
 
 export const EditWorkouts = () => {
   const navigate = useNavigate();

@@ -4,9 +4,6 @@ import { ExerciseForm } from'./ExerciseForm';
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
 
-
-
-
 export const NewWorkout = () => {
 
   const {store, dispatch} = useGlobalState();
@@ -27,7 +24,7 @@ export const NewWorkout = () => {
       setErrorMessage(error)
     });
   }
-  
+
     
   return (
     <MainWindow>

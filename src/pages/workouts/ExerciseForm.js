@@ -60,6 +60,7 @@ export const ExerciseForm = ({workoutId, submitFunc}) => {
             name="sets"
             type="number"
             style={formStyling}
+            InputProps={{ inputProps: { min: 0 } }}
             InputLabelProps={{
                 shrink: true,
             }}
@@ -71,6 +72,7 @@ export const ExerciseForm = ({workoutId, submitFunc}) => {
             label="Reps"
             name="reps"
             type="number"
+            InputProps={{ inputProps: { min: 0 } }}
             style={formStyling}
             InputLabelProps={{
                 shrink: true,
@@ -80,9 +82,10 @@ export const ExerciseForm = ({workoutId, submitFunc}) => {
             />
             <TextField
             id="outlined-number"
-            label="Weight"
+            label="Weight(kg)"
             name="weight"
             type="number"
+            InputProps={{ inputProps: { min: 0 } }}
             style={formStyling}
             InputLabelProps={{
                 shrink: true,
@@ -92,9 +95,10 @@ export const ExerciseForm = ({workoutId, submitFunc}) => {
             />
             <TextField
             id="outlined-number"
-            label="Distance"
+            label="Distance(m)"
             name="distance"
             type="number"
+            InputProps={{ inputProps: { min: 0 } }}
             style={formStyling}
             InputLabelProps={{
                 shrink: true,
