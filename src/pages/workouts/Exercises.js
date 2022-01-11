@@ -115,7 +115,7 @@ export const Exercises = () => {
   
   const containExercise = (list, newObj) => {
     for(var i = 0; i < list.length; i++) {
-      if (list[i].exerciseId === newObj.exerciseId) {
+      if (list[i].exerciseId._id === newObj.exerciseId) {
         console.log('workoutIndex:', i)
         return true
       }
@@ -128,6 +128,7 @@ export const Exercises = () => {
     console.log("workout update:", workouts)
     return workouts
   }
+
 
   const handleAddExercise = async (event) => {
     console.log("button clicked")
@@ -157,20 +158,21 @@ export const Exercises = () => {
           })
           dispatch({type: "addExerciseToProfile", data: workouts});
     
-          editProfile(profile.userId, profile)
-          .then(() =>
-            dispatch({
-              type: "setNotification",
-              data: "Add exercise successfully!"
-            })
-          )
-          .catch((err) => {
-            console.log(err.message);
-          })
+          // editProfile(profile.userId, profile)
+          // .then(() =>
+          //   dispatch({
+          //     type: "setNotification",
+          //     data: "Add exercise successfully!"
+          //   })
+          // )
+          // .catch((err) => {
+          //   console.log(err.message);
+          // })
         }
     }
 
 };
+
 
 // ***** feature (sprinkle) - Add to Favorite  *********
   // const handleToggle = (selected) => {
