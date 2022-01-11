@@ -3,16 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { useGlobalState } from './globalStore';
 
 export function useRedirectUnauthorisedUser() {
-    const {store, dispatch} = useGlobalState();
+    const {dispatch} = useGlobalState();
     const navigate = useNavigate();
-    const {profile} = store;
     useEffect(() => {
-        if (!profile) {
+        if (!checkIfUserIsSaved()) {
           dispatch({type: "setNotification", data: "You must be logged in to view this page"})
           navigate("/auth/login")
         }
         return
-      }, [profile, dispatch, navigate])
+      }, [dispatch, navigate])
 }
 
 export function useRedirectNonStaffMembers() {
@@ -29,4 +28,9 @@ export function useRedirectNonStaffMembers() {
         }
         return
       }, [profile, dispatch, navigate])
+}
+
+function checkIfUserIsSaved() {
+  const uid = window.localStorage.getItem('uid');
+  return !!uid;
 }
