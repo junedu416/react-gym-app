@@ -22,7 +22,6 @@ import { Button } from "@mui/material";
 import { ReusableModal } from "../../components/ReusableModal";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
-import { getUserProfile } from "../../services/userServices";
 
 export const EditWorkouts = () => {
   const navigate = useNavigate();
@@ -80,7 +79,7 @@ export const EditWorkouts = () => {
 
   function handleDelete() {
     const updatedWorkout = profile.workouts.filter((workout) => workout._id !== workoutId)
-    dispatch({type: "deleteWorkoutout", data: updatedWorkout})
+    dispatch({type: "setWorkout", data: updatedWorkout})
     dispatch({type: "setNotification", data: "Delete workout successfully!"})
     navigate("/workouts")
   }
@@ -131,7 +130,7 @@ export const EditWorkouts = () => {
                 {workoutList[0].exercises.map((exercise) => (
                   <ListItems>
                     <WorkoutList p="10px 0px" ml="20px">
-                      {exercise.exerciseId.name ?? ""}
+                      {exercise.exerciseId? exercise.exerciseId.name: exercise.customisedName}
                       <IconButton>
                         {editMode ? (
                           <RemoveCircleIcon
