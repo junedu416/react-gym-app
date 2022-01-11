@@ -14,10 +14,12 @@ import { MobileDatePicker, MobileTimePicker } from "@mui/lab";
 import { gymClasses } from "../../data/classes";
 import BasicButton from '../../components/buttons/BasicButton';
 import { useNavigate } from 'react-router-dom';
+import { useRedirectNonStaffMembers } from '../../config/customHooks';
 
 export const EventForm = ({submitFunction, event, eventId}) => {
+    useRedirectNonStaffMembers();
     const navigate = useNavigate();
-    const {store} = useGlobalState();
+    const {store, dispatch} = useGlobalState();
     const {profile} = store;
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
@@ -29,6 +31,17 @@ export const EventForm = ({submitFunction, event, eventId}) => {
         spotsAvailable: null,
     }
     const [formValues, setFormValues] = useState(initialValues)
+
+    useEffect(() => {
+      if(!profile){
+        dispatch({type: "setNotification", data: "You must be logged in to view this page"})
+        navigate("/auth/login")
+      } else if(!profile.isStaff) {
+        dispatch({type: "setNotification", data: "You are not authorised to create an event"})
+        navigate("/events")
+      }
+      return
+    }, [profile, dispatch, navigate])
 
     useEffect(() => {
         if(event) {
