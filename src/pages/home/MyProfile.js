@@ -7,6 +7,7 @@ import {
   Container,
   Heading,
   MainWindow,
+  Text,
   TextBold,
 } from "../../styled-components/";
 import BasicButton from "../../components/buttons/BasicButton";
@@ -16,6 +17,7 @@ import { ProfileImage } from "../../styled-components/profile";
 
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { ProfilePicture } from "../../components/ProfilePicture";
 
 export const MyProfile = (props) => {
   useRedirectUnauthorisedUser();
@@ -36,6 +38,8 @@ export const MyProfile = (props) => {
     setIsFilePicked(true);
   };
 
+  
+  
 
   return (
     <MainWindow>
@@ -43,23 +47,23 @@ export const MyProfile = (props) => {
       <Container direction={ matches ? "column" : "row" }>
         <div className="content">{/* <DropZone /> */}</div>
 
-        <Container>
-          <ProfileImage />
+        <Container mr="50px" mw="10vw">
+          <ProfilePicture profile />
           <BasicButton
-            text="Upload"
-            startIcon={<PhotoCameraIcon />}
+            text="Select Photo"
+            startIcon={<PhotoCameraIcon/>}
             btnFunction={selectImage}
           />
         </Container>
-        <Container align="flex-start">
+        <Container align="flex-start" mw="30vw">
           <Container direction="row">
-            <TextBold>First Name: </TextBold> <p>{profile.firstName}</p>
+            <TextBold mr="20px">First Name: </TextBold> <Text>{profile.firstName}</Text>
           </Container>
           <Container direction="row">
-            <TextBold>Last Name: </TextBold> <p>{profile.lastName}</p>
+            <TextBold mr="20px" >Last Name: </TextBold> <Text>{profile.lastName}</Text>
           </Container>
           <Container direction="row">
-            <TextBold>Email: </TextBold> <p>{profile.email}</p>
+            <TextBold mr="20px">Email: </TextBold> <Text>{profile.email}</Text>
           </Container>
         </Container>
       </Container>

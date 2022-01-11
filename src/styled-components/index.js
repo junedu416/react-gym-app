@@ -38,7 +38,7 @@ export const Widget = styled(Container)`
   max-height: 300px;
   overflow-x: hidden;
   overflow-y: scroll;
-`
+`;
 
 export const MainWindow = styled.div`
   ${flexbox};
@@ -99,20 +99,22 @@ export const StyledAlert = styled(Alert)`
   transform: translate(-50%);
 `;
 
-export const Text = styled.p`
-  display: flex;
-  flex-direction: row;
-  margin: 0;
-`;
-
 export const BackWrapper = styled.div`
   position: absolute;
   top: 30px;
   left: 250px;
-`
+`;
+export const Text = styled.p`
+  display: flex;
+  flex-direction: row;
+  ${(props) => props.p && p}
+  ${(props) => props.m && m}
+  ${(props) => props.fontSize && fontSize}
+`;
 
 export const TextBold = styled.strong`
-  ${(props) => props.m && m},
-  ${(props) => props.p && p},
-  ${(props) => props.fontSize && fontSize},
-`
+  ${(props) => props.m && m}
+  ${(props) => props.mr && mr}
+  ${(props) => props.p && p}
+  ${(props) => props.fontSize && fontSize}
+`;
