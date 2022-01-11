@@ -157,17 +157,6 @@ export const Exercises = () => {
             dispatch({type: "setNotification", data: "Exercise added to workout"});
           })
           dispatch({type: "addExerciseToProfile", data: workouts});
-    
-          // editProfile(profile.userId, profile)
-          // .then(() =>
-          //   dispatch({
-          //     type: "setNotification",
-          //     data: "Add exercise successfully!"
-          //   })
-          // )
-          // .catch((err) => {
-          //   console.log(err.message);
-          // })
         }
     }
 
