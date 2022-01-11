@@ -12,6 +12,7 @@ import { ExerciseCardStyling } from "../../styled-components/exercises";
 import { useGlobalState } from "../../config/globalStore";
 import { getAllExercises } from "../../services/exerciseServices";
 import { editProfile } from "../../services/profileServices";
+import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 
 
 import Typography from "@mui/material/Typography";
@@ -23,6 +24,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 
 export const Exercises = () => {
+  useRedirectUnauthorisedUser();
   // const [selected, setSelected] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState(null);

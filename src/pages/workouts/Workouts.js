@@ -21,6 +21,8 @@ import {
 import Divider from "@mui/material/Divider";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import IconButton from "@mui/material/IconButton";
+import { workoutList } from "../../data/workouts-dummy";
+import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import CloseIcon from "@mui/icons-material/Close";
 
 import BasicButton from "../../components/buttons/BasicButton"
@@ -33,12 +35,13 @@ import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
 
 export const Workouts = () => {
+  useRedirectUnauthorisedUser();
   const [open, setOpen] = useState(false);
   const initialWorkout = {
     name: null, 
     exercises:[]
   }
-  const [newWorkout, setNewWorkout] = useState(initialWorkout)
+  const [newWorkout, setNewWorkout] = useState(initialWorkout);
   const [display, setDisplay] = useState(true);
   const navigate = useNavigate();
   const { store, dispatch } = useGlobalState();
