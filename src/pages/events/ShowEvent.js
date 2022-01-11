@@ -9,8 +9,10 @@ import { editEvent } from '../../services/eventsServices';
 import { isUserRegistered, cancelUserRegistration, registerUserToEvent} from '../../utils/events-helper-functions';
 import { DeleteEvent } from './DeleteEvent';
 import { DateDisplay } from './DateDisplay';
+import { useRedirectUnauthorisedUser } from '../../config/customHooks';
 
 export const ShowEvent = () => {
+    useRedirectUnauthorisedUser();
     const navigate = useNavigate();
     const {store, dispatch} = useGlobalState();
     const {profile} = store;
@@ -26,6 +28,14 @@ export const ShowEvent = () => {
     }
     const [instructor, setInstructor] = useState(initialInstructor)
     const [userIsRegistered, setUserIsRegistered] = useState(false)
+
+    useEffect(() => {
+        if(!profile) {
+            dispatch({type: "setNotification", data: "You must be logged in to view this page"})
+            navigate("/auth/login")
+        }
+        return
+    }, [profile, dispatch, navigate])
 
     useEffect(() => {
         getEventById(id)

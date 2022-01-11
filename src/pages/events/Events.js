@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { MainWindow } from "../../styled-components";
 import { Calendar } from "./Calendar";
 import BasicButton from "../../components/buttons/BasicButton";
 import { useGlobalState } from "../../config/globalStore";
+import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 
 export const Events = () => {
+  useRedirectUnauthorisedUser();
   const navigate = useNavigate();
   const {store} = useGlobalState();
   const {profile} = store;
