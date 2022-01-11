@@ -177,8 +177,8 @@ export const Workouts = () => {
                       return (
                         <Container>
                           <WorkoutList p="0 5px 0 15px">
-                            {exercise.exerciseId && <p>{exercise.exerciseId.name}</p>}
-                            {exercise.sets === null ? null : (
+                          {exercise.exerciseId? <p>{exercise.exerciseId.name}</p>: <p>{exercise.customisedName}</p>}
+                            {exercise.sets === null||0 ? null : (
                               <span style={{ display: "flex", width: "30px" }}>
                                 <p>{exercise.sets}</p>
                                 <p
@@ -187,14 +187,12 @@ export const Workouts = () => {
                                     padding: "0 5px",
                                   }}
                                 >
-                                  {"x"}
+                                  {exercise.reps === null||0 ? "":"x"}
                                 </p>
-                                <p>{exercise.reps}</p>
+                                <p>{exercise.reps === null||0 ? null:exercise.reps}</p>
                               </span>
                             )}
-                            {exercise.distance === null ? null : (
-                              <p>{exercise.distance}</p>
-                            )}
+                            {exercise.distance == null||"0" ? null: <p>{exercise.distance}</p>}   
                             <IconButton>
                               <ArrowForwardIosIcon />
                             </IconButton>
