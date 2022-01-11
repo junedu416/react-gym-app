@@ -131,11 +131,7 @@ export const EditWorkouts = () => {
                 {workoutList[0].exercises.map((exercise) => (
                   <ListItems>
                     <WorkoutList p="10px 0px" ml="20px">
-<<<<<<< HEAD
                       {exercise.exerciseId? exercise.exerciseId.name: exercise.customisedName}
-=======
-                      {exercise.exerciseId.name ?? ""}
->>>>>>> development
                       <IconButton>
                         {editMode ? (
                           <RemoveCircleIcon
