@@ -3,6 +3,7 @@ import { CardStyle } from "../../styled-components/dashboard.js";
 import {
   Container,
   Grid,
+  Heading,
   MainWindow,
   SmallHeading,
 } from "../../styled-components";
@@ -17,12 +18,11 @@ export const Overview = (props) => {
   const { profile } = store;
 
   return (
-    <MainWindow verticalMiddle>
+    <MainWindow>
       <Container>
-        <SmallHeading>
-          Welcome back {profile ? profile.firstName : "user"}, here's your
-          overview
-        </SmallHeading>
+        <Heading>
+          Welcome back, {profile ? profile.firstName : "user"}
+        </Heading>
         <Grid>
           <CardStyle><CheckInWidget /></CardStyle>
           <CardStyle />

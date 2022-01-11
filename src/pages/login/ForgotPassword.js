@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Collapse, IconButton, TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Container,
@@ -12,10 +12,8 @@ import {
 import { formStyling } from "../../styled-components/login";
 import { sendPasswordResetEmail } from "../../services/userServices";
 import BasicButton from "../../components/buttons/BasicButton";
-// import { ReusableAlert } from "../../components/ReusableAlert";
-// import { alertStyling } from "../../styled-components/"
+import { ReusableAlert } from "../../components/ReusableAlert";
 
-// import { useAuth } from "../contexts/AuthContext";
 
 export const ForgotPassword = () => {
   const [open, setOpen] = useState(true);
@@ -73,23 +71,13 @@ export const ForgotPassword = () => {
       <Container>
         {error && (
           <Collapse in={open}>
-            <StyledAlert
-              severity="error"
-              action={
-                <IconButton
-                  aria-label="close"
-                  color="inherit"
-                  size="small"
-                  onClick={() => {
-                    setOpen(false);
-                  }}
-                >
-                  <CloseIcon />
-                </IconButton>
-              }
-            >
-              {error}
-            </StyledAlert>
+            <ReusableAlert
+              open={open}
+              btnFunction={() => {
+                setOpen(false);
+              }}
+              text={error}
+            />
           </Collapse>
         )}
         {message && (
