@@ -47,7 +47,7 @@ export const EditEvent = () => {
         <MainWindow>
             <Heading>Edit Event</Heading>
             {errorMessage && <p>{errorMessage}</p>}
-            <EventForm submitFunction={updateEvent} event={event} eventId={event._id}/>
+            <EventForm submitFunction={updateEvent} event={event} eventId={event._id} buttonText="Update" />
         </MainWindow>
     )
 }

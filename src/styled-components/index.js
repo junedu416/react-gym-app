@@ -1,4 +1,3 @@
-// import { css } from 'styled-components'; // turn this into a 1-liner?
 import styled from "styled-components";
 import {
   flexbox,
@@ -33,6 +32,13 @@ export const Container = styled.div`
   ${(props) => props.w && w}
   ${(props) => props.mw && mw}
 `;
+
+export const Widget = styled(Container)`
+  max-width: 300px;
+  max-height: 300px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+`
 
 export const MainWindow = styled.div`
   ${flexbox};

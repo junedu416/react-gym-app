@@ -14,10 +14,11 @@ import { useGlobalState } from "../../config/globalStore";
 import { signUpUser } from "../../services/userServices";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
+import { Collapse, IconButton, InputAdornment, OutlinedInput } from "@mui/material";
 // import BasicButton from "../../components/buttons/BasicButton";
 import { LoadButton } from "../../components/buttons/LoadButton";
-import HowToRegIcon from '@mui/icons-material/HowToReg';
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import { ReusableAlert } from "../../components/ReusableAlert";
 
 export const Register = (props) => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ export const Register = (props) => {
   const [rememberMe, setRememberMe] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
   const [disableSubmit, setDisableSubmit] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const handleCheckChange = (event) => {
     setRememberMe(!rememberMe);
@@ -93,7 +95,17 @@ export const Register = (props) => {
   return (
     <MainWindow verticalMiddle>
       <Heading>Register Account</Heading>
-      {errorMsg && <h3>{errorMsg}</h3>}
+      {errorMsg && (
+        <Collapse in={open}>
+          <ReusableAlert
+            text={errorMsg}
+            open={open}
+            btnFunction={() => {
+              setOpen(false);
+            }}
+          />
+        </Collapse>
+      )}
       <form onSubmit={handleSubmit}>
         <Container>
           <TextField
@@ -189,7 +201,7 @@ export const Register = (props) => {
             sx={{ my: 0 }}
             loading={disableSubmit}
             loadPosition="start"
-            startIcon={<HowToRegIcon style={{ fontSize:"2.3rem" }} />}
+            startIcon={<HowToRegIcon style={{ fontSize: "2.3rem" }} />}
           />
 
           <p style={{ marginTop: "50px", display: "flex" }}>

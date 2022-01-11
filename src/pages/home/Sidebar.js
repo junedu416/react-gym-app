@@ -5,7 +5,6 @@ import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
 import { Container } from "../../styled-components/";
-import { SidebarData } from "./sidebarData";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -14,6 +13,7 @@ import PropTypes from "prop-types";
 import { useGlobalState } from "../../config/globalStore";
 import { signOutUser } from "../../services/userServices";
 import MenuIcon from '@mui/icons-material/Menu';
+import { SidebarData } from "../../data/sidebarData";
 
 const StyledTabs = styled((props) => (
   <Tabs
