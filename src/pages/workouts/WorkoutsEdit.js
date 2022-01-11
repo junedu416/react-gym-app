@@ -20,12 +20,13 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { Button } from "@mui/material";
 import { ReusableModal } from "../../components/ReusableModal";
+import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
 
-export const EditWorkouts = () => {
+export const EditWorkouts = (props, workouts) => {
+  useRedirectUnauthorisedUser();
   const navigate = useNavigate();
-  
   const { store, dispatch } = useGlobalState();
   const { profile, workoutId } = store;
   const [modalOpen, setModalOpen] = useState(false);

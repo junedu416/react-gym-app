@@ -20,10 +20,13 @@ import {
 } from "chart.js";
 import { ReusableAlert } from "../../components/ReusableAlert";
 import { Collapse } from "@mui/material";
+import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 
 export const Checkins = () => {
-  const { store, dispatch } = useGlobalState();
-  const { profile } = store;
+  useRedirectUnauthorisedUser();
+
+  const {store, dispatch} = useGlobalState();
+  const {profile} = store;
 
   const [checkedIn, setCheckedIn] = useState(0);
   const [msg, setMsg] = useState("");

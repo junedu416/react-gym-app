@@ -10,8 +10,10 @@ import { Button, ButtonGroup } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { workoutList } from "../../data/workouts-dummy";
 import { ReusableModal } from "../../components/ReusableModal";
+import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 
 export const WorkoutStart = (props) => {
+  useRedirectUnauthorisedUser();
   const navigate = useNavigate();
   const selectedWorkout = workoutList[0];
   const list = selectedWorkout.exercises;

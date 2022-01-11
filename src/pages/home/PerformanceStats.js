@@ -11,14 +11,17 @@ import {
   Title,
   Tooltip,
   Legend,
-} from "chart.js";
-import { Line } from "react-chartjs-2";
+
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import { ReusableAlert } from "../../components/ReusableAlert";
 import { Collapse, MenuItem, Select } from "@mui/material";
 
 export const PerformanceStats = (props) => {
-  const { store } = useGlobalState();
-  const { profile } = store;
+  useRedirectUnauthorisedUser();
+  const {store} = useGlobalState();
+  const {profile} = store;
   let workouts;
   if (profile) workouts = profile.workouts;
 
