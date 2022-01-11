@@ -14,9 +14,18 @@ import Divider from "@mui/material/Divider";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import IconButton from "@mui/material/IconButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { useRedirectUnauthorisedUser } from "../../config/customHooks";
+import { useLocation } from 'react-router-dom';
+import { useGlobalState } from "../../config/globalStore";
+
 
 export const EditWorkout = (props, workout) => {
+  useRedirectUnauthorisedUser();
   const navigate = useNavigate();
+  const { store, dispatch } = useGlobalState();
+  const { profile, workoutId } = store;
+ 
+
   const workoutList = [
     {
       name: "Workout A",
@@ -43,7 +52,8 @@ export const EditWorkout = (props, workout) => {
       ],
     },
   ];
-
+  console.log("profile:",profile)
+  console.log("workout id:",workoutId)
   const [activeWorkout, setActiveWorkout] = useState("");
   const handleClick = (selectedWorkout) => {
     if (selectedWorkout !== null) {

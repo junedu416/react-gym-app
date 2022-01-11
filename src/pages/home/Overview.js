@@ -8,8 +8,11 @@ import {
 } from "../../styled-components";
 import { useGlobalState } from "../../config/globalStore.js";
 import CheckInWidget from "../../widgets/CheckInWidget.js";
+import { useRedirectUnauthorisedUser } from "../../config/customHooks.js";
+
 
 export const Overview = (props) => {
+  useRedirectUnauthorisedUser();
   const { store } = useGlobalState();
   const { profile } = store;
 

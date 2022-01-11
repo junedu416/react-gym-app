@@ -11,5 +11,16 @@ export const getAllExercises = async () => {
     }  
 }
 
+export const getExerciseById = async(id) => {
+    try {
+        const response = await gymApi.get(`/exercises/${id}`)
+        console.log(response)
+        return response.data
+    }catch (err ){
+        console.log(err.message)
+        return err.message
+    }
+}
+
 
 
