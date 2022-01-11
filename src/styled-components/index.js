@@ -14,6 +14,8 @@ import {
   m,
   w,
   mr,
+  fontSize,
+  mw,
 } from "./mixins";
 import { Link } from "react-router-dom";
 import { Alert, Dialog } from "@mui/material";
@@ -29,6 +31,7 @@ export const Container = styled.div`
   ${(props) => props.m && m}
   ${(props) => props.p && p}
   ${(props) => props.w && w}
+  ${(props) => props.mw && mw}
 `;
 
 export const MainWindow = styled.div`
@@ -100,4 +103,10 @@ export const BackWrapper = styled.div`
   position: absolute;
   top: 30px;
   left: 250px;
+`
+
+export const TextBold = styled.strong`
+  ${(props) => props.m && m},
+  ${(props) => props.p && p},
+  ${(props) => props.fontSize && fontSize},
 `

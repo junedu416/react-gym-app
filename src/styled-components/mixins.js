@@ -17,13 +17,13 @@ export const vcentered = (props) => {
   return `
     align-items: ${props.align ? props.align : "center"};
   `;
-}
+};
 
 export const hcentered = (props) => {
   return `
     justify-content: ${props.justify ? props.justify : "center"};
   `;
-}
+};
 
 export const popupMiddle = () => {
   return `
@@ -34,43 +34,55 @@ export const popupMiddle = () => {
 
 export const mt = (props) => {
   return `
-    margin-top: ${props.mt ? props.mt : "90px" };
+    margin-top: ${props.mt ? props.mt : "90px"};
   `;
 };
 
 export const ml = (props) => {
   return `
-    margin-left: ${props.ml ? props.ml : "0" };
+    margin-left: ${props.ml ? props.ml : "0"};
   `;
 };
 
 export const m = (props) => {
   return `
-    margin: ${props.m ? props.m : "0" };
+    margin: ${props.m ? props.m : "0"};
   `;
 };
 
 export const mr = (props) => {
   return `
-    margin-right: ${props.mr ? props.mr : "0" };
+    margin-right: ${props.mr ? props.mr : "0"};
   `;
 };
 
 export const pt = (props) => {
   return `
-    padding-top: ${props.pt ? props.pt : "90px" };
+    padding-top: ${props.pt ? props.pt : "90px"};
   `;
 };
 
 export const p = (props) => {
   return `
-    padding: ${props.p ? props.p : "0" };
+    padding: ${props.p ? props.p : "0"};
   `;
 };
 
 export const w = (props) => {
   return `
-    width: ${props.w ? props.w : "" };
+    width: ${props.w ? props.w : ""};
+  `;
+};
+
+export const mw = (props) => {
+  return `
+    min-width: ${props.mw ? props.mw : ""};
+  `;
+};
+
+export const fontSize = (props) => {
+  return `
+    font-size: ${props.fontSize ? props.fontSize : "1rem"};
   `;
 };
 
@@ -78,9 +90,9 @@ export const shadow = () => {
   return `
     box-shadow: 2px 2px 6px 0px rgba(120, 120, 120, 0.8);
     `;
-  };
-  // box-shadow: ${props.shadow ? props.shadow (props.shadowColor ? props.shadowColor : "rgba(120, 120, 120, 0.8)") : "2px 2px 6px 0px"};
-  
+};
+// box-shadow: ${props.shadow ? props.shadow (props.shadowColor ? props.shadowColor : "rgba(120, 120, 120, 0.8)") : "2px 2px 6px 0px"};
+
 export const link = () => {
   return `
     text-decoration: none;
@@ -95,5 +107,5 @@ export const link = () => {
 export const greyBorder = () => {
   return `
     border: 1px solid rgba(120, 120, 120, 0.3);
-  `
-}
+  `;
+};

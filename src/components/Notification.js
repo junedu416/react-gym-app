@@ -16,7 +16,7 @@ const Notification = () => {
         if(notificationMsg) {
             setTimeout(() => {
                 dispatch({type: 'setNotification', data: ""})
-            }, 10000)
+            }, 4000)
         }
     }, [notificationMsg, dispatch])
 
