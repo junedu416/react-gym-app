@@ -24,19 +24,23 @@ import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
 
-export const EditWorkouts = (props, workouts) => {
+export const EditWorkouts = () => {
   useRedirectUnauthorisedUser();
   const navigate = useNavigate();
   const { store, dispatch } = useGlobalState();
-  const { profile, workoutId } = store;
+  const { profile, workoutIndex } = store;
   const [modalOpen, setModalOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-  const workoutList = profile.workouts.filter((workout) => workout._id === workoutId)
+  // clare
+  const workoutList = profile.workouts[workoutIndex]
+  // end clare
   const choosePath = ['Add From Popular Exercises', 'Add Customized Exercise'];
   // const [workoutRemove, setWorkoutRemove] = useState("");
   const [editMode, setEditMode] = useState(false);
+
+  
 
   useEffect(() => {
     if (profile){
@@ -79,8 +83,9 @@ export const EditWorkouts = (props, workouts) => {
   ];
 
   function handleDelete() {
-    const updatedWorkout = profile.workouts.filter((workout) => workout._id !== workoutId)
-    dispatch({type: "setWorkout", data: updatedWorkout})
+    const workoutsClone = [...profile.workouts];
+    workoutsClone.splice(workoutIndex, 1)
+    dispatch({type: "setWorkout", data: workoutsClone})
     dispatch({type: "setNotification", data: "Delete workout successfully!"})
     navigate("/workouts")
   }
@@ -117,7 +122,9 @@ export const EditWorkouts = (props, workouts) => {
     <>
       <MainWindow>
         <Container>
-          <Heading>{workoutList[0].name}</Heading>
+        {workoutList &&  <>
+          <Heading>{workoutList.name}</Heading>
+          {/* <Heading>{workoutList[0].name}</Heading> */}
           <Container>
             <WorkoutCardStyling>
               <ul
@@ -128,7 +135,7 @@ export const EditWorkouts = (props, workouts) => {
                   margin: 0,
                 }}
               >
-                {workoutList[0].exercises.map((exercise) => (
+                {workoutList.exercises.map((exercise) => (
                   <ListItems>
                     <WorkoutList p="10px 0px" ml="20px">
                       {exercise.exerciseId? exercise.exerciseId.name: exercise.customisedName}
@@ -149,7 +156,7 @@ export const EditWorkouts = (props, workouts) => {
                   </ListItems>
                 ))}
               </ul>
-
+        
               <TextLink
                 direction="row"
                 ml="25px"
@@ -195,6 +202,7 @@ export const EditWorkouts = (props, workouts) => {
               Done
             </Button>
           )}
+      </> }
         </Container>
         <br/>
         <Button variant="outlined" color="error" onClick={handleModalOpen} >Delete Workout</Button>

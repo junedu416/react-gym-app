@@ -44,7 +44,9 @@ export const Exercises = () => {
   const [newExercise, setNewExercise] = useState(initialValues);
 
   useEffect(async () => {
+    console.log("use effect running: workoutIndex", workoutIndex)
     if (workoutIndex !== null) {
+      console.log("inside first if")
       if(!profile.workouts[workoutIndex]){
         dispatch({
           type: "setNotification",
@@ -94,7 +96,7 @@ export const Exercises = () => {
               : null
           })
       }
-  }, [exerciseIndex, workoutIndex]);
+  }, [exerciseIndex]);
 
   const handleBtnClick = (event, index) => {
     setAnchorEl(event.currentTarget);
@@ -128,43 +130,46 @@ export const Exercises = () => {
   }
 
   const handleAddExercise = async (event) => {
-
+    console.log("button clicked")
     //select workout list
-    setWorkoutIndex(Number(event.target.getAttribute("id")))
+    if(Number(event.target.getAttribute("id")) !== workoutIndex){
+      setWorkoutIndex(Number(event.target.getAttribute("id")))
+    } else {
+      console.log("workoutIndex not changed")
+      if(!profile.workouts[workoutIndex]){
+          dispatch({
+            type: "setNotification",
+            data: "Workout not found"
+          });
+        } else if (containExercise(profile.workouts[workoutIndex].exercises, newExercise)) {
+          dispatch({
+            type: "setNotification",
+            data: "You already have this exercise in your workout list"
+          });
+        } else {
+          const workouts = await findWorkoutAddExercise(profile.workouts, workoutIndex, newExercise );
+          editProfile(profile.userId, {
+            ...profile,
+            workouts: workouts
+          }).then((response) => {
+            dispatch({type: "setProfile", data: response.data});
+            dispatch({type: "setNotification", data: "Exercise added to workout"});
+          })
+          dispatch({type: "addExerciseToProfile", data: workouts});
+    
+          editProfile(profile.userId, profile)
+          .then(() =>
+            dispatch({
+              type: "setNotification",
+              data: "Add exercise successfully!"
+            })
+          )
+          .catch((err) => {
+            console.log(err.message);
+          })
+        }
+    }
 
-
-    // if(!profile.workouts[workoutIndex]){
-    //   dispatch({
-    //     type: "setNotification",
-    //     data: "Workout not found"
-    //   });
-    // } else if (containExercise(profile.workouts[workoutIndex].exercises, newExercise)) {
-    //   dispatch({
-    //     type: "setNotification",
-    //     data: "You already have this exercise in your workout list"
-    //   });
-    // } else {
-    //   const workouts = await findWorkoutAddExercise(profile.workouts, workoutIndex, newExercise );
-    //   editProfile(profile.userId, {
-    //     ...profile,
-    //     workouts: workouts
-    //   }).then((response) => {
-    //     dispatch({type: "setProfile", data: response.data});
-    //     dispatch({type: "setNotification", data: "Exercise added to workout"});
-    //   })
-      //dispatch({type: "addExerciseToProfile", data: workouts});
-
-      // editProfile(profile.userId, profile)
-      // .then(() =>
-      //   dispatch({
-      //     type: "setNotification",
-      //     data: "Add exercise successfully!"
-      //   })
-      // )
-      // .catch((err) => {
-      //   console.log(err.message);
-      // })
-    //}
 };
 
 // ***** feature (sprinkle) - Add to Favorite  *********
