@@ -12,19 +12,19 @@ import {
   ListItems,
 } from "../../styled-components/workouts";
 import Divider from "@mui/material/Divider";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from "@mui/material/IconButton";
+import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Menu, MenuItem } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import { Button } from "@mui/material";
 import { ReusableModal } from "../../components/ReusableModal";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
 
-export const EditWorkouts = (props, workouts) => {
+export const EditWorkouts = () => {
   useRedirectUnauthorisedUser();
   const navigate = useNavigate();
   const { store, dispatch } = useGlobalState();
@@ -35,8 +35,6 @@ export const EditWorkouts = (props, workouts) => {
   const id = open ? "simple-popover" : undefined;
   const workoutList = profile.workouts.filter((workout) => workout._id === workoutId)
   const choosePath = ['Add From Popular Exercises', 'Add Customized Exercise'];
-  // const [workoutRemove, setWorkoutRemove] = useState("");
-  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     if (profile){
@@ -63,7 +61,7 @@ export const EditWorkouts = (props, workouts) => {
         size="large"
         color="error"
         sx={{ mr: 5 }}
-        onClick={handleDelete}
+        onClick={handleWorkoutDelete}
       >
          Delete
       </Button>
@@ -78,7 +76,7 @@ export const EditWorkouts = (props, workouts) => {
     </Container>,
   ];
 
-  function handleDelete() {
+  function handleWorkoutDelete() {
     const updatedWorkout = profile.workouts.filter((workout) => workout._id !== workoutId)
     dispatch({type: "setWorkout", data: updatedWorkout})
     dispatch({type: "setNotification", data: "Delete workout successfully!"})
@@ -98,26 +96,31 @@ export const EditWorkouts = (props, workouts) => {
     )
   };
 
-  function editWorkout(workout) {
-    // navigate(`/workouts/${workout.name}`);
+  function editExercise(exercise) {
+
   }
 
-  function confirmationPopup(workout) {
-    // setWorkoutRemove(workout);
-    // handleOpen();
+  function deleteExercise(exercise){
+    const newWorkout = workoutList[0].exercises.filter((el) => el._id !== exercise._id);
+    const listIndex = profile.workouts.findIndex(x => x._id===workoutId);
+    const profileWorkouts = profile.workouts
+    profileWorkouts[listIndex].exercises = newWorkout
+
+    dispatch({type: 'setWorkout', data: profileWorkouts})
+    console.log("the profile workouts are:",profile.workouts)
   }
 
-  function handleRemove(removeWorkoutId) {
-    // const newList = list.filter((workout) => workout.id !== removeWorkoutId);
-    // setList(newList);
-    // handleClose();
-  }
+  // function handleRemove(removeExerciseId) {
+  //   const newList = workoutList[0].exercises.filter((exercise) => exercise.exerciseId !== removeExerciseId);
+  //   // setList(newList);
+  //   handleClose();
+  // }
 
   return (
     <>
       <MainWindow>
         <Container>
-          <Heading>{workoutList[0].name}</Heading>
+          <Heading>{workoutList[0].name}  <Button><EditIcon/></Button></Heading>
           <Container>
             <WorkoutCardStyling>
               <ul
@@ -133,16 +136,10 @@ export const EditWorkouts = (props, workouts) => {
                     <WorkoutList p="10px 0px" ml="20px">
                       {exercise.exerciseId? exercise.exerciseId.name: exercise.customisedName}
                       <IconButton>
-                        {editMode ? (
-                          <RemoveCircleIcon
-                            sx={{ color: "red" }}
-                            onClick={() => confirmationPopup(exercise)}
+                          <EditIcon
+                            onClick={() => editExercise(exercise)}
                           />
-                        ) : (
-                          <ArrowForwardIosIcon
-                            onClick={() => editWorkout(exercise)}
-                          />
-                        )}
+                          <DeleteIcon onClick = {() => deleteExercise(exercise)} style={{marginLeft:"20%", marginRight:"30%"}}/>
                       </IconButton>
                     </WorkoutList>
                     <Divider sx={{ width: "90%" }} />
@@ -185,7 +182,7 @@ export const EditWorkouts = (props, workouts) => {
                   </Typography>
             </Menu>
           </Container>
-          {editMode && (
+          {/* {editMode && (
             <Button
               variant="contained"
               size="large"
@@ -194,7 +191,7 @@ export const EditWorkouts = (props, workouts) => {
             >
               Done
             </Button>
-          )}
+          )} */}
         </Container>
         <br/>
         <Button variant="outlined" color="error" onClick={handleModalOpen} >Delete Workout</Button>

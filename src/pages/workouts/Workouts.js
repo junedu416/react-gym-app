@@ -19,9 +19,7 @@ import {
   WorkoutList,
 } from "../../styled-components/workouts";
 import Divider from "@mui/material/Divider";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import IconButton from "@mui/material/IconButton";
-import { workoutList } from "../../data/workouts-dummy";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -179,7 +177,7 @@ export const Workouts = () => {
                     {workout.exercises.map((exercise) => {
                       return (
                         <Container>
-                          <WorkoutList p="0 5px 0 15px">
+                          <WorkoutList p="0 25px 0 15px">
                           {exercise.exerciseId? <p>{exercise.exerciseId.name}</p>: <p>{exercise.customisedName}</p>}
                             {exercise.sets === null||0 ? null : (
                               <span style={{ display: "flex", width: "30px" }}>
@@ -196,9 +194,6 @@ export const Workouts = () => {
                               </span>
                             )}
                             {exercise.distance == null||0 ? null: <p>{exercise.distance}</p>}   
-                            <IconButton>
-                              <ArrowForwardIosIcon />
-                            </IconButton>
                           </WorkoutList>
                           <Divider sx={{ width: "90%" }} />
                         </Container>

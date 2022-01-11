@@ -4,7 +4,7 @@ import { flexbox, ml, p, shadow } from "./mixins";
 export const WorkoutCardStyling = styled.div`
   ${flexbox};
   ${shadow};
-  min-width: ${props => props.minWidth ? props.minWidth : "300px"};
+  min-width: ${props => props.minWidth ? props.minWidth : "350px"};
   min-height: ${props => props.minHeight ? props.minHeight : "" };
   border: 1px solid rgba(150, 150, 150, 0.25);
   border-radius: 5px;
