@@ -29,7 +29,7 @@ const globalReducer = (state, action) => {
                 }  
             }
 
-        case "deleteWorkoutout":
+        case "setWorkout":
             return {
                 ...state,
                 profile: {
