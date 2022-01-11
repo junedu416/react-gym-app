@@ -7,7 +7,9 @@ import {
   SmallHeading,
 } from "../../styled-components";
 import { useGlobalState } from "../../config/globalStore.js";
+import CheckInWidget from "../../widgets/CheckInWidget.js";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks.js";
+
 
 export const Overview = (props) => {
   useRedirectUnauthorisedUser();
@@ -22,7 +24,7 @@ export const Overview = (props) => {
           overview
         </SmallHeading>
         <Grid>
-          <CardStyle />
+          <CardStyle><CheckInWidget /></CardStyle>
           <CardStyle />
           <CardStyle />
           <CardStyle />

@@ -31,6 +31,13 @@ export const Container = styled.div`
   ${(props) => props.w && w}
 `;
 
+export const Widget = styled(Container)`
+  max-width: 300px;
+  max-height: 300px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+`
+
 export const MainWindow = styled.div`
   ${flexbox};
   ${vcentered};
