@@ -29,7 +29,7 @@ export const Exercises = () => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [exerciseList, setExerciseList] = useState([]);
-  const [exerciseIndex, setExerciseIndex] = useState(0);
+  const [exerciseIndex, setExerciseIndex] = useState(null);
   const [workoutIndex, setWorkoutIndex] = useState(null);
   const { store, dispatch } = useGlobalState();
   const { profile} = store;
@@ -124,6 +124,7 @@ export const Exercises = () => {
   };
 
   const findWorkoutAddExercise = async (workouts, i, exercise) => {
+    console.log("exercise being added", exercise);
     workouts[i].exercises.push(exercise)
     console.log("workout update:", workouts)
     return workouts
