@@ -14,6 +14,7 @@ import { ExerciseCardStyling } from "../../styled-components/exercises";
 import { useGlobalState } from "../../config/globalStore";
 import { getAllExercises } from "../../services/exerciseServices";
 import { editProfile } from "../../services/profileServices";
+import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 
 
 import Typography from "@mui/material/Typography";
@@ -24,6 +25,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import BasicButton from "../../components/buttons/BasicButton";
 
 export const Exercises = () => {
+  useRedirectUnauthorisedUser();
   // const [selected, setSelected] = useState(false);
 
   const [display, setDisplay] = useState(true);

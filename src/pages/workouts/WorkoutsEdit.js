@@ -20,8 +20,10 @@ import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { Button } from "@mui/material";
 import { workoutList } from "../../data/workouts-dummy";
 import { ReusableModal } from "../../components/ReusableModal";
+import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 
 export const EditWorkouts = (props, workouts) => {
+  useRedirectUnauthorisedUser();
   const navigate = useNavigate();
   const [editMode, setEditMode] = useState(false);
   const [list, setList] = useState(workoutList);

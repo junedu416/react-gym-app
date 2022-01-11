@@ -26,11 +26,13 @@ import { ViewReports } from "./ViewReports";
 import { Collapse, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { ReusableAlert } from "../../components/ReusableAlert";
+import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 
 // JUNE D 20/12/2021: UploadIcon has been removed. Can implement the function after MVP is done
 // JUNE D 20/12/2021: There is no back-end routes for General Inquiry. Can implement the function after MVP is done
 
 export const Reporting = () => {
+  useRedirectUnauthorisedUser();
   const { store } = useGlobalState();
   const { profile } = store;
   const navigate = useNavigate();
@@ -41,6 +43,7 @@ export const Reporting = () => {
   const [message, setMessage] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [isFilePicked, setIsFilePicked] = useState(false);
+
 
   const uploadImage = (event) => {
     setSelectedFile(event.target.files[0]);

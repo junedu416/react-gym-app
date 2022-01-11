@@ -13,8 +13,10 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 
 export const Checkins = () => {
+  useRedirectUnauthorisedUser();
 
   const {store, dispatch} = useGlobalState();
   const {profile} = store;

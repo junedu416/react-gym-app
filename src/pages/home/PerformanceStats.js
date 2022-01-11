@@ -13,8 +13,10 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 
 export const PerformanceStats = (props) => {
+  useRedirectUnauthorisedUser();
   const {store} = useGlobalState();
   const {profile} = store;
   let workouts;

@@ -19,8 +19,10 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import IconButton from "@mui/material/IconButton";
 import { workoutList } from "../../data/workouts-dummy";
 import BasicButton from "../../components/buttons/BasicButton";
+import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 
 export const Workouts = (props) => {
+  useRedirectUnauthorisedUser();
   const navigate = useNavigate();
 
   const [activeWorkout, setActiveWorkout] = useState("");
