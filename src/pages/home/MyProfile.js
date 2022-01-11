@@ -11,7 +11,11 @@ import {
 } from "../../styled-components/";
 import BasicButton from "../../components/buttons/BasicButton";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
+import { ProfileImage } from "../../styled-components/profile";
 // import DropZone from "../../components/DropZone";
+
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export const MyProfile = (props) => {
   useRedirectUnauthorisedUser();
@@ -24,18 +28,23 @@ export const MyProfile = (props) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isFilePicked, setIsFilePicked] = useState(false);
 
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+
   const selectImage = (event) => {
     setSelectedFile(event.target.files[0]);
     setIsFilePicked(true);
   };
 
+
   return (
     <MainWindow>
       <Heading>My Profile</Heading>
-      <Container>
+      <Container direction={ matches ? "column" : "row" }>
         <div className="content">{/* <DropZone /> */}</div>
 
         <Container>
+          <ProfileImage />
           <BasicButton
             text="Upload"
             startIcon={<PhotoCameraIcon />}
