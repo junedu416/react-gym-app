@@ -137,7 +137,18 @@ export const Sidebar = () => {
     if (profile) {
       temp = SidebarData.filter((e) => e.title[1] !== "Register" && e.title[1] !== "Sign In")
     } else {
-      temp = SidebarData.filter((e) => e.title[1] !== "Sign Out")
+      temp = SidebarData.filter((e) => 
+        e.title[1] !== "Sign Out" &&
+        e.title[1] !== "Overview" && 
+        e.title[1] !== "Check-ins" &&
+        e.title[1] !== "Performance Stats" &&
+        e.title[1] !== "Events" &&
+        e.title[1] !== "Workouts" && 
+        e.title[1] !== "Profile" &&
+        e.title[1] !== "Leaderboards" &&
+        e.title[1] !== "Reports" &&
+        e.title[1] !== "Our Team"
+      )
     }
     setSbData(temp);
     console.log("changing sidebardata");

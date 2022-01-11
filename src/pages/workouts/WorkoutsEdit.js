@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import {
   Container,
@@ -14,24 +14,48 @@ import {
 import Divider from "@mui/material/Divider";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import { Menu, MenuItem } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import EditButton from "../../components/buttons/Edit";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import { Button } from "@mui/material";
-import { workoutList } from "../../data/workouts-dummy";
 import { ReusableModal } from "../../components/ReusableModal";
+import { useGlobalState } from "../../config/globalStore";
+import { editProfile } from "../../services/profileServices";
+import { getUserProfile } from "../../services/userServices";
 
-export const EditWorkouts = (props, workouts) => {
+export const EditWorkouts = () => {
   const navigate = useNavigate();
+  
+  const { store, dispatch } = useGlobalState();
+  const { profile, workoutId } = store;
+  const [modalOpen, setModalOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+  const workoutList = profile.workouts.filter((workout) => workout._id === workoutId)
+  const choosePath = ['Add From Popular Exercises', 'Add Customized Exercise'];
+  // const [workoutRemove, setWorkoutRemove] = useState("");
   const [editMode, setEditMode] = useState(false);
-  const [list, setList] = useState(workoutList);
-  const [workoutRemove, setWorkoutRemove] = useState("");
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  useEffect(() => {
+    if (profile){
+      editProfile(profile.userId, profile)
+      .catch((err) => {
+        console.log(err.message);
+      })
+    }
+  },[profile])
 
-  const modalText = `Are you sure you want to delete ${workoutRemove.name}?`;
+  const handleModalOpen = () => {
+    setModalOpen(true);
+  };
+
+  const handleClose = () => {
+    setModalOpen(false);
+  };
+
+  const modalText = `Are you sure you want to delete this workout?`;
   const actionButtons = [
     <Container mt="40px" direction="row">
       <Button
@@ -39,9 +63,9 @@ export const EditWorkouts = (props, workouts) => {
         size="large"
         color="error"
         sx={{ mr: 5 }}
-        onClick={() => handleRemove(workoutRemove.id)}
+        onClick={handleDelete}
       >
-        Delete
+         Delete
       </Button>
       <Button
         variant="contained"
@@ -54,36 +78,46 @@ export const EditWorkouts = (props, workouts) => {
     </Container>,
   ];
 
-  function handleEdit() {
-    setEditMode(!editMode);
+  function handleDelete() {
+    const updatedWorkout = profile.workouts.filter((workout) => workout._id !== workoutId)
+    dispatch({type: "deleteWorkoutout", data: updatedWorkout})
+    dispatch({type: "setNotification", data: "Delete workout successfully!"})
+    navigate("/workouts")
   }
 
+  function handleAddExerciseBtn(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  const handleMenuClose = (event) => {
+    setAnchorEl(null);
+    if (event.target.getAttribute('value') === choosePath[0]){
+      navigate("/exercises")
+    } else (
+      navigate("/workouts/new")
+    )
+  };
+
   function editWorkout(workout) {
-    navigate(`/workouts/${workout.name}`);
+    // navigate(`/workouts/${workout.name}`);
   }
 
   function confirmationPopup(workout) {
-    setWorkoutRemove(workout);
-    handleOpen();
+    // setWorkoutRemove(workout);
+    // handleOpen();
   }
 
   function handleRemove(removeWorkoutId) {
-    const newList = list.filter((workout) => workout.id !== removeWorkoutId);
-    setList(newList);
-    handleClose();
-  }
-
-  function handleClick() {
-    navigate("/workouts/new");
+    // const newList = list.filter((workout) => workout.id !== removeWorkoutId);
+    // setList(newList);
+    // handleClose();
   }
 
   return (
     <>
       <MainWindow>
         <Container>
-          <Heading>Workouts</Heading>
-
-          <EditButton btnFunction={handleEdit} />
+          <Heading>{workoutList[0].name}</Heading>
           <Container>
             <WorkoutCardStyling>
               <ul
@@ -94,19 +128,19 @@ export const EditWorkouts = (props, workouts) => {
                   margin: 0,
                 }}
               >
-                {list.map((workout) => (
+                {workoutList[0].exercises.map((exercise) => (
                   <ListItems>
                     <WorkoutList p="10px 0px" ml="20px">
-                      {workout.name}
+                      {exercise.exerciseId.name ?? ""}
                       <IconButton>
                         {editMode ? (
                           <RemoveCircleIcon
                             sx={{ color: "red" }}
-                            onClick={() => confirmationPopup(workout)}
+                            onClick={() => confirmationPopup(exercise)}
                           />
                         ) : (
                           <ArrowForwardIosIcon
-                            onClick={() => editWorkout(workout)}
+                            onClick={() => editWorkout(exercise)}
                           />
                         )}
                       </IconButton>
@@ -122,11 +156,34 @@ export const EditWorkouts = (props, workouts) => {
                 mt="0"
                 p="20px 0"
                 justify="flex-start"
-                onClick={handleClick}
+                onClick={handleAddExerciseBtn}
               >
-                <AddCircleIcon sx={{ mr: 1 }} /> Add Workout
+                <AddCircleIcon sx={{ mr: 1 }} /> Add Exercise
               </TextLink>
             </WorkoutCardStyling>
+            <Menu
+                  id={id}
+                  open={open}
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                >
+                  <Typography sx={{ p: 2, width: "300px" }}>
+                    {choosePath.map((el, i) => (
+                      <MenuItem
+                        key={i}
+                        id={i}
+                        value = {el}
+                        onClick={handleMenuClose}
+                      >
+                        <AddCircleIcon sx={{ mr: 1 }} /> {el}
+                      </MenuItem>
+                  ))}
+                  </Typography>
+            </Menu>
           </Container>
           {editMode && (
             <Button
@@ -139,12 +196,13 @@ export const EditWorkouts = (props, workouts) => {
             </Button>
           )}
         </Container>
+        <br/>
+        <Button variant="outlined" color="error" onClick={handleModalOpen} >Delete Workout</Button>
       </MainWindow>
       <ReusableModal
         title={modalText}
-        open={open}
+        open={modalOpen}
         handleClose={handleClose}
-        // children={<Button variant="contained" size="large" color="primary">Yes</Button>}
         children={actionButtons}
       />
     </>

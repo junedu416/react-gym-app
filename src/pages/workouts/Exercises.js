@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router";
 import {
   Container,
   Grid,
   Heading,
   MainWindow,
-  SmallHeading,
-  StyledAlert,
-  Text,
-  TextLink,
+  SmallHeading
 } from "../../styled-components";
 import { ExerciseCardStyling } from "../../styled-components/exercises";
 import { useGlobalState } from "../../config/globalStore";
@@ -17,24 +15,24 @@ import { editProfile } from "../../services/profileServices";
 
 
 import Typography from "@mui/material/Typography";
-import { Collapse, IconButton, Menu, MenuItem } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import { Menu, MenuItem } from "@mui/material";
 // import ToggleButton from "@mui/material/ToggleButton";
 // import { Star, StarOutline } from "@mui/icons-material";
 import BasicButton from "../../components/buttons/BasicButton";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+
 
 export const Exercises = () => {
   // const [selected, setSelected] = useState(false);
 
-  const [display, setDisplay] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [exerciseList, setExerciseList] = useState([]);
   const [exerciseIndex, setExerciseIndex] = useState(0);
-  const [workoutIndex, setWorkoutIndex] = useState(0);
+  const [workoutIndex, setWorkoutIndex] = useState(null);
   const { store, dispatch } = useGlobalState();
   const { profile} = store;
   const initialValues = {
-    _id: null,
+    exerciseId: null,
     sets: null,
     reps: null,
     weight: null,
@@ -43,14 +41,43 @@ export const Exercises = () => {
 
   const [newExercise, setNewExercise] = useState(initialValues);
 
+  useEffect(async () => {
+    if (workoutIndex !== null) {
+      if(!profile.workouts[workoutIndex]){
+        dispatch({
+          type: "setNotification",
+          data: "Workout not found"
+        });
+      } else if (containExercise(profile.workouts[workoutIndex].exercises, newExercise)) {
+        dispatch({
+          type: "setNotification",
+          data: "You already have this exercise in your workout list"
+        });
+      } else {
+        const workouts = await findWorkoutAddExercise(profile.workouts, workoutIndex, newExercise );
+        editProfile(profile.userId, {
+          ...profile,
+          workouts: workouts
+        }).then((response) => {
+          dispatch({type: "setProfile", data: response.data});
+          dispatch({type: "setNotification", data: "Exercise added to workout"});
+        })
+      }
+    }
+  }, [workoutIndex])
 
   useEffect( async() => {
-     const exercises = await getAllExercises()
-     await setExerciseList(exercises)
+
+    const  fetchExercises = async () => {
+      const exercises = await getAllExercises();
+      setExerciseList(exercises)
+    }
+
+    fetchExercises().catch(console.error);
+
      if (exerciseList.length !==0 ){
-      setNewExercise({
-            ...newExercise,
-            _id: exerciseList[exerciseIndex]._id,
+        setNewExercise({
+            exerciseId: exerciseList[exerciseIndex]._id,
             sets: exerciseList[exerciseIndex].defaultSets
               ? exerciseList[exerciseIndex].defaultSets
               : null,
@@ -64,8 +91,8 @@ export const Exercises = () => {
               ? exerciseList[exerciseIndex].defaultDistance
               : null
           })
-     }
-  }, [exerciseIndex]);
+      }
+  }, [exerciseIndex, workoutIndex]);
 
   const handleBtnClick = (event, index) => {
     setAnchorEl(event.currentTarget);
@@ -81,14 +108,11 @@ export const Exercises = () => {
   const id = open ? "simple-popover" : undefined;
 
   const navigate = useNavigate();
-
-  const navigateToLogin = () => {
-    navigate("/auth/login");
-  };
   
   const containExercise = (list, newObj) => {
     for(var i = 0; i < list.length; i++) {
-      if (list[i]._id === newObj._id) {
+      if (list[i].exerciseId === newObj.exerciseId) {
+        console.log('workoutIndex:', i)
         return true
       }
     }
@@ -97,41 +121,51 @@ export const Exercises = () => {
 
   const findWorkoutAddExercise = async (workouts, i, exercise) => {
     workouts[i].exercises.push(exercise)
+    console.log("workout update:", workouts)
     return workouts
   }
 
-  
-  //this function adds exercise to profile workout array
   const handleAddExercise = async (event) => {
 
     //select workout list
     setWorkoutIndex(Number(event.target.getAttribute("id")))
 
-    console.log("profile :",profile)    
 
-    if (containExercise(profile.workouts[workoutIndex].exercises, newExercise)) {
-      dispatch({
-        type: "setNotification",
-        data: "You already have this exercise in your workout list"
-      });
-    } else {
-      const workouts = await findWorkoutAddExercise(profile.workouts, workoutIndex, newExercise )
-      dispatch({type: "addWorkoutToProfile", data: workouts});
+    // if(!profile.workouts[workoutIndex]){
+    //   dispatch({
+    //     type: "setNotification",
+    //     data: "Workout not found"
+    //   });
+    // } else if (containExercise(profile.workouts[workoutIndex].exercises, newExercise)) {
+    //   dispatch({
+    //     type: "setNotification",
+    //     data: "You already have this exercise in your workout list"
+    //   });
+    // } else {
+    //   const workouts = await findWorkoutAddExercise(profile.workouts, workoutIndex, newExercise );
+    //   editProfile(profile.userId, {
+    //     ...profile,
+    //     workouts: workouts
+    //   }).then((response) => {
+    //     dispatch({type: "setProfile", data: response.data});
+    //     dispatch({type: "setNotification", data: "Exercise added to workout"});
+    //   })
+      //dispatch({type: "addExerciseToProfile", data: workouts});
 
-      editProfile(profile.userId, profile)
-      .then(() =>
-        dispatch({
-          type: "setNotification",
-          data: "Add exercise successfully!"
-        })
-      )
-      .catch((err) => {
-        console.log(err.message);
-      })
-    }
+      // editProfile(profile.userId, profile)
+      // .then(() =>
+      //   dispatch({
+      //     type: "setNotification",
+      //     data: "Add exercise successfully!"
+      //   })
+      // )
+      // .catch((err) => {
+      //   console.log(err.message);
+      // })
+    //}
 };
 
-
+// ***** feature (sprinkle) - Add to Favorite  *********
   // const handleToggle = (selected) => {
   //   setSelected(!selected);
   //   if (selected === true) {
@@ -146,34 +180,6 @@ export const Exercises = () => {
 
   return (
     <MainWindow>
-      {!profile && (
-        <Collapse in={display}>
-          <StyledAlert
-            severity="error"
-            action={
-              <IconButton
-                aria-label="close"
-                color="inherit"
-                size="small"
-                onClick={() => {
-                  setDisplay(false);
-                }}
-              >
-                <CloseIcon />
-              </IconButton>
-            }
-          >
-            <Text>
-              Please
-              <TextLink mt="0" p="0 6px" onClick={navigateToLogin}>
-                login
-              </TextLink>
-              to view exercises
-            </Text>
-          </StyledAlert>
-        </Collapse>
-      )}
-
       <Heading>Select Exercise</Heading>
       {profile && (
         <Container>
@@ -193,7 +199,7 @@ export const Exercises = () => {
                     <SmallHeading style={{ fontSize: "1.3rem" }}>
                       {exercise.name}
                     </SmallHeading>
-
+            {/* ***** feature (sprinkle) - Add to Favorite   ********* */}
                     {/* <ToggleButton
                       disableRipple={true}
                       // value="check"     // Don't know if we need this or not.. 
@@ -230,14 +236,18 @@ export const Exercises = () => {
                     horizontal: "left",
                   }}
                 >
-                  <Typography sx={{ p: 2, width: "150px" }}>
-                    {profile.workouts.map((el, i) => (
+                  <Typography sx={{ p: 2, width: "280px" }}>
+                  {profile.workouts.length === 0 && <p>
+                  You don't have a workout list yet. <br/>
+                    <Link to="/workouts">Go back</Link> to create a workout list
+                  </p>}
+                    {profile.workouts && profile.workouts.map((el, i) => (
                       <MenuItem
                         key={i}
                         id={i}
                         onClick={handleAddExercise}
                       >
-                        {el.name}
+                        <AddCircleIcon sx={{ mr: 1 }} /> {el.name}
                       </MenuItem>
                   ))}
                   </Typography>
@@ -250,4 +260,3 @@ export const Exercises = () => {
     </MainWindow>
   );
 };
-

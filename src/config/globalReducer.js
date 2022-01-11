@@ -20,13 +20,36 @@ const globalReducer = (state, action) => {
                 notificationMsg: action.data
             }
 
-        case "addWorkoutToProfile":  
+        case "addExerciseToProfile":
             return {
                 ...state,
                 profile: {
                     ...state.profile,
                     workouts: action.data
                 }  
+            }
+
+        case "deleteWorkoutout":
+            return {
+                ...state,
+                profile: {
+                    ...state.profile,
+                    workouts: action.data
+                }  
+            }
+
+        case "addNewWorkout":  
+            return {
+                ...state,
+                profile: {
+                    ...state.profile,
+                    workouts:[...state.profile.workouts, action.data]
+                }  
+            }
+        case "selectWorkout":
+            return {
+                ...state,
+                workoutId: action.data
             }
 
         default: 

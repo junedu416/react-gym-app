@@ -14,8 +14,11 @@ import { MobileDatePicker, MobileTimePicker } from "@mui/lab";
 import { gymClasses } from "../../data/classes";
 import BasicButton from '../../components/buttons/BasicButton';
 import { useNavigate } from 'react-router-dom';
+import { useRedirectNonStaffMembers } from '../../config/customHooks';
+
 
 export const EventForm = ({submitFunction, event, eventId, buttonText}) => {
+    useRedirectNonStaffMembers();
     const navigate = useNavigate();
     const {store} = useGlobalState();
     const {profile} = store;
@@ -29,6 +32,7 @@ export const EventForm = ({submitFunction, event, eventId, buttonText}) => {
         spotsAvailable: null,
     }
     const [formValues, setFormValues] = useState(initialValues)
+
 
     useEffect(() => {
         if(event) {
