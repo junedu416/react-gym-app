@@ -178,7 +178,7 @@ export const Workouts = () => {
                       return (
                         <Container>
                           <WorkoutList p="0 5px 0 15px">
-                            <p>{exercise.exerciseId && exercise.exerciseId.name}</p>
+                            {exercise.exerciseId && <p>{exercise.exerciseId.name}</p>}
                             {exercise.sets === null ? null : (
                               <span style={{ display: "flex", width: "30px" }}>
                                 <p>{exercise.sets}</p>

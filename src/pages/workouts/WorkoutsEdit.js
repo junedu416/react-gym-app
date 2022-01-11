@@ -22,6 +22,7 @@ import { Button } from "@mui/material";
 import { ReusableModal } from "../../components/ReusableModal";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
+import { getUserProfile } from "../../services/userServices";
 
 export const EditWorkouts = () => {
   const navigate = useNavigate();
@@ -130,7 +131,7 @@ export const EditWorkouts = () => {
                 {workoutList[0].exercises.map((exercise) => (
                   <ListItems>
                     <WorkoutList p="10px 0px" ml="20px">
-                      {exercise.name}
+                      {exercise.exerciseId.name ?? ""}
                       <IconButton>
                         {editMode ? (
                           <RemoveCircleIcon

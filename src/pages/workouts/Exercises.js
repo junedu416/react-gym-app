@@ -28,7 +28,7 @@ export const Exercises = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [exerciseList, setExerciseList] = useState([]);
   const [exerciseIndex, setExerciseIndex] = useState(0);
-  const [workoutIndex, setWorkoutIndex] = useState(0);
+  const [workoutIndex, setWorkoutIndex] = useState(null);
   const { store, dispatch } = useGlobalState();
   const { profile} = store;
   const initialValues = {
@@ -41,6 +41,30 @@ export const Exercises = () => {
 
   const [newExercise, setNewExercise] = useState(initialValues);
 
+  useEffect(async () => {
+    if (workoutIndex !== null) {
+      if(!profile.workouts[workoutIndex]){
+        dispatch({
+          type: "setNotification",
+          data: "Workout not found"
+        });
+      } else if (containExercise(profile.workouts[workoutIndex].exercises, newExercise)) {
+        dispatch({
+          type: "setNotification",
+          data: "You already have this exercise in your workout list"
+        });
+      } else {
+        const workouts = await findWorkoutAddExercise(profile.workouts, workoutIndex, newExercise );
+        editProfile(profile.userId, {
+          ...profile,
+          workouts: workouts
+        }).then((response) => {
+          dispatch({type: "setProfile", data: response.data});
+          dispatch({type: "setNotification", data: "Exercise added to workout"});
+        })
+      }
+    }
+  }, [workoutIndex])
 
   useEffect( async() => {
 
@@ -107,31 +131,38 @@ export const Exercises = () => {
     setWorkoutIndex(Number(event.target.getAttribute("id")))
 
 
-    if(!profile.workouts[workoutIndex]){
-      dispatch({
-        type: "setNotification",
-        data: "Workout not found"
-      });
-    } else if (containExercise(profile.workouts[workoutIndex].exercises, newExercise)) {
-      dispatch({
-        type: "setNotification",
-        data: "You already have this exercise in your workout list"
-      });
-    } else {
-      const workouts = await findWorkoutAddExercise(profile.workouts, workoutIndex, newExercise )
-      dispatch({type: "addExerciseToProfile", data: workouts});
+    // if(!profile.workouts[workoutIndex]){
+    //   dispatch({
+    //     type: "setNotification",
+    //     data: "Workout not found"
+    //   });
+    // } else if (containExercise(profile.workouts[workoutIndex].exercises, newExercise)) {
+    //   dispatch({
+    //     type: "setNotification",
+    //     data: "You already have this exercise in your workout list"
+    //   });
+    // } else {
+    //   const workouts = await findWorkoutAddExercise(profile.workouts, workoutIndex, newExercise );
+    //   editProfile(profile.userId, {
+    //     ...profile,
+    //     workouts: workouts
+    //   }).then((response) => {
+    //     dispatch({type: "setProfile", data: response.data});
+    //     dispatch({type: "setNotification", data: "Exercise added to workout"});
+    //   })
+      //dispatch({type: "addExerciseToProfile", data: workouts});
 
-      editProfile(profile.userId, profile)
-      .then(() =>
-        dispatch({
-          type: "setNotification",
-          data: "Add exercise successfully!"
-        })
-      )
-      .catch((err) => {
-        console.log(err.message);
-      })
-    }
+      // editProfile(profile.userId, profile)
+      // .then(() =>
+      //   dispatch({
+      //     type: "setNotification",
+      //     data: "Add exercise successfully!"
+      //   })
+      // )
+      // .catch((err) => {
+      //   console.log(err.message);
+      // })
+    //}
 };
 
 // ***** feature (sprinkle) - Add to Favorite  *********
@@ -229,4 +260,3 @@ export const Exercises = () => {
     </MainWindow>
   );
 };
-
