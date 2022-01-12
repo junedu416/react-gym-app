@@ -16,7 +16,7 @@ const Notification = () => {
         if(notificationMsg) {
             setTimeout(() => {
                 dispatch({type: 'setNotification', data: ""})
-            }, 10000)
+            }, 4000)
         }
     }, [notificationMsg, dispatch])
 
@@ -27,7 +27,8 @@ const Notification = () => {
                 notificationMsg 
                 && 
                 <>
-                <h3>{notificationMsg}</h3>
+                <span></span>
+                <h3 style={{ zIndex: 20 }}>{notificationMsg}</h3>
                 <button onClick={handleClick}><CancelIcon style={{color: "white"}}/></button>
                 </>
             }

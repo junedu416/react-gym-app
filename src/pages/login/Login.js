@@ -19,11 +19,13 @@ import { RegisterLink, ResetPasswordText } from "../../components/RegisterLink";
 import LoginIcon from "@mui/icons-material/Login";
 import BasicButton from "../../components/buttons/BasicButton";
 import { LoadButton } from "../../components/buttons/LoadButton";
+import { ReusableAlert } from "../../components/ReusableAlert";
 
 export const SignIn = () => {
   const [rememberMe, setRememberMe] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const { dispatch } = useGlobalState();
   const navigate = useNavigate();
@@ -99,7 +101,15 @@ export const SignIn = () => {
 
   return (
     <MainWindow verticalMiddle>
-      {errorMessage && <p>{errorMessage}</p>}
+      {errorMessage && (
+        <ReusableAlert
+          text={errorMessage}
+          open={open}
+          btnFunction={() => {
+            setOpen(false);
+          }}
+        />
+      )}
       <Heading>Login</Heading>
       <form onSubmit={handleSubmit}>
         <Container>
@@ -156,11 +166,12 @@ export const SignIn = () => {
 
           <LoadButton
             type="submit"
-            text={ loading ? "Logging In" : "Sign In"}
+            text={loading ? "Logging In" : "Sign In"}
             sx={{ my: 0 }}
             startIcon={<LoginIcon />}
             loading={loading}
             loadPosition="start"
+            onClick={() => setOpen(true)}
           />
 
           <p style={{ marginTop: "50px", display: "flex" }}>

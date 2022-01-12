@@ -16,8 +16,9 @@ import BasicButton from '../../components/buttons/BasicButton';
 import { useNavigate } from 'react-router-dom';
 import { useRedirectNonStaffMembers } from '../../config/customHooks';
 
-export const EventForm = ({submitFunction, event, eventId}) => {
-    useRedirectNonStaffMembers();
+
+export const EventForm = ({submitFunction, event, eventId, buttonText}) => {
+    useRedirectNonStaffMembers('/events');
     const navigate = useNavigate();
     const {store} = useGlobalState();
     const {profile} = store;
@@ -227,7 +228,7 @@ export const EventForm = ({submitFunction, event, eventId}) => {
                 onChange={handleImageUpload}/>
               </Container>
 
-              <SubmitButton />
+              <BasicButton text={ buttonText ? buttonText : "Submit"} type="submit" />
             </>
           )}
           <BasicButton text="Cancel" color="error" btnFunction={goBack} />

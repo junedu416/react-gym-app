@@ -3,11 +3,14 @@ import { CardStyle } from "../../styled-components/dashboard.js";
 import {
   Container,
   Grid,
+  Heading,
   MainWindow,
   SmallHeading,
 } from "../../styled-components";
 import { useGlobalState } from "../../config/globalStore.js";
+import CheckInWidget from "../../widgets/CheckInWidget.js";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks.js";
+
 
 export const Overview = (props) => {
   useRedirectUnauthorisedUser();
@@ -15,14 +18,13 @@ export const Overview = (props) => {
   const { profile } = store;
 
   return (
-    <MainWindow verticalMiddle>
+    <MainWindow>
       <Container>
-        <SmallHeading>
-          Welcome back {profile ? profile.firstName : "user"}, here's your
-          overview
-        </SmallHeading>
+        <Heading>
+          Welcome back, {profile ? profile.firstName : "user"}
+        </Heading>
         <Grid>
-          <CardStyle />
+          <CardStyle><CheckInWidget /></CardStyle>
           <CardStyle />
           <CardStyle />
           <CardStyle />

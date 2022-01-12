@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router";
 import {
@@ -29,7 +29,7 @@ export const Exercises = () => {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [exerciseList, setExerciseList] = useState([]);
-  const [exerciseIndex, setExerciseIndex] = useState(0);
+  const [exerciseIndex, setExerciseIndex] = useState(null);
   const [workoutIndex, setWorkoutIndex] = useState(null);
   const { store, dispatch } = useGlobalState();
   const { profile} = store;
@@ -43,9 +43,9 @@ export const Exercises = () => {
 
   const [newExercise, setNewExercise] = useState(initialValues);
 
-  useEffect(async () => {
-    if (workoutIndex !== null) {
-      if(!profile.workouts[workoutIndex]){
+  const addExerciseToWorkout = useCallback(async (workoutIndex) => {
+    console.log("useCallback called. workoutIndex is", workoutIndex)
+    if(!profile.workouts[workoutIndex]){
         dispatch({
           type: "setNotification",
           data: "Workout not found"
@@ -65,36 +65,47 @@ export const Exercises = () => {
           dispatch({type: "setNotification", data: "Exercise added to workout"});
         })
       }
+    
+  }, [profile, dispatch, newExercise])
+
+  useEffect(async () => {
+    console.log("use effect running: workoutIndex", workoutIndex)
+    if (workoutIndex !== null) {
+      console.log("inside first if")
+      addExerciseToWorkout(workoutIndex);
     }
   }, [workoutIndex])
 
-  useEffect( async() => {
+  useEffect( async() => {    
+    if (exerciseList.length !==0 ){
+      setNewExercise({
+          exerciseId: exerciseList[exerciseIndex]._id,
+          sets: exerciseList[exerciseIndex].defaultSets
+            ? exerciseList[exerciseIndex].defaultSets
+            : null,
+          reps: exerciseList[exerciseIndex].defaultReps
+            ? exerciseList[exerciseIndex].defaultReps
+            : null,
+          weight: exerciseList[exerciseIndex].defaultWeight
+            ? exerciseList[exerciseIndex].defaultWeight
+            : null,
+          distance: exerciseList[exerciseIndex].defaultDistance
+            ? exerciseList[exerciseIndex].defaultDistance
+            : null
+        })
+    }
+  }, [exerciseIndex]);
 
+  useEffect(() => {
     const  fetchExercises = async () => {
       const exercises = await getAllExercises();
       setExerciseList(exercises)
     }
-
-    fetchExercises().catch(console.error);
-
-     if (exerciseList.length !==0 ){
-        setNewExercise({
-            exerciseId: exerciseList[exerciseIndex]._id,
-            sets: exerciseList[exerciseIndex].defaultSets
-              ? exerciseList[exerciseIndex].defaultSets
-              : null,
-            reps: exerciseList[exerciseIndex].defaultReps
-              ? exerciseList[exerciseIndex].defaultReps
-              : null,
-            weight: exerciseList[exerciseIndex].defaultWeight
-              ? exerciseList[exerciseIndex].defaultWeight
-              : null,
-            distance: exerciseList[exerciseIndex].defaultDistance
-              ? exerciseList[exerciseIndex].defaultDistance
-              : null
-          })
-      }
-  }, [exerciseIndex, workoutIndex]);
+    if(exerciseList.length === 0) {
+      console.log("fetching exercise list from backend")
+      fetchExercises().catch(console.error);
+    }
+  }, [exerciseList])
 
   const handleBtnClick = (event, index) => {
     setAnchorEl(event.currentTarget);
@@ -113,7 +124,7 @@ export const Exercises = () => {
   
   const containExercise = (list, newObj) => {
     for(var i = 0; i < list.length; i++) {
-      if (list[i].exerciseId === newObj.exerciseId) {
+      if (list[i].exerciseId._id === newObj.exerciseId) {
         console.log('workoutIndex:', i)
         return true
       }
@@ -122,50 +133,25 @@ export const Exercises = () => {
   };
 
   const findWorkoutAddExercise = async (workouts, i, exercise) => {
+    console.log("exercise being added", exercise);
     workouts[i].exercises.push(exercise)
     console.log("workout update:", workouts)
     return workouts
   }
 
+
   const handleAddExercise = async (event) => {
-
+    console.log("button clicked")
     //select workout list
-    setWorkoutIndex(Number(event.target.getAttribute("id")))
+    if(Number(event.target.getAttribute("id")) !== workoutIndex){
+      setWorkoutIndex(Number(event.target.getAttribute("id")))
+    } else {
+      console.log("workoutIndex not changed")
+      addExerciseToWorkout(workoutIndex);
+    }
 
-
-    // if(!profile.workouts[workoutIndex]){
-    //   dispatch({
-    //     type: "setNotification",
-    //     data: "Workout not found"
-    //   });
-    // } else if (containExercise(profile.workouts[workoutIndex].exercises, newExercise)) {
-    //   dispatch({
-    //     type: "setNotification",
-    //     data: "You already have this exercise in your workout list"
-    //   });
-    // } else {
-    //   const workouts = await findWorkoutAddExercise(profile.workouts, workoutIndex, newExercise );
-    //   editProfile(profile.userId, {
-    //     ...profile,
-    //     workouts: workouts
-    //   }).then((response) => {
-    //     dispatch({type: "setProfile", data: response.data});
-    //     dispatch({type: "setNotification", data: "Exercise added to workout"});
-    //   })
-      //dispatch({type: "addExerciseToProfile", data: workouts});
-
-      // editProfile(profile.userId, profile)
-      // .then(() =>
-      //   dispatch({
-      //     type: "setNotification",
-      //     data: "Add exercise successfully!"
-      //   })
-      // )
-      // .catch((err) => {
-      //   console.log(err.message);
-      // })
-    //}
 };
+
 
 // ***** feature (sprinkle) - Add to Favorite  *********
   // const handleToggle = (selected) => {
