@@ -38,6 +38,12 @@ export const mt = (props) => {
   `;
 };
 
+export const mb = (props) => {
+  return `
+    margin-bottom: ${props.mb ? props.mb : "0" };
+  `;
+};
+
 export const ml = (props) => {
   return `
     margin-left: ${props.ml ? props.ml : "0" };

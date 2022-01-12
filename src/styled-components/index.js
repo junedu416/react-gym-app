@@ -13,6 +13,7 @@ import {
   m,
   w,
   mr,
+  mb,
 } from "./mixins";
 import { Link } from "react-router-dom";
 import { Alert, Dialog } from "@mui/material";
@@ -102,11 +103,17 @@ export const Text = styled.p`
   margin: 0;
 `;
 
+export const ErrorText = styled.span`
+  color: ${props => props.color ? props.color : "red"};
+`
+
 export const TextBold = styled.strong`
   margin-top: 50px;
   margin-bottom: 50px;
-  line-height: 2.5;
+  line-height: ${props => props.lh ? props.lh : "2.5"};
   ${(props) => props.mr && mr}
+  ${(props) => props.mt && mt}
+  ${(props) => props.mb && mb}
 `;
 
 export const BackWrapper = styled.div`
