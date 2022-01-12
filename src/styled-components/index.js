@@ -13,6 +13,7 @@ import {
   m,
   w,
   mr,
+  hoverMixin,
 } from "./mixins";
 import { Link } from "react-router-dom";
 import { Alert, Dialog } from "@mui/material";
@@ -106,4 +107,10 @@ export const BackWrapper = styled.div`
   position: fixed;
   top: 30px;
   left: 250px;
+`
+
+export const HoverBox = styled(Container)`
+  ${hoverMixin}
+  border-radius: 10px;
+  width: 100%;
 `
