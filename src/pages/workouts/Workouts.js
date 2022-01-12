@@ -80,7 +80,7 @@ export const Workouts = () => {
     setOpen(false);
   };
 
-  const [activeWorkout, setActiveWorkout] = useState([]);
+  const [activeWorkout, setActiveWorkout] = useState(0);
 
   const handleClick = (selectedWorkout) => {
     setActiveWorkout(selectedWorkout);
@@ -189,7 +189,7 @@ export const Workouts = () => {
                           <Container>
                             <WorkoutList
                               p="0 25px 0 15px"
-                              style={{ alignItem: "space-evenly" }}
+                              // style={{ alignItem: "space-evenly" }}
                             >
                               {exercise.exerciseId ? (
                                 <p>{exercise.exerciseId.name}</p>
@@ -249,8 +249,8 @@ export const Workouts = () => {
                             opacity: "1",
                             color: "#444",
                             backgroundColor: "lime",
-                            borderColor: "lime",
-                            boxShadow: "0 2px -6px rgba(0, 0, 0, 0.08)",
+                            border: "2.5px solid #65FE08",
+                            boxShadow: "3px 5px 6px -2px rgba(160, 160, 160, 0.6)",
                           },
                         }}
                         btnFunction={() => workoutStart(index)}

@@ -8,6 +8,17 @@ export const WorkoutCardStyling = styled.div`
   min-height: ${props => props.minHeight ? props.minHeight : "" };
   border: 1px solid rgba(150, 150, 150, 0.25);
   border-radius: 5px;
+  transition: all 0.4s;
+  &:hover { 
+    cursor: pointer;
+    background-color: rgba(40, 145, 250, 0.14);
+    transform: translate(0, -2px);
+    box-shadow: 
+      10px 10px 10px -6px rgba(120, 120, 120, 0.6),
+      10px 15px 20px -6px rgba(120, 120, 120, 0.4);
+    
+ 
+  }
 `
 
 export const WorkoutList = styled.div`
