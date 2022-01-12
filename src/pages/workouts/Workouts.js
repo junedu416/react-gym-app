@@ -80,18 +80,15 @@ export const Workouts = () => {
     setOpen(false);
   };
 
-  const [activeWorkout, setActiveWorkout] = useState("");
+  const [activeWorkout, setActiveWorkout] = useState([]);
+  
   const handleClick = (selectedWorkout) => {
-    if (selectedWorkout !== null) {
       setActiveWorkout(selectedWorkout);
-    }
   };
 
   const navigateToLogin = () => {
     navigate("/auth/login");
   };
-
-  // console.log(activeWorkout);
 
   function workoutStart(index) {
     dispatch({ type: "selectWorkout", data: index });
@@ -102,6 +99,12 @@ export const Workouts = () => {
     dispatch({ type: "selectWorkout", data: index });
     navigate("/workouts/edit");
   }
+
+  const activeStyle = {
+    borderLeft: activeWorkout ? "6px solid lime" : ""
+  }
+
+  console.log("active workout: ", activeWorkout)
 
   return (
     <MainWindow>
@@ -156,7 +159,8 @@ export const Workouts = () => {
                       btnFunction={() => editWorkout(index)}
                       hoverStyling={{ "&:hover": { color: "lime" } }}
                     />
-                    <WorkoutCardStyling value={index} onClick={handleClick}>
+                    <WorkoutCardStyling onClick={() => handleClick(index)} 
+                    style={ activeWorkout ? activeStyle : "" }>
                       <SmallHeading
                         p="10px 0 0 20px"
                         m="0 0 10px"
