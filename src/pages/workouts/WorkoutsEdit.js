@@ -27,6 +27,7 @@ import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
 import { ExerciseEditForm } from "./ExerciseEditForm";
 import BasicButton from "../../components/buttons/BasicButton";
+import { DeleteWorkout } from "./DeleteWorkout";
 
 export const EditWorkouts = () => {
   useRedirectUnauthorisedUser();
@@ -57,27 +58,6 @@ export const EditWorkouts = () => {
   const handleClose = () => {
     setModalOpen(false);
   };
-
-  const modalText = `Are you sure you want to delete this workout?`;
-  const actionButtons = [
-    <Container mt="40px" direction="row">
-      <BasicButton
-        color="error"
-        sx={{ mr: 5 }}
-        onClick={handleWorkoutDelete}
-        text="Delete"
-      />
-      <BasicButton color="info" onClick={handleClose} text="Cancel" />
-    </Container>,
-  ];
-
-  function handleWorkoutDelete() {
-    const workoutsClone = [...profile.workouts];
-    workoutsClone.splice(workoutIndex, 1);
-    dispatch({ type: "setWorkout", data: workoutsClone });
-    dispatch({ type: "setNotification", data: "Delete workout successfully!" });
-    navigate("/workouts");
-  }
 
   function handleAddExerciseBtn(event) {
     setAnchorEl(event.currentTarget);
@@ -212,11 +192,10 @@ export const EditWorkouts = () => {
         </Container>
       </MainWindow>
       <ReusableModal
-        title={modalText}
+        title="Are you sure you want to delete this workout?"
         open={modalOpen}
         handleClose={handleClose}
-        children={actionButtons}
-      />
+      ><DeleteWorkout handleClose={handleClose} /></ ReusableModal>
     </>
   );
 };
