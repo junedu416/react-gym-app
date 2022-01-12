@@ -12,10 +12,12 @@ export const ContactSubheadings = styled.h3`
 `;
 
 export const RedDot = styled.div`
-  background-color: red;
+  background-color: ${props => props.color ? props.color : "red"};
   border-radius: 100%;
   padding: 5px 14px;
   font-size: 1.4rem;
   color: white;
   margin-right: 6px;
 `;
+
+

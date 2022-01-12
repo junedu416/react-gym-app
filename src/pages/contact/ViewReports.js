@@ -23,7 +23,8 @@ export const ViewReports = () => {
   const { profile } = store;
   const [reportList, setReportList] = useState([]);
   const [open, setOpen] = useState([]);
-  const [resolved, setResolved] = useState([]);
+
+  const [resolved, setResolved] = useState([]); // Don't need this
 
   useEffect(() => {
     const fetchReportsInfo = async () => {
@@ -55,8 +56,15 @@ export const ViewReports = () => {
 
   const [reportValues, setReportValues] = useState({});
   const handleResolveBtn = async (index) => {
-    reportList[index].resolved = true;
-    reportList[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
+    reportList[index].resolved = !reportList[index].resolved;
+    // reportList[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
+    // reportList[index].resolvedBy = null;
+   
+    if (reportList[index].resolved) { 
+      reportList[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
+    } else {
+      reportList[index].resolvedBy = null;
+    }
    
    
     // let newResolved = [...resolved, index];
@@ -72,14 +80,19 @@ export const ViewReports = () => {
 
     setReportValues({
       ...reportList[index],
-      resolved: true,
-      resolvedBy: `${profile.firstName} ${profile.lastName}`,
+      // resolved: false,
+      // resolvedBy: null,
+
+
+      // resolvedBy: `${profile.firstName} ${profile.lastName}`,
 
       // resolved: !!resolved.includes(index),
       // resolvedBy: resolved.includes(index)
     });
-    console.log("reportValue ID: ", reportList[index]._id);
-    console.log("reportValue BEFORE: ", reportList[index]);
+
+
+    // console.log("reportValue ID: ", reportList[index]._id);
+    // console.log("reportValue BEFORE: ", reportList[index]);
     
     const request = await editReport(reportList[index]._id, reportList[index]);
     console.log("REQUEST: ", request);
@@ -89,8 +102,7 @@ export const ViewReports = () => {
   console.log("reportValueToSend:", reportValues);
 
   const totalUnresolved = reportList.filter(
-    (report) => report.resolved === false
-  );
+    (report) => !report.resolved).length;
   console.log("Total unresolved: ", totalUnresolved);
 
   function displayStatus(resolved) {
@@ -102,7 +114,7 @@ export const ViewReports = () => {
     <MainWindow>
       <Heading>View Reports</Heading>
 
-      <Unresolved text={totalUnresolved.length} />
+      <Unresolved text={totalUnresolved} />
       <ul style={{ margin: "0", padding: "0" }}>
         {reportList.map((report, index) => {
           return (
@@ -124,14 +136,15 @@ export const ViewReports = () => {
                 label={displayStatus(report.resolved)}
                 variant="filled"
               />
-              {report.resolved === false && (
+              {/* ====================================================== */}
+              {/* {report.resolved === true ? ( */}
                 <button
                   style={{ marginLeft: "20px" }}
                   onClick={() => handleResolveBtn(index)}
                 >
-                  Mark As Resolved
+                {report.resolved ? "Mark As Unresolved" : " Mark As Resolved" }
                 </button>
-              )}
+              {/* )} */}
               <br />
               {report.resolvedBy && (
                 <>
