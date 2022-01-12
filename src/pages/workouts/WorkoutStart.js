@@ -23,6 +23,8 @@ export const WorkoutStart = (props) => {
   // const selectedWorkout = workoutList[0];
   const list = workoutList.exercises;
 
+  console.log(list);
+
   const [counter, setCounter] = useState(0);
   const [disableExButtons, setDisableExButtons] = useState(
     new Array(list.length)
@@ -131,7 +133,7 @@ export const WorkoutStart = (props) => {
                   // color={disableExButtons[index] ? "grey" : "lime"}
                   style={{ margin: "0" }}
                 >
-                  {exercise.name}
+                  {exercise.exerciseId.name}
                 </SmallHeading>
                 <Container
                   direction="row"
