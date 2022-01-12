@@ -126,7 +126,7 @@ export const WorkoutStart = (props) => {
 
           {list.map((exercise, index) => (
             <>
-              <Container align="flex-start">
+              <Container align="flex-start" w="100%">
                 <SmallHeading
                   size="1.6rem"
                   color="rgba(40, 40, 40, 0.65)"
