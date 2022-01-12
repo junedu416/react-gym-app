@@ -102,13 +102,9 @@ export const EditWorkouts = () => {
     )
   };
 
-  function editExercise(exercise) {
-
-  }
-
-  const [formOpen, setFormOpen] = useState(false);
-  function handleFormOpen(){
-    setFormOpen(true)
+  const [formOpen, setFormOpen] = useState('');
+  function handleFormOpen(exerciseId){
+    setFormOpen(exerciseId)
   }
 
   function deleteExercise(exercise){
@@ -118,10 +114,6 @@ export const EditWorkouts = () => {
 
     dispatch({type: 'setWorkout', data: profileWorkouts})
     console.log("the profile workouts are:",profile.workouts)
-  }
-
-  function editWorkoutName(){
-
   }
 
 
@@ -147,9 +139,9 @@ export const EditWorkouts = () => {
                       {exercise.exerciseId? exercise.exerciseId.name: exercise.customisedName}
                       <IconButton>
                           <EditIcon
-                            onClick={handleFormOpen}
+                            onClick={() => {handleFormOpen(exercise.exerciseId)}}
                           />
-                          < ExerciseEditForm open ={formOpen} setFormOpen ={setFormOpen} exercise={exercise}/>
+                          < ExerciseEditForm open ={formOpen === exercise.exerciseId} setFormOpen ={setFormOpen} exercise={exercise} workoutIndex={workoutIndex}/>
                           <DeleteIcon onClick = {() => deleteExercise(exercise)} style={{marginLeft:"20%", marginRight:"30%"}}/>
                       </IconButton>
                     </WorkoutList>

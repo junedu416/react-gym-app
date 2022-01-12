@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-// import { Link } from 'react-router-dom';
 import EditButton from "../../components/buttons/Edit";
 import {
   Container,
@@ -101,7 +100,6 @@ export const Workouts = () => {
 
   function editWorkout(index) {
     dispatch ({type: "selectWorkout", data: index })
-    // dispatch ({type: "selectWorkout", data: profile.workouts[index]._id })
     navigate("/workouts/edit")
   } 
   
