@@ -160,7 +160,7 @@ export const Workouts = () => {
                       hoverStyling={{ "&:hover": { color: "lime" } }}
                     />
                     <WorkoutCardStyling onClick={() => handleClick(index)} 
-                    style={ activeWorkout ? activeStyle : "" }>
+                      style={{ borderLeft: (activeWorkout === index) ? "6px solid lime" : "6px solid transparent" }}>
                       <SmallHeading
                         p="10px 0 0 20px"
                         m="0 0 10px"
