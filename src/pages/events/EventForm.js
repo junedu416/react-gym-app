@@ -18,7 +18,7 @@ import { useRedirectNonStaffMembers } from '../../config/customHooks';
 
 
 export const EventForm = ({submitFunction, event, eventId, buttonText}) => {
-    useRedirectNonStaffMembers();
+    useRedirectNonStaffMembers('/events');
     const navigate = useNavigate();
     const {store} = useGlobalState();
     const {profile} = store;
