@@ -30,9 +30,9 @@ export const Exercises = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [exerciseList, setExerciseList] = useState([]);
   const [exerciseIndex, setExerciseIndex] = useState(null);
-  const [workoutIndex, setWorkoutIndex] = useState(null);
+  //const [workoutIndex, setWorkoutIndex] = useState(null);
   const { store, dispatch } = useGlobalState();
-  const { profile} = store;
+  const { profile, workoutIndex} = store;
   const initialValues = {
     exerciseId: null,
     sets: null,
@@ -55,7 +55,7 @@ export const Exercises = () => {
           type: "setNotification",
           data: "You already have this exercise in your workout list"
         });
-      } else {
+      } else if (newExercise.exerciseId){
         const workouts = await findWorkoutAddExercise(profile.workouts, workoutIndex, newExercise );
         editProfile(profile.userId, {
           ...profile,
@@ -145,7 +145,8 @@ export const Exercises = () => {
     console.log("button clicked")
     //select workout list
     if(Number(event.target.getAttribute("id")) !== workoutIndex){
-      setWorkoutIndex(Number(event.target.getAttribute("id")))
+      dispatch({type: "selectWorkout", data: Number(event.target.getAttribute("id"))});
+      //setWorkoutIndex(Number(event.target.getAttribute("id")))
     } else {
       console.log("workoutIndex not changed")
       addExerciseToWorkout(workoutIndex);
