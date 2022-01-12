@@ -39,12 +39,12 @@ export const ReusableModal = ({
           <Box sx={modalStyling}>
             <IconButton
               onClick={handleClose}
-              style={{ position: "absolute", right: "0px", top: "0px" }}
+              style={{ position: "absolute", right: "0", top: "-5px" }}
             >
               <CloseIcon fontSize="large" />
             </IconButton>
 
-            <DialogTitle id="title" fontWeight="bold">
+            <DialogTitle id="title" fontWeight="bold" mt="15px">
               {title}
             </DialogTitle>
             <DialogContent>

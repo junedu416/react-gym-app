@@ -97,3 +97,15 @@ export const greyBorder = () => {
     border: 1px solid rgba(120, 120, 120, 0.3);
   `
 }
+
+export const hoverMixin = () => {
+  return `
+  transition: all 0.7s;
+  &:hover {
+    background-color: rgba(0, 145, 250, 0.18);
+    opacity: 1;
+    cursor: pointer;
+    color: rgba(80, 80, 80, 0.9);
+  }
+  `
+}
