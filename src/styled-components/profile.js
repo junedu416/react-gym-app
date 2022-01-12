@@ -23,3 +23,7 @@ export const ProfileImage = styled.img`
   width: 200px;
   border-radius: 20%;
 `;
+
+export const ErrorText = styled.p`
+  color: red;
+`
