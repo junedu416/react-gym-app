@@ -23,6 +23,7 @@ import { ReusableModal } from "../../components/ReusableModal";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
+import { ExerciseEditForm } from './ExerciseEditForm'
 
 export const EditWorkouts = () => {
   useRedirectUnauthorisedUser();
@@ -100,6 +101,11 @@ export const EditWorkouts = () => {
 
   }
 
+  const [formOpen, setFormOpen] = useState(false);
+  function handleFormOpen(){
+    setFormOpen(true)
+  }
+
   function deleteExercise(exercise){
     const newWorkout = workoutList[0].exercises.filter((el) => el._id !== exercise._id);
     const listIndex = profile.workouts.findIndex(x => x._id===workoutId);
@@ -110,11 +116,9 @@ export const EditWorkouts = () => {
     console.log("the profile workouts are:",profile.workouts)
   }
 
-  // function handleRemove(removeExerciseId) {
-  //   const newList = workoutList[0].exercises.filter((exercise) => exercise.exerciseId !== removeExerciseId);
-  //   // setList(newList);
-  //   handleClose();
-  // }
+  const handleFormChange = () => {
+
+  }
 
   return (
     <>
@@ -131,14 +135,15 @@ export const EditWorkouts = () => {
                   margin: 0,
                 }}
               >
-                {workoutList[0].exercises.map((exercise) => (
-                  <ListItems>
+                {workoutList[0].exercises.map((exercise, index) => (
+                  <ListItems key = {index} >
                     <WorkoutList p="10px 0px" ml="20px">
                       {exercise.exerciseId? exercise.exerciseId.name: exercise.customisedName}
                       <IconButton>
                           <EditIcon
-                            onClick={() => editExercise(exercise)}
+                            onClick={handleFormOpen}
                           />
+                          < ExerciseEditForm open ={formOpen} setFormOpen ={setFormOpen} exercise={exercise}/>
                           <DeleteIcon onClick = {() => deleteExercise(exercise)} style={{marginLeft:"20%", marginRight:"30%"}}/>
                       </IconButton>
                     </WorkoutList>
@@ -182,16 +187,6 @@ export const EditWorkouts = () => {
                   </Typography>
             </Menu>
           </Container>
-          {/* {editMode && (
-            <Button
-              variant="contained"
-              size="large"
-              sx={{ mt: 3 }}
-              onClick={() => setEditMode(false)}
-            >
-              Done
-            </Button>
-          )} */}
         </Container>
         <br/>
         <Button variant="outlined" color="error" onClick={handleModalOpen} >Delete Workout</Button>
