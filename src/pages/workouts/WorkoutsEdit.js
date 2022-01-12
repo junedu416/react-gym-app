@@ -134,6 +134,7 @@ export const EditWorkouts = () => {
                             : exercise.customisedName}
                           <IconButton>
                             <EditIcon
+                              sx={{ "&:hover": { color: "lime" } }}
                               onClick={() => {
                                 handleFormOpen(exercise.exerciseId);
                               }}
@@ -145,6 +146,7 @@ export const EditWorkouts = () => {
                               workoutIndex={workoutIndex}
                             />
                             <DeleteIcon
+                              sx={{ "&:hover": { color: "red" } }}
                               onClick={() => deleteExercise(exercise)}
                               style={{ marginLeft: "20%", marginRight: "30%" }}
                             />
@@ -154,7 +156,7 @@ export const EditWorkouts = () => {
                       </ListItems>
                     ))}
                   </ul>
-
+                  <HoverBox align="flex-start" rounded="4px">
                   <TextLink
                     direction="row"
                     ml="25px"
@@ -165,6 +167,7 @@ export const EditWorkouts = () => {
                   >
                     <AddCircleIcon sx={{ mr: 1 }} /> Add Exercise
                   </TextLink>
+                  </HoverBox>
                 </WorkoutCardStyling>
                 <Menu
                   id={id}

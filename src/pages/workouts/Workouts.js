@@ -31,6 +31,7 @@ import DialogContent from "@mui/material/DialogContent";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
 import { ReusableModal } from "../../components/ReusableModal";
+import { displayUnits } from "../../utils/workoutFunctions";
 
 export const Workouts = () => {
   useRedirectUnauthorisedUser();
@@ -102,11 +103,6 @@ export const Workouts = () => {
     navigate("/workouts/edit");
   }
 
-  function displayUnits(distance) {
-    if (distance > 1000) return `${distance / 1000}km`
-    else if (distance > 0) return `${distance}m`
-  }
-
   return (
     <MainWindow>
       {!profile && (
@@ -156,7 +152,10 @@ export const Workouts = () => {
               {profile.workouts.map((workout, index) => {
                 return (
                   <Container>
-                    <EditButton btnFunction={() => editWorkout(index)} />
+                    <EditButton btnFunction={() => editWorkout(index)} 
+                       sx={{ "&:hover": { color: "lime" } }}
+
+                    />
                     <WorkoutCardStyling value={index} onClick={handleClick}>
                       <SmallHeading
                         p="10px 0 0 20px"
@@ -169,16 +168,17 @@ export const Workouts = () => {
                       {workout.exercises.map((exercise) => {
                         return (
                           <Container>
-                            <WorkoutList p="0 25px 0 15px" style={{ alignItem:"space-evenly"}}>
+                            <WorkoutList
+                              p="0 25px 0 15px"
+                              style={{ alignItem: "space-evenly" }}
+                            >
                               {exercise.exerciseId ? (
                                 <p>{exercise.exerciseId.name}</p>
                               ) : (
                                 <p>{exercise.customisedName}</p>
                               )}
-                              
-                                <Container
-                                  direction="row"
-                                >
+
+                              <Container direction="row">
                                 {exercise.sets === null || 0 ? null : (
                                   <Container direction="row">
                                     <p>{exercise.sets}</p>
@@ -196,21 +196,20 @@ export const Workouts = () => {
                                         : exercise.reps}
                                     </Text>
                                   </Container>
-                              )}
-                                  <Container ml="40px">
-                                    <Text>
-                                      {exercise.weight === null || 0
-                                        ? null
-                                        : `${exercise.weight}kg`}
-                                      {exercise.distance === null ||
-                                      0 ? null : (
-                                        <Text>{displayUnits(exercise.distance)}</Text>
-                                      )}
-                                    </Text>
-                                  </Container>
+                                )}
+                                <Container ml="40px">
+                                  <Text>
+                                    {exercise.weight === null || 0
+                                      ? null
+                                      : `${exercise.weight}kg`}
+                                    {exercise.distance === null || 0 ? null : (
+                                      <Text>
+                                        {displayUnits(exercise.distance)}
+                                      </Text>
+                                    )}
+                                  </Text>
                                 </Container>
-                   
-                              
+                              </Container>
                             </WorkoutList>
                             <Divider sx={{ width: "90%" }} />
                           </Container>
@@ -220,13 +219,19 @@ export const Workouts = () => {
                     <BasicButton
                       text="Start Workout"
                       variant="outlined"
-                      style={{
+                      sx={{
                         color: "lime",
-                        marginTop: "25px",
+                        mt: 2,
                         border: "1.7px solid lime",
                         borderRadius: "6px",
                         opacity: "0.8",
-                        "&:hover": { opacity: "1", color: "red" },
+                        "&:hover": {
+                          opacity: "1",
+                          color: "#444",
+                          backgroundColor: "lime",
+                          borderColor: "lime",
+                          boxShadow: "0 2px -6px rgba(0, 0, 0, 0.08)",
+                        },
                       }}
                       btnFunction={() => workoutStart(index)}
                     />

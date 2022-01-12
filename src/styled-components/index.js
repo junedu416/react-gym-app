@@ -113,4 +113,5 @@ export const HoverBox = styled(Container)`
   ${hoverMixin}
   border-radius: 10px;
   width: 100%;
+  border-radius: ${props => props.rounded ? props.rounded : "6px"}
 `

@@ -1,13 +1,11 @@
-import Button from "@mui/material/Button";
 import EditIcon from '@mui/icons-material/Edit';
+import BasicButton from "./BasicButton";
 
 const EditButton = (props) => {
-  const { btnFunction } = props;
+  const { btnFunction, sx } = props;
   return (
-    <Button
-      variant="outlined"
-      size="large"
-      color="success"
+    <BasicButton
+      variant="text"
       onClick={btnFunction}
       style={{
         color: "grey",
@@ -18,9 +16,9 @@ const EditButton = (props) => {
         alignSelf: `${props.align ? props.align : "flex-end"}`,
       }}
     >
-      <EditIcon />
-      <p style={{color: "lime", textTransform: "lowercase", margin: "0"}}>Edit</p>
-    </Button>
+      <EditIcon sx={{ ...sx }}/>
+      <p style={{color: "lime", margin: "0"}}>edit</p>
+    </BasicButton>
   );
 };
 
