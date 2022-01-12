@@ -58,16 +58,17 @@ export const ViewReports = () => {
   const [reportValues, setReportValues] = useState({});
   const handleResolveBtn = async (index) => {
     reportList[index].resolved = !reportList[index].resolved;
-    // reportList[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
-    // reportList[index].resolvedBy = null;
-   
-    if (reportList[index].resolved) { 
+    if (reportList[index].resolved) {
       reportList[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
     } else {
       reportList[index].resolvedBy = null;
     }
-   
-   
+
+    // CAN REMOVE ALL THIS CODE SINCE DON'T NEED IT.
+
+    // reportList[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
+    // reportList[index].resolvedBy = null;
+
     // let newResolved = [...resolved, index];
     // setResolved(newResolved);
 
@@ -81,29 +82,25 @@ export const ViewReports = () => {
 
     setReportValues({
       ...reportList[index],
-      // resolved: false,
-      // resolvedBy: null,
 
+    // resolved: false,
+    // resolvedBy: null,
+    // resolvedBy: `${profile.firstName} ${profile.lastName}`,
 
-      // resolvedBy: `${profile.firstName} ${profile.lastName}`,
-
-      // resolved: !!resolved.includes(index),
-      // resolvedBy: resolved.includes(index)
+    // resolved: !!resolved.includes(index),
+    // resolvedBy: resolved.includes(index)
     });
 
-
-    // console.log("reportValue ID: ", reportList[index]._id);
-    // console.log("reportValue BEFORE: ", reportList[index]);
-    
     const request = await editReport(reportList[index]._id, reportList[index]);
     console.log("REQUEST: ", request);
     return request;
   };
 
-  console.log("reportValueToSend:", reportValues);
+  // console.log("reportValueToSend:", reportValues);
 
   const totalUnresolved = reportList.filter(
-    (report) => !report.resolved).length;
+    (report) => !report.resolved
+  ).length;
   console.log("Total unresolved: ", totalUnresolved);
 
   function displayStatus(resolved) {
@@ -137,21 +134,15 @@ export const ViewReports = () => {
                 label={displayStatus(report.resolved)}
                 variant="filled"
               />
-              {/* ====================================================== */}
-              {/* {report.resolved === true ? ( */}
-                {/* <button
-                  style={{ marginLeft: "20px" }}
-                  onClick={() => handleResolveBtn(index)}
-                >
-                {report.resolved ? "Mark As Unresolved" : " Mark As Resolved" }
-                </button> */}
-                <BasicButton text={report.resolved ? "Mark As Unresolved" : " Mark As Resolved" }
-                  color= "warning"
-                  sx={{ my: 0, ml: 5, }}
-                  style={{ height: "36px" }}
-                  btnFunction={() => handleResolveBtn(index)}
-                  />
-              {/* )} */}
+              <BasicButton
+                text={
+                  report.resolved ? "Mark As Unresolved" : " Mark As Resolved"
+                }
+                color="warning"
+                sx={{ my: 0, ml: 5 }}
+                style={{ height: "36px" }}
+                btnFunction={() => handleResolveBtn(index)}
+              />
               <br />
               {report.resolvedBy && (
                 <>
