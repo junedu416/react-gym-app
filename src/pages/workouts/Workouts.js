@@ -139,24 +139,7 @@ export const Workouts = () => {
         <Button variant="outlined" onClick={handleClickOpen}>
            Create Workout List
         </Button>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogContent>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="New Workout"
-              helperText="Please enter your workout list name"
-              fullWidth
-              variant="standard"
-              onChange ={handleChange}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleCreateBtn}>Create</Button>
-          </DialogActions>
-        </Dialog>
+        
       </div>
       {profile.workouts.length === 0 && <Text>You don't have a workout list yet! Click the button above to create your first workout</Text>}
         <Container>
@@ -188,9 +171,9 @@ export const Workouts = () => {
                                     padding: "0 5px",
                                   }}
                                 >
-                                  {exercise.reps === null||0 ? "":"x"}
+                                  {exercise.reps === null||0 ? "":`x ${exercise.reps}`}
                                 </p>
-                                <p>{exercise.reps === null||0 ? null:exercise.reps}</p>
+                                {/* <p>{exercise.reps === null||0 ? null:exercise.reps}</p> */}
                               </span>
                             )}
                             {exercise.distance == null||0 ? null: <p>{exercise.distance}</p>}   
@@ -230,7 +213,28 @@ export const Workouts = () => {
             />
           </ButtonLink>
         </Container>
-      </Container>}
+        <Dialog open={open} onClose={handleClose}>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="New Workout"
+              helperText="Please enter your workout list name"
+              fullWidth
+              variant="standard"
+              onChange ={handleChange}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleCreateBtn}>Create</Button>
+          </DialogActions>
+        </Dialog>
+
+      </Container>
+      }
+
     </MainWindow>
   );
 };

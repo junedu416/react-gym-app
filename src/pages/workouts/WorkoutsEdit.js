@@ -24,6 +24,7 @@ import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
 import { ExerciseEditForm } from './ExerciseEditForm'
+import BasicButton from "../../components/buttons/BasicButton";
 
 export const EditWorkouts = () => {
   useRedirectUnauthorisedUser();
@@ -61,24 +62,18 @@ export const EditWorkouts = () => {
   const modalText = `Are you sure you want to delete this workout?`;
   const actionButtons = [
     <Container mt="40px" direction="row">
-      <Button
-        variant="contained"
-        size="large"
+      <BasicButton
         color="error"
         sx={{ mr: 5 }}
         onClick={handleWorkoutDelete}
-      >
-         Delete
-      </Button>
-      <Button
-        variant="contained"
-        size="large"
+        text="Delete"
+      />
+      <BasicButton
         color="info"
         onClick={handleClose}
-      >
-        Cancel
-      </Button>
-    </Container>,
+        text="Cancel"
+      />
+    </Container>
   ];
 
   function handleWorkoutDelete() {
@@ -116,6 +111,9 @@ export const EditWorkouts = () => {
     console.log("the profile workouts are:",profile.workouts)
   }
 
+  function handleFinishEditing() {
+    navigate("/workouts");
+  }
 
   return (
     <>
@@ -188,7 +186,11 @@ export const EditWorkouts = () => {
         </> }
         </Container>
         <br/>
-        <Button variant="outlined" color="error" onClick={handleModalOpen} >Delete Workout</Button>
+        <Container direction="row">
+
+        <BasicButton variant="outlined" color="error" btnFunction={handleModalOpen} text="Delete Workout" />
+        <BasicButton btnFunction={handleFinishEditing} text="Done" />
+        </Container>
       </MainWindow>
       <ReusableModal
         title={modalText}
