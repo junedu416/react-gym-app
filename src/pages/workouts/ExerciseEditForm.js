@@ -16,10 +16,10 @@ export const ExerciseEditForm = ({open, setFormOpen, exercise, workoutIndex}) =>
   const { profile } = store;
 
   const initialFormValues = {
-    sets: null,
-    reps: null,
-    weight: null,
-    distance: null,
+    sets: exercise.sets ?? null,
+    reps: exercise.reps ?? null,
+    weight: exercise.weight ?? null,
+    distance: exercise.distance ?? null,
   };
 
   const [formValues, setFormValues] = useState(initialFormValues);
@@ -35,8 +35,8 @@ export const ExerciseEditForm = ({open, setFormOpen, exercise, workoutIndex}) =>
     });
   }
 
-  function editExercise(exercise, formVars){
-    const workoutsClone = profile.workouts
+  async function editExercise(exercise, formVars){
+    const workoutsClone = await JSON.parse(JSON.stringify(profile.workouts));
     workoutsClone[workoutIndex].exercises.map((el) => {
       if(el._id === exercise._id){
         el.sets = formVars.sets;
@@ -52,12 +52,12 @@ export const ExerciseEditForm = ({open, setFormOpen, exercise, workoutIndex}) =>
   
   const handleSubmit = (exercise) => {
     setFormOpen(false);
-    setFormValues({
+    /*setFormValues({
       sets: exercise.sets,
       reps: exercise.reps,
       weight: exercise.weight,
       distance: exercise.distance,
-    })
+    })*/
     console.log("value to send:", formValues)
     editExercise(exercise, formValues)
     console.log(profile.workouts)
