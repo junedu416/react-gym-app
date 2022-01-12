@@ -190,7 +190,7 @@ export const Workouts = () => {
                                         : exercise.reps}
                                     </Text>
                                   </Container>
-                                  <Container ml="25px">
+                                  <Container ml="40px">
                                     <Text>
                                       {exercise.weight === null || 0
                                         ? null
