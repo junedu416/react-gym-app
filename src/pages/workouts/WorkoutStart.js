@@ -8,15 +8,20 @@ import { WorkoutDate, WorkoutText } from "../../styled-components/workouts";
 import moment from "moment";
 import { Button, ButtonGroup } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { workoutList } from "../../data/workouts-dummy";
+// import { workoutList } from "../../data/workouts-dummy";
 import { ReusableModal } from "../../components/ReusableModal";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
+import { useGlobalState } from "../../config/globalStore";
 
 export const WorkoutStart = (props) => {
   useRedirectUnauthorisedUser();
   const navigate = useNavigate();
-  const selectedWorkout = workoutList[0];
-  const list = selectedWorkout.exercises;
+
+  const { store, dispatch } = useGlobalState();
+  const { profile, workoutIndex } = store;
+  const workoutList = profile.workouts[workoutIndex]
+  // const selectedWorkout = workoutList[0];
+  const list = workoutList.exercises;
 
   const [counter, setCounter] = useState(0);
   const [disableExButtons, setDisableExButtons] = useState(
@@ -25,6 +30,8 @@ export const WorkoutStart = (props) => {
   const [disabledList, setDisabledList] = useState([]);
   const [exerciseCompleted, setExerciseCompleted] = useState([]);
   const [open, setOpen] = useState(false);
+
+ 
 
   const totalExercises = workoutList.length - 1;
 
@@ -52,9 +59,6 @@ export const WorkoutStart = (props) => {
     setDisableExButtons(tempDisableExButtons);
   }
 
-  // const disableGroup = (exercise) => {
-  //   setDisabledList({ ...disabledList, exercise });
-  // };
 
   const finishExercise = (exercise, isCompleted) => {
     setCounter(counter + 1);
@@ -99,7 +103,7 @@ export const WorkoutStart = (props) => {
             style={{ width: "100%" }}
             justify="space-between"
           >
-            <SmallHeading style={{ margin: "0" }}>Workout A</SmallHeading>
+            <SmallHeading style={{ margin: "0" }}>{workoutList.name}</SmallHeading>
             <EditButton />
           </Container>
 

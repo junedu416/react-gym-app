@@ -26,10 +26,11 @@ export const ExerciseEditForm = ({open, setFormOpen, exercise}) => {
         <DialogTitle>Edit {exercise.exerciseId? exercise.exerciseId.name: exercise.customisedName}</DialogTitle>
         <DialogContent>
           <TextField
-            required
+            disabled
             id="outlined-required"
             label="Exercise Name"
             name="customisedName"
+            defaultValue={exercise.exerciseId? exercise.exerciseId.name: exercise.customisedName}
             style={formStyling}
             onChange={handleFormChange}
             />
@@ -39,6 +40,7 @@ export const ExerciseEditForm = ({open, setFormOpen, exercise}) => {
             name="sets"
             type="number"
             style={formStyling}
+            defaultValue={exercise.sets}
             InputProps={{ inputProps: { min: 0 } }}
             InputLabelProps={{
                 shrink: true,
@@ -51,6 +53,7 @@ export const ExerciseEditForm = ({open, setFormOpen, exercise}) => {
             label="Reps"
             name="reps"
             type="number"
+            defaultValue={exercise.reps}
             InputProps={{ inputProps: { min: 0 } }}
             style={formStyling}
             InputLabelProps={{
@@ -64,6 +67,7 @@ export const ExerciseEditForm = ({open, setFormOpen, exercise}) => {
             label="Weight(kg)"
             name="weight"
             type="number"
+            defaultValue={exercise.weight}
             InputProps={{ inputProps: { min: 0 } }}
             style={formStyling}
             InputLabelProps={{
@@ -77,6 +81,7 @@ export const ExerciseEditForm = ({open, setFormOpen, exercise}) => {
             label="Distance(m)"
             name="distance"
             type="number"
+            defaultValue={exercise.distance? exercise.distance: 0}
             InputProps={{ inputProps: { min: 0 } }}
             style={formStyling}
             InputLabelProps={{

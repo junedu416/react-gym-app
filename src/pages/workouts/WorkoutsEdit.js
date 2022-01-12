@@ -120,13 +120,17 @@ export const EditWorkouts = () => {
     console.log("the profile workouts are:",profile.workouts)
   }
 
+  function editWorkoutName(){
+
+  }
+
 
   return (
     <>
       <MainWindow>
         <Container>
         {workoutList && <>
-          <Heading>{workoutList.name}<Button><EditIcon/></Button></Heading>
+          <Heading>{workoutList.name}</Heading>
           <Container>
             <WorkoutCardStyling>
               <ul

@@ -93,7 +93,8 @@ export const Workouts = () => {
 
   // console.log(activeWorkout);
 
-  function workoutStart() {
+  function workoutStart(index) {
+    dispatch({type: "selectWorkout", data:index})
     navigate("/workouts/start");
   }
   
@@ -197,25 +198,23 @@ export const Workouts = () => {
                             {exercise.distance == null||0 ? null: <p>{exercise.distance}</p>}   
                           </WorkoutList>
                           <Divider sx={{ width: "90%" }} />
-                        </Container>
+                      </Container>
                       );
                     })}
                   </WorkoutCardStyling>
                   <BasicButton
-                    text="Start Workout"
-                    variant="outlined"
-                    style={{
-                      color: "lime",
-
-                      marginTop: "25px",
-                      border: "1.7px solid lime",
-                      borderRadius: "6px",
-                      opacity: "0.8",
-                      "&:hover": { opacity: "1", color: "red" },
-                    }}
-                    btnFunction={workoutStart}
-                  />
-                  {/* <StartWorkout btnFunction={workoutStart} /> */}
+                        text="Start Workout"
+                        variant="outlined"
+                        style={{
+                          color: "lime",
+                          marginTop: "25px",
+                          border: "1.7px solid lime",
+                          borderRadius: "6px",
+                          opacity: "0.8",
+                          "&:hover": { opacity: "1", color: "red" },
+                        }}
+                        btnFunction={()=> workoutStart(index)}
+                      />
                 </Container>
               );
             })}
