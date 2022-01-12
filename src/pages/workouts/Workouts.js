@@ -102,6 +102,11 @@ export const Workouts = () => {
     navigate("/workouts/edit");
   }
 
+  function displayUnits(distance) {
+    if (distance > 1000) return `${distance / 1000}km`
+    else if (distance > 0) return `${distance}m`
+  }
+
   return (
     <MainWindow>
       {!profile && (
@@ -170,10 +175,11 @@ export const Workouts = () => {
                               ) : (
                                 <p>{exercise.customisedName}</p>
                               )}
-                              {exercise.sets === null || 0 ? null : (
+                              
                                 <Container
                                   direction="row"
                                 >
+                                {exercise.sets === null || 0 ? null : (
                                   <Container direction="row">
                                     <p>{exercise.sets}</p>
                                     <Text
@@ -190,6 +196,7 @@ export const Workouts = () => {
                                         : exercise.reps}
                                     </Text>
                                   </Container>
+                              )}
                                   <Container ml="40px">
                                     <Text>
                                       {exercise.weight === null || 0
@@ -197,13 +204,13 @@ export const Workouts = () => {
                                         : `${exercise.weight}kg`}
                                       {exercise.distance === null ||
                                       0 ? null : (
-                                        <Text>{exercise.distance}m</Text>
+                                        <Text>{displayUnits(exercise.distance)}</Text>
                                       )}
                                     </Text>
                                   </Container>
                                 </Container>
                    
-                              )}
+                              
                             </WorkoutList>
                             <Divider sx={{ width: "90%" }} />
                           </Container>

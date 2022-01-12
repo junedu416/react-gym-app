@@ -33,7 +33,7 @@ export const WorkoutStart = (props) => {
 
  
 
-  const totalExercises = workoutList.length - 1;
+  const totalExercises = list.length - 1;
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
