@@ -17,6 +17,7 @@ import { Chip } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import ReportIcon from "@mui/icons-material/Report";
 import DoneIcon from "@mui/icons-material/Done";
+import BasicButton from "../../components/buttons/BasicButton";
 
 export const ViewReports = () => {
   const { store } = useGlobalState();
@@ -138,12 +139,18 @@ export const ViewReports = () => {
               />
               {/* ====================================================== */}
               {/* {report.resolved === true ? ( */}
-                <button
+                {/* <button
                   style={{ marginLeft: "20px" }}
                   onClick={() => handleResolveBtn(index)}
                 >
                 {report.resolved ? "Mark As Unresolved" : " Mark As Resolved" }
-                </button>
+                </button> */}
+                <BasicButton text={report.resolved ? "Mark As Unresolved" : " Mark As Resolved" }
+                  color= "warning"
+                  sx={{ my: 0, ml: 5, }}
+                  style={{ height: "36px" }}
+                  btnFunction={() => handleResolveBtn(index)}
+                  />
               {/* )} */}
               <br />
               {report.resolvedBy && (
