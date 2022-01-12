@@ -33,7 +33,7 @@ describe("createNewEvent", () => {
         expect(response.name).toBe("testing event")
     })
 
-    test('that it returns error message when request fails', async() => {
+    test('that it catches any error and does not throw', async() => {
         server.use(
             rest.post(`${serverUrl}/events`, (req, res, ctx) => {
                 return res(
@@ -43,7 +43,6 @@ describe("createNewEvent", () => {
             })
         )
         const response = await createNewEvent(eventObj);
-        expect(response).toContain("Request failed with status code 422");
         expect(() => createNewEvent(eventObj)).not.toThrow();
     })
 })
