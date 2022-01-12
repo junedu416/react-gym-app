@@ -11,6 +11,7 @@ import {
   WorkoutCardStyling,
   WorkoutList,
   ListItems,
+  WorkoutUL,
 } from "../../styled-components/workouts";
 import Divider from "@mui/material/Divider";
 import EditIcon from "@mui/icons-material/Edit";
@@ -117,21 +118,15 @@ export const EditWorkouts = () => {
             <>
               <Heading>{workoutList.name}</Heading>
               <Container>
-                <WorkoutCardStyling>
-                  <ul
-                    style={{
-                      // Removes bullet and indentation
-                      listStyleType: "none",
-                      padding: 0,
-                      margin: 0,
-                    }}
-                  >
+                <WorkoutCardStyling noHoverStyling>
+                  <WorkoutUL>
                     {workoutList.exercises.map((exercise) => (
                       <ListItems>
                         <WorkoutList p="10px 0px" ml="20px">
                           {exercise.exerciseId
                             ? exercise.exerciseId.name
                             : exercise.customisedName}
+                            <Container direction="row">
                           <IconButton>
                             <EditIcon
                               sx={{ "&:hover": { color: "lime" } }}
@@ -139,34 +134,36 @@ export const EditWorkouts = () => {
                                 handleFormOpen(exercise.exerciseId);
                               }}
                             />
-                            <ExerciseEditForm
-                              open={formOpen === exercise.exerciseId}
-                              setFormOpen={setFormOpen}
-                              exercise={exercise}
-                              workoutIndex={workoutIndex}
-                            />
+                          </IconButton>
+                          <ExerciseEditForm
+                            open={formOpen === exercise.exerciseId}
+                            setFormOpen={setFormOpen}
+                            exercise={exercise}
+                            workoutIndex={workoutIndex}
+                          />
+                          <IconButton>
                             <DeleteIcon
-                              sx={{ "&:hover": { color: "red" } }}
+                              sx={{ mr: 1, "&:hover": { color: "red" } }}
                               onClick={() => deleteExercise(exercise)}
-                              style={{ marginLeft: "20%", marginRight: "30%" }}
                             />
                           </IconButton>
+                          </Container>
                         </WorkoutList>
                         <Divider sx={{ width: "90%" }} />
                       </ListItems>
                     ))}
-                  </ul>
+                  </WorkoutUL>
                   <HoverBox align="flex-start" rounded="4px">
-                  <TextLink
-                    direction="row"
-                    ml="25px"
-                    mt="0"
-                    p="20px 0"
-                    justify="flex-start"
-                    onClick={handleAddExerciseBtn}
-                  >
-                    <AddCircleIcon sx={{ mr: 1 }} /> Add Exercise
-                  </TextLink>
+                    <TextLink
+                      direction="row"
+                      ml="25px"
+                      mt="0"
+                      p="20px 0"
+                      justify="flex-start"
+                      onClick={handleAddExerciseBtn}
+                    >
+                      <AddCircleIcon sx={{ mr: 1 }} /> Add Exercise
+                    </TextLink>
                   </HoverBox>
                 </WorkoutCardStyling>
                 <Menu
@@ -181,7 +178,7 @@ export const EditWorkouts = () => {
                 >
                   <Typography sx={{ p: 2, width: "300px" }}>
                     {choosePath.map((el, i) => (
-                      <Container align="flex-start">
+                      <HoverBox align="flex-start">
                         <Divider width="90%" sx={{ ml: 2 }} />
                         <HoverBox align="flex-start">
                           <MenuItem
@@ -189,13 +186,13 @@ export const EditWorkouts = () => {
                             id={i}
                             value={el}
                             onClick={handleMenuClose}
-                            sx={{ pt: 3, pb: 3, width:"100%" }}
+                            sx={{ pt: 3, pb: 3, width: "100%" }}
                           >
                             <AddCircleIcon sx={{ mr: 1 }} /> {el}
                           </MenuItem>
                         </HoverBox>
                         <Divider width="90%" sx={{ ml: 2 }} />
-                      </Container>
+                      </HoverBox>
                     ))}
                   </Typography>
                 </Menu>

@@ -140,14 +140,12 @@ export const Workouts = () => {
         <Container>
           <Heading>Workouts</Heading>
           <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
-              Create Workout List
-            </Button>
+            <BasicButton text="Create Workout" variant="outlined" btnFunction={handleClickOpen} />
           </div>
           {profile.workouts.length === 0 && (
             <Text>
-              You don't have a workout list yet! Click the button above to
-              create your first workout
+              You don't have any workouts yet! <br />
+              Click the button above to create your first workout
             </Text>
           )}
           <Container>

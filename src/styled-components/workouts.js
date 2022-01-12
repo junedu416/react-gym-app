@@ -10,14 +10,12 @@ export const WorkoutCardStyling = styled.div`
   border-radius: 5px;
   transition: all 0.4s;
   &:hover { 
-    cursor: pointer;
-    background-color: rgba(40, 145, 250, 0.14);
+    cursor: ${props => props.noHoverStyling ? "" : "pointer"};
+    background-color: ${props => props.noHoverStyling ? "white" : "rgba(40, 145, 250, 0.14)"};
     transform: translate(0, -2px);
     box-shadow: 
       10px 10px 10px -6px rgba(120, 120, 120, 0.6),
       10px 15px 20px -6px rgba(120, 120, 120, 0.4);
-    
- 
   }
 `
 
@@ -44,5 +42,11 @@ export const ListItems = styled.li`
 export const WorkoutDate = styled.p`
   align-self: flex-end;
   padding-top: 10px;
+  margin: 0;
+`
+
+export const WorkoutUL = styled.ul`
+  list-style-type: none;  /* removes bullet and indentation */
+  padding: 0;
   margin: 0;
 `
