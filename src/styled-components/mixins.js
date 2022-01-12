@@ -4,6 +4,7 @@ export const flexbox = (props) => {
     flex-direction: ${props.direction ? props.direction : "column"};
   `;
 };
+// flex-direction: ${props => props.direction ? "row" : "column"};
 
 export const centered = (props) => {
   return `
