@@ -154,13 +154,19 @@ export const Workouts = () => {
             <Grid>
               {profile.workouts.map((workout, index) => {
                 return (
-                  <Container>
-                    {activeWorkout === index && (
+                  <Container justify="flex-start">
+                    {activeWorkout === index ? (
                       <EditButton
                         btnFunction={() => editWorkout(index)}
                         hoverStyling={{ "&:hover": { color: "lime" } }}
                       />
+                    ) : (
+                      <div style={{ height: "60.5px" }}>&nbsp;</div>
                     )}
+                    {/* Div above offsets the space so the workouts don't jump up and down when the edit
+                         button is rendered/not rendered.
+                      */}
+
                     <WorkoutCardStyling
                       onClick={() => handleClick(index)}
                       style={{
@@ -229,7 +235,7 @@ export const Workouts = () => {
                         );
                       })}
                     </WorkoutCardStyling>
-                    {activeWorkout === index && (
+                    {activeWorkout === index ? (
                       <BasicButton
                         text="Start Workout"
                         variant="outlined"
@@ -249,23 +255,26 @@ export const Workouts = () => {
                         }}
                         btnFunction={() => workoutStart(index)}
                       />
+                    ) : (
+                      <div style={{ height: "87px" }}>&nbsp;</div>
                     )}
                   </Container>
                 );
               })}
             </Grid>
+            <Container direction="row">
+              <ButtonLink to="/workouts/trainer-workouts">
+                <BasicButton text="Trainer Workouts" />
+              </ButtonLink>
 
-            <ButtonLink to="/workouts/trainer-workouts">
-              <BasicButton text="Trainer Workouts" />
-            </ButtonLink>
-
-            <ButtonLink to="/exercises">
-              <BasicButton
-                text="View Exercises"
-                variant="outlined"
-                color="error"
-              />
-            </ButtonLink>
+              <ButtonLink to="/exercises">
+                <BasicButton
+                  text="View Exercises"
+                  variant="outlined"
+                  color="error"
+                />
+              </ButtonLink>
+            </Container>
           </Container>
 
           {/* Popup Modal to create Workout */}
