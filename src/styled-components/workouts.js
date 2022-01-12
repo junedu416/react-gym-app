@@ -11,7 +11,6 @@ export const WorkoutCardStyling = styled.div`
 `
 
 export const WorkoutList = styled.div`
-  text-transform: capitalize;
   ${flexbox};
   flex-direction: row;
   align-items: center;

@@ -6,7 +6,6 @@ import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
 import Backdrop from "@mui/material/Backdrop";
-import { ClickAwayListener } from "@mui/material";
 
 export const PopupCard = ({ open, handleClose, children }) => {
 
