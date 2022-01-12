@@ -102,6 +102,13 @@ export const Text = styled.p`
   margin: 0;
 `;
 
+export const TextBold = styled.strong`
+  margin-top: 50px;
+  margin-bottom: 50px;
+  line-height: 2.5;
+  ${(props) => props.mr && mr}
+`;
+
 export const BackWrapper = styled.div`
   position: absolute;
   top: 30px;

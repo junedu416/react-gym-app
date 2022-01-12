@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Moment from "react-moment";
-import { Heading, MainWindow } from "../../styled-components";
+import { Heading, MainWindow, TextBold } from "../../styled-components";
 import { useGlobalState } from "../../config/globalStore.js";
 
 import { getAllReports, editReport } from "../../services/reportServices.js";
@@ -69,18 +69,18 @@ export const ViewReports = () => {
         {reportList.map((report, index) => {
           return (
             <li key={index}>
-              Type: {report.type}
+              <TextBold mr="63px">Type: </TextBold> {report.type}
               <br />
-              Name: {report.reporterFullName}
+              <TextBold mr="56px">Name: </TextBold> {report.reporterFullName}
               <br />
-              Reported: <Moment fromNow>{report.reportDate}</Moment>
+              <TextBold mr="28px">Reported: </TextBold> <Moment fromNow>{report.reportDate}</Moment>
               <br />
-              Description: {report.description}
+              <TextBold mr="10px">Description: </TextBold> {report.description}
               <br />
+
               {/* Can we have a status property for each report in backend:  
-              
               Status: Unresolved || In-progress || Resolved */}
-              Status: {report.status}
+              <TextBold mr="50px">Status: </TextBold> {report.status}
               <button onClick={() => handleResolveBtn(index)}>
                 {resolved.includes(index) ? "Unresolved" : "Issue Resolved"}
               </button>
