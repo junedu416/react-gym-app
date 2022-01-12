@@ -106,8 +106,12 @@ export const greyBorder = () => {
 
 export const hoverMixin = () => {
   return `
-    &:hover {
-      background-color: red;
-    }
+  transition: all 0.7s;
+  &:hover {
+    background-color: rgba(0, 145, 250, 0.18);
+    opacity: 1;
+    cursor: pointer;
+    color: rgba(80, 80, 80, 0.9);
+  }
   `;
 };

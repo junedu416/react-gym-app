@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Moment from "react-moment";
 import {
+  Container,
   ErrorText,
   Heading,
   HoverBox,
@@ -13,7 +14,7 @@ import { getAllReports, editReport } from "../../services/reportServices.js";
 import { getUserProfile } from "../../services/userServices.js";
 import Unresolved from "../../components/Unresolved";
 import { Chip } from "@mui/material";
-import Avatar from '@mui/material/Avatar';
+import Avatar from "@mui/material/Avatar";
 import ReportIcon from "@mui/icons-material/Report";
 import DoneIcon from "@mui/icons-material/Done";
 
@@ -54,28 +55,38 @@ export const ViewReports = () => {
 
   const [reportValues, setReportValues] = useState({});
   const handleResolveBtn = async (index) => {
-    if (resolved.includes(index)) {
-      setResolved(resolved.filter((sindex) => sindex !== index));
-    } else {
-      let newResolved = [...open];
-      newResolved.push(index);
-      // let newResolved = [...resolved, ...index];
-      setResolved(newResolved);
-    }
+    reportList[index].resolved = true;
+    reportList[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
+   
+   
+    // let newResolved = [...resolved, index];
+    // setResolved(newResolved);
+
+    // if (resolved.includes(index)) {
+    //   setResolved(resolved.filter((sindex) => sindex !== index));
+    // } else {
+    //   let newResolved = [...open];
+    //   newResolved.push(index);
+    //   setResolved(newResolved);
+    // }
 
     setReportValues({
       ...reportList[index],
-      // ...reportList,
-      resolved: !!resolved.includes(index),
-      resolvedBy: resolved.includes(index)
-        ? `${profile.firstName} ${profile.lastName}`
-        : null,
-    });
-    console.log("reportValueToSend:", reportValues);
+      resolved: true,
+      resolvedBy: `${profile.firstName} ${profile.lastName}`,
 
-    const request = await editReport(reportValues._id, reportValues);
+      // resolved: !!resolved.includes(index),
+      // resolvedBy: resolved.includes(index)
+    });
+    console.log("reportValue ID: ", reportList[index]._id);
+    console.log("reportValue BEFORE: ", reportList[index]);
+    
+    const request = await editReport(reportList[index]._id, reportList[index]);
+    console.log("REQUEST: ", request);
     return request;
   };
+
+  console.log("reportValueToSend:", reportValues);
 
   const totalUnresolved = reportList.filter(
     (report) => report.resolved === false
@@ -96,7 +107,7 @@ export const ViewReports = () => {
         {reportList.map((report, index) => {
           return (
             <li key={index} style={{ listStyleType: "none" }}>
-            <HoverBox>
+              {/* <HoverBox align="flex-start" justify="flex-start"> */}
               <TextBold mr="63px">Type: </TextBold> {report.type}
               <br />
               <TextBold mr="56px">Name: </TextBold> {report.reporterFullName}
@@ -108,27 +119,29 @@ export const ViewReports = () => {
               <br />
               <TextBold mr="50px">Status: </TextBold>
               <Chip
-                icon={
-                  report.resolved ? (
-                    <DoneIcon style={{ color: "green" }} />
-                  ) : (
-                    <ReportIcon />
-                  )
-                }
+                icon={report.resolved ? <DoneIcon /> : <ReportIcon />}
                 color={report.resolved ? "success" : "error"}
                 label={displayStatus(report.resolved)}
                 variant="filled"
               />
-              {resolved.includes(index) && (
-                <button onClick={() => handleResolveBtn(index)}>
+              {report.resolved === false && (
+                <button
+                  style={{ marginLeft: "20px" }}
+                  onClick={() => handleResolveBtn(index)}
+                >
                   Mark As Resolved
                 </button>
               )}
               <br />
-              {resolved.includes(index) && (
+              {report.resolvedBy && (
                 <>
-                  <TextBold mr="10px">By: </TextBold>
-                  <Chip label={report.resolvedBy} variant="outline" avatar={<Avatar src={profile.photo} />} />
+                  <TextBold mr="78px">By: </TextBold>
+                  <Chip
+                    variant="outlined"
+                    label={report.resolvedBy}
+                    sx={{ color: "white", bgcolor: "#000437" }}
+                    avatar={<Avatar src={profile.photo} />}
+                  />
                 </>
               )}
               <br />
@@ -138,7 +151,7 @@ export const ViewReports = () => {
               {open.includes(index) && (
                 <img src={report.reportImage} alt="user uploaded" />
               )}
-              </HoverBox>
+              {/* </HoverBox> */}
             </li>
           );
         })}
