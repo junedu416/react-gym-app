@@ -128,7 +128,9 @@ export const Sidebar = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const index = sbData.findIndex((data) => data.route === location.pathname);
+    let baseRoute = location.pathname.split("/")[1];
+    if (baseRoute === "exercises") baseRoute = "workouts"
+    const index = sbData.findIndex((data) => data.route === `/${baseRoute}`);
     setValue(index);
   }, [location, sbData])
 
