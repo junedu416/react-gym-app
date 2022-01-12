@@ -45,7 +45,6 @@ export const Exercises = () => {
 
   const addExerciseToWorkout = useCallback(async (workoutIndex) => {
     console.log("useCallback called. workoutIndex is", workoutIndex)
-    // if(workoutIndex !== null){
     if(!profile.workouts[workoutIndex]){
         dispatch({
           type: "setNotification",
@@ -77,34 +76,24 @@ export const Exercises = () => {
     }
   }, [workoutIndex])
 
-  useEffect( async() => {
-
-    // const  fetchExercises = async () => {
-    //   console.log("fetching exercise from backend")
-    //   const exercises = await getAllExercises();
-    //   setExerciseList(exercises)
-    // }
-  
-    // fetchExercises().catch(console.error);
-    
-
-     if (exerciseList.length !==0 ){
-        setNewExercise({
-            exerciseId: exerciseList[exerciseIndex]._id,
-            sets: exerciseList[exerciseIndex].defaultSets
-              ? exerciseList[exerciseIndex].defaultSets
-              : null,
-            reps: exerciseList[exerciseIndex].defaultReps
-              ? exerciseList[exerciseIndex].defaultReps
-              : null,
-            weight: exerciseList[exerciseIndex].defaultWeight
-              ? exerciseList[exerciseIndex].defaultWeight
-              : null,
-            distance: exerciseList[exerciseIndex].defaultDistance
-              ? exerciseList[exerciseIndex].defaultDistance
-              : null
-          })
-      }
+  useEffect( async() => {    
+    if (exerciseList.length !==0 ){
+      setNewExercise({
+          exerciseId: exerciseList[exerciseIndex]._id,
+          sets: exerciseList[exerciseIndex].defaultSets
+            ? exerciseList[exerciseIndex].defaultSets
+            : null,
+          reps: exerciseList[exerciseIndex].defaultReps
+            ? exerciseList[exerciseIndex].defaultReps
+            : null,
+          weight: exerciseList[exerciseIndex].defaultWeight
+            ? exerciseList[exerciseIndex].defaultWeight
+            : null,
+          distance: exerciseList[exerciseIndex].defaultDistance
+            ? exerciseList[exerciseIndex].defaultDistance
+            : null
+        })
+    }
   }, [exerciseIndex]);
 
   useEffect(() => {
