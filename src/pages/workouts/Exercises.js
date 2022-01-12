@@ -134,9 +134,10 @@ export const Exercises = () => {
 
   const findWorkoutAddExercise = async (workouts, i, exercise) => {
     console.log("exercise being added", exercise);
-    workouts[i].exercises.push(exercise)
+    const workoutsClone = await JSON.parse(JSON.stringify(workouts));
+    workoutsClone[i].exercises.push(exercise)
     console.log("workout update:", workouts)
-    return workouts
+    return workoutsClone
   }
 
 
