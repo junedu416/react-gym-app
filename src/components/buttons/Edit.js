@@ -1,24 +1,25 @@
 import EditIcon from '@mui/icons-material/Edit';
-import BasicButton from "./BasicButton";
+import { Button } from '@mui/material';
 
 const EditButton = (props) => {
-  const { btnFunction, sx } = props;
+  const { btnFunction, hoverStyling } = props;
   return (
-    <BasicButton
+    <Button
       variant="text"
       onClick={btnFunction}
-      style={{
-        color: "grey",
+      color="inherit"
+      sx={{
         border: "none",
         display: "flex",
         flexDirection: "column",
-        borderRadius: "100%",
+        borderRadius: "50%",
         alignSelf: `${props.align ? props.align : "flex-end"}`,
+        ...hoverStyling 
       }}
     >
-      <EditIcon sx={{ ...sx }}/>
-      <p style={{color: "lime", margin: "0"}}>edit</p>
-    </BasicButton>
+      <EditIcon />
+      <p style={{ margin: "0", textTransform: "lowercase" }}>edit</p>
+    </Button>
   );
 };
 

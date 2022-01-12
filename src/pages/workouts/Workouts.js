@@ -152,9 +152,9 @@ export const Workouts = () => {
               {profile.workouts.map((workout, index) => {
                 return (
                   <Container>
-                    <EditButton btnFunction={() => editWorkout(index)} 
-                       sx={{ "&:hover": { color: "lime" } }}
-
+                    <EditButton
+                      btnFunction={() => editWorkout(index)}
+                      hoverStyling={{ "&:hover": { color: "lime" } }}
                     />
                     <WorkoutCardStyling value={index} onClick={handleClick}>
                       <SmallHeading
