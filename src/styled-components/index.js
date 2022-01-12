@@ -118,7 +118,7 @@ export const TextBold = styled.strong`
 `;
 
 export const BackWrapper = styled.div`
-  position: absolute;
+  position: fixed;
   top: 30px;
   left: 250px;
 `
