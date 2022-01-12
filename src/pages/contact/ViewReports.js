@@ -3,6 +3,7 @@ import Moment from "react-moment";
 import {
   ErrorText,
   Heading,
+  HoverBox,
   MainWindow,
   TextBold,
 } from "../../styled-components";
@@ -95,6 +96,7 @@ export const ViewReports = () => {
         {reportList.map((report, index) => {
           return (
             <li key={index} style={{ listStyleType: "none" }}>
+            <HoverBox>
               <TextBold mr="63px">Type: </TextBold> {report.type}
               <br />
               <TextBold mr="56px">Name: </TextBold> {report.reporterFullName}
@@ -136,6 +138,7 @@ export const ViewReports = () => {
               {open.includes(index) && (
                 <img src={report.reportImage} alt="user uploaded" />
               )}
+              </HoverBox>
             </li>
           );
         })}
