@@ -81,9 +81,9 @@ export const Workouts = () => {
   };
 
   const [activeWorkout, setActiveWorkout] = useState([]);
-  
+
   const handleClick = (selectedWorkout) => {
-      setActiveWorkout(selectedWorkout);
+    setActiveWorkout(selectedWorkout);
   };
 
   const navigateToLogin = () => {
@@ -101,10 +101,10 @@ export const Workouts = () => {
   }
 
   const activeStyle = {
-    borderLeft: activeWorkout ? "6px solid lime" : ""
-  }
+    borderLeft: activeWorkout ? "6px solid lime" : "",
+  };
 
-  console.log("active workout: ", activeWorkout)
+  console.log("active workout: ", activeWorkout);
 
   return (
     <MainWindow>
@@ -155,12 +155,21 @@ export const Workouts = () => {
               {profile.workouts.map((workout, index) => {
                 return (
                   <Container>
-                    <EditButton
-                      btnFunction={() => editWorkout(index)}
-                      hoverStyling={{ "&:hover": { color: "lime" } }}
-                    />
-                    <WorkoutCardStyling onClick={() => handleClick(index)} 
-                      style={{ borderLeft: (activeWorkout === index) ? "6px solid lime" : "6px solid transparent" }}>
+                    {activeWorkout === index && (
+                      <EditButton
+                        btnFunction={() => editWorkout(index)}
+                        hoverStyling={{ "&:hover": { color: "lime" } }}
+                      />
+                    )}
+                    <WorkoutCardStyling
+                      onClick={() => handleClick(index)}
+                      style={{
+                        borderLeft:
+                          activeWorkout === index
+                            ? "6px solid lime"
+                            : "6px solid transparent",
+                      }}
+                    >
                       <SmallHeading
                         p="10px 0 0 20px"
                         m="0 0 10px"
@@ -220,25 +229,27 @@ export const Workouts = () => {
                         );
                       })}
                     </WorkoutCardStyling>
-                    <BasicButton
-                      text="Start Workout"
-                      variant="outlined"
-                      sx={{
-                        color: "lime",
-                        mt: 2,
-                        border: "1.7px solid lime",
-                        borderRadius: "6px",
-                        opacity: "0.8",
-                        "&:hover": {
-                          opacity: "1",
-                          color: "#444",
-                          backgroundColor: "lime",
-                          borderColor: "lime",
-                          boxShadow: "0 2px -6px rgba(0, 0, 0, 0.08)",
-                        },
-                      }}
-                      btnFunction={() => workoutStart(index)}
-                    />
+                    {activeWorkout === index && (
+                      <BasicButton
+                        text="Start Workout"
+                        variant="outlined"
+                        sx={{
+                          color: "lime",
+                          mt: 2,
+                          border: "1.7px solid lime",
+                          borderRadius: "6px",
+                          opacity: "0.8",
+                          "&:hover": {
+                            opacity: "1",
+                            color: "#444",
+                            backgroundColor: "lime",
+                            borderColor: "lime",
+                            boxShadow: "0 2px -6px rgba(0, 0, 0, 0.08)",
+                          },
+                        }}
+                        btnFunction={() => workoutStart(index)}
+                      />
+                    )}
                   </Container>
                 );
               })}
