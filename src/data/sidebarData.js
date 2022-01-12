@@ -5,7 +5,6 @@ import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import CampaignIcon from "@mui/icons-material/Campaign";
-// import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -14,17 +13,17 @@ import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
 
 // Dashboard components
-import { Overview } from "./Overview";
-import { Checkins } from "./Checkins.js";
-import { PerformanceStats } from "./PerformanceStats";
-import { MyProfile } from "./MyProfile";
-import { Leaderboards } from "./Leaderboards";
-import { Reporting } from "../contact/Reporting";
-import { Register } from "../login/Register";
-import { SignIn } from "../login/Login";
-import { Landing } from "../login/Landing";
-import { Events } from "../events/Events";
-import { Workouts } from "../workouts/Workouts";
+import { Overview } from "../pages/home/Overview";
+import { Checkins } from "../pages/home/Checkins.js";
+import { PerformanceStats } from "../pages/home/PerformanceStats";
+import { MyProfile } from "../pages/home/MyProfile";
+import { Leaderboards } from "../pages/home/Leaderboards";
+import { Reporting } from "../pages/contact/Reporting";
+import { Register } from "../pages/login/Register";
+import { SignIn } from "../pages/login/Login";
+import { Landing } from "../pages/login/Landing";
+import { Events } from "../pages/events/Events";
+import { Workouts } from "../pages/workouts/Workouts";
 
 const iconMargin = {
   marginRight: "7px",

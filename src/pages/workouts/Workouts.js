@@ -99,7 +99,8 @@ export const Workouts = () => {
   
 
   function editWorkout(index) {
-    dispatch ({type: "selectWorkout", data: profile.workouts[index]._id })
+    dispatch ({type: "selectWorkout", data: index })
+    // dispatch ({type: "selectWorkout", data: profile.workouts[index]._id })
     navigate("/workouts/edit")
   } 
   

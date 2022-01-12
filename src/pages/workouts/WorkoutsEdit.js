@@ -29,13 +29,17 @@ export const EditWorkouts = () => {
   useRedirectUnauthorisedUser();
   const navigate = useNavigate();
   const { store, dispatch } = useGlobalState();
-  const { profile, workoutId } = store;
+  const { profile, workoutIndex } = store;
   const [modalOpen, setModalOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-  const workoutList = profile.workouts.filter((workout) => workout._id === workoutId)
+  // clare
+  const workoutList = profile.workouts[workoutIndex]
+  // end clare
   const choosePath = ['Add From Popular Exercises', 'Add Customized Exercise'];
+
+  
 
   useEffect(() => {
     if (profile){
@@ -78,8 +82,9 @@ export const EditWorkouts = () => {
   ];
 
   function handleWorkoutDelete() {
-    const updatedWorkout = profile.workouts.filter((workout) => workout._id !== workoutId)
-    dispatch({type: "setWorkout", data: updatedWorkout})
+    const workoutsClone = [...profile.workouts];
+    workoutsClone.splice(workoutIndex, 1)
+    dispatch({type: "setWorkout", data: workoutsClone})
     dispatch({type: "setNotification", data: "Delete workout successfully!"})
     navigate("/workouts")
   }
@@ -107,24 +112,21 @@ export const EditWorkouts = () => {
   }
 
   function deleteExercise(exercise){
-    const newWorkout = workoutList[0].exercises.filter((el) => el._id !== exercise._id);
-    const listIndex = profile.workouts.findIndex(x => x._id===workoutId);
+    const newWorkout = workoutList.exercises.filter((el) => el._id !== exercise._id);
     const profileWorkouts = profile.workouts
-    profileWorkouts[listIndex].exercises = newWorkout
+    profileWorkouts[workoutIndex].exercises = newWorkout
 
     dispatch({type: 'setWorkout', data: profileWorkouts})
     console.log("the profile workouts are:",profile.workouts)
   }
 
-  const handleFormChange = () => {
-
-  }
 
   return (
     <>
       <MainWindow>
         <Container>
-          <Heading>{workoutList[0].name}  <Button><EditIcon/></Button></Heading>
+        {workoutList && <>
+          <Heading>{workoutList.name}<Button><EditIcon/></Button></Heading>
           <Container>
             <WorkoutCardStyling>
               <ul
@@ -135,8 +137,8 @@ export const EditWorkouts = () => {
                   margin: 0,
                 }}
               >
-                {workoutList[0].exercises.map((exercise, index) => (
-                  <ListItems key = {index} >
+                {workoutList.exercises.map((exercise) => (
+                  <ListItems>
                     <WorkoutList p="10px 0px" ml="20px">
                       {exercise.exerciseId? exercise.exerciseId.name: exercise.customisedName}
                       <IconButton>
@@ -151,7 +153,7 @@ export const EditWorkouts = () => {
                   </ListItems>
                 ))}
               </ul>
-
+        
               <TextLink
                 direction="row"
                 ml="25px"
@@ -187,6 +189,7 @@ export const EditWorkouts = () => {
                   </Typography>
             </Menu>
           </Container>
+        </> }
         </Container>
         <br/>
         <Button variant="outlined" color="error" onClick={handleModalOpen} >Delete Workout</Button>
