@@ -15,6 +15,7 @@ import {
   mr,
   mb,
   hoverMixin,
+  bg,
 } from "./mixins";
 import { Link } from "react-router-dom";
 import { Alert, Dialog } from "@mui/material";
@@ -30,14 +31,17 @@ export const Container = styled.div`
   ${(props) => props.m && m}
   ${(props) => props.p && p}
   ${(props) => props.w && w}
+  ${(props) => props.bg && bg}
 `;
 
 export const Widget = styled(Container)`
+  padding: 12px;
   width: 300px;
   height: 300px;
-  overflow-x: hidden;
-  overflow-y: scroll;
-`
+  overflow: none;
+  /* overflow-x: hidden; */
+  /* overflow-y: scroll; */
+`;
 
 export const MainWindow = styled.div`
   ${flexbox};
@@ -63,9 +67,14 @@ export const SmallHeading = styled.h2`
 export const Grid = styled.div`
   display: grid;
   /* grid-template-rows: repeat(3, minmax(100px, 1fr)); */
-  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  /* grid-template-columns: repeat(3, minmax(100px, 1fr)); */
+  grid-template-columns: ${(props) =>
+    props.desktop
+      ? "repeat(3, minmax(100px, 1fr))"
+      : "repeat(1, minmax(100px, 1fr))"};
   grid-auto-rows: auto;
-  gap: 50px;
+  gap: ${(props) =>
+    props.desktop ? "50px" : "0px"};
 `;
 
 export const ButtonLink = styled(Link)`
@@ -105,13 +114,13 @@ export const Text = styled.p`
 `;
 
 export const ErrorText = styled.span`
-  color: ${props => props.color ? props.color : "red"};
-`
+  color: ${(props) => (props.color ? props.color : "red")};
+`;
 
 export const TextBold = styled.strong`
   margin-top: 50px;
   margin-bottom: 50px;
-  line-height: ${props => props.lh ? props.lh : "2.5"};
+  line-height: ${(props) => (props.lh ? props.lh : "2.5")};
   ${(props) => props.mr && mr}
   ${(props) => props.mt && mt}
   ${(props) => props.mb && mb}
@@ -121,11 +130,11 @@ export const BackWrapper = styled.div`
   position: fixed;
   top: 30px;
   left: 250px;
-`
+`;
 
 export const HoverBox = styled(Container)`
   ${hoverMixin}
   border-radius: 10px;
   width: 100%;
-  border-radius: ${props => props.rounded ? props.rounded : "6px"}
-`
+  border-radius: ${(props) => (props.rounded ? props.rounded : "6px")};
+`;

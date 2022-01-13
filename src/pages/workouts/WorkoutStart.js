@@ -22,7 +22,7 @@ export const WorkoutStart = (props) => {
   const { profile, workoutIndex } = store;
   const profWorkoutsClone = JSON.parse(JSON.stringify(profile.workouts));
   const workoutList = profWorkoutsClone[workoutIndex];
-  console.log("workoutList", workoutList)
+  console.log("workoutList", workoutList);
   // const selectedWorkout = workoutList[0];
   const list = workoutList.exercises;
 
@@ -33,7 +33,10 @@ export const WorkoutStart = (props) => {
     new Array(list.length)
   );
   //const [disabledList, setDisabledList] = useState([]);
-  const [exerciseCompleted, setExerciseCompleted] = useState({...workoutList, exercises: []});
+  const [exerciseCompleted, setExerciseCompleted] = useState({
+    ...workoutList,
+    exercises: [],
+  });
   const [open, setOpen] = useState(false);
 
   const totalExercises = list.length - 1;
@@ -45,7 +48,10 @@ export const WorkoutStart = (props) => {
   };
 
   const handleExerciseCompleted = (newExerciseCompleted) => {
-    setExerciseCompleted({...exerciseCompleted, exercises: [...exerciseCompleted.exercises, newExerciseCompleted]});
+    setExerciseCompleted({
+      ...exerciseCompleted,
+      exercises: [...exerciseCompleted.exercises, newExerciseCompleted],
+    });
   };
 
   useEffect(() => {
@@ -82,8 +88,8 @@ export const WorkoutStart = (props) => {
 
   const isWorkoutCompleted = (counter) => {
     if (counter === totalExercises) {
-      handleOpen()
-      setTimeout(() => handleClose(), 3500)
+      handleOpen();
+      setTimeout(() => handleClose(), 3500);
     }
   };
 
@@ -93,10 +99,12 @@ export const WorkoutStart = (props) => {
       console.log("profWorkoutsClone", profWorkoutsClone);
       editProfile(profile.userId, {
         ...profile,
-        workouts: profWorkoutsClone
-      }).then((response) => dispatch({type: "setProfile", data: response.data}));
+        workouts: profWorkoutsClone,
+      }).then((response) =>
+        dispatch({ type: "setProfile", data: response.data })
+      );
     }
-  }, [exerciseCompleted])
+  }, [exerciseCompleted]);
 
   const determineUnits = (distance) => {
     if (distance > 1000) return `${distance / 1000} km`;
@@ -113,15 +121,15 @@ export const WorkoutStart = (props) => {
           shadow
           style={{ borderRadius: "15px" }}
         >
-          <WorkoutDate>
-            {moment().format("LL")}
-          </WorkoutDate>
+          <WorkoutDate>{moment().format("LL")}</WorkoutDate>
           <Container
             direction="row"
             style={{ width: "100%" }}
             justify="space-between"
           >
-            <SmallHeading style={{ margin: "0" }}>{workoutList.name}</SmallHeading>
+            <SmallHeading style={{ margin: "0" }}>
+              {workoutList.name}
+            </SmallHeading>
             <EditButton />
           </Container>
 
@@ -135,14 +143,16 @@ export const WorkoutStart = (props) => {
             <span style={{ color: "lime", paddingRight: "17px" }}>
               Completed
             </span>
-            <span style={{ color: "red" }}>
-              Incomplete
-            </span>
+            <span style={{ color: "red" }}>Incomplete</span>
           </Container>
 
           {list.map((exercise, index) => (
             <>
-              <Container align="flex-start" w="100%">
+              <Container
+                align="flex-start"
+                w="100%"
+                style={{ minWidth: "400px" }}
+              >
                 <SmallHeading
                   size="1.6rem"
                   color="rgba(40, 40, 40, 0.65)"
@@ -156,7 +166,10 @@ export const WorkoutStart = (props) => {
                   style={{ width: "100%" }}
                   justify="space-between"
                 >
-                  <Container direction="row" style={{ gap: "50px", marginRight: "30px" }}>
+                  <Container
+                    direction="row"
+                    style={{ gap: "50px", marginRight: "30px" }}
+                  >
                     {exercise.sets && (
                       <Container>
                         <WorkoutText mb="0">Sets</WorkoutText>

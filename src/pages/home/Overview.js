@@ -45,7 +45,7 @@ export const Overview = (props) => {
         <Heading>
           Welcome back, {profile ? profile.firstName : "user"}
         </Heading>
-        <Grid>
+        <Grid desktop>
           <CardStyle><CheckInWidget /></CardStyle>
           {profile && profile.isStaff && <CardStyle><StaffEventsWidget events = {eventsList} /></CardStyle>}
           <CardStyle><UpcomingEventsWidget events={eventsList} /></CardStyle>

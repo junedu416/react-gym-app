@@ -2,13 +2,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Button } from '@mui/material';
 
 const EditButton = (props) => {
-  const { btnFunction, hoverStyling } = props;
+  const { btnFunction, hoverStyling, color } = props;
   return (
     <Button
       variant="text"
       onClick={btnFunction}
-      color="inherit"
       sx={{
+        color: color ? color : "inherit",
         border: "none",
         display: "flex",
         flexDirection: "column",

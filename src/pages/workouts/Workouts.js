@@ -11,9 +11,11 @@ import {
   StyledAlert,
   Text,
   TextLink,
+  Wrapper,
 } from "../../styled-components";
-import { Collapse } from "@mui/material";
+import { Collapse, Paper } from "@mui/material";
 import {
+  BlackBackground,
   WorkoutCardStyling,
   WorkoutList,
 } from "../../styled-components/workouts";
@@ -32,6 +34,11 @@ import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
 import { ReusableModal } from "../../components/ReusableModal";
 import { displayUnits } from "../../utils/workoutFunctions";
+import Workoutbgimg from "../../assets/workouts.jpg";
+import { WorkoutsBackground } from "../../styled-components/workouts";
+
+import json2mq from 'json2mq';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export const Workouts = () => {
   useRedirectUnauthorisedUser();
@@ -100,14 +107,21 @@ export const Workouts = () => {
     navigate("/workouts/edit");
   }
 
-  const activeStyle = {
-    borderLeft: activeWorkout ? "6px solid lime" : "",
-  };
+  const desktop = useMediaQuery(
+    json2mq({
+      minWidth: 1400,
+    }),
+  );
 
-  console.log("active workout: ", activeWorkout);
 
   return (
     <MainWindow>
+      <Container direction="row">
+        <BlackBackground />
+        <WorkoutsBackground
+          src={Workoutbgimg}
+        />
+      </Container>
       {!profile && (
         <Collapse in={display}>
           <StyledAlert
@@ -136,11 +150,16 @@ export const Workouts = () => {
         </Collapse>
       )}
 
+{/* ============================================================ lime color heading */}
       {profile && (
         <Container>
-          <Heading>Workouts</Heading>
+          <Heading style={{ color: "lime" }}>Workouts</Heading>
           <div>
-            <BasicButton text="Create Workout" variant="outlined" btnFunction={handleClickOpen} />
+            <BasicButton
+              text="Create Workout"
+              variant="outlined"
+              btnFunction={handleClickOpen}
+            />
           </div>
           {profile.workouts.length === 0 && (
             <Text>
@@ -149,35 +168,41 @@ export const Workouts = () => {
             </Text>
           )}
           <Container>
-            <Grid>
+            <Grid desktop={desktop}>
               {profile.workouts.map((workout, index) => {
                 return (
                   <Container justify="flex-start">
                     {activeWorkout === index ? (
                       <EditButton
                         btnFunction={() => editWorkout(index)}
+                        color="#AAA"
                         hoverStyling={{ "&:hover": { color: "lime" } }}
                       />
                     ) : (
-                      <div style={{ height: "60.5px" }}>&nbsp;</div>
+                      <div style={{ height: "60px" }}>&nbsp;</div>
                     )}
                     {/* Div above offsets the space so the workouts don't jump up and down when the edit
                          button is rendered/not rendered.
                       */}
-
+                            
                     <WorkoutCardStyling
                       onClick={() => handleClick(index)}
+                      // bg="rgba( 200, 200, 200, 1)"
+                      bg="#3F3F3F"
                       style={{
+                        color:"white",
                         borderLeft:
                           activeWorkout === index
                             ? "6px solid lime"
                             : "6px solid transparent",
                       }}
                     >
+
+{/* ============================================================ lime color heading */}
                       <SmallHeading
                         p="10px 0 0 20px"
                         m="0 0 10px"
-                        style={{ fontSize: "1.5rem" }}
+                        style={{ fontSize: "1.5rem", color: "lime" }}
                       >
                         {workout.name}
                       </SmallHeading>
@@ -239,7 +264,8 @@ export const Workouts = () => {
                         variant="outlined"
                         sx={{
                           color: "lime",
-                          mt: 2,
+                          mt: 3,
+                          mb: 0,
                           border: "1.7px solid lime",
                           borderRadius: "6px",
                           opacity: "0.8",
@@ -248,13 +274,14 @@ export const Workouts = () => {
                             color: "#444",
                             backgroundColor: "lime",
                             border: "2.5px solid #65FE08",
-                            boxShadow: "3px 5px 6px -2px rgba(160, 160, 160, 0.6)",
+                            boxShadow:
+                              "3px 5px 6px -2px rgba(160, 160, 160, 0.6)",
                           },
                         }}
                         btnFunction={() => workoutStart(index)}
                       />
                     ) : (
-                      <div style={{ height: "87px" }}>&nbsp;</div>
+                      <div style={{ height: "79px" }}>&nbsp;</div>
                     )}
                   </Container>
                 );
