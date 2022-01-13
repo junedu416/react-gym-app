@@ -17,6 +17,7 @@ export const NewEvent = () => {
       if (result.error){
         console.log("error in data validation: ", result.error)
         setErrorMessage(result.error);
+        throw new Error(result.error)
       } else {
         setErrorMessage("");
       }
@@ -26,7 +27,8 @@ export const NewEvent = () => {
       navigate('/events')
     })
     .catch(error => {
-      setErrorMessage("Failed to connect to server.")
+      console.log("error caught: ", error)
+      setErrorMessage(JSON.parse(error).Error)
     });
   }
 
