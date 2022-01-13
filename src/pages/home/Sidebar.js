@@ -14,6 +14,7 @@ import { useGlobalState } from "../../config/globalStore";
 import { signOutUser } from "../../services/userServices";
 import MenuIcon from '@mui/icons-material/Menu';
 import { SidebarData } from "../../data/sidebarData";
+import { getBaseRoute } from "../../utils/sidebarUtils";
 
 const StyledTabs = styled((props) => (
   <Tabs
@@ -128,7 +129,8 @@ export const Sidebar = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const index = sbData.findIndex((data) => data.route === location.pathname);
+    const baseRoute = getBaseRoute(location.pathname);
+    const index = sbData.findIndex((data) => data.route === baseRoute);
     setValue(index);
   }, [location, sbData])
 
