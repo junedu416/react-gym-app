@@ -46,11 +46,11 @@ export const Overview = (props) => {
         </Heading>
         <Grid>
           <CardStyle><CheckInWidget /></CardStyle>
+          {profile && profile.isStaff && <CardStyle><StaffEventsWidget events = {eventsList} /></CardStyle>}
           <CardStyle><UpcomingEventsWidget events={eventsList} /></CardStyle>
           <CardStyle><UpcomingCompsWidget events={eventsList} /></CardStyle>
-          {profile.isStaff && <CardStyle><StaffEventsWidget events = {eventsList} /></CardStyle>}
           <CardStyle />
-          {/* <CardStyle /> */}
+          <CardStyle />
         </Grid>
       </Container>
     </MainWindow>
