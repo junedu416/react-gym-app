@@ -26,3 +26,10 @@ export const filterToToday = (list, dateAttribute) => {
     const filteredList = list.filter((item) => moment().isSame(item[dateAttribute], 'day'))
     return filteredList
 }
+
+export const filterToCurrent = (list, startTime, endTime) => {
+    const filteredList = list.filter((item) => 
+        moment().isSame(item[startTime], 'day') || (moment().isAfter(item[startTime]) && !moment().isAfter(item[endTime]))
+    )
+    return filteredList
+}
