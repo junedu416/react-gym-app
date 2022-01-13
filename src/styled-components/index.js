@@ -35,10 +35,12 @@ export const Container = styled.div`
 `;
 
 export const Widget = styled(Container)`
+  padding: 12px;
   width: 300px;
   height: 300px;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  overflow: none;
+  /* overflow-x: hidden; */
+  /* overflow-y: scroll; */
 `
 
 export const MainWindow = styled.div`

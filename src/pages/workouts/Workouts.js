@@ -158,13 +158,14 @@ export const Workouts = () => {
             </Text>
           )}
           <Container>
-            <Grid>
+            <Grid  style={{ border: "5px solid red"}}>
               {profile.workouts.map((workout, index) => {
                 return (
                   <Container justify="flex-start">
                     {activeWorkout === index ? (
                       <EditButton
                         btnFunction={() => editWorkout(index)}
+                        color="#AAA"
                         hoverStyling={{ "&:hover": { color: "lime" } }}
                       />
                     ) : (
