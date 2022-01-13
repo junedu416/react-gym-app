@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useGlobalState } from "../../config/globalStore";
 import { Container, Heading, MainWindow } from "../../styled-components/";
-import { workoutList } from "../../data/workouts-dummy";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -22,8 +21,7 @@ export const PerformanceStats = (props) => {
   useRedirectUnauthorisedUser();
   const {store} = useGlobalState();
   const {profile} = store;
-  let workouts;
-  if (profile) workouts = profile.workouts;
+  const workoutList = profile.workouts;
 
   const [workoutIndex, setWorkoutIndex] = useState(0);
   const [labels, setLabels] = useState();
@@ -46,29 +44,46 @@ export const PerformanceStats = (props) => {
     responsive: true,
   };
 
+  function getLargestPrevWorkouts() {
+    let longestLength = 0;
+    workoutList[workoutIndex].exercises.forEach((exercise) => {
+      const prevWeightsLength = exercise.prevWeights.length;
+      const prevDistancesLength = exercise.prevDistances.length;
+      const longest = prevWeightsLength > prevDistancesLength ? prevWeightsLength : prevDistancesLength;
+      if (longest > longestLength) {
+        longestLength = longest;
+      }
+    })
+    return longestLength;
+  }
+
   useEffect(() => {
     if (Object.keys(workoutList).length > 0) {
-      const prevStats =
-        workoutList[workoutIndex].exercises[0].prevWeights ??
-        workoutList[workoutIndex].exercises[0].prevDistances;
-      const newLabels = prevStats.map(() => "");
+      const labelsToCreate = getLargestPrevWorkouts();
+      const newLabels = [];
+      for (let x = 0; x < labelsToCreate; x++) {
+        newLabels.push("");
+      }
+      console.log("newLables will be: ", newLabels);
       setLabels(newLabels);
     }
   }, [workoutIndex]);
 
   useEffect(() => {
+    console.log("workoutList", workoutList[workoutIndex]);
     if (Object.keys(workoutList).length > 0) {
       const newData = {
         labels,
         datasets: workoutList[workoutIndex].exercises.map((e, i) => {
           return {
-            label: e.name,
-            data: e.prevWeights ?? e.prevDistances,
+            label: e.exerciseId.name,
+            data:  e.prevWeights.length > 0 ? e.prevWeights : e.prevDistances,
             borderColor: colors[i],
             backgroundColor: "black",
           };
         }),
       };
+      console.log("newData", newData);
       setData(newData);
     }
   }, [labels]);
