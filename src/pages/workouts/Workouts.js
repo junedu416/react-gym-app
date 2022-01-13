@@ -178,7 +178,7 @@ export const Workouts = () => {
                     {activeWorkout === index ? (
                       <EditButton
                         btnFunction={() => editWorkout(index)}
-                        color="#AAA"
+                        color="rgba(0, 200, 40, 1)"
                         hoverStyling={{ "&:hover": { color: "lime" } }}
                       />
                     ) : (
