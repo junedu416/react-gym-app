@@ -46,16 +46,12 @@ const LinkTab = styled((props) => (
   <Tab
     disableRipple
     component="a"
-    onClick={(event) => {
-      // event.preventDefault();
-    }}
     {...props}
   />
 ))(({ theme }) => ({
   textTransform: "none",
   fontWeight: theme.typography.fontWeightRegular,
   fontSize: theme.typography.pxToRem(14),
-  // fontSize: "0.8rem",
   marginRight: theme.spacing(1),
   color: "rgba(255, 255, 255, 0.85)",
   "&:hover": {
@@ -63,8 +59,8 @@ const LinkTab = styled((props) => (
     transition: "0.2s",
   },
   "&.Mui-selected": {
-    // color: "rgba(253, 106, 2, 1)",
-    color: "white",
+    color: "lime",
+    // color: "white",
     // backgroundColor: "rgba(110, 110, 110, 0.6)",
     backgroundColor: "darkblue",
     fontWeight: theme.typography.fontWeightBold,
@@ -111,10 +107,6 @@ export const Sidebar = () => {
   const [sbData, setSbData] = useState([]);
   const [open, setOpen] = useState(true);
 
-  // function handleClick(event) {
-  //   event.preventDefault();
-  // }
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -140,16 +132,17 @@ export const Sidebar = () => {
       temp = SidebarData.filter((e) => e.title[1] !== "Register" && e.title[1] !== "Sign In")
     } else {
       temp = SidebarData.filter((e) => 
-        e.title[1] !== "Sign Out" &&
-        e.title[1] !== "Overview" && 
-        e.title[1] !== "Check-ins" &&
-        e.title[1] !== "Performance Stats" &&
-        e.title[1] !== "Events" &&
-        e.title[1] !== "Workouts" && 
-        e.title[1] !== "Profile" &&
-        e.title[1] !== "Leaderboards" &&
-        e.title[1] !== "Reports" &&
-        e.title[1] !== "Our Team"
+        // e.title[1] !== "Sign Out" &&
+        // e.title[1] !== "Overview" && 
+        // e.title[1] !== "Check-ins" &&
+        // e.title[1] !== "Performance Stats" &&
+        // e.title[1] !== "Events" &&
+        // e.title[1] !== "Workouts" && 
+        // e.title[1] !== "Profile" &&
+        // e.title[1] !== "Leaderboards" &&
+        // e.title[1] !== "Reports" &&
+        // e.title[1] !== "Our Team"
+        e.title[1] === "Sign In" || e.title[1] === "Register"
       )
     }
     setSbData(temp);
