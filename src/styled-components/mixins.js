@@ -104,7 +104,6 @@ export const greyBorder = () => {
   `;
 };
 
-
 export const hoverMixin = () => {
   return `
   transition: all 0.7s;
@@ -117,3 +116,10 @@ export const hoverMixin = () => {
   `;
 };
 
+export const bg = (props) => {
+  return `
+    background-color: ${props.bg ? props.bg : "transparent"};
+    background: ${props.bg ? props.bg : "transparent"};
+
+  `
+}

@@ -15,6 +15,7 @@ import {
   mr,
   mb,
   hoverMixin,
+  bg,
 } from "./mixins";
 import { Link } from "react-router-dom";
 import { Alert, Dialog } from "@mui/material";
@@ -30,6 +31,7 @@ export const Container = styled.div`
   ${(props) => props.m && m}
   ${(props) => props.p && p}
   ${(props) => props.w && w}
+  ${(props) => props.bg && bg}
 `;
 
 export const Widget = styled(Container)`

@@ -11,8 +11,9 @@ import {
   StyledAlert,
   Text,
   TextLink,
+  Wrapper,
 } from "../../styled-components";
-import { Collapse } from "@mui/material";
+import { Collapse, Paper } from "@mui/material";
 import {
   BlackBackground,
   WorkoutCardStyling,
@@ -139,9 +140,10 @@ export const Workouts = () => {
         </Collapse>
       )}
 
+{/* ============================================================ lime color heading */}
       {profile && (
         <Container>
-          <Heading>Workouts</Heading>
+          <Heading style={{ color: "lime" }}>Workouts</Heading>
           <div>
             <BasicButton
               text="Create Workout"
@@ -171,20 +173,25 @@ export const Workouts = () => {
                     {/* Div above offsets the space so the workouts don't jump up and down when the edit
                          button is rendered/not rendered.
                       */}
-
+                            
                     <WorkoutCardStyling
                       onClick={() => handleClick(index)}
+                      // bg="rgba( 200, 200, 200, 1)"
+                      bg="#3F3F3F"
                       style={{
+                        color:"white",
                         borderLeft:
                           activeWorkout === index
                             ? "6px solid lime"
                             : "6px solid transparent",
                       }}
                     >
+
+{/* ============================================================ lime color heading */}
                       <SmallHeading
                         p="10px 0 0 20px"
                         m="0 0 10px"
-                        style={{ fontSize: "1.5rem" }}
+                        style={{ fontSize: "1.5rem", color: "lime" }}
                       >
                         {workout.name}
                       </SmallHeading>
