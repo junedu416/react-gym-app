@@ -17,12 +17,19 @@ export const sortFromMostRecentToOldest = (list, dateAttribute) => {
   return sortedList
 }
 
-export const sortFromOlderstToMostRecent = (list, dateAttribute) => {
+export const sortFromOldestToMostRecent = (list, dateAttribute) => {
     const sortedList = list.sort((prev, next) => isMoreRecent(next[dateAttribute], prev[dateAttribute]))
     return sortedList
 }
 
 export const filterToToday = (list, dateAttribute) => {
     const filteredList = list.filter((item) => moment().isSame(item[dateAttribute], 'day'))
+    return filteredList
+}
+
+export const filterToCurrent = (list, startTime, endTime) => {
+    const filteredList = list.filter((item) => 
+        moment().isSame(item[startTime], 'day') || (moment().isAfter(item[startTime]) && !moment().isAfter(item[endTime]))
+    )
     return filteredList
 }

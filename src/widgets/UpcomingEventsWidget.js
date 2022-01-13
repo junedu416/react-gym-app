@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Widget } from '../styled-components';
 import { useGlobalState } from "../config/globalStore.js";
 import {filterEventsByCategory} from "../utils/events-helper-functions.js";
-import { sortFromOlderstToMostRecent, filterToToday} from "../utils/widget-helpers.js";
+import { sortFromOldestToMostRecent, filterToToday} from "../utils/widget-helpers.js";
 import BasicButton from '../components/buttons/BasicButton';
 
 export const UpcomingEventsWidget = ({events}) => {
@@ -15,7 +15,7 @@ export const UpcomingEventsWidget = ({events}) => {
     const sortAndFilterEvents = (eventsList, profile) => {
         const registeredEvents = filterEventsByCategory(eventsList, "registered events", profile)
         const eventsExceptCompetitions = registeredEvents.filter((event) => event.category !== "Competition")
-        const eventsSortedByDate = sortFromOlderstToMostRecent(eventsExceptCompetitions, 'startTime')
+        const eventsSortedByDate = sortFromOldestToMostRecent(eventsExceptCompetitions, 'startTime')
         const upcomingEvents = filterToToday(eventsSortedByDate, 'startTime')
         console.log("final return value for filtered events", upcomingEvents)
         return upcomingEvents

@@ -13,6 +13,7 @@ import { useRedirectUnauthorisedUser } from "../../config/customHooks.js";
 import { getAllEvents } from "../../services/eventsServices.js";
 import { convertTimeToAcceptedFormat } from "../../utils/events-helper-functions.js";
 import { UpcomingEventsWidget } from "../../widgets/UpcomingEventsWidget";
+import { UpcomingCompsWidget } from "../../widgets/UpcomingCompsWidget.js";
 
 
 export const Overview = (props) => {
@@ -45,10 +46,10 @@ export const Overview = (props) => {
         <Grid>
           <CardStyle><CheckInWidget /></CardStyle>
           <CardStyle><UpcomingEventsWidget events={eventsList} /></CardStyle>
+          <CardStyle><UpcomingCompsWidget events={eventsList} /></CardStyle>
           <CardStyle />
           <CardStyle />
-          <CardStyle />
-          <CardStyle />
+          {/* <CardStyle /> */}
         </Grid>
       </Container>
     </MainWindow>
