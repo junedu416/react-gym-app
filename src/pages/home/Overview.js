@@ -9,6 +9,7 @@ import {
 } from "../../styled-components";
 import { useGlobalState } from "../../config/globalStore.js";
 import CheckInWidget from "../../widgets/CheckInWidget.js";
+import ReportWidget from "../../widgets/ReportWidget";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks.js";
 import { getAllEvents } from "../../services/eventsServices.js";
 import { convertTimeToAcceptedFormat } from "../../utils/events-helper-functions.js";
@@ -46,7 +47,7 @@ export const Overview = (props) => {
           <CardStyle><CheckInWidget /></CardStyle>
           <CardStyle><UpcomingEventsWidget events={eventsList} /></CardStyle>
           <CardStyle />
-          <CardStyle />
+          <CardStyle><ReportWidget /></CardStyle>
           <CardStyle />
           <CardStyle />
         </Grid>
