@@ -58,6 +58,7 @@ import { StateContext } from "./config/globalStore";
 import RememberMe from "./components/RememberMe";
 import { Back } from "./components/Back";
 
+import ScrollButton from "./components/buttons/Scroll";
 
 const App = () => {
   const [store, dispatch] = useReducer(globalReducer, initialGlobalState)
@@ -70,6 +71,7 @@ const App = () => {
       <RememberMe />
       <Notification />
       <Back btnFunction={() => navigate(-1)} />
+      <ScrollButton />
       <Sidebar />
       <Routes>
         <Route path="/" element={<Landing />} />
