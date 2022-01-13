@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { CardStyle } from "../../styled-components/dashboard.js";
 import {
   Container,
@@ -11,12 +11,31 @@ import { useGlobalState } from "../../config/globalStore.js";
 import CheckInWidget from "../../widgets/CheckInWidget.js";
 import ReportWidget from "../../widgets/ReportWidget";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks.js";
+import { getAllEvents } from "../../services/eventsServices.js";
+import { convertTimeToAcceptedFormat } from "../../utils/events-helper-functions.js";
+import { UpcomingEventsWidget } from "../../widgets/UpcomingEventsWidget";
 
 
 export const Overview = (props) => {
   useRedirectUnauthorisedUser();
   const { store } = useGlobalState();
   const { profile } = store;
+  const [eventsList, setEventsList] = useState(null)
+  // const [eventsList, dispatchEventsList] = useReducer(eventsReducer, {events: null})
+
+  useEffect(() => {
+    if(!eventsList){
+    getAllEvents()
+        .then((response) => {
+          console.log("fetched data");
+          response.forEach((event) => {
+            convertTimeToAcceptedFormat(event);
+          });
+          setEventsList(response);
+        })
+        .catch((error) => console.log(`error caught fetching events: `, error));
+    }
+  }, [eventsList])
 
   return (
     <MainWindow>
@@ -26,7 +45,7 @@ export const Overview = (props) => {
         </Heading>
         <Grid>
           <CardStyle><CheckInWidget /></CardStyle>
-          <CardStyle />
+          <CardStyle><UpcomingEventsWidget events={eventsList} /></CardStyle>
           <CardStyle />
           <CardStyle><ReportWidget /></CardStyle>
           <CardStyle />
