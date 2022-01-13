@@ -37,6 +37,9 @@ import { displayUnits } from "../../utils/workoutFunctions";
 import Workoutbgimg from "../../assets/workouts.jpg";
 import { WorkoutsBackground } from "../../styled-components/workouts";
 
+import json2mq from 'json2mq';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 export const Workouts = () => {
   useRedirectUnauthorisedUser();
   const [open, setOpen] = useState(false);
@@ -104,6 +107,13 @@ export const Workouts = () => {
     navigate("/workouts/edit");
   }
 
+  const desktop = useMediaQuery(
+    json2mq({
+      minWidth: 1400,
+    }),
+  );
+
+
   return (
     <MainWindow>
       <Container direction="row">
@@ -158,7 +168,7 @@ export const Workouts = () => {
             </Text>
           )}
           <Container>
-            <Grid  style={{ border: "5px solid red"}}>
+            <Grid desktop={desktop}>
               {profile.workouts.map((workout, index) => {
                 return (
                   <Container justify="flex-start">
@@ -254,7 +264,8 @@ export const Workouts = () => {
                         variant="outlined"
                         sx={{
                           color: "lime",
-                          mt: 2,
+                          mt: 3,
+                          mb: 0,
                           border: "1.7px solid lime",
                           borderRadius: "6px",
                           opacity: "0.8",
