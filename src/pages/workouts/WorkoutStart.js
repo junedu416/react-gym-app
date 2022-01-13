@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { ReusableModal } from "../../components/ReusableModal";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import { useGlobalState } from "../../config/globalStore";
+import { editProfile } from "../../services/profileServices";
 
 export const WorkoutStart = (props) => {
   useRedirectUnauthorisedUser();
@@ -19,7 +20,9 @@ export const WorkoutStart = (props) => {
 
   const { store, dispatch } = useGlobalState();
   const { profile, workoutIndex } = store;
-  const workoutList = profile.workouts[workoutIndex]
+  const profWorkoutsClone = JSON.parse(JSON.stringify(profile.workouts));
+  const workoutList = profWorkoutsClone[workoutIndex];
+  console.log("workoutList", workoutList)
   // const selectedWorkout = workoutList[0];
   const list = workoutList.exercises;
 
@@ -29,11 +32,9 @@ export const WorkoutStart = (props) => {
   const [disableExButtons, setDisableExButtons] = useState(
     new Array(list.length)
   );
-  const [disabledList, setDisabledList] = useState([]);
-  const [exerciseCompleted, setExerciseCompleted] = useState([]);
+  //const [disabledList, setDisabledList] = useState([]);
+  const [exerciseCompleted, setExerciseCompleted] = useState({...workoutList, exercises: []});
   const [open, setOpen] = useState(false);
-
- 
 
   const totalExercises = list.length - 1;
 
@@ -44,7 +45,7 @@ export const WorkoutStart = (props) => {
   };
 
   const handleExerciseCompleted = (newExerciseCompleted) => {
-    setExerciseCompleted((prevState) => [...prevState, newExerciseCompleted]);
+    setExerciseCompleted({...exerciseCompleted, exercises: [...exerciseCompleted.exercises, newExerciseCompleted]});
   };
 
   useEffect(() => {
@@ -61,10 +62,20 @@ export const WorkoutStart = (props) => {
     setDisableExButtons(tempDisableExButtons);
   }
 
-
   const finishExercise = (exercise, isCompleted) => {
     setCounter(counter + 1);
-    exercise.completed = isCompleted;
+    if (exercise.weight) {
+      exercise.prevWeights.push(exercise.weight);
+    } else {
+      exercise.prevDistances.push(exercise.distance);
+    }
+    if (isCompleted) {
+      if (exercise.weight) {
+        exercise.weight = exercise.weight + 5;
+      } else {
+        exercise.distance = exercise.distance + 100;
+      }
+    }
     handleExerciseCompleted(exercise);
     isWorkoutCompleted(counter);
   };
@@ -73,14 +84,19 @@ export const WorkoutStart = (props) => {
     if (counter === totalExercises) {
       handleOpen()
       setTimeout(() => handleClose(), 3500)
-      
-      // ================================ ADD LOGIC TO SEND TO BACKEND ==========================
-      // sendData();
-      // navigate("/workouts");
-
-      // =========================================================================================
     }
   };
+
+  useEffect(() => {
+    if (exerciseCompleted.exercises.length === list.length) {
+      profWorkoutsClone[workoutIndex] = exerciseCompleted;
+      console.log("profWorkoutsClone", profWorkoutsClone);
+      editProfile(profile.userId, {
+        ...profile,
+        workouts: profWorkoutsClone
+      }).then((response) => dispatch({type: "setProfile", data: response.data}));
+    }
+  }, [exerciseCompleted])
 
   const determineUnits = (distance) => {
     if (distance > 1000) return `${distance / 1000} km`;

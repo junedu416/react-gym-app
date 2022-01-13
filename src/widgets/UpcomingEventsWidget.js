@@ -5,6 +5,7 @@ import {filterEventsByCategory} from "../utils/events-helper-functions.js";
 import { sortFromOldestToMostRecent, filterToToday} from "../utils/widget-helpers.js";
 import { EventDetails } from "./EventDetails";
 
+
 export const UpcomingEventsWidget = ({events}) => {
     const {store} = useGlobalState()
     const {profile} = store;
