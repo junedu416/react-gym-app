@@ -179,7 +179,7 @@ export const Workouts = () => {
                         hoverStyling={{ "&:hover": { color: "lime" } }}
                       />
                     ) : (
-                      <div style={{ height: "60.5px" }}>&nbsp;</div>
+                      <div style={{ height: "60px" }}>&nbsp;</div>
                     )}
                     {/* Div above offsets the space so the workouts don't jump up and down when the edit
                          button is rendered/not rendered.
@@ -281,7 +281,7 @@ export const Workouts = () => {
                         btnFunction={() => workoutStart(index)}
                       />
                     ) : (
-                      <div style={{ height: "87px" }}>&nbsp;</div>
+                      <div style={{ height: "79px" }}>&nbsp;</div>
                     )}
                   </Container>
                 );
