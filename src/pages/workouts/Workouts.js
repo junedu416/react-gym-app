@@ -78,7 +78,6 @@ export const Workouts = () => {
   };
 
   const handleCreateBtn = () => {
-    console.log(newWorkout);
     dispatch({ type: "addNewWorkout", data: newWorkout });
     dispatch({
       type: "setNotification",
@@ -86,8 +85,9 @@ export const Workouts = () => {
     });
     setOpen(false);
 
-    dispatch({ type: "selectWorkout", data: profile.workouts.length });
-    navigate("/workouts/edit");
+    dispatch({ type: "selectWorkout", data: profile.workouts });
+    navigate(`/workouts/edit`);
+    // navigate(`/workouts/edit?&workout_index=${profile.workouts.length}`);
   };
 
   const [activeWorkout, setActiveWorkout] = useState(0);
