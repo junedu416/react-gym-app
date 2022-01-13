@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
-import { Container } from "../../styled-components/";
+import { Container, Heading } from "../../styled-components/";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -167,6 +167,7 @@ export const Sidebar = () => {
           <MenuIcon style={{color: open ? "white" : "blue", height: "7vh", width: "7vh"}}/>
         </button>
       </div>
+      
       <CssBaseline />
       <Drawer
       open={open}
@@ -188,6 +189,7 @@ export const Sidebar = () => {
         }}
         variant="persistent"
       >
+        <h1 style={{fontFamily: "'Courgette', cursive", marginBottom: "2em", alignText: "center", color: "white"}}>Average Joe's</h1>
         <StyledTabs
           orientation="vertical"
           variant="scrollable"
