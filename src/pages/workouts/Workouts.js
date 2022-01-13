@@ -85,6 +85,9 @@ export const Workouts = () => {
       data: "Successfully Create New Workout",
     });
     setOpen(false);
+
+    dispatch({ type: "selectWorkout", data: profile.workouts.length });
+    navigate("/workouts/edit");
   };
 
   const [activeWorkout, setActiveWorkout] = useState(0);
