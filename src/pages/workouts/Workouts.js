@@ -37,8 +37,8 @@ import { displayUnits } from "../../utils/workoutFunctions";
 import Workoutbgimg from "../../assets/workouts.jpg";
 import { WorkoutsBackground } from "../../styled-components/workouts";
 
-import json2mq from 'json2mq';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import json2mq from "json2mq";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export const Workouts = () => {
   useRedirectUnauthorisedUser();
@@ -85,7 +85,7 @@ export const Workouts = () => {
     });
     setOpen(false);
 
-    dispatch({ type: "selectWorkout", data: profile.workouts });
+    dispatch({ type: "selectWorkout", data: profile.workouts.length });
     navigate(`/workouts/edit`);
     // navigate(`/workouts/edit?&workout_index=${profile.workouts.length}`);
   };
@@ -113,17 +113,14 @@ export const Workouts = () => {
   const desktop = useMediaQuery(
     json2mq({
       minWidth: 1400,
-    }),
+    })
   );
-
 
   return (
     <MainWindow>
       <Container direction="row">
         <BlackBackground />
-        <WorkoutsBackground
-          src={Workoutbgimg}
-        />
+        <WorkoutsBackground src={Workoutbgimg} />
       </Container>
       {!profile && (
         <Collapse in={display}>
@@ -153,7 +150,7 @@ export const Workouts = () => {
         </Collapse>
       )}
 
-{/* ============================================================ lime color heading */}
+      {/* ============================================================ lime color heading */}
       {profile && (
         <Container>
           <Heading style={{ color: "lime" }}>Workouts</Heading>
@@ -167,7 +164,7 @@ export const Workouts = () => {
           {profile.workouts.length === 0 && (
             <Text>
               You don't have any workouts yet! <br />
-              Click the button above to create your first workout
+              To get started, click on the Create Workout button.
             </Text>
           )}
           <Container>
@@ -187,21 +184,20 @@ export const Workouts = () => {
                     {/* Div above offsets the space so the workouts don't jump up and down when the edit
                          button is rendered/not rendered.
                       */}
-                            
+
                     <WorkoutCardStyling
                       onClick={() => handleClick(index)}
                       // bg="rgba( 200, 200, 200, 1)"
                       bg="#3F3F3F"
                       style={{
-                        color:"white",
+                        color: "white",
                         borderLeft:
                           activeWorkout === index
                             ? "6px solid lime"
                             : "6px solid transparent",
                       }}
                     >
-
-{/* ============================================================ lime color heading */}
+                      {/* ============================================================ lime color heading */}
                       <SmallHeading
                         p="10px 0 0 20px"
                         m="0 0 10px"
@@ -261,7 +257,16 @@ export const Workouts = () => {
                         );
                       })}
                     </WorkoutCardStyling>
-                    {activeWorkout === index ? (
+                    {activeWorkout !== index ? (
+                      <div style={{ height: "79px" }}>&nbsp;</div>
+                    ) : profile.workouts[activeWorkout].exercises.length ===
+                      0 ? (
+                      <BasicButton
+                        text="Add Exercises"
+                        btnFunction={() => editWorkout(index)}
+                        sx={{ mt: 3, mb: 0 }}
+                      />
+                    ) : (
                       <BasicButton
                         text="Start Workout"
                         variant="outlined"
@@ -283,8 +288,6 @@ export const Workouts = () => {
                         }}
                         btnFunction={() => workoutStart(index)}
                       />
-                    ) : (
-                      <div style={{ height: "79px" }}>&nbsp;</div>
                     )}
                   </Container>
                 );
