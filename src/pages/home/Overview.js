@@ -14,6 +14,7 @@ import { getAllEvents } from "../../services/eventsServices.js";
 import { convertTimeToAcceptedFormat } from "../../utils/events-helper-functions.js";
 import { UpcomingEventsWidget } from "../../widgets/UpcomingEventsWidget";
 import { UpcomingCompsWidget } from "../../widgets/UpcomingCompsWidget.js";
+import { StaffEventsWidget } from "../../widgets/StaffEventsWidget.js";
 
 
 export const Overview = (props) => {
@@ -47,7 +48,7 @@ export const Overview = (props) => {
           <CardStyle><CheckInWidget /></CardStyle>
           <CardStyle><UpcomingEventsWidget events={eventsList} /></CardStyle>
           <CardStyle><UpcomingCompsWidget events={eventsList} /></CardStyle>
-          <CardStyle />
+          {profile.isStaff && <CardStyle><StaffEventsWidget events = {eventsList} /></CardStyle>}
           <CardStyle />
           {/* <CardStyle /> */}
         </Grid>
