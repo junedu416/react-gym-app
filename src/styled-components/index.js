@@ -33,8 +33,8 @@ export const Container = styled.div`
 `;
 
 export const Widget = styled(Container)`
-  max-width: 300px;
-  max-height: 300px;
+  width: 300px;
+  height: 300px;
   overflow-x: hidden;
   overflow-y: scroll;
 `

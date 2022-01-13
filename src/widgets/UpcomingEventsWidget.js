@@ -1,22 +1,22 @@
 import React, {useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import { Widget } from '../styled-components';
 import { useGlobalState } from "../config/globalStore.js";
 import {filterEventsByCategory} from "../utils/events-helper-functions.js";
-import { sortFromOlderstToMostRecent, removeFinishedevents} from "../utils/widget-helpers.js";
+import { sortFromOlderstToMostRecent, filterToToday} from "../utils/widget-helpers.js";
+import BasicButton from '../components/buttons/BasicButton';
 
 export const UpcomingEventsWidget = ({events}) => {
     const {store} = useGlobalState()
     const {profile} = store;
+    const navigate = useNavigate();
     const [filteredEvents, setFilteredEvents] = useState(null)
 
     const sortAndFilterEvents = (eventsList, profile) => {
         const registeredEvents = filterEventsByCategory(eventsList, "registered events", profile)
-        console.log("filtered by registration", registeredEvents)
         const eventsExceptCompetitions = registeredEvents.filter((event) => event.category !== "Competition")
-        console.log("all registered events except competition", eventsExceptCompetitions)
         const eventsSortedByDate = sortFromOlderstToMostRecent(eventsExceptCompetitions, 'startTime')
-        console.log("events sorted by date", eventsSortedByDate)
-        const upcomingEvents = removeFinishedevents(eventsSortedByDate, 'endTime')
+        const upcomingEvents = filterToToday(eventsSortedByDate, 'startTime')
         console.log("final return value for filtered events", upcomingEvents)
         return upcomingEvents
     }
@@ -30,15 +30,22 @@ export const UpcomingEventsWidget = ({events}) => {
         }
     }, [events, profile])
 
+    const viewEvent = (e, eventId) => {
+        e.preventDefault();
+        navigate(`/events/${eventId}`)
+    }
+
     return(
         <Widget>
-            <h1>Upcoming events</h1>
+            <h4>Upcoming for you today</h4>
             {filteredEvents && <>
-                {filteredEvents.length === 0 ? <p>You have no upcoming events</p> :
+                {filteredEvents.length === 0 ? <p>No upcoming schedule for today</p> :
                 filteredEvents.map((event, index)=> {
                     if(index > 1) return;
-                    return( <div key={index} style={{border: "solid 1px black"}}>
-                        <h2>{event.name}</h2>
+                    return( <div key={index} style={{border: "solid 1px black", width: "100%"}}>
+                        <h5>{event.name}</h5>
+                        {/* <p>{event.startTime} - {event.endTime}</p> */}
+                        <BasicButton text="Details" btnFunction={((e)=> viewEvent(e, event._id))} style={{height: "30px", minWidth: "50px"}}/>
                     </div>)
                 })}
                 </>

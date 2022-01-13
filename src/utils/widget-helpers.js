@@ -22,7 +22,7 @@ export const sortFromOlderstToMostRecent = (list, dateAttribute) => {
     return sortedList
 }
 
-export const removeFinishedevents = (list, dateAttribute) => {
-    const filteredList = list.filter((item) => !moment().isAfter(item[dateAttribute]))
+export const filterToToday = (list, dateAttribute) => {
+    const filteredList = list.filter((item) => moment().isSame(item[dateAttribute], 'day'))
     return filteredList
 }
