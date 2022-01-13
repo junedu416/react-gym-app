@@ -6,7 +6,7 @@ import moment from "moment";
 import { getAllEvents } from "../services/eventsServices.js";
 import { eventsReducer } from "../utils/events-reducer";
 import { EventPopup } from "../pages/events/EventPopup";
-import { convertTimeToAcceptedFormat, filterEventsByCategory } from "../utils/events-helper-functions.js";
+import { convertTimeToAcceptedFormat } from "../utils/events-helper-functions.js";
 
 
 const CalendarView = ({ eventCategory }) => {
