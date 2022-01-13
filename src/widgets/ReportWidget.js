@@ -4,6 +4,8 @@ import { useGlobalState } from "../config/globalStore";
 import { Widget } from "../styled-components/index";
 import { getAllReports } from "../services/reportServices";
 import BasicButton from "../components/buttons/BasicButton";
+import { sortFromOldestToMostRecent } from "../utils/widget-helpers";
+
 
 const ReportWidget = () => {
     const { store } = useGlobalState();
@@ -21,6 +23,7 @@ const ReportWidget = () => {
                 } else {
                     reportsToShow = data;
                 }
+                reportsToShow = sortFromOldestToMostRecent(reportsToShow, "reportDate");
             }
             setReports(reportsToShow);
         });

@@ -17,7 +17,7 @@ export const sortFromMostRecentToOldest = (list, dateAttribute) => {
   return sortedList
 }
 
-export const sortFromOlderstToMostRecent = (list, dateAttribute) => {
+export const sortFromOldestToMostRecent = (list, dateAttribute) => {
     const sortedList = list.sort((prev, next) => isMoreRecent(next[dateAttribute], prev[dateAttribute]))
     return sortedList
 }
