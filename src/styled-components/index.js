@@ -138,3 +138,48 @@ export const HoverBox = styled(Container)`
   width: 100%;
   border-radius: ${(props) => (props.rounded ? props.rounded : "6px")};
 `;
+
+export const ButtonScroll = styled.div`
+   position: fixed; 
+   ${flexbox}
+   ${centered}
+   border-radius: 15%;
+   width: 50px;
+   right: 20px;
+   bottom: 80px;
+   height: 50px;
+   z-index: 10;
+   cursor: pointer;
+   color: white;
+   background: rgb(0, 120, 250);
+   transition: opacity ease-in 1s,
+               transform ease-in-out 1s,
+               background ease 0.2s;
+   &:hover {
+     background: rgb(0, 50, 180);
+     box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.9);
+     transform: translateY(-5%);
+   }
+
+   @keyframes inAnimation {
+    0% {
+      opacity: 0;
+      transform: translateY(200%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0%);
+    }
+  }
+  @keyframes outAnimation {
+    0% {
+      opacity: 1;
+      transform: translateY(0%);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(200%);
+    }
+  }
+
+`
