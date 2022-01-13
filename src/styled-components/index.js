@@ -141,6 +141,8 @@ export const HoverBox = styled(Container)`
 
 export const ButtonScroll = styled.div`
    position: fixed; 
+   ${flexbox}
+   ${centered}
    border-radius: 15%;
    width: 50px;
    right: 20px;
@@ -150,10 +152,9 @@ export const ButtonScroll = styled.div`
    cursor: pointer;
    color: white;
    background: rgb(0, 120, 250);
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   transition: all ease-in 0.2s;
+   transition: opacity ease-in 1s,
+               transform ease-in-out 1s,
+               background ease 0.2s;
    &:hover {
      background: rgb(0, 50, 180);
      box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.9);
