@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useReducer, useCallback } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
+import {useGlobalState} from "../config/globalStore";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
 import { getAllEvents } from "../services/eventsServices.js";
@@ -7,7 +8,10 @@ import { eventsReducer } from "../utils/events-reducer";
 import { EventPopup } from "../pages/events/EventPopup";
 import { convertTimeToAcceptedFormat } from "../utils/events-helper-functions.js";
 
+
 const CalendarView = ({ eventCategory }) => {
+  const {store} = useGlobalState()
+  const {profile} = store;
   const localizer = momentLocalizer(moment);
   const initialEventsVars = {
     events: null,
@@ -28,7 +32,7 @@ const CalendarView = ({ eventCategory }) => {
       console.log(`event Category from prop is: ${eventCategory}`);
       dispatchEventsVars({
         type: "setCategorisedEventsList",
-        data: eventCategory,
+        data: {category: eventCategory, profile: profile},
       });
     }
     return;
