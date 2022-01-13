@@ -14,6 +14,7 @@ import {
 } from "../../styled-components";
 import { Collapse } from "@mui/material";
 import {
+  BlackBackground,
   WorkoutCardStyling,
   WorkoutList,
 } from "../../styled-components/workouts";
@@ -32,6 +33,8 @@ import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
 import { ReusableModal } from "../../components/ReusableModal";
 import { displayUnits } from "../../utils/workoutFunctions";
+import Workoutbgimg from "../../assets/workouts.jpg";
+import { WorkoutsBackground } from "../../styled-components/workouts";
 
 export const Workouts = () => {
   useRedirectUnauthorisedUser();
@@ -100,14 +103,14 @@ export const Workouts = () => {
     navigate("/workouts/edit");
   }
 
-  const activeStyle = {
-    borderLeft: activeWorkout ? "6px solid lime" : "",
-  };
-
-  console.log("active workout: ", activeWorkout);
-
   return (
     <MainWindow>
+      <Container direction="row">
+        <BlackBackground />
+        <WorkoutsBackground
+          src={Workoutbgimg}
+        />
+      </Container>
       {!profile && (
         <Collapse in={display}>
           <StyledAlert
@@ -140,7 +143,11 @@ export const Workouts = () => {
         <Container>
           <Heading>Workouts</Heading>
           <div>
-            <BasicButton text="Create Workout" variant="outlined" btnFunction={handleClickOpen} />
+            <BasicButton
+              text="Create Workout"
+              variant="outlined"
+              btnFunction={handleClickOpen}
+            />
           </div>
           {profile.workouts.length === 0 && (
             <Text>
@@ -248,7 +255,8 @@ export const Workouts = () => {
                             color: "#444",
                             backgroundColor: "lime",
                             border: "2.5px solid #65FE08",
-                            boxShadow: "3px 5px 6px -2px rgba(160, 160, 160, 0.6)",
+                            boxShadow:
+                              "3px 5px 6px -2px rgba(160, 160, 160, 0.6)",
                           },
                         }}
                         btnFunction={() => workoutStart(index)}

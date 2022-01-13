@@ -50,3 +50,21 @@ export const WorkoutUL = styled.ul`
   padding: 0;
   margin: 0;
 `
+
+export const WorkoutsBackground = styled.img`
+  position: fixed;
+  z-index: -1;
+  height: 100vh;
+  right: 0;
+  top: 0;
+`
+
+export const BlackBackground = styled.div`
+  background: black;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: -2;
+  height: 100vh;
+  width: 100vw;
+`
