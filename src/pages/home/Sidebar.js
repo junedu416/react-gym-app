@@ -108,10 +108,6 @@ export const Sidebar = () => {
 
   const fullScreenSidebar = useMediaQuery('(max-width:600px)');
 
-  useEffect(() => {
-    console.log("fullScreenSidebar", fullScreenSidebar);
-  }, [fullScreenSidebar])
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -180,7 +176,7 @@ export const Sidebar = () => {
           style={{
             position: "absolute",
             top: 10,
-            left: open ? fullScreenSidebar ? "65%" : "65%" : 15,
+            left: open ? "65%" : 15,
             zIndex: 10,
           }}
           aria-label="open menubar"
@@ -239,7 +235,7 @@ export const Sidebar = () => {
           value={value}
           onChange={handleChange}
           aria-label="Vertical tabs example"
-          sx={{ borderLeft: 1, borderColor: "divider" }}
+          sx={{ borderLeft: fullScreenSidebar ? 0 : 1, borderColor: "divider" }}
         >
           {sbData.map((item, index) => {
             return (
@@ -254,7 +250,7 @@ export const Sidebar = () => {
                   if (item.route) {
                     navigate(item.route);
                   }
-                  setOpen(false);
+                  if (fullScreenSidebar) setOpen(false);
                 }}
               />
             );
