@@ -69,7 +69,7 @@ export const Calendar = (props) => {
           style={{
             position: desktop ? "" : "absolute",
             right: 0,
-            bottom: desktop ? "" : 30,
+            bottom: desktop ? "" : 30, // switch around when pass desktop prop in. ***********************
           }}
         >
           <FilterEvents eventSelect={eventSelect} applyFilterFunction={applyFilterFunction} />

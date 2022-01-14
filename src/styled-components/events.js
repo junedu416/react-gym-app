@@ -3,7 +3,9 @@ import Box from "@mui/material/Box";
 
 export const FilterBox = styled(Box)`
   position: absolute;
-  bottom: 50px;
+  /* SWITCH AROUND WHEN PASSING DESKTOP PROP IN  (DON'T NEED TO ATM) */ 
+  bottom: ${props => props.desktop ? "" : "50px" };
+  top: ${props => props.desktop ? "50px" : "" };
   right: 20px;
   /* left: 100px; */
   min-width: 210px;
