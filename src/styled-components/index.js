@@ -61,11 +61,14 @@ export const Grid = styled.div`
   /* grid-template-rows: repeat(3, minmax(100px, 1fr)); */
   /* grid-template-columns: repeat(3, minmax(100px, 1fr)); */
   grid-template-columns: ${(props) =>
-    props.desktop
-      ? "repeat(3, minmax(100px, 1fr))"
+    props.laptop
+      ? props.desktop
+        ? "repeat(3, minmax(100px, 1fr))"
+        : "repeat(2, minmax(100px, 1fr))"
       : "repeat(1, minmax(100px, 1fr))"};
   grid-auto-rows: auto;
-  gap: ${(props) => (props.desktop ? "50px" : "0px")};
+  gap: ${(props) =>
+    props.laptop ? (props.desktop ? "50px" : "20px") : "10px"};
 `;
 
 export const ButtonLink = styled(Link)`

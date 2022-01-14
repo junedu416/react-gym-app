@@ -20,6 +20,8 @@ export const Overview = (props) => {
   const [eventsList, setEventsList] = useState(null);
   // const [eventsList, dispatchEventsList] = useReducer(eventsReducer, {events: null})
 
+  // const { desktop } = props;
+
   useEffect(() => {
     if (!eventsList) {
       getAllEvents()
@@ -34,12 +36,13 @@ export const Overview = (props) => {
     }
   }, [eventsList]);
 
+  const laptop =  useMediaQuery("(min-width:1000px)");
   const desktop = useMediaQuery("(min-width:1400px)");
 
   return (
     <Container>
       <Heading>Welcome back, {profile ? profile.firstName : "user"}</Heading>
-      <Grid desktop>
+      <Grid desktop={desktop} laptop={laptop}>
         <CardStyle>
           <CheckInWidget />
         </CardStyle>
