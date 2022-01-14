@@ -223,8 +223,9 @@ export const Sidebar = () => {
           style={{
             fontFamily: "'Courgette', cursive",
             marginBottom: "2em",
-            alignText: "center",
+            textAlign: "center",
             color: "white",
+            width: "100%"
           }}
         >
           Average Joe's
