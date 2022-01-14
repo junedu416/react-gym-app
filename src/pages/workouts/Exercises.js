@@ -41,6 +41,8 @@ export const Exercises = () => {
     distance: null
   };
 
+  console.log("Workout Index: ", workoutIndex)
+
   const [newExercise, setNewExercise] = useState(initialValues);
 
   const addExerciseToWorkout = useCallback(async (workoutIndex) => {
@@ -65,6 +67,7 @@ export const Exercises = () => {
           dispatch({type: "setNotification", data: "Exercise added to workout"});
         })
       }
+      navigate(-1);
     
   }, [profile, dispatch, newExercise])
 

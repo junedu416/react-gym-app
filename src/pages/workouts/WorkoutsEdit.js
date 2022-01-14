@@ -28,6 +28,7 @@ import { editProfile } from "../../services/profileServices";
 import { ExerciseEditForm } from "./ExerciseEditForm";
 import BasicButton from "../../components/buttons/BasicButton";
 import { DeleteWorkout } from "./DeleteWorkout";
+// import { useSearchParams } from "react-router-dom";
 
 export const EditWorkouts = () => {
   useRedirectUnauthorisedUser();
@@ -42,6 +43,9 @@ export const EditWorkouts = () => {
   const workoutList = profile.workouts[workoutIndex];
   // end clare
   const choosePath = ["Add From Popular Exercises", "Add Customized Exercise"];
+
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // searchParams.get("workoutIndex");
 
   useEffect(() => {
     if (profile) {
@@ -66,7 +70,8 @@ export const EditWorkouts = () => {
   const handleMenuClose = (event) => {
     setAnchorEl(null);
     if (event.target.getAttribute("value") === choosePath[0]) {
-      navigate("/exercises");
+      navigate(`/exercises`);
+      // navigate(`/exercises?${searchParams}`);
     } else navigate("/workouts/new");
   };
 
@@ -195,7 +200,7 @@ export const EditWorkouts = () => {
         title="Are you sure you want to delete this workout?"
         open={modalOpen}
         handleClose={handleClose}
-      ><DeleteWorkout handleClose={handleClose} /></ ReusableModal>
+      ><DeleteWorkout handleClose={handleClose} /></ReusableModal>
     </>
   );
 };
