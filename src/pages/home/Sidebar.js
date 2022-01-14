@@ -166,7 +166,7 @@ export const Sidebar = (props) => {
           style={{
             position: "fixed",
             top: "89vh",
-            left: open ? "140px" : 15,
+            left: open ? 130 : 15,
             zIndex: 10,
           }}
           aria-label="open menubar"

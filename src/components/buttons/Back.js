@@ -1,6 +1,6 @@
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Fade, IconButton, Tooltip } from "@mui/material";
-import { BackWrapper } from "../styled-components";
+import { BackWrapper } from "../../styled-components";
 
 export const Back = (props) => {
   const { btnFunction, open, desktop } = props;

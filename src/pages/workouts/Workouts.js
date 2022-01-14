@@ -108,11 +108,14 @@ export const Workouts = () => {
     navigate("/workouts/edit");
   }
 
-  const desktop = useMediaQuery(
-    json2mq({
-      minWidth: 1400,
-    })
-  );
+  // const desktop = useMediaQuery(
+  //   json2mq({
+  //     minWidth: 1400,
+  //   })
+  // );
+
+  const laptop =  useMediaQuery("(min-width:1000px)");
+  const desktop = useMediaQuery("(min-width:1400px)");
 
   return (
     <>
@@ -166,7 +169,7 @@ export const Workouts = () => {
             </Text>
           )}
           <Container>
-            <Grid desktop={desktop}>
+            <Grid desktop={desktop} laptop={laptop}>
               {profile.workouts.map((workout, index) => {
                 return (
                   <Container justify="flex-start">

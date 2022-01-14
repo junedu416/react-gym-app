@@ -54,7 +54,7 @@ import globalReducer from "./config/globalReducer";
 import initialGlobalState from "./config/initialGlobalState";
 import { StateContext } from "./config/globalStore";
 import RememberMe from "./components/RememberMe";
-import { Back } from "./components/Back";
+import { Back } from "./components/buttons/Back";
 
 import ScrollButton from "./components/buttons/Scroll";
 import { MainWindow } from "./styled-components";

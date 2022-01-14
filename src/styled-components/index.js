@@ -58,8 +58,6 @@ export const SmallHeading = styled.h2`
 
 export const Grid = styled.div`
   display: grid;
-  /* grid-template-rows: repeat(3, minmax(100px, 1fr)); */
-  /* grid-template-columns: repeat(3, minmax(100px, 1fr)); */
   grid-template-columns: ${(props) =>
     props.laptop
       ? props.desktop
@@ -68,7 +66,7 @@ export const Grid = styled.div`
       : "repeat(1, minmax(100px, 1fr))"};
   grid-auto-rows: auto;
   gap: ${(props) =>
-    props.laptop ? (props.desktop ? "50px" : "20px") : "10px"};
+    props.laptop ? (props.desktop ? "60px" : "30px") : "15px"};
 `;
 
 export const ButtonLink = styled(Link)`
@@ -122,8 +120,8 @@ export const TextBold = styled.strong`
 
 export const BackWrapper = styled.div`
   position: fixed;
-  top: 30px;
-  left: ${(props) => (props.open ? "250px" : "20px")};
+  top: 15px;
+  left: ${(props) => (props.desktop ? "220px" : props.open ?  "220px" : "10px")};
 `;
 
 export const HoverBox = styled(Container)`
