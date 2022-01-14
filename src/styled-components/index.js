@@ -49,6 +49,7 @@ export const MainWindow = styled.div`
   width: calc(100vw - 230px);
   min-height: 100vh;
   margin-left: 230px;
+  z-index: -1;
   ${(props) => props.verticalMiddle && hcentered}
 `;
 

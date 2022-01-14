@@ -17,6 +17,7 @@ import { SidebarData } from "../../data/sidebarData";
 import { getBaseRoute } from "../../utils/sidebarUtils";
 import { IconButton } from "@mui/material";
 import MultipleStopIcon from '@mui/icons-material/MultipleStop';
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const StyledTabs = styled((props) => (
   <Tabs
@@ -68,7 +69,7 @@ const LinkTab = styled((props) => (
   },
 }));
 
-const drawerWidth = "230px";
+const drawerWidth = "15%";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -104,6 +105,8 @@ export const Sidebar = () => {
   const navigate = useNavigate();
   const [sbData, setSbData] = useState([]);
   const [open, setOpen] = useState(true);
+
+  const fullScreenSidebar = useMediaQuery('(max-width:600px)');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -155,7 +158,7 @@ export const Sidebar = () => {
   }
 
   return (
-    <Container style={{ position: "fixed", flexDirection: "row" }}>
+    <Container style={{ position: "fixed", flexDirection: "row", zIndex: 1}} w={fullScreenSidebar && !open && "0vw"}>
       {/* <button style={{border: "none", backgroundColor: "rgba(0,0,0,0)"}} onClick={handleOpen}>
           
           <MenuIcon style={{color: open ? "white" : "blue", height: "60px", width: "60px"}}/>
@@ -173,7 +176,7 @@ export const Sidebar = () => {
           style={{
             position: "absolute",
             top: 10,
-            left: open ? 140 : 15,
+            left: open ? "65%" : 15,
             zIndex: 10,
           }}
           aria-label="open menubar"
@@ -194,9 +197,11 @@ export const Sidebar = () => {
 
       <CssBaseline />
       <Drawer
+        className="drawer"
         open={open}
         sx={{
-          width: drawerWidth,
+          width: fullScreenSidebar ? open ? "100vw" : "0vw" : drawerWidth,
+          minWidth: fullScreenSidebar ? "0px" : "230px",
           // height: `calc(100vh - 90px)`,
           height: `100vh`,
           flexShrink: 0,
@@ -204,7 +209,8 @@ export const Sidebar = () => {
             paddingTop: `calc(100vh / 8)`,
             //position: "fixed",
             zIndex: "1",
-            width: drawerWidth,
+            width: fullScreenSidebar ? "100vw" : drawerWidth,
+            minWidth: fullScreenSidebar ? "0px" : "230px",
             boxSizing: "border-box",
             display: "flex",
             alignItems: "center",
@@ -217,8 +223,9 @@ export const Sidebar = () => {
           style={{
             fontFamily: "'Courgette', cursive",
             marginBottom: "2em",
-            alignText: "center",
+            textAlign: "center",
             color: "white",
+            width: "100%"
           }}
         >
           Average Joe's
@@ -229,7 +236,7 @@ export const Sidebar = () => {
           value={value}
           onChange={handleChange}
           aria-label="Vertical tabs example"
-          sx={{ borderLeft: 1, borderColor: "divider" }}
+          sx={{ borderLeft: fullScreenSidebar ? 0 : 1, borderColor: "divider" }}
         >
           {sbData.map((item, index) => {
             return (
@@ -244,6 +251,7 @@ export const Sidebar = () => {
                   if (item.route) {
                     navigate(item.route);
                   }
+                  if (fullScreenSidebar) setOpen(false);
                 }}
               />
             );
