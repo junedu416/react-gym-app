@@ -73,7 +73,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
-export const Calendar = () => {
+export const Calendar = (props) => {
   const [eventSelect, setEventSelect] = useState("class");
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState("panel1");
@@ -81,6 +81,8 @@ export const Calendar = () => {
   const [filters, setFilters] = useState(() => []);
   const [filterList, setFilterList] = useState([]);
   const hasFilters = Boolean(filterList.length > 0);
+
+  const { desktop } = props;
 
   const handleFilterSelect = (filter) => {
     const isSelected = filterList.includes(filter);
@@ -143,7 +145,7 @@ export const Calendar = () => {
   return (
     <>
       <Container direction="row" w="100%" justify="space-between">
-        <Container direction="row" w="35%" justify="flex-start">
+        <Container direction="row" w={desktop ? "25%" : "7.5%"} justify="flex-start">
           <ClickAwayListener onClickAway={handleClickAway}>
             <Container pl="20px" style={{ position: "relative" }}>
               <Container direction="row" ml="100px" mr="20px">
@@ -320,48 +322,45 @@ export const Calendar = () => {
           }
         </Container>
 
-        <Container w="30%">
+        <Container w={desktop ? "50%" : "85%"}>
           <ToggleButtonGroup
             value={eventSelect}
             exclusive
             onChange={handleEventSelect}
             aria-label="calendar event display toggle selection"
-            size="medium"
+            size={desktop ? "large" : "small"}
             color="warning"
+            sx={{ color: "grey" }}
             style={{ backgroundColor: "lightBlue", margin: "15px" }}
           >
             <ToggleButton
               value="class"
               aria-label="class"
-              sx={{ color: "grey" }}
             >
               Classes
             </ToggleButton>
             <ToggleButton
               value="competition"
               aria-label="competition"
-              sx={{ color: "grey" }}
             >
               Competitions
             </ToggleButton>
             <ToggleButton
               value="personal training"
               aria-label="personal training"
-              sx={{ color: "grey" }}
             >
               Personal Training
             </ToggleButton>
             <ToggleButton
               value="registered events"
               aria-label="my events"
-              sx={{ color: "grey" }}
             >
               My Events
             </ToggleButton>
           </ToggleButtonGroup>
         </Container>
-        <Container w="35%">
-          <span></span>
+        <Container w={desktop ? "25%" : "7.5%"}>
+          <span>&nbsp;</span>
         </Container>
       </Container>
       <CalendarView eventCategory={eventSelect} />
