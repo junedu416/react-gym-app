@@ -59,7 +59,8 @@ import { Back } from "./components/buttons/Back";
 import ScrollButton from "./components/buttons/Scroll";
 import { MainWindow } from "./styled-components";
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+import { customStyles } from "./context/CustomStyling";
 
 const App = () => {
   const [store, dispatch] = useReducer(globalReducer, initialGlobalState)
@@ -67,9 +68,7 @@ const App = () => {
   // const location = useLocation();
   const desktop = useMediaQuery('(min-width:1024px)');
 
-  const [open, setOpen] = useState(true); // state for sidebar opened or not
-
-  const themeConext = useContext(ThemeContext)
+  const [open, setOpen] = useState(true); // state for sidebar opened or not  
 
   return (
     <>

@@ -37,6 +37,7 @@ import { WorkoutsBackground } from "../../styled-components/workouts";
 
 import json2mq from "json2mq";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { Palette } from "@mui/icons-material";
 
 export const Workouts = () => {
   useRedirectUnauthorisedUser();
@@ -159,6 +160,7 @@ export const Workouts = () => {
             <BasicButton
               text="Create Workout"
               variant="outlined"
+              color="success"
               btnFunction={handleClickOpen}
             />
           </div>
@@ -296,7 +298,7 @@ export const Workouts = () => {
             </Grid>
             <Container direction="row">
               <ButtonLink to="/workouts/trainer-workouts">
-                <BasicButton text="Trainer Workouts" />
+                <BasicButton text="Trainer Workouts" color="success" variant="outlined" />
               </ButtonLink>
 
               <ButtonLink to="/exercises">
