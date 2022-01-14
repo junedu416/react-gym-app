@@ -94,14 +94,13 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export const Sidebar = (props) => {
+export const Sidebar = ({open, setOpen, ...props}) => {
   // const [dashboardView, setDashboardView] = useState(<Overview />);
   const [value, setValue] = useState(9);
   const { store, dispatch } = useGlobalState();
   const { profile } = store;
   const navigate = useNavigate();
   const [sbData, setSbData] = useState([]);
-  const [open, setOpen] = useState(true);
 
   const { desktop } = props;
 

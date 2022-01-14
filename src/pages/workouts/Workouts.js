@@ -5,13 +5,11 @@ import {
   Container,
   Heading,
   SmallHeading,
-  MainWindow,
   Grid,
   ButtonLink,
   StyledAlert,
   Text,
   TextLink,
-  Wrapper,
 } from "../../styled-components";
 import { Collapse, Paper } from "@mui/material";
 import {
@@ -117,7 +115,7 @@ export const Workouts = () => {
   );
 
   return (
-    <MainWindow>
+    <>
       <Container direction="row">
         <BlackBackground />
         <WorkoutsBackground src={Workoutbgimg} />
@@ -330,6 +328,6 @@ export const Workouts = () => {
           </Dialog>
         </Container>
       )}
-    </MainWindow>
+    </>
   );
 };

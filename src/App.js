@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 // import { NavBar } from "./components/NavBar";
 import { Sidebar } from "./pages/home/Sidebar"
@@ -13,13 +13,11 @@ import { Welcome } from "./pages/login/Welcome";
 import { ForgotPassword } from "./pages/login/ForgotPassword";
 
 // Home
-import { Home } from "./pages/home/Home";
 import { Overview } from "./pages/home/Overview";
 import { Checkins } from "./pages/home/Checkins.js";
 import { PerformanceStats } from "./pages/home/PerformanceStats";
 import { MyProfile } from "./pages/home/MyProfile";
 import { Leaderboards } from "./pages/home/Leaderboards";
-import { Contact } from "./pages/home/Contact";
 
 // Events
 import { Events } from "./pages/events/Events";
@@ -36,8 +34,8 @@ import { Workouts } from "./pages/workouts/Workouts";
 import { WorkoutStart } from "./pages/workouts/WorkoutStart";
 import { NewWorkout } from "./pages/workouts/NewWorkout";
 import { Exercises } from "./pages/workouts/Exercises";
-import { Exercise } from "./pages/workouts/Exercise";
-import { NewExercise } from "./pages/workouts/NewExercise";
+// import { Exercise } from "./pages/workouts/Exercise";
+// import { NewExercise } from "./pages/workouts/NewExercise";
 import { EditWorkouts } from "./pages/workouts/WorkoutsEdit";
 
 // Our Team
@@ -65,7 +63,18 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 const App = () => {
   const [store, dispatch] = useReducer(globalReducer, initialGlobalState)
   const navigate = useNavigate()
+  const location = useLocation();
   const desktop = useMediaQuery('(min-width:1400px)');
+
+  const [open, setOpen] = useState(true); // state for sidebar opened or not
+
+  // const determineVerticalAlignment = () => {
+  //   if (location.pathname === "/auth/login" || "/forgot-password" || "/register"){
+  //     return verticalMiddle;
+  //   } 
+  //   // else if (location.pathname === "/myprofile") return null;
+  //   else return null;
+  // }
 
   return (
     <>
@@ -75,29 +84,23 @@ const App = () => {
       <Notification />
       <Back btnFunction={() => navigate(-1)} />
       <ScrollButton />
-      <Sidebar desktop={desktop} />
-      <MainWindow desktop={desktop}>
-
+      <Sidebar desktop={desktop} open={open} setOpen={setOpen} />
+      <MainWindow desktop={desktop} open={open} >
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/auth/login" element={<SignIn />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/welcome" element={<Welcome />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/workouts" element={<Workouts />} />
         <Route path="/workouts/start" element={<WorkoutStart />} />
         <Route path="/workouts/new" element={<NewWorkout />} />
         <Route path="/workouts/edit" element={<EditWorkouts />} />
         <Route path="/exercises" element={<Exercises />} />
-        <Route path="/exercises/:id" element={<Exercise />} />
-        <Route path="/exercises/new" element={<NewExercise />} />
         <Route path="/events" element={<Events />} />
         <Route path="/events/new" element={<NewEvent />} />
         <Route path="/events/:id" element={<ShowEvent />} />
         <Route path="/events/:id/edit" element={<EditEvent />} />
-        {/* <Route path="/events/classes" element={<Classes />} /> */}
-        {/* <Route path="/events/classes/:id" element={<Class />} /> */}
         <Route path="/events/leaderboards" element={<Leaderboards />} />
         <Route path="/events/leaderboards/:id" element={<Leaderboards />} />
         <Route path="/trainerbookings" element={<TrainerBookings />} />
@@ -109,7 +112,12 @@ const App = () => {
         <Route path="/checkins" element={<Checkins />} />
         <Route path="/mystats" element={<PerformanceStats />} />
         <Route path="/leaderboards" element={<Leaderboards />} />
-        <Route path="/contact" element={<Contact />} />
+        {/* <Route path="/contact" element={<Contact />} /> */}
+        {/* <Route path="/home" element={<Home />} /> */}
+        {/* <Route path="/events/classes" element={<Classes />} /> */}
+        {/* <Route path="/events/classes/:id" element={<Class />} /> */}
+        {/* <Route path="/exercises/new" element={<NewExercise />} /> */}
+        {/* <Route path="/exercises/:id" element={<Exercise />} /> */}
       </Routes>
       </MainWindow>
     </StateContext.Provider>

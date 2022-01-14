@@ -100,7 +100,7 @@ export const SignIn = () => {
   }
 
   return (
-    <MainWindow verticalMiddle>
+    <>
       {errorMessage && (
         <ReusableAlert
           text={errorMessage}
@@ -184,6 +184,6 @@ export const SignIn = () => {
           <RegisterLink navigateLink={navigateToRegister} />
         </Container>
       </form>
-    </MainWindow>
+    </>
   );
 };

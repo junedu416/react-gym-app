@@ -9,8 +9,8 @@ import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 export const Events = () => {
   useRedirectUnauthorisedUser();
   const navigate = useNavigate();
-  const {store} = useGlobalState();
-  const {profile} = store;
+  const { store } = useGlobalState();
+  const { profile } = store;
 
   function handleNewEvent() {
     navigate("/events/new");
@@ -18,12 +18,15 @@ export const Events = () => {
 
   return (
     <>
-      {/* <MainWindow> */}
-        <Calendar />
+      <Calendar />
 
-        {profile && profile.isStaff && <BasicButton btnFunction={handleNewEvent} text="Create Event" sx={{ mt: 4 }}/>}
-        
-      {/* </MainWindow> */}
+      {profile && profile.isStaff && (
+        <BasicButton
+          btnFunction={handleNewEvent}
+          text="Create Event"
+          sx={{ mt: 4 }}
+        />
+      )}
     </>
   );
 };

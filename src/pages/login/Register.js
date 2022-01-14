@@ -93,7 +93,7 @@ export const Register = (props) => {
   }
 
   return (
-    <MainWindow verticalMiddle>
+    <>
       <Heading>Register Account</Heading>
       {errorMsg && (
         <Collapse in={open}>
@@ -212,6 +212,6 @@ export const Register = (props) => {
           </p>
         </Container>
       </form>
-    </MainWindow>
+    </>
   );
 };
