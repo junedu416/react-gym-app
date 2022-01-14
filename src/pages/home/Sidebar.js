@@ -162,7 +162,7 @@ export const Sidebar = () => {
   }
 
   return (
-    <Container style={{ position: "fixed", flexDirection: "row", zIndex: 1 }}>
+    <Container style={{ position: "fixed", flexDirection: "row", zIndex: 1}} w={fullScreenSidebar && !open && "0vw"}>
       {/* <button style={{border: "none", backgroundColor: "rgba(0,0,0,0)"}} onClick={handleOpen}>
           
           <MenuIcon style={{color: open ? "white" : "blue", height: "60px", width: "60px"}}/>
@@ -204,8 +204,8 @@ export const Sidebar = () => {
         className="drawer"
         open={open}
         sx={{
-          width: fullScreenSidebar ? "100vw" : drawerWidth,
-          minWidth: "230px",
+          width: fullScreenSidebar ? open ? "100vw" : "0vw" : drawerWidth,
+          minWidth: fullScreenSidebar ? "0px" : "230px",
           // height: `calc(100vh - 90px)`,
           height: `100vh`,
           flexShrink: 0,
@@ -214,7 +214,7 @@ export const Sidebar = () => {
             //position: "fixed",
             zIndex: "1",
             width: fullScreenSidebar ? "100vw" : drawerWidth,
-            minWidth: "230px",
+            minWidth: fullScreenSidebar ? "0px" : "230px",
             boxSizing: "border-box",
             display: "flex",
             alignItems: "center",
