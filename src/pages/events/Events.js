@@ -6,11 +6,12 @@ import BasicButton from "../../components/buttons/BasicButton";
 import { useGlobalState } from "../../config/globalStore";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 
-export const Events = () => {
+export const Events = (props) => {
   useRedirectUnauthorisedUser();
   const navigate = useNavigate();
   const { store } = useGlobalState();
   const { profile } = store;
+  const { desktop, phone } = props
 
   function handleNewEvent() {
     navigate("/events/new");
@@ -18,7 +19,7 @@ export const Events = () => {
 
   return (
     <>
-      <Calendar />
+      <Calendar desktop={desktop} phone={phone} />
 
       {profile && profile.isStaff && (
         <BasicButton

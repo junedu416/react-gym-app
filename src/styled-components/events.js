@@ -3,9 +3,9 @@ import Box from "@mui/material/Box";
 
 export const FilterBox = styled(Box)`
   position: absolute;
-  top: 50px;
-  right: 0px;
-  left: 100px;
+  bottom: 50px;
+  right: 20px;
+  /* left: 100px; */
   min-width: 210px;
   z-index: 5;
   border-radius: 10px;
@@ -26,5 +26,26 @@ export const FilterItem = styled.div`
   &:hover {
       background-color: rgba(0, 145, 250, 0.18);
       cursor: pointer;
+  }
+`
+
+export const ClearButtonFade = styled.div`
+  @keyframes fadeInAnimation {
+    0% {
+      opacity: 0;
+      height: ${props => props.applyButton ? 0 : "100%"};
+    }
+    100% {
+      opacity: 1;
+      height: ${props => props.applyButton ? "48px" : "100%"};
+    }
+  }
+  @keyframes fadeOutAnimation {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
   }
 `
