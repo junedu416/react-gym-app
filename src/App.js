@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -59,6 +59,7 @@ import { Back } from "./components/buttons/Back";
 import ScrollButton from "./components/buttons/Scroll";
 import { MainWindow } from "./styled-components";
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const App = () => {
   const [store, dispatch] = useReducer(globalReducer, initialGlobalState)
@@ -68,10 +69,13 @@ const App = () => {
 
   const [open, setOpen] = useState(true); // state for sidebar opened or not
 
+  const themeConext = useContext(ThemeContext)
+
   return (
     <>
       <StateContext.Provider value={{store, dispatch}}>
       {/*<NavBar />*/}
+      <ThemeProvider theme={customStyles}>
       <RememberMe />
       <Notification />
       <Back btnFunction={() => navigate(-1)} open={open} desktop={desktop} />
@@ -112,6 +116,7 @@ const App = () => {
         {/* <Route path="/exercises/:id" element={<Exercise />} /> */}
       </Routes>
       </MainWindow>
+      </ThemeProvider>
     </StateContext.Provider>
     </>
   );

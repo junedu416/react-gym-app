@@ -2,7 +2,7 @@ import React, { useState, useEffect, useReducer } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import CalendarView from "../../components/CalendarView";
-import { Container } from "../../styled-components";
+import { Container, Text } from "../../styled-components";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 // import Chip from "@mui/material/Chip";
 import { FilterBox, FilterItem } from "../../styled-components/events";
@@ -353,10 +353,10 @@ export const Calendar = () => {
             </ToggleButton>
             <ToggleButton
               value="registered events"
-              aria-label="registered events"
+              aria-label="my events"
               sx={{ color: "grey" }}
             >
-              Registered Events
+              My Events
             </ToggleButton>
           </ToggleButtonGroup>
         </Container>
