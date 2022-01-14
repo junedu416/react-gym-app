@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // import { NavBar } from "./components/NavBar";
 import { Sidebar } from "./pages/home/Sidebar"
@@ -63,18 +63,10 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 const App = () => {
   const [store, dispatch] = useReducer(globalReducer, initialGlobalState)
   const navigate = useNavigate()
-  const location = useLocation();
-  const desktop = useMediaQuery('(min-width:1400px)');
+  // const location = useLocation();
+  const desktop = useMediaQuery('(min-width:1024px)');
 
   const [open, setOpen] = useState(true); // state for sidebar opened or not
-
-  // const determineVerticalAlignment = () => {
-  //   if (location.pathname === "/auth/login" || "/forgot-password" || "/register"){
-  //     return verticalMiddle;
-  //   } 
-  //   // else if (location.pathname === "/myprofile") return null;
-  //   else return null;
-  // }
 
   return (
     <>

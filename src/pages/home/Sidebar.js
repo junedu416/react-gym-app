@@ -15,7 +15,7 @@ import { signOutUser } from "../../services/userServices";
 import MenuIcon from "@mui/icons-material/Menu";
 import { SidebarData } from "../../data/sidebarData";
 import { getBaseRoute } from "../../utils/sidebarUtils";
-import { IconButton } from "@mui/material";
+import { IconButton, SwipeableDrawer } from "@mui/material";
 import MultipleStopIcon from "@mui/icons-material/MultipleStop";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { SidebarTitle } from "../../styled-components/sidebarCustomStyling";
@@ -94,7 +94,7 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export const Sidebar = ({open, setOpen, ...props}) => {
+export const Sidebar = (props) => {
   // const [dashboardView, setDashboardView] = useState(<Overview />);
   const [value, setValue] = useState(9);
   const { store, dispatch } = useGlobalState();
@@ -102,7 +102,7 @@ export const Sidebar = ({open, setOpen, ...props}) => {
   const navigate = useNavigate();
   const [sbData, setSbData] = useState([]);
 
-  const { desktop } = props;
+  const { desktop, open, setOpen } = props;
 
   const fullScreenSidebar = useMediaQuery("(max-width:600px)");
 
@@ -156,16 +156,17 @@ export const Sidebar = ({open, setOpen, ...props}) => {
 
   return (
     <Container
-      style={{ position: fullScreenSidebar ? "absolute" : "fixed", flexDirection: "row", zIndex: 1 }}
-      w={fullScreenSidebar && !open && "0vw"}
+      style={{ position: desktop ? "absolute" : "fixed", flexDirection: "row", zIndex: 1 }}
+      // w={fullScreenSidebar && !open && "0vw"}
+      w={ desktop ? drawerWidth : !open && "0vw"}
     >
-      {
+      { desktop ? null :
         <IconButton
           sx={sidebarIcon}
           style={{
-            position: "absolute",
-            top: 10,
-            left: open ? "65%" : 15,
+            position: "fixed",
+            top: "89vh",
+            left: open ? "140px" : 15,
             zIndex: 10,
           }}
           aria-label="open menubar"
@@ -187,24 +188,26 @@ export const Sidebar = ({open, setOpen, ...props}) => {
       <CssBaseline />
       <Drawer
         className="drawer"
-        open={open}
+        open={desktop ? true : open}
         sx={{
-          width: fullScreenSidebar ? (open ? "100vw" : "0vw") : drawerWidth,
-          minWidth: fullScreenSidebar ? "0px" : "230px",
+          // width: fullScreenSidebar ? (open ? "100vw" : "0vw") : drawerWidth,
+          width: desktop ? open ? drawerWidth : drawerWidth : "0vw",
+          // minWidth: fullScreenSidebar ? "0px" : drawerWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             paddingTop: `calc(100vh / 8)`,
             position: "fixed",
-            zIndex: "1",
-            width: fullScreenSidebar ? "100vw" : drawerWidth,
-            minWidth: fullScreenSidebar ? "0px" : "230px",
+            zIndex: 2,
+            // width: fullScreenSidebar ? "60vw" : drawerWidth,
+            // minWidth: fullScreenSidebar ? "0px" : "230px",
             boxSizing: "border-box",
             display: "flex",
             alignItems: "center",
             backgroundColor: "blue",
           },
         }}
-        variant="persistent"
+        // variant= {desktop ? "persistent" : "temporary"}
+        variant= "persistent"
       >
         <SidebarTitle
         >
