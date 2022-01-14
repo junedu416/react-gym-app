@@ -12,22 +12,23 @@ export const NewEvent = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("")
 
-  const submitNewEvent = (data) => {
-    createNewEvent(data).then(result => {
+  const submitNewEvent = async(data) => {
+    try {
+        const result = await createNewEvent(data);
       if (result.error){
         console.log("error in data validation: ", result.error)
-        setErrorMessage(result.error);
+        const errorClone = await JSON.parse(JSON.stringify(result))
+        const errorMsg = errorClone.error.replace(/startTime: |endTime: /ig, "")
+        setErrorMessage(errorMsg)
       } else {
-        setErrorMessage("");
+        setErrorMessage("")
+        dispatch({type: "setNotification", data: "Event successfully created"})
+        navigate('/events')
       }
-    })
-    .then(() => {
-      dispatch({type: "setNotification", data: "Event successfully created"})
-      navigate('/events')
-    })
-    .catch(error => {
-      setErrorMessage("Failed to connect to server.")
-    });
+    } catch(e) {
+      console.log("error caught: ", e)
+      setErrorMessage("Failed to connect to server")
+    }
   }
 
   useEffect(() => {

@@ -8,7 +8,7 @@ export const EventDetails = ({events, staff}) => {
 
     const viewEvent = (e, eventId) => {
         e.preventDefault();
-        navigate(`events/${eventId}`)
+        navigate(`/events/${eventId}`)
     }
 
     return(
