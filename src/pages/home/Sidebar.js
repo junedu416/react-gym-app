@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
-import { Container } from "../../styled-components/";
+import { Container, Heading } from "../../styled-components/";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -12,8 +12,12 @@ import { dashItem } from "../../styled-components/dashboard";
 import PropTypes from "prop-types";
 import { useGlobalState } from "../../config/globalStore";
 import { signOutUser } from "../../services/userServices";
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuIcon from "@mui/icons-material/Menu";
 import { SidebarData } from "../../data/sidebarData";
+import { getBaseRoute } from "../../utils/sidebarUtils";
+import { IconButton } from "@mui/material";
+import MultipleStopIcon from '@mui/icons-material/MultipleStop';
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const StyledTabs = styled((props) => (
   <Tabs
@@ -42,19 +46,11 @@ const StyledTabs = styled((props) => (
 });
 
 const LinkTab = styled((props) => (
-  <Tab
-    disableRipple
-    component="a"
-    onClick={(event) => {
-      // event.preventDefault();
-    }}
-    {...props}
-  />
+  <Tab disableRipple component="a" {...props} />
 ))(({ theme }) => ({
   textTransform: "none",
   fontWeight: theme.typography.fontWeightRegular,
   fontSize: theme.typography.pxToRem(14),
-  // fontSize: "0.8rem",
   marginRight: theme.spacing(1),
   color: "rgba(255, 255, 255, 0.85)",
   "&:hover": {
@@ -62,8 +58,8 @@ const LinkTab = styled((props) => (
     transition: "0.2s",
   },
   "&.Mui-selected": {
-    // color: "rgba(253, 106, 2, 1)",
-    color: "white",
+    color: "rgb(170,255,170)",
+    // color: "white",
     // backgroundColor: "rgba(110, 110, 110, 0.6)",
     backgroundColor: "darkblue",
     fontWeight: theme.typography.fontWeightBold,
@@ -73,7 +69,7 @@ const LinkTab = styled((props) => (
   },
 }));
 
-const drawerWidth = "230px";
+const drawerWidth = "15%";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -104,15 +100,13 @@ TabPanel.propTypes = {
 export const Sidebar = () => {
   // const [dashboardView, setDashboardView] = useState(<Overview />);
   const [value, setValue] = useState(9);
-  const {store, dispatch} = useGlobalState();
-  const {profile} = store;
+  const { store, dispatch } = useGlobalState();
+  const { profile } = store;
   const navigate = useNavigate();
   const [sbData, setSbData] = useState([]);
   const [open, setOpen] = useState(true);
 
-  // function handleClick(event) {
-  //   event.preventDefault();
-  // }
+  const fullScreenSidebar = useMediaQuery('(max-width:600px)');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -120,7 +114,7 @@ export const Sidebar = () => {
 
   function handleSignOut() {
     signOutUser().then(() => {
-      window.localStorage.setItem('uid', null);
+      window.localStorage.setItem("uid", null);
       dispatch({ type: "setProfile", data: null });
     });
   }
@@ -128,48 +122,86 @@ export const Sidebar = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const index = sbData.findIndex((data) => data.route === location.pathname);
+    const baseRoute = getBaseRoute(location.pathname);
+    const index = sbData.findIndex((data) => data.route === baseRoute);
     setValue(index);
-  }, [location, sbData])
+  }, [location, sbData]);
 
   useEffect(() => {
     let temp;
     if (profile) {
-      temp = SidebarData.filter((e) => e.title[1] !== "Register" && e.title[1] !== "Sign In")
+      temp = SidebarData.filter(
+        (e) => e.title[1] !== "Register" && e.title[1] !== "Sign In"
+      );
     } else {
-      temp = SidebarData.filter((e) => 
-        e.title[1] !== "Sign Out" &&
-        e.title[1] !== "Overview" && 
-        e.title[1] !== "Check-ins" &&
-        e.title[1] !== "Performance Stats" &&
-        e.title[1] !== "Events" &&
-        e.title[1] !== "Workouts" && 
-        e.title[1] !== "Profile" &&
-        e.title[1] !== "Leaderboards" &&
-        e.title[1] !== "Reports" &&
-        e.title[1] !== "Our Team"
-      )
+      temp = SidebarData.filter(
+        (e) =>  e.title[1] === "Sign In" || e.title[1] === "Register"
+          // e.title[1] !== "Sign Out" &&
+          // e.title[1] !== "Overview" &&
+          // e.title[1] !== "Check-ins" &&
+          // e.title[1] !== "Performance Stats" &&
+          // e.title[1] !== "Events" &&
+          // e.title[1] !== "Workouts" &&
+          // e.title[1] !== "Profile" &&
+          // e.title[1] !== "Leaderboards" &&
+          // e.title[1] !== "Reports" &&
+          // e.title[1] !== "Our Team"
+ 
+      );
     }
     setSbData(temp);
     console.log("changing sidebardata");
-  }, [profile])
+  }, [profile]);
 
   function handleOpen() {
     setOpen(!open);
   }
 
   return (
-    <Container style={{ position: "fixed",flexDirection: "row" }}>
-      <div style={{position: "absolute", top: 0, left: 0, zIndex: 2}}>
-        <button style={{border: "none", backgroundColor: "rgba(0,0,0,0)"}} onClick={handleOpen}>
-          <MenuIcon style={{color: open ? "white" : "blue", height: "7vh", width: "7vh"}}/>
-        </button>
-      </div>
+    <Container style={{ position: "fixed", flexDirection: "row", zIndex: 1}} w={fullScreenSidebar && !open && "0vw"}>
+      {/* <button style={{border: "none", backgroundColor: "rgba(0,0,0,0)"}} onClick={handleOpen}>
+          
+          <MenuIcon style={{color: open ? "white" : "blue", height: "60px", width: "60px"}}/>
+        </button> */}
+
+      {
+        <IconButton
+          sx={{
+            color: open ? "white" : "#555",
+            // backgroundColor: open ? "rgba(40, 40, 40, 0.44)" : "rgba(0, 150, 250, 0.8)",
+            backgroundColor: open ? "rgba(0, 45, 255, 0.4)" : "rgba(0, 160, 255, 95)",
+            transition: "all ease-in 0.3s",
+            "&:hover": { color: open ? "white" : "#DDD", backgroundColor: open ? "rgba(45, 45, 45, 0.75)" : "rgba(0, 180, 255, 1)" }
+          }}
+          style={{
+            position: "absolute",
+            top: 10,
+            left: open ? "65%" : 15,
+            zIndex: 10,
+          }}
+          aria-label="open menubar"
+        >
+          {open ? (
+            <MultipleStopIcon
+              onClick={handleOpen}
+              style={{ height: "60px", width: "60px" }}
+            />
+          ) : (
+            <MenuIcon
+              onClick={handleOpen}
+              style={{ height: "60px", width: "60px" }}
+            />
+          )}
+        </IconButton>
+      }
+
       <CssBaseline />
       <Drawer
-      open={open}
+        className="drawer"
+        open={open}
         sx={{
-          width: drawerWidth,
+          width: fullScreenSidebar ? open ? "100vw" : "0vw" : drawerWidth,
+          minWidth: fullScreenSidebar ? "0px" : "230px",
           // height: `calc(100vh - 90px)`,
           height: `100vh`,
           flexShrink: 0,
@@ -177,7 +209,8 @@ export const Sidebar = () => {
             paddingTop: `calc(100vh / 8)`,
             //position: "fixed",
             zIndex: "1",
-            width: drawerWidth,
+            width: fullScreenSidebar ? "100vw" : drawerWidth,
+            minWidth: fullScreenSidebar ? "0px" : "230px",
             boxSizing: "border-box",
             display: "flex",
             alignItems: "center",
@@ -186,31 +219,43 @@ export const Sidebar = () => {
         }}
         variant="persistent"
       >
+        <h1
+          style={{
+            fontFamily: "'Courgette', cursive",
+            marginBottom: "2em",
+            textAlign: "center",
+            color: "white",
+            width: "100%"
+          }}
+        >
+          Average Joe's
+        </h1>
         <StyledTabs
           orientation="vertical"
           variant="scrollable"
           value={value}
           onChange={handleChange}
           aria-label="Vertical tabs example"
-          sx={{ borderLeft: 1, borderColor: "divider" }}
+          sx={{ borderLeft: fullScreenSidebar ? 0 : 1, borderColor: "divider" }}
         >
           {sbData.map((item, index) => {
             return (
-            <LinkTab
-              label={item.title}
-              style={dashItem}
-              key={index}
-              onClick={() => {
-                if (item.title[1] === "Sign Out") {
-                  handleSignOut();
-                }
-                if (item.route) {
-                  navigate(item.route);
-                }
-              }}
-            />
-          )}
-        )}
+              <LinkTab
+                label={item.title}
+                style={dashItem}
+                key={index}
+                onClick={() => {
+                  if (item.title[1] === "Sign Out") {
+                    handleSignOut();
+                  }
+                  if (item.route) {
+                    navigate(item.route);
+                  }
+                  if (fullScreenSidebar) setOpen(false);
+                }}
+              />
+            );
+          })}
         </StyledTabs>
       </Drawer>
     </Container>

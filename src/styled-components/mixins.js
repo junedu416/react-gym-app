@@ -38,6 +38,12 @@ export const mt = (props) => {
   `;
 };
 
+export const mb = (props) => {
+  return `
+    margin-bottom: ${props.mb ? props.mb : "0"};
+  `;
+};
+
 export const ml = (props) => {
   return `
     margin-left: ${props.ml ? props.ml : "0"};
@@ -109,3 +115,23 @@ export const greyBorder = () => {
     border: 1px solid rgba(120, 120, 120, 0.3);
   `;
 };
+
+export const hoverMixin = () => {
+  return `
+  transition: all 0.7s;
+  &:hover {
+    background-color: rgba(0, 145, 250, 0.18);
+    opacity: 1;
+    cursor: pointer;
+    color: rgba(80, 80, 80, 0.9);
+  }
+  `;
+};
+
+export const bg = (props) => {
+  return `
+    background-color: ${props.bg ? props.bg : "transparent"};
+    background: ${props.bg ? props.bg : "transparent"};
+
+  `
+}

@@ -61,16 +61,17 @@ export const Reporting = () => {
 
     await postReport(formData);
     setIsFilePicked(false);
-    setMessage("report sent successfully!");
+    setMessage("Report sent successfully!");
 
     setTimeout(() => {
       setMessage("");
     }, 5000);
+
+    navigate("/Overview")
   };
 
   return (
     <MainWindow>
-      {console.log(profile)}
       <Container>
         {!profile && (
           <Collapse in={open}>

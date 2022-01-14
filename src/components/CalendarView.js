@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useReducer, useCallback } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
+import {useGlobalState} from "../config/globalStore";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
 import { getAllEvents } from "../services/eventsServices.js";
@@ -7,10 +8,13 @@ import { eventsReducer } from "../utils/events-reducer";
 import { EventPopup } from "../pages/events/EventPopup";
 import { convertTimeToAcceptedFormat } from "../utils/events-helper-functions.js";
 
+
 const CalendarView = ({ eventCategory }) => {
+  const {store} = useGlobalState()
+  const {profile} = store;
   const localizer = momentLocalizer(moment);
   const initialEventsVars = {
-    events: [],
+    events: null,
     filteredEvents: [],
   };
   const [eventsVars, dispatchEventsVars] = useReducer(
@@ -28,7 +32,7 @@ const CalendarView = ({ eventCategory }) => {
       console.log(`event Category from prop is: ${eventCategory}`);
       dispatchEventsVars({
         type: "setCategorisedEventsList",
-        data: eventCategory,
+        data: {category: eventCategory, profile: profile},
       });
     }
     return;
@@ -38,33 +42,29 @@ const CalendarView = ({ eventCategory }) => {
   // load events from backend
   //=======
   useEffect(() => {
-    if (eventsVars.events.length === 0) {
+    if (eventsVars.events === null) {
       getAllEvents()
         .then((eventsList) => {
           console.log("fetched data");
           eventsList.forEach((event) => {
-            // event.startTime = new Date(event.startTime);
-            // event.endTime = new Date(event.endTime);
             convertTimeToAcceptedFormat(event);
           });
           dispatchEventsVars({ type: "setEventsList", data: eventsList });
-          filterEventsByCategory();
         })
         .catch((error) => console.log(`error caught fetching events: `, error));
     }
-  }, [eventsVars.events, filterEventsByCategory]);
+  }, [eventsVars.events]);
 
   // ==========
   // filter events  by category
   // ===========
   useEffect(() => {
-    console.log(`event category changed.`);
-    dispatchEventsVars({
-      type: "setCategorisedEventsList",
-      data: eventCategory,
-    });
+    if(eventsVars.events && eventsVars.events.length > 0){
+      console.log("dispatch function called from useEffect")
+      filterEventsByCategory();
+    }
     return;
-  }, [eventCategory, eventsVars.events]);
+  }, [eventsVars.events, filterEventsByCategory]);
 
   const onClickEvent = (e) => {
     console.log(e);

@@ -25,24 +25,26 @@ export const EditEvent = () => {
         }
     }, [profile, event, dispatch, createdBy, navigate])
 
-    const updateEvent = (data) => {
-        editEvent(event._id, data).then(result => {
-            if (result.error){
-              console.log("error in data validation: ", result.error)
-              setErrorMessage(result.error);
-            } else {
-              console.log("success")
-              setErrorMessage("");
-            }
-          })
-          .then(() => {
-              dispatch({type: 'setNotification', data: "Successfully updated event"})
-              navigate('/events')
-            })
-          .catch(error => {
-            setErrorMessage("Failed to connect to server.")
-          });
+    const updateEvent = async(data) => {
+        try {
+          const result = await editEvent(event._id, data);
+        if (result.error){
+          console.log("error in data validation: ", result.error)
+          const errorClone = await JSON.parse(JSON.stringify(result))
+          const errorMsg = errorClone.error.replace(/startTime: |endTime: /ig, "")
+          setErrorMessage(errorMsg)
+        } else {
+          setErrorMessage("")
+          dispatch({type: "setNotification", data: "Successfully updated event"})
+          navigate('/events')
+        }
+      } catch(e) {
+        console.log("error caught: ", e)
+        setErrorMessage("Failed to connect to server")
+      }
     }
+
+    
     return(
         <MainWindow>
             <Heading>Edit Event</Heading>

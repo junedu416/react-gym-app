@@ -8,25 +8,38 @@ import { WorkoutDate, WorkoutText } from "../../styled-components/workouts";
 import moment from "moment";
 import { Button, ButtonGroup } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { workoutList } from "../../data/workouts-dummy";
+// import { workoutList } from "../../data/workouts-dummy";
 import { ReusableModal } from "../../components/ReusableModal";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
+import { useGlobalState } from "../../config/globalStore";
+import { editProfile } from "../../services/profileServices";
 
 export const WorkoutStart = (props) => {
   useRedirectUnauthorisedUser();
   const navigate = useNavigate();
-  const selectedWorkout = workoutList[0];
-  const list = selectedWorkout.exercises;
+
+  const { store, dispatch } = useGlobalState();
+  const { profile, workoutIndex } = store;
+  const profWorkoutsClone = JSON.parse(JSON.stringify(profile.workouts));
+  const workoutList = profWorkoutsClone[workoutIndex];
+  console.log("workoutList", workoutList);
+  // const selectedWorkout = workoutList[0];
+  const list = workoutList.exercises;
+
+  console.log(list);
 
   const [counter, setCounter] = useState(0);
   const [disableExButtons, setDisableExButtons] = useState(
     new Array(list.length)
   );
-  const [disabledList, setDisabledList] = useState([]);
-  const [exerciseCompleted, setExerciseCompleted] = useState([]);
+  //const [disabledList, setDisabledList] = useState([]);
+  const [exerciseCompleted, setExerciseCompleted] = useState({
+    ...workoutList,
+    exercises: [],
+  });
   const [open, setOpen] = useState(false);
 
-  const totalExercises = workoutList.length - 1;
+  const totalExercises = list.length - 1;
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -35,7 +48,10 @@ export const WorkoutStart = (props) => {
   };
 
   const handleExerciseCompleted = (newExerciseCompleted) => {
-    setExerciseCompleted((prevState) => [...prevState, newExerciseCompleted]);
+    setExerciseCompleted({
+      ...exerciseCompleted,
+      exercises: [...exerciseCompleted.exercises, newExerciseCompleted],
+    });
   };
 
   useEffect(() => {
@@ -52,29 +68,43 @@ export const WorkoutStart = (props) => {
     setDisableExButtons(tempDisableExButtons);
   }
 
-  // const disableGroup = (exercise) => {
-  //   setDisabledList({ ...disabledList, exercise });
-  // };
-
   const finishExercise = (exercise, isCompleted) => {
     setCounter(counter + 1);
-    exercise.completed = isCompleted;
+    if (exercise.weight) {
+      exercise.prevWeights.push(exercise.weight);
+    } else {
+      exercise.prevDistances.push(exercise.distance);
+    }
+    if (isCompleted) {
+      if (exercise.weight) {
+        exercise.weight = exercise.weight + 5;
+      } else {
+        exercise.distance = exercise.distance + 100;
+      }
+    }
     handleExerciseCompleted(exercise);
     isWorkoutCompleted(counter);
   };
 
   const isWorkoutCompleted = (counter) => {
     if (counter === totalExercises) {
-      handleOpen()
-      setTimeout(() => handleClose(), 3500)
-      
-      // ================================ ADD LOGIC TO SEND TO BACKEND ==========================
-      // sendData();
-      // navigate("/workouts");
-
-      // =========================================================================================
+      handleOpen();
+      setTimeout(() => handleClose(), 3500);
     }
   };
+
+  useEffect(() => {
+    if (exerciseCompleted.exercises.length === list.length) {
+      profWorkoutsClone[workoutIndex] = exerciseCompleted;
+      console.log("profWorkoutsClone", profWorkoutsClone);
+      editProfile(profile.userId, {
+        ...profile,
+        workouts: profWorkoutsClone,
+      }).then((response) =>
+        dispatch({ type: "setProfile", data: response.data })
+      );
+    }
+  }, [exerciseCompleted]);
 
   const determineUnits = (distance) => {
     if (distance > 1000) return `${distance / 1000} km`;
@@ -91,15 +121,15 @@ export const WorkoutStart = (props) => {
           shadow
           style={{ borderRadius: "15px" }}
         >
-          <WorkoutDate>
-            {moment().format("LL")}
-          </WorkoutDate>
+          <WorkoutDate>{moment().format("LL")}</WorkoutDate>
           <Container
             direction="row"
             style={{ width: "100%" }}
             justify="space-between"
           >
-            <SmallHeading style={{ margin: "0" }}>Workout A</SmallHeading>
+            <SmallHeading style={{ margin: "0" }}>
+              {workoutList.name}
+            </SmallHeading>
             <EditButton />
           </Container>
 
@@ -113,28 +143,33 @@ export const WorkoutStart = (props) => {
             <span style={{ color: "lime", paddingRight: "17px" }}>
               Completed
             </span>
-            <span style={{ color: "red" }}>
-              Incomplete
-            </span>
+            <span style={{ color: "red" }}>Incomplete</span>
           </Container>
 
           {list.map((exercise, index) => (
             <>
-              <Container align="flex-start">
+              <Container
+                align="flex-start"
+                w="100%"
+                style={{ minWidth: "400px" }}
+              >
                 <SmallHeading
                   size="1.6rem"
                   color="rgba(40, 40, 40, 0.65)"
                   // color={disableExButtons[index] ? "grey" : "lime"}
                   style={{ margin: "0" }}
                 >
-                  {exercise.name}
+                  {exercise.exerciseId.name}
                 </SmallHeading>
                 <Container
                   direction="row"
                   style={{ width: "100%" }}
                   justify="space-between"
                 >
-                  <Container direction="row" style={{ gap: "50px", marginRight: "30px" }}>
+                  <Container
+                    direction="row"
+                    style={{ gap: "50px", marginRight: "30px" }}
+                  >
                     {exercise.sets && (
                       <Container>
                         <WorkoutText mb="0">Sets</WorkoutText>

@@ -4,6 +4,16 @@ export const isUserRegistered = (profile, registrationList) => {
     return registrationList.includes(profile._id)
 }
 
+export const filterEventsByCategory = (events, category, profile) => {
+    let filteredEvents
+    if (category === 'registered events'){
+        filteredEvents = events.filter((event) => isUserRegistered(profile, event.registeredUsers))
+    } else {
+        filteredEvents = events.filter((event) => event.category.toLowerCase() === category.toLowerCase())
+    }
+    return filteredEvents;
+}
+
 export const convertTimeToAcceptedFormat = (eventObj) => {
     eventObj.startTime = new Date(eventObj.startTime);
     eventObj.endTime = new Date(eventObj.endTime);

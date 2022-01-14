@@ -49,7 +49,7 @@ const globalReducer = (state, action) => {
         case "selectWorkout":
             return {
                 ...state,
-                workoutId: action.data
+                workoutIndex: action.data
             }
 
         default: 

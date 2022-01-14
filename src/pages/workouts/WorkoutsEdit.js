@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import {
   Container,
   Heading,
+  HoverBox,
   MainWindow,
   TextLink,
 } from "../../styled-components";
@@ -10,42 +11,49 @@ import {
   WorkoutCardStyling,
   WorkoutList,
   ListItems,
+  WorkoutUL,
 } from "../../styled-components/workouts";
 import Divider from "@mui/material/Divider";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
+import { Button, ClickAwayListener } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Menu, MenuItem } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import { Button } from "@mui/material";
 import { ReusableModal } from "../../components/ReusableModal";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
+import { ExerciseEditForm } from "./ExerciseEditForm";
+import BasicButton from "../../components/buttons/BasicButton";
+import { DeleteWorkout } from "./DeleteWorkout";
+// import { useSearchParams } from "react-router-dom";
 
-export const EditWorkouts = (props, workouts) => {
+export const EditWorkouts = () => {
   useRedirectUnauthorisedUser();
   const navigate = useNavigate();
   const { store, dispatch } = useGlobalState();
-  const { profile, workoutId } = store;
+  const { profile, workoutIndex } = store;
   const [modalOpen, setModalOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-  const workoutList = profile.workouts.filter((workout) => workout._id === workoutId)
-  const choosePath = ['Add From Popular Exercises', 'Add Customized Exercise'];
-  // const [workoutRemove, setWorkoutRemove] = useState("");
-  const [editMode, setEditMode] = useState(false);
+  // clare
+  const workoutList = profile.workouts[workoutIndex];
+  // end clare
+  const choosePath = ["Add From Popular Exercises", "Add Customized Exercise"];
+
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // searchParams.get("workoutIndex");
 
   useEffect(() => {
-    if (profile){
-      editProfile(profile.userId, profile)
-      .catch((err) => {
+    if (profile) {
+      editProfile(profile.userId, profile).catch((err) => {
         console.log(err.message);
-      })
+      });
     }
-  },[profile])
+  }, [profile]);
 
   const handleModalOpen = () => {
     setModalOpen(true);
@@ -55,113 +63,95 @@ export const EditWorkouts = (props, workouts) => {
     setModalOpen(false);
   };
 
-  const modalText = `Are you sure you want to delete this workout?`;
-  const actionButtons = [
-    <Container mt="40px" direction="row">
-      <Button
-        variant="contained"
-        size="large"
-        color="error"
-        sx={{ mr: 5 }}
-        onClick={handleDelete}
-      >
-         Delete
-      </Button>
-      <Button
-        variant="contained"
-        size="large"
-        color="info"
-        onClick={handleClose}
-      >
-        Cancel
-      </Button>
-    </Container>,
-  ];
-
-  function handleDelete() {
-    const updatedWorkout = profile.workouts.filter((workout) => workout._id !== workoutId)
-    dispatch({type: "setWorkout", data: updatedWorkout})
-    dispatch({type: "setNotification", data: "Delete workout successfully!"})
-    navigate("/workouts")
-  }
-
   function handleAddExerciseBtn(event) {
     setAnchorEl(event.currentTarget);
   }
 
   const handleMenuClose = (event) => {
     setAnchorEl(null);
-    if (event.target.getAttribute('value') === choosePath[0]){
-      navigate("/exercises")
-    } else (
-      navigate("/workouts/new")
-    )
+    if (event.target.getAttribute("value") === choosePath[0]) {
+      navigate(`/exercises`);
+      // navigate(`/exercises?${searchParams}`);
+    } else navigate("/workouts/new");
   };
 
-  function editWorkout(workout) {
-    // navigate(`/workouts/${workout.name}`);
+  const [formOpen, setFormOpen] = useState("");
+  function handleFormOpen(exerciseId) {
+    setFormOpen(exerciseId);
   }
 
-  function confirmationPopup(workout) {
-    // setWorkoutRemove(workout);
-    // handleOpen();
+  function deleteExercise(exercise) {
+    const newWorkout = workoutList.exercises.filter(
+      (el) => el._id !== exercise._id
+    );
+    const profileWorkouts = profile.workouts;
+    profileWorkouts[workoutIndex].exercises = newWorkout;
+
+    dispatch({ type: "setWorkout", data: profileWorkouts });
+    console.log("the profile workouts are:", profile.workouts);
   }
 
-  function handleRemove(removeWorkoutId) {
-    // const newList = list.filter((workout) => workout.id !== removeWorkoutId);
-    // setList(newList);
-    // handleClose();
+  function handleFinishEditing() {
+    navigate("/workouts");
   }
 
   return (
     <>
       <MainWindow>
         <Container>
-          <Heading>{workoutList[0].name}</Heading>
-          <Container>
-            <WorkoutCardStyling>
-              <ul
-                style={{
-                  // Removes bullet and indentation
-                  listStyleType: "none",
-                  padding: 0,
-                  margin: 0,
-                }}
-              >
-                {workoutList[0].exercises.map((exercise) => (
-                  <ListItems>
-                    <WorkoutList p="10px 0px" ml="20px">
-                      {exercise.exerciseId? exercise.exerciseId.name: exercise.customisedName}
-                      <IconButton>
-                        {editMode ? (
-                          <RemoveCircleIcon
-                            sx={{ color: "red" }}
-                            onClick={() => confirmationPopup(exercise)}
+          {workoutList && (
+            <>
+              <Heading>{workoutList.name}</Heading>
+              <Container>
+                <WorkoutCardStyling noHoverStyling>
+                  <WorkoutUL>
+                    {workoutList.exercises.map((exercise) => (
+                      <ListItems>
+                        <WorkoutList p="10px 0px" ml="20px">
+                          {exercise.exerciseId
+                            ? exercise.exerciseId.name
+                            : exercise.customisedName}
+                            <Container direction="row">
+                          <IconButton>
+                            <EditIcon
+                              sx={{ "&:hover": { color: "lime" } }}
+                              onClick={() => {
+                                handleFormOpen(exercise.exerciseId);
+                              }}
+                            />
+                          </IconButton>
+                          <ExerciseEditForm
+                            open={formOpen === exercise.exerciseId}
+                            setFormOpen={setFormOpen}
+                            exercise={exercise}
+                            workoutIndex={workoutIndex}
                           />
-                        ) : (
-                          <ArrowForwardIosIcon
-                            onClick={() => editWorkout(exercise)}
-                          />
-                        )}
-                      </IconButton>
-                    </WorkoutList>
-                    <Divider sx={{ width: "90%" }} />
-                  </ListItems>
-                ))}
-              </ul>
-
-              <TextLink
-                direction="row"
-                ml="25px"
-                mt="0"
-                p="20px 0"
-                justify="flex-start"
-                onClick={handleAddExerciseBtn}
-              >
-                <AddCircleIcon sx={{ mr: 1 }} /> Add Exercise
-              </TextLink>
-            </WorkoutCardStyling>
-            <Menu
+                          <IconButton>
+                            <DeleteIcon
+                              sx={{ mr: 1, "&:hover": { color: "red" } }}
+                              onClick={() => deleteExercise(exercise)}
+                            />
+                          </IconButton>
+                          </Container>
+                        </WorkoutList>
+                        <Divider sx={{ width: "90%" }} />
+                      </ListItems>
+                    ))}
+                  </WorkoutUL>
+                  <HoverBox align="flex-start" rounded="4px">
+                    <TextLink
+                      direction="row"
+                      ml="25px"
+                      mt="0"
+                      p="20px 0"
+                      justify="flex-start"
+                      onClick={handleAddExerciseBtn}
+                    >
+                      <AddCircleIcon sx={{ mr: 1 }} /> Add Exercise
+                    </TextLink>
+                  </HoverBox>
+                </WorkoutCardStyling>
+                <Menu
                   id={id}
                   open={open}
                   anchorEl={anchorEl}
@@ -173,38 +163,44 @@ export const EditWorkouts = (props, workouts) => {
                 >
                   <Typography sx={{ p: 2, width: "300px" }}>
                     {choosePath.map((el, i) => (
-                      <MenuItem
-                        key={i}
-                        id={i}
-                        value = {el}
-                        onClick={handleMenuClose}
-                      >
-                        <AddCircleIcon sx={{ mr: 1 }} /> {el}
-                      </MenuItem>
-                  ))}
+                      <HoverBox align="flex-start">
+                        <Divider width="90%" sx={{ ml: 2 }} />
+                        <HoverBox align="flex-start">
+                          <MenuItem
+                            key={i}
+                            id={i}
+                            value={el}
+                            onClick={handleMenuClose}
+                            sx={{ pt: 3, pb: 3, width: "100%" }}
+                          >
+                            <AddCircleIcon sx={{ mr: 1 }} /> {el}
+                          </MenuItem>
+                        </HoverBox>
+                        <Divider width="90%" sx={{ ml: 2 }} />
+                      </HoverBox>
+                    ))}
                   </Typography>
-            </Menu>
-          </Container>
-          {editMode && (
-            <Button
-              variant="contained"
-              size="large"
-              sx={{ mt: 3 }}
-              onClick={() => setEditMode(false)}
-            >
-              Done
-            </Button>
+                </Menu>
+              </Container>
+            </>
           )}
         </Container>
-        <br/>
-        <Button variant="outlined" color="error" onClick={handleModalOpen} >Delete Workout</Button>
+        <br />
+        <Container direction="row">
+          <BasicButton
+            variant="outlined"
+            color="error"
+            btnFunction={handleModalOpen}
+            text="Delete Workout"
+          />
+          <BasicButton btnFunction={handleFinishEditing} text="Done" />
+        </Container>
       </MainWindow>
       <ReusableModal
-        title={modalText}
+        title="Are you sure you want to delete this workout?"
         open={modalOpen}
         handleClose={handleClose}
-        children={actionButtons}
-      />
+      ><DeleteWorkout handleClose={handleClose} /></ReusableModal>
     </>
   );
 };

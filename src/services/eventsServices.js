@@ -6,7 +6,7 @@ import gymApi from '../config/api';
 export const getAllEvents = async () => {
     try {
         const response = await gymApi.get('/events')
-        console.log(response)
+        console.log(response.data)
         return response.data
     } catch (e) {
         return e.message
@@ -17,7 +17,7 @@ export const getAllEvents = async () => {
 export const getEventById = async (id) => {
     try {
         const response = await gymApi.get(`/events/${id}`)
-        console.log(response)
+        console.log(response.data)
         return response.data
     } catch (e) {
         return e.message
@@ -58,7 +58,7 @@ export const editEvent = async (id, eventObj) => {
 export const deleteEvent = async (id) => {
     try {
         const response = await gymApi.delete(`/events/${id}`)
-        console.log(response)
+        console.log(response.data)
         return response.data
     } catch (e) {
         console.log (e)

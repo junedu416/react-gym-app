@@ -351,6 +351,13 @@ export const Calendar = () => {
             >
               Personal Training
             </ToggleButton>
+            <ToggleButton
+              value="registered events"
+              aria-label="registered events"
+              sx={{ color: "grey" }}
+            >
+              Registered Events
+            </ToggleButton>
           </ToggleButtonGroup>
         </Container>
         <Container w="35%">
