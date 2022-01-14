@@ -59,10 +59,13 @@ import RememberMe from "./components/RememberMe";
 import { Back } from "./components/Back";
 
 import ScrollButton from "./components/buttons/Scroll";
+import { MainWindow } from "./styled-components";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const App = () => {
   const [store, dispatch] = useReducer(globalReducer, initialGlobalState)
   const navigate = useNavigate()
+  const desktop = useMediaQuery('(min-width:1400px)');
 
   return (
     <>
@@ -72,7 +75,9 @@ const App = () => {
       <Notification />
       <Back btnFunction={() => navigate(-1)} />
       <ScrollButton />
-      <Sidebar />
+      <Sidebar desktop={desktop} />
+      <MainWindow desktop={desktop}>
+
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/auth/login" element={<SignIn />} />
@@ -106,6 +111,7 @@ const App = () => {
         <Route path="/leaderboards" element={<Leaderboards />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+      </MainWindow>
     </StateContext.Provider>
     </>
   );

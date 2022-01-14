@@ -18,12 +18,12 @@ export const Events = () => {
 
   return (
     <>
-      <MainWindow>
+      {/* <MainWindow> */}
         <Calendar />
 
         {profile && profile.isStaff && <BasicButton btnFunction={handleNewEvent} text="Create Event" sx={{ mt: 4 }}/>}
         
-      </MainWindow>
+      {/* </MainWindow> */}
     </>
   );
 };

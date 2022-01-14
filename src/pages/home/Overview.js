@@ -5,7 +5,6 @@ import {
   Grid,
   Heading,
   MainWindow,
-  SmallHeading,
 } from "../../styled-components";
 import { useGlobalState } from "../../config/globalStore.js";
 import CheckInWidget from "../../widgets/CheckInWidget.js";
@@ -16,6 +15,8 @@ import { convertTimeToAcceptedFormat } from "../../utils/events-helper-functions
 import { UpcomingEventsWidget } from "../../widgets/UpcomingEventsWidget";
 import { UpcomingCompsWidget } from "../../widgets/UpcomingCompsWidget.js";
 import { StaffEventsWidget } from "../../widgets/StaffEventsWidget.js";
+
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 export const Overview = (props) => {
@@ -38,6 +39,8 @@ export const Overview = (props) => {
         .catch((error) => console.log(`error caught fetching events: `, error));
     }
   }, [eventsList])
+
+  const desktop = useMediaQuery('(min-width:1400px)');
 
   return (
     <MainWindow>

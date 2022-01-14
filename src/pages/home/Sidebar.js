@@ -18,13 +18,13 @@ import { getBaseRoute } from "../../utils/sidebarUtils";
 import { IconButton } from "@mui/material";
 import MultipleStopIcon from "@mui/icons-material/MultipleStop";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { SidebarTitle } from "../../styled-components/sidebarCustomStyling";
+
+const drawerWidth = "230px";
 
 const StyledTabs = styled((props) => (
   <Tabs
     component="a"
-    onClick={(event) => {
-      // event.preventDefault();
-    }}
     {...props}
     TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
   />
@@ -68,9 +68,6 @@ const LinkTab = styled((props) => (
     backgroundColor: "rgba(100, 100, 100, 0.4)",
   },
 }));
-
-const drawerWidth = "230px";
-
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -97,7 +94,7 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export const Sidebar = () => {
+export const Sidebar = (props) => {
   // const [dashboardView, setDashboardView] = useState(<Overview />);
   const [value, setValue] = useState(9);
   const { store, dispatch } = useGlobalState();
@@ -105,6 +102,8 @@ export const Sidebar = () => {
   const navigate = useNavigate();
   const [sbData, setSbData] = useState([]);
   const [open, setOpen] = useState(true);
+
+  const { desktop } = props;
 
   const fullScreenSidebar = useMediaQuery("(max-width:600px)");
 
@@ -196,7 +195,7 @@ export const Sidebar = () => {
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             paddingTop: `calc(100vh / 8)`,
-            // position: "fixed",
+            position: "fixed",
             zIndex: "1",
             width: fullScreenSidebar ? "100vw" : drawerWidth,
             minWidth: fullScreenSidebar ? "0px" : "230px",
@@ -208,17 +207,10 @@ export const Sidebar = () => {
         }}
         variant="persistent"
       >
-        <h1
-          style={{
-            fontFamily: "'Courgette', cursive",
-            marginBottom: "2em",
-            textAlign: "center",
-            color: "white",
-            width: "100%",
-          }}
+        <SidebarTitle
         >
           Average Joe's
-        </h1>
+        </SidebarTitle>
         <StyledTabs
           orientation="vertical"
           variant="scrollable"
