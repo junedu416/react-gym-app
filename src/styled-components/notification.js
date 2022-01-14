@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const NotificationContainer = styled.div`
-    width: calc(100vw - 230px);
+    width: ${props => props.desktop ? "calc(100vw - 220px)" : props.open ? "calc(100vw - 220px)" : "100vw"};
     right: 0;
     height: ${props => props.active ? '50px' : 0};
     position: absolute;

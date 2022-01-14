@@ -76,7 +76,7 @@ const App = () => {
       {/*<NavBar />*/}
       <ThemeProvider theme={customStyles}>
       <RememberMe />
-      <Notification />
+      <Notification desktop={desktop} open={open} />
       <Back btnFunction={() => navigate(-1)} open={open} desktop={desktop} />
       <ScrollButton />
       <Sidebar desktop={desktop} open={open} setOpen={setOpen} />

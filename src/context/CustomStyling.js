@@ -55,19 +55,25 @@ export const customStyles = createTheme({
     },
   });
 
+
+// MUI COLOR SELECTIONS
+
 // lightBlue[A400];
 // lightBlue[300];
 // lightBlue[700];
 // lightBlue[900];
+
 // blue[500];
 // blue[A400];
 // blue[A700];
 
 // teal[A200];
 // teal[A400];
+
 // lightGreen[A200];
 // lightGreen[A400];
 // lightGreen[A700];
+
 // green[A200];
 // green[A400];
 
