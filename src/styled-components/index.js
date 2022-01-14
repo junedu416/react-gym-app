@@ -131,7 +131,7 @@ export const TextBold = styled.strong`
 export const BackWrapper = styled.div`
   position: fixed;
   top: 30px;
-  left: 250px;
+  left: ${(props) => props.open ? "250px" : "20px"};
 `;
 
 export const HoverBox = styled(Container)`

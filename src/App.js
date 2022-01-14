@@ -82,7 +82,7 @@ const App = () => {
       {/*<NavBar />*/}
       <RememberMe />
       <Notification />
-      <Back btnFunction={() => navigate(-1)} />
+      <Back btnFunction={() => navigate(-1)} open={open} desktop={desktop} />
       <ScrollButton />
       <Sidebar desktop={desktop} open={open} setOpen={setOpen} />
       <MainWindow desktop={desktop} open={open} >

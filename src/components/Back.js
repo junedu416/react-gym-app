@@ -3,10 +3,10 @@ import { Fade, IconButton, Tooltip } from "@mui/material";
 import { BackWrapper } from "../styled-components";
 
 export const Back = (props) => {
-  const { btnFunction } = props;
+  const { btnFunction, open, desktop } = props;
 
   return (
-    <BackWrapper>
+    <BackWrapper open={open} desktop={desktop}>
       <Tooltip
         TransitionComponent={Fade}
         TransitionProps={{ timeout: 800 }}
