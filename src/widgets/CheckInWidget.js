@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Widget } from "../styled-components/";
-import { checkIn, checkOut, getCheckedIn, getStats } from "../services/checkinServices"
+import { Container, Text, Widget } from "../styled-components/";
+import {
+  checkIn,
+  checkOut,
+  getCheckedIn,
+  getStats,
+} from "../services/checkinServices";
 import { useGlobalState } from "../config/globalStore";
 import BasicButton from "../components/buttons/BasicButton";
 import { Bar } from "react-chartjs-2";
@@ -12,11 +17,11 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
+} from "chart.js";
 
 const CheckInWidget = () => {
-    const {store, dispatch} = useGlobalState();
-  const {profile} = store;
+  const { store, dispatch } = useGlobalState();
+  const { profile } = store;
 
   const [checkedIn, setCheckedIn] = useState(0);
 
@@ -25,14 +30,18 @@ const CheckInWidget = () => {
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
-    getCheckedIn().then(data => {
-      if (data) setCheckedIn(data.num)
+    getCheckedIn().then((data) => {
+      if (data) setCheckedIn(data.num);
     });
-    getStats().then(data => {
+    getStats().then((data) => {
       if (data) {
         console.log(data);
-        setChartData(Object.values(data.dailyStats).map((num) => Math.floor(num / data.weeksActive)));
-      };
+        setChartData(
+          Object.values(data.dailyStats).map((num) =>
+            Math.floor(num / data.weeksActive)
+          )
+        );
+      }
     });
   }, []);
 
@@ -47,67 +56,82 @@ const CheckInWidget = () => {
   );
 
   const options = {
-    responsive: true
-  }
+    responsive: true,
+  };
 
-  const labels = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const labels = ["Sun", "Mon", "Tues", "Weds", "Thurs", "Fri", "Sat"];
   const data = {
     labels,
     datasets: [
       {
-        label: 'Average Check-ins',
+        label: "Average Check-ins",
         data: chartData,
-        backgroundColor: 'blue'
-      }
-    ]
-  }
+        backgroundColor: "blue",
+      },
+    ],
+  };
   //End chart setup
-
 
   function handleCheckIn() {
     if (profile) {
       if (!profile.checkedIn) {
         setLoading(true);
-        checkIn({userId: profile.userId}).then((data) => {
-          if (data) setCheckedIn(data.num);
-          dispatch({type: "toggleCheckIn"});
-          setLoading(false);
-        }).then(() => {
-          getStats().then((data) => {
-            console.log(data);
-            const newData = Object.values(data.dailyStats).map((num) => Math.floor(num / data.weeksActive))
-            setChartData(newData);
+        checkIn({ userId: profile.userId })
+          .then((data) => {
+            if (data) setCheckedIn(data.num);
+            dispatch({ type: "toggleCheckIn" });
+            setLoading(false);
+          })
+          .then(() => {
+            getStats().then((data) => {
+              console.log(data);
+              const newData = Object.values(data.dailyStats).map((num) =>
+                Math.floor(num / data.weeksActive)
+              );
+              setChartData(newData);
+            });
           });
-        });
-        
-      } 
-    } 
+      }
+    }
   }
 
   function handleCheckOut() {
     if (profile) {
       if (profile.checkedIn) {
         setLoading(true);
-        checkOut({userId: profile.userId}).then((data) => {
+        checkOut({ userId: profile.userId }).then((data) => {
           if (data) setCheckedIn(data.num);
-          dispatch({type: "toggleCheckIn"});
+          dispatch({ type: "toggleCheckIn" });
           setLoading(false);
         });
       }
-    } 
+    }
   }
-    
+  
+  const checkinButton = { height: "40px", minWidth: "100px" }
+
   return (
     <Widget>
-        <div style={{display: "flex", justifyContent: "center", width: "100%"}}>
-          <BasicButton disabled={loading} size="small" btnFunction={handleCheckIn} text="Check In" color="primary">Check In</BasicButton>
-          <BasicButton disabled={loading} btnFunction={handleCheckOut} text="Check Out" color="primary">Check Out</BasicButton>
-        </div>
-        <p>Num checked in: {checkedIn}</p>
-        <Bar options={options} data={data} />
+      <Container direction="row">
+          <BasicButton
+            disabled={loading}
+            size="small"
+            btnFunction={handleCheckIn}
+            text="Check In"
+            style={ checkinButton }
+          />
+          <BasicButton
+            disabled={loading}
+            btnFunction={handleCheckOut}
+            text="Check Out"
+            size="small"
+            style={ checkinButton }
+          />
+      </Container>
+      <Text>Num checked in: {checkedIn}</Text>
+      <Bar options={options} data={data} />
     </Widget>
   );
 };
-
 
 export default CheckInWidget;

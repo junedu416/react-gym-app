@@ -16,7 +16,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { SidebarData } from "../../data/sidebarData";
 import { getBaseRoute } from "../../utils/sidebarUtils";
 import { IconButton } from "@mui/material";
-import MultipleStopIcon from '@mui/icons-material/MultipleStop';
+import MultipleStopIcon from "@mui/icons-material/MultipleStop";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const StyledTabs = styled((props) => (
@@ -69,7 +69,7 @@ const LinkTab = styled((props) => (
   },
 }));
 
-const drawerWidth = "15%";
+const drawerWidth = "230px";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -106,7 +106,7 @@ export const Sidebar = () => {
   const [sbData, setSbData] = useState([]);
   const [open, setOpen] = useState(true);
 
-  const fullScreenSidebar = useMediaQuery('(max-width:600px)');
+  const fullScreenSidebar = useMediaQuery("(max-width:600px)");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -135,18 +135,7 @@ export const Sidebar = () => {
       );
     } else {
       temp = SidebarData.filter(
-        (e) =>  e.title[1] === "Sign In" || e.title[1] === "Register"
-          // e.title[1] !== "Sign Out" &&
-          // e.title[1] !== "Overview" &&
-          // e.title[1] !== "Check-ins" &&
-          // e.title[1] !== "Performance Stats" &&
-          // e.title[1] !== "Events" &&
-          // e.title[1] !== "Workouts" &&
-          // e.title[1] !== "Profile" &&
-          // e.title[1] !== "Leaderboards" &&
-          // e.title[1] !== "Reports" &&
-          // e.title[1] !== "Our Team"
- 
+        (e) => e.title[1] === "Sign In" || e.title[1] === "Register"
       );
     }
     setSbData(temp);
@@ -157,22 +146,24 @@ export const Sidebar = () => {
     setOpen(!open);
   }
 
-  return (
-    <Container style={{ position: "fixed", flexDirection: "row", zIndex: 1}} w={fullScreenSidebar && !open && "0vw"}>
-      {/* <button style={{border: "none", backgroundColor: "rgba(0,0,0,0)"}} onClick={handleOpen}>
-          
-          <MenuIcon style={{color: open ? "white" : "blue", height: "60px", width: "60px"}}/>
-        </button> */}
+  const sidebarIcon = {
+    color: open ? "white" : "#555",
+    backgroundColor: open ? "rgba(0, 45, 255, 0.4)" : "rgba(0, 160, 255, 95)",
+    transition: "all ease-in 0.3s",
+    "&:hover": {
+      color: open ? "white" : "#DDD",
+      backgroundColor: open ? "rgba(45, 45, 45, 0.75)" : "rgba(0, 180, 255, 1)",
+    },
+  };
 
+  return (
+    <Container
+      style={{ position: fullScreenSidebar ? "absolute" : "fixed", flexDirection: "row", zIndex: 1 }}
+      w={fullScreenSidebar && !open && "0vw"}
+    >
       {
         <IconButton
-          sx={{
-            color: open ? "white" : "#555",
-            // backgroundColor: open ? "rgba(40, 40, 40, 0.44)" : "rgba(0, 150, 250, 0.8)",
-            backgroundColor: open ? "rgba(0, 45, 255, 0.4)" : "rgba(0, 160, 255, 95)",
-            transition: "all ease-in 0.3s",
-            "&:hover": { color: open ? "white" : "#DDD", backgroundColor: open ? "rgba(45, 45, 45, 0.75)" : "rgba(0, 180, 255, 1)" }
-          }}
+          sx={sidebarIcon}
           style={{
             position: "absolute",
             top: 10,
@@ -200,14 +191,12 @@ export const Sidebar = () => {
         className="drawer"
         open={open}
         sx={{
-          width: fullScreenSidebar ? open ? "100vw" : "0vw" : drawerWidth,
+          width: fullScreenSidebar ? (open ? "100vw" : "0vw") : drawerWidth,
           minWidth: fullScreenSidebar ? "0px" : "230px",
-          // height: `calc(100vh - 90px)`,
-          height: `100vh`,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             paddingTop: `calc(100vh / 8)`,
-            //position: "fixed",
+            // position: "fixed",
             zIndex: "1",
             width: fullScreenSidebar ? "100vw" : drawerWidth,
             minWidth: fullScreenSidebar ? "0px" : "230px",
@@ -225,7 +214,7 @@ export const Sidebar = () => {
             marginBottom: "2em",
             textAlign: "center",
             color: "white",
-            width: "100%"
+            width: "100%",
           }}
         >
           Average Joe's

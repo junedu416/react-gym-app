@@ -46,10 +46,10 @@ export const Widget = styled(Container)`
 export const MainWindow = styled.div`
   ${flexbox};
   ${vcentered};
-  width: calc(100vw - 230px);
+  width: ${props => props.desktop ? "calc(100vw - 230px)" : "100vw"};
   min-height: 100vh;
-  margin-left: 230px;
-  z-index: -1;
+  margin-left: ${props => props.desktop ? "230px" : "0"};
+  z-index: 0;
   ${(props) => props.verticalMiddle && hcentered}
 `;
 
