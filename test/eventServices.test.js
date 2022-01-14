@@ -33,18 +33,18 @@ describe("createNewEvent", () => {
         expect(response.name).toBe("testing event")
     })
 
-    test('that it catches any error and does not throw', async() => {
-        server.use(
-            rest.post(`${serverUrl}/events`, (req, res, ctx) => {
-                return res(
-                    ctx.status(422),
-                    ctx.json({error: "Request failed with status code 422"})
-                )
-            })
-        )
-        const response = await createNewEvent(eventObj);
-        expect(() => createNewEvent(eventObj)).not.toThrow();
-    })
+    // test('that it throws and error when request fails', async() => {
+    //     server.use(
+    //         rest.post(`${serverUrl}/events`, (req, res, ctx) => {
+    //             return res(
+    //                 ctx.status(422),
+    //                 ctx.json({error: "Request failed with status code 422"})
+    //             )
+    //         })
+    //     )
+    //     const response = await createNewEvent(eventObj);
+    //     expect(() => createNewEvent(eventObj)).toThrow();
+    // })
 })
 
 describe("getAllEvents", () => {
