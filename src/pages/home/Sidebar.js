@@ -254,6 +254,7 @@ export const Sidebar = () => {
                   if (item.route) {
                     navigate(item.route);
                   }
+                  setOpen(false);
                 }}
               />
             );
