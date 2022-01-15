@@ -109,12 +109,6 @@ export const Workouts = () => {
     navigate("/workouts/edit");
   }
 
-  // const desktop = useMediaQuery(
-  //   json2mq({
-  //     minWidth: 1400,
-  //   })
-  // );
-
   const laptop =  useMediaQuery("(min-width:1000px)");
   const desktop = useMediaQuery("(min-width:1400px)");
 
@@ -184,13 +178,12 @@ export const Workouts = () => {
                     ) : (
                       <div style={{ height: "60px" }}>&nbsp;</div>
                     )}
-                    {/* Div above offsets the space so the workouts don't jump up and down when the edit
+                    {/* Empty Div above offsets the space so the workouts don't jump up and down when the edit
                          button is rendered/not rendered.
                       */}
 
                     <WorkoutCardStyling
                       onClick={() => handleClick(index)}
-                      // bg="rgba( 200, 200, 200, 1)"
                       bg="#3F3F3F"
                       style={{
                         color: "white",
@@ -200,7 +193,7 @@ export const Workouts = () => {
                             : "6px solid transparent",
                       }}
                     >
-                      {/* ============================================================ lime color heading */}
+                      {/* ================================== NEED TO CHANGE TO MUI HEADING LEAVE HERE */}
                       <SmallHeading
                         p="10px 0 0 20px"
                         m="0 0 10px"
@@ -214,7 +207,6 @@ export const Workouts = () => {
                           <Container>
                             <WorkoutList
                               p="0 25px 0 15px"
-                              // style={{ alignItem: "space-evenly" }}
                             >
                               {exercise.exerciseId ? (
                                 <p>{exercise.exerciseId.name}</p>

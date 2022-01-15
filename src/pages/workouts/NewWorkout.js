@@ -25,7 +25,6 @@ export const NewWorkout = () => {
     });
   }
 
-    
   return (
     <Container>
       <Heading>Create Exercise</Heading>

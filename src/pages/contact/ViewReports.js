@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Moment from "react-moment";
 import {
-  Container,
-  ErrorText,
   Heading,
   HoverBox,
   MainWindow,
@@ -64,31 +62,8 @@ export const ViewReports = () => {
       reportList[index].resolvedBy = null;
     }
 
-    // CAN REMOVE ALL THIS CODE SINCE DON'T NEED IT.
-
-    // reportList[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
-    // reportList[index].resolvedBy = null;
-
-    // let newResolved = [...resolved, index];
-    // setResolved(newResolved);
-
-    // if (resolved.includes(index)) {
-    //   setResolved(resolved.filter((sindex) => sindex !== index));
-    // } else {
-    //   let newResolved = [...open];
-    //   newResolved.push(index);
-    //   setResolved(newResolved);
-    // }
-
     setReportValues({
       ...reportList[index],
-
-    // resolved: false,
-    // resolvedBy: null,
-    // resolvedBy: `${profile.firstName} ${profile.lastName}`,
-
-    // resolved: !!resolved.includes(index),
-    // resolvedBy: resolved.includes(index)
     });
 
     const request = await editReport(reportList[index]._id, reportList[index]);
@@ -117,7 +92,7 @@ export const ViewReports = () => {
         {reportList.map((report, index) => {
           return (
             <li key={index} style={{ listStyleType: "none" }}>
-              {/* <HoverBox align="flex-start" justify="flex-start"> */}
+              <HoverBox align="flex-start" justify="flex-start">
               <TextBold mr="63px">Type: </TextBold> {report.type}
               <br />
               <TextBold mr="56px">Name: </TextBold> {report.reporterFullName}
@@ -162,7 +137,7 @@ export const ViewReports = () => {
               {open.includes(index) && (
                 <img src={report.reportImage} alt="user uploaded" />
               )}
-              {/* </HoverBox> */}
+              </HoverBox>
             </li>
           );
         })}

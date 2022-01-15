@@ -8,7 +8,6 @@ import { WorkoutDate, WorkoutText } from "../../styled-components/workouts";
 import moment from "moment";
 import { Button, ButtonGroup } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-// import { workoutList } from "../../data/workouts-dummy";
 import { ReusableModal } from "../../components/ReusableModal";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import { useGlobalState } from "../../config/globalStore";
@@ -23,7 +22,6 @@ export const WorkoutStart = (props) => {
   const profWorkoutsClone = JSON.parse(JSON.stringify(profile.workouts));
   const workoutList = profWorkoutsClone[workoutIndex];
   console.log("workoutList", workoutList);
-  // const selectedWorkout = workoutList[0];
   const list = workoutList.exercises;
 
   console.log(list);
@@ -32,7 +30,6 @@ export const WorkoutStart = (props) => {
   const [disableExButtons, setDisableExButtons] = useState(
     new Array(list.length)
   );
-  //const [disabledList, setDisabledList] = useState([]);
   const [exerciseCompleted, setExerciseCompleted] = useState({
     ...workoutList,
     exercises: [],
@@ -156,7 +153,6 @@ export const WorkoutStart = (props) => {
                 <SmallHeading
                   size="1.6rem"
                   color="rgba(40, 40, 40, 0.65)"
-                  // color={disableExButtons[index] ? "grey" : "lime"}
                   style={{ margin: "0" }}
                 >
                   {exercise.exerciseId.name}
@@ -202,30 +198,29 @@ export const WorkoutStart = (props) => {
                     variant="text"
                     color="inherit"
                     aria-label="complete workout button group"
-                    // onClick={() => disableGroup(exercise)}    // Don't need this
                   >
                     <Button
                       onClick={(e) => {
                         finishExercise(exercise, true);
-                        toggleDisabledButtons(index); // Daniel Refactor 5th Jan
+                        toggleDisabledButtons(index);
                       }}
-                      disabled={disableExButtons[index]} // Daniel Refactor 5th Jan
+                      disabled={disableExButtons[index]}
                     >
                       <DoneIcon
                         sx={{ fontSize: "5rem" }}
-                        color={disableExButtons[index] ? "disabled" : "success"} // Daniel Refactor 5th Jan
+                        color={disableExButtons[index] ? "disabled" : "success"}
                       />
                     </Button>
                     <Button
                       onClick={(e) => {
                         finishExercise(exercise, false);
-                        toggleDisabledButtons(index); // Daniel Refactor 5th Jan
+                        toggleDisabledButtons(index);
                       }}
-                      disabled={disableExButtons[index]} // Daniel Refactor 5th Jan
+                      disabled={disableExButtons[index]}
                     >
                       <ClearIcon
                         sx={{ fontSize: "5rem" }}
-                        color={disableExButtons[index] ? "disabled" : "error"} // Daniel Refactor 5th Jan
+                        color={disableExButtons[index] ? "disabled" : "error"}
                       />
                     </Button>
                   </ButtonGroup>
