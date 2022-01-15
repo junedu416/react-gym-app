@@ -10,6 +10,10 @@ import { isUserRegistered, cancelUserRegistration, registerUserToEvent} from '..
 import { DeleteEvent } from './DeleteEvent';
 import { DateDisplay } from './DateDisplay';
 import { useRedirectUnauthorisedUser } from '../../config/customHooks';
+import { Heading, ErrorText, SmallHeading, Container } from '../../styled-components';
+import { Description, EventImage, ShowEventContent } from '../../styled-components/events';
+import { ReusableAlert } from '../../components/ReusableAlert';
+import { CategoryChip } from './CategoryChip';
 
 export const ShowEvent = () => {
     useRedirectUnauthorisedUser();
@@ -52,7 +56,7 @@ export const ShowEvent = () => {
         .catch((error) => {
             console.log(error)
             setLoading(false)
-            setErrorMsg("Oops, something went wrong.")
+            setErrorMsg("Oops, something went wrong loading information.")
         })
     }, [id])
 
@@ -97,35 +101,39 @@ export const ShowEvent = () => {
 
     return(
         <MainWindow>
-            {loading && <p>Loading...</p>}
-            {errorMsg && <p>{errorMsg}</p>}
-            {event && 
-                <div>
-                    <h1>{event.name}</h1>
-                    <h2>{event.category}</h2>
-                    {instructor && <h3>Event Listed by {`${instructor.firstName} ${instructor.lastName}`}</h3>}
-                    {event.eventImage ?  <img src={event.eventImage} alt={event.name}/> : <p>-no image available-</p>}
-                    <p>{event.description}</p>
-                    {formatDates.isFinished ? <p>This event has already ended.</p> : <DateDisplay formatDates={formatDates} />}
-                    {!formatDates.isFinished && <>
-                        {event.spotsAvailable && (event.spotsAvailable === 0) && <p>There are no more spots available for this event</p>}
-                        {userIsRegistered && <>
-                            <p>You are already registered in this event</p>
-                            <BasicButton text="Cancel Registration" color="error" size="large" btnFunction={cancelRegistration}/>
-                        </>}
-                        {event.category !== "Competition" && event.spotsAvailable !== 0 && !userIsRegistered && <>
-                            <p>{event.spotsAvailable} {event.spotsAvailable === 1 ? "spot" : "spots"} left!</p>
-                            {instructor && (instructor._id !== profile._id) && <BasicButton text="Register" color="success" size="large" btnFunction={registerToEvent} />}
+            <Container m="50px 80px" >
+                {loading && <SmallHeading>Loading...</SmallHeading>}
+                {errorMsg && <ReusableAlert open={!!errorMsg} text={errorMsg} btnFunction={()=> setErrorMsg("")} />}
+                {event && 
+                    <ShowEventContent>
+                        <Heading phone="2rem" desktop="2.7rem" >{event.name}</Heading>
+                        <h2><CategoryChip category={event.category} /></h2>
+                        {instructor && <h3>Event Listed by {`${instructor.firstName} ${instructor.lastName}`}</h3>}
+                        {formatDates.isFinished ? <p>This event has already ended.</p> : <DateDisplay formatDates={formatDates} />}
+                        {event.eventImage ?  <EventImage src={event.eventImage} alt={event.name}/> : <p>-no image available-</p>}
+                        <Description>{event.description}</Description>
+                        <div>
+                        {!formatDates.isFinished && <>
+                            {event.spotsAvailable && (event.spotsAvailable === 0) && <p>There are no more spots available for this event</p>}
+                            {userIsRegistered && <>
+                                <p>You are already registered in this event</p>
+                                <BasicButton text="Cancel Registration" color="error" size="large" btnFunction={cancelRegistration}/>
                             </>}
-                        {event.category === "Competition" && !userIsRegistered && <BasicButton text="Register" color="success" size="large" btnFunction={registerToEvent} />}
-                    </>
-                    }
-                    {instructor && (instructor._id === profile._id) && <>
-                        <BasicButton text="Edit" color="warning" size="large" btnFunction={goToEditPage} />
-                        <DeleteEvent eventId={event._id}/>
-                    </>}
-                </div>
-            }
+                            {event.category !== "Competition" && event.spotsAvailable !== 0 && !userIsRegistered && <>
+                                <p>{event.spotsAvailable} {event.spotsAvailable === 1 ? "spot" : "spots"} left!</p>
+                                {instructor && (instructor._id !== profile._id) && <BasicButton text="Register" color="success" size="large" btnFunction={registerToEvent} />}
+                                </>}
+                            {event.category === "Competition" && !userIsRegistered && <BasicButton text="Register" color="success" size="large" btnFunction={registerToEvent} />}
+                        </>
+                        }
+                        {instructor && (instructor._id === profile._id) && <>
+                            <BasicButton text="Edit" color="warning" size="large" btnFunction={goToEditPage} />
+                            <DeleteEvent eventId={event._id}/>
+                        </>}
+                        </div>
+                    </ShowEventContent>
+                }
+            </Container>
         </MainWindow>
     )
 }

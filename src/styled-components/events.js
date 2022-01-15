@@ -51,3 +51,31 @@ export const ClearButtonFade = styled.div`
     }
   }
 `
+
+export const EventImage = styled.img`
+  max-width: 90vw;
+  max-height: 400px;
+  @media(min-width: 768px) {
+        max-width: 600px;
+        max-height: 60vh;
+  }
+`
+
+export const ShowEventContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  @media(min-width: 768px) {
+      width: 80%;
+  }
+`
+
+export const Description = styled.p`
+  text-align: left;
+  padding: 0 10px;
+  @media(min-width: 768px) {
+    font-size: 16px;
+    max-width: 700px;
+  }
+`

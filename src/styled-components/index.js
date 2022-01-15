@@ -47,7 +47,7 @@ export const MainWindow = styled.div`
 export const Heading = styled.h1`
   font-size: ${props => props.phone ? "2.7rem" : props.desktop ? "3.6rem" : "3.2rem"};
   color: ${props => props.color ? props.color : "blue"};
-  text-align: center;
+  text-align: ${props => props.textAlign ? props.textAlign : "center"};
   padding-left: 10px; 
   padding-right: 10px; 
   
