@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
-import { Container, Heading, Text, TextBold } from "../../styled-components/";
+import { Container, Heading, Row, Text, TextBold } from "../../styled-components/";
 import { ProfilePicture } from "../../components/ProfilePicture";
 import BasicButton from "../../components/buttons/BasicButton";
 import { styled } from "@mui/material/styles";
@@ -30,14 +30,16 @@ export const MyProfile = (props) => {
 
   const updateProfile = async (event) => {
     event.preventDefault();
-
-    const profileData = { ...profile, photo: selectedFile };
+    // profile.photo = selectedFile;
+    profile.photo = selectedFile;
+    // const profileData = { ...profile, profile.profile.photo };
+    const profileData = { ...profile };
     const data = new FormData();
     for (let key in profileData) {
       if (profileData[key]) data.append(`${key}`, profileData[key]);
     }
 
-    await editProfile(profile.userId, data);
+    await editProfile(profile.userId, profileData);
     setSelectedFile(null);
     dispatch({
       type: "setNotification",
@@ -50,8 +52,6 @@ export const MyProfile = (props) => {
 
     // navigate("/Overview")
   };
-
-  console.log("PROFILE: ", profile);
 
   function useDisplayImage() {
     const [result, setResult] = useState("");
@@ -123,17 +123,17 @@ export const MyProfile = (props) => {
             borderRadius: "20px",
           }}
         >
-          <Container direction="row">
+          <Row>
             <TextBold mr="20px">First Name: </TextBold>{" "}
             <Text>{profile.firstName}</Text>
-          </Container>
-          <Container direction="row">
+          </Row>
+          <Row>
             <TextBold mr="20px">Last Name: </TextBold>{" "}
             <Text>{profile.lastName}</Text>
-          </Container>
-          <Container direction="row">
+          </Row>
+          <Row>
             <TextBold mr="60px">Email: </TextBold> <Text>{profile.email}</Text>
-          </Container>
+          </Row>
 
           {/*
            ============ SPRINKLE ============

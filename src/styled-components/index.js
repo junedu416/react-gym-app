@@ -195,3 +195,7 @@ export const Widget = styled(Container)`
   overflow-y: scroll;
   ${(props) => props.bg && bg}
 `;
+
+export const Row = styled(Container)`
+  flex-direction: row;
+`
