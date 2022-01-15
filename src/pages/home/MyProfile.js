@@ -6,14 +6,11 @@ import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import { Container, Heading, Text, TextBold } from "../../styled-components/";
 import { ProfilePicture } from "../../components/ProfilePicture";
 import BasicButton from "../../components/buttons/BasicButton";
-import AttachmentIcon from "../../components/buttons/AttachmentIcon";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { styled } from "@mui/material/styles";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { Button, IconButton } from "@mui/material";
+import { Button } from "@mui/material";
 import { ProfileImage } from "../../styled-components/profile";
-// import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 
 const Input = styled("input")({
   display: "none",
@@ -24,50 +21,54 @@ export const MyProfile = (props) => {
   const { btnFunction } = props;
 
   const navigate = useNavigate();
-  const { store } = useGlobalState();
+  const { store, dispatch } = useGlobalState();
   const { profile } = store;
-
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [isFilePicked, setIsFilePicked] = useState(false);
-
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const imageRef = useRef(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
-  const updateProfile = () => {};
+  const updateProfile = async (event) => {
+    event.preventDefault();
 
-  console.log("profile: ", profile);
+    const profileData = { ...profile, photo: selectedFile };
+    const data = new FormData();
+    for (let key in profileData) {
+      if (profileData[key]) data.append(`${key}`, profileData[key]);
+    }
 
-  const uploadImage = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setIsFilePicked(true);
+    await editProfile(profile.userId, data);
+    setSelectedFile(null);
+    dispatch({
+      type: "setNotification",
+      data: "Profile successfully updated!",
+    });
 
-    console.log("Picked: ", isFilePicked);
-    console.log("selected file: ", selectedFile);
+    // setTimeout(() => {
+    //   setMessage("");
+    // }, 5000);
+
+    // navigate("/Overview")
   };
 
-  const imageRef = useRef(null);
+  console.log("PROFILE: ", profile);
 
   function useDisplayImage() {
     const [result, setResult] = useState("");
 
     function uploader(e) {
-      const imageFile = e.target.files[0];
-
+      const imageFile = e.target.files[0]; // Need this line in function otherwise doesn't work.
       const reader = new FileReader();
       reader.addEventListener("load", (e) => {
         setResult(e.target.result);
       });
-
       reader.readAsDataURL(imageFile);
     }
-
-    profile.photo = imageRef;
-
-    console.log("UPDATE PROFILE: ", profile);
+    // profile.photo = imageRef;
 
     return { result, uploader };
   }
-
+  console.log("UPDATE PROFILE: ", profile);
   const { result, uploader } = useDisplayImage();
 
   return (
