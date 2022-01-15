@@ -104,18 +104,18 @@ export const EventPopup = ({
     <>
       {event && (
         <PopupCard open={open} handleClose={handleClose}>
-          <Typography
-            id="booking-confirmation-title"
-            variant="h5"
-            fontWeight="bold"
-            component="h2"
-          >
-            {event.name}
-          </Typography>
-          <Typography id="booking-confirmation-description" sx={{ my: 3 }}>
-            <p> <CategoryChip category={event.category} /> </p>
-            <DateDisplay formatDates={eventDates} />
-          </Typography>
+            <Typography
+              id="booking-confirmation-title"
+              variant="h5"
+              fontWeight="bold"
+              component="h2"
+            >
+              {event.name}
+            </Typography>
+            <Typography id="booking-confirmation-description" sx={{ my: 3 }}>
+              <p> <CategoryChip category={event.category} /> </p>
+              <DateDisplay formatDates={eventDates} />
+            </Typography>
           {!eventDates.isFinished && (
             <>
               {!userIsRegistered && (

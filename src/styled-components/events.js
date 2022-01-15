@@ -66,8 +66,9 @@ export const ShowEventContent = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
+  border: solid black 1px;
   @media(min-width: 768px) {
-      width: 80%;
+      min-width: 80%;
   }
 `
 
@@ -77,5 +78,15 @@ export const Description = styled.p`
   @media(min-width: 768px) {
     font-size: 16px;
     max-width: 700px;
+  }
+`
+export const EventCardDiv = styled.div`
+  /* margin: 10px; */
+  padding: 20px 30px 0 30px;
+`
+
+export const StyledBox = styled(Box)`
+  @media(max-width: 500px) {
+    width: 100%;
   }
 `
