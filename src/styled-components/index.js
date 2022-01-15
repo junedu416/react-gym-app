@@ -47,6 +47,12 @@ export const MainWindow = styled.div`
   margin-left: ${props => props.desktop ? "230px" : ""};
   z-index: 0;
   /* ${props => props.verticalMiddle && hcentered} */
+  overflow-y: scroll;
+  overflow-x: hidden;
+  ::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
 `;
 
 export const Heading = styled.h1`

@@ -12,10 +12,14 @@ import { ReusableModal } from "../../components/ReusableModal";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export const WorkoutStart = (props) => {
   useRedirectUnauthorisedUser();
   const navigate = useNavigate();
+
+  // REMOVE LATER!!
+  const desktop = useMediaQuery("(min-width:1024px)");
 
   const { store, dispatch } = useGlobalState();
   const { profile, workoutIndex } = store;
@@ -43,6 +47,10 @@ export const WorkoutStart = (props) => {
     setOpen(false);
     navigate("/workouts");
   };
+
+  // useEffect(() => {
+  //   setCounter(0)
+  // }, []);
 
   const handleExerciseCompleted = (newExerciseCompleted) => {
     setExerciseCompleted({
@@ -111,126 +119,132 @@ export const WorkoutStart = (props) => {
 
   return (
     <>
-      <MainWindow verticalMiddle>
+      <Container
+        p="0 10px 0 15px"
+        greyBorder
+        shadow
+        m="15px 5px 80px"
+        style={{ borderRadius: "15px", maxWidth: "100vw" }}
+      >
+        <WorkoutDate>{moment().format("LL")}</WorkoutDate>
         <Container
-          p="0 10px 0 30px"
-          greyBorder
-          shadow
-          style={{ borderRadius: "15px" }}
+          direction="row"
+          style={{ maxWidth: "80vw" }}
+          justify="space-between"
         >
-          <WorkoutDate>{moment().format("LL")}</WorkoutDate>
-          <Container
-            direction="row"
-            style={{ width: "100%" }}
-            justify="space-between"
-          >
-            <SmallHeading style={{ margin: "0" }}>
-              {workoutList.name}
-            </SmallHeading>
-            <EditButton />
-          </Container>
+          <SmallHeading style={{ margin: "0" }}>
+            {workoutList.name}
+          </SmallHeading>
+        </Container>
 
-          <Container
-            align="flex-start"
-            justify="flex-end"
-            direction="row"
-            w="100%"
-            p="0 10px"
-          >
-            <span style={{ color: "lime", paddingRight: "17px" }}>
-              Completed
-            </span>
-            <span style={{ color: "red" }}>Incomplete</span>
-          </Container>
+        <Container
+          align="flex-start"
+          justify="flex-end"
+          direction="row"
+          w="100%"
+          p= {desktop ? "0 10px" : "0"}
+        >
+          <span style={{ color: "lime", paddingRight: desktop ? "17px" : "7px" }}>Completed</span>
+          <span style={{ color: "red" }}>Incomplete</span>
+        </Container>
 
-          {list.map((exercise, index) => (
-            <>
-              <Container
-                align="flex-start"
-                w="100%"
-                style={{ minWidth: "400px" }}
+        {list.map((exercise, index) => (
+          <>
+            <Container
+              align="flex-start"
+              w="100%"
+              p="5px 0px 0px 15px"
+              // style={{ maxWidth: "95vw" }}
+              style={{
+                minWidth: desktop ? "400px" : "",
+                maxWidth: desktop ? "450px" : "100%",
+                background: disableExButtons[index] ? "rgba(20, 20, 80, 0.12)" : "white",
+                borderRadius: "10px"
+              }}
+            >
+              <SmallHeading
+                size={desktop ? "1.6rem" : "1.3rem"}
+                color="rgba(40, 40, 40, 0.65)"
+                style={{ margin: "0" }}
               >
-                <SmallHeading
-                  size="1.6rem"
-                  color="rgba(40, 40, 40, 0.65)"
-                  style={{ margin: "0" }}
-                >
-                  {exercise.exerciseId.name}
-                </SmallHeading>
+                {exercise.exerciseId.name}
+              </SmallHeading>
+              <Container
+                direction="row"
+                style={{ width: "100%" }}
+                justify="space-between"
+              >
                 <Container
                   direction="row"
-                  style={{ width: "100%" }}
-                  justify="space-between"
+                  style={{
+                    gap: desktop ? "50px" : "22px",
+                    marginRight: desktop ? "30px" : "10px",
+                  }}
                 >
-                  <Container
-                    direction="row"
-                    style={{ gap: "50px", marginRight: "30px" }}
-                  >
-                    {exercise.sets && (
-                      <Container>
-                        <WorkoutText mb="0">Sets</WorkoutText>
-                        <WorkoutText>{exercise.sets}</WorkoutText>
-                      </Container>
-                    )}
-                    {exercise.reps && (
-                      <Container>
-                        <WorkoutText mb="0">Reps</WorkoutText>
-                        <WorkoutText>{exercise.reps}</WorkoutText>
-                      </Container>
-                    )}
-                    {exercise.weight && (
-                      <Container>
-                        <WorkoutText mb="0">Weight</WorkoutText>
-                        <WorkoutText>{exercise.weight} kg</WorkoutText>
-                      </Container>
-                    )}
-                    {exercise.distance && (
-                      <Container>
-                        <WorkoutText mb="0">Distance</WorkoutText>
-                        <WorkoutText>
-                          {determineUnits(exercise.distance)}
-                        </WorkoutText>
-                      </Container>
-                    )}
-                  </Container>
-
-                  <ButtonGroup
-                    variant="text"
-                    color="inherit"
-                    aria-label="complete workout button group"
-                  >
-                    <Button
-                      onClick={(e) => {
-                        finishExercise(exercise, true);
-                        toggleDisabledButtons(index);
-                      }}
-                      disabled={disableExButtons[index]}
-                    >
-                      <DoneIcon
-                        sx={{ fontSize: "5rem" }}
-                        color={disableExButtons[index] ? "disabled" : "success"}
-                      />
-                    </Button>
-                    <Button
-                      onClick={(e) => {
-                        finishExercise(exercise, false);
-                        toggleDisabledButtons(index);
-                      }}
-                      disabled={disableExButtons[index]}
-                    >
-                      <ClearIcon
-                        sx={{ fontSize: "5rem" }}
-                        color={disableExButtons[index] ? "disabled" : "error"}
-                      />
-                    </Button>
-                  </ButtonGroup>
+                  {exercise.sets && (
+                    <Container>
+                      <WorkoutText mb="0">Sets</WorkoutText>
+                      <WorkoutText>{exercise.sets}</WorkoutText>
+                    </Container>
+                  )}
+                  {exercise.reps && (
+                    <Container>
+                      <WorkoutText mb="0">Reps</WorkoutText>
+                      <WorkoutText>{exercise.reps}</WorkoutText>
+                    </Container>
+                  )}
+                  {exercise.weight && (
+                    <Container>
+                      <WorkoutText mb="0">Weight</WorkoutText>
+                      <WorkoutText>{exercise.weight} kg</WorkoutText>
+                    </Container>
+                  )}
+                  {exercise.distance && (
+                    <Container>
+                      <WorkoutText mb="0">Distance</WorkoutText>
+                      <WorkoutText>
+                        {determineUnits(exercise.distance)}
+                      </WorkoutText>
+                    </Container>
+                  )}
                 </Container>
+
+                <ButtonGroup
+                  variant="text"
+                  color="inherit"
+                  aria-label="complete workout button group"
+                >
+                  <Button
+                    onClick={(e) => {
+                      finishExercise(exercise, true);
+                      toggleDisabledButtons(index);
+                    }}
+                    disabled={disableExButtons[index]}
+                  >
+                    <DoneIcon
+                      sx={{ fontSize: desktop ? "5rem" : "4rem" }}
+                      color={disableExButtons[index] ? "disabled" : "success"}
+                    />
+                  </Button>
+                  <Button
+                    onClick={(e) => {
+                      finishExercise(exercise, false);
+                      toggleDisabledButtons(index);
+                    }}
+                    disabled={disableExButtons[index]}
+                  >
+                    <ClearIcon
+                      sx={{ fontSize: desktop ? "5rem" : "4rem" }}
+                      color={disableExButtons[index] ? "disabled" : "error"}
+                    />
+                  </Button>
+                </ButtonGroup>
               </Container>
-              <Divider sx={{ width: "95%", pb: 2, mb: 1, mr: 3 }} />
-            </>
-          ))}
-        </Container>
-      </MainWindow>
+            </Container>
+            <Divider sx={{ width: "95%", pb: 1, mb: desktop ? 1 : 0, mr: 3 }} />
+          </>
+        ))}
+      </Container>
       <ReusableModal
         title="YAY!! You completed your workout!! 🎉🎉"
         open={open}

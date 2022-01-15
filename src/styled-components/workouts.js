@@ -33,6 +33,7 @@ export const WorkoutList = styled.div`
 
 export const WorkoutText = styled.p`
   margin-bottom: ${props => props.mb ? props.mb : "10px"};
+  font-size: ${props => props.fs ? props.fs : "0.95rem"};
 `
 
 export const ListItems = styled.li`

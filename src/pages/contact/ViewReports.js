@@ -4,6 +4,7 @@ import {
   Heading,
   HoverBox,
   MainWindow,
+  Row,
   TextBold,
 } from "../../styled-components";
 import { useGlobalState } from "../../config/globalStore.js";
@@ -102,6 +103,7 @@ export const ViewReports = () => {
               <br />
               <TextBold mr="10px">Description: </TextBold> {report.description}
               <br />
+              <Row justify="flex-start">
               <TextBold mr="50px">Status: </TextBold>
               <Chip
                 icon={report.resolved ? <DoneIcon /> : <ReportIcon />}
@@ -111,13 +113,14 @@ export const ViewReports = () => {
               />
               <BasicButton
                 text={
-                  report.resolved ? "Mark As Unresolved" : " Mark As Resolved"
+                  report.resolved ? "Mark Unresolved" : " Mark Resolved"
                 }
                 color="warning"
                 sx={{ my: 0, ml: 5 }}
                 style={{ height: "36px" }}
                 btnFunction={() => handleResolveBtn(index)}
               />
+              </Row>
               <br />
               {report.resolvedBy && (
                 <>
