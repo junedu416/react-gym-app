@@ -51,3 +51,42 @@ export const ClearButtonFade = styled.div`
     }
   }
 `
+
+export const EventImage = styled.img`
+  max-width: 90vw;
+  max-height: 400px;
+  @media(min-width: 768px) {
+        max-width: 600px;
+        max-height: 60vh;
+  }
+`
+
+export const ShowEventContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: solid black 1px;
+  @media(min-width: 768px) {
+      min-width: 80%;
+  }
+`
+
+export const Description = styled.p`
+  text-align: left;
+  padding: 0 10px;
+  @media(min-width: 768px) {
+    font-size: 16px;
+    max-width: 700px;
+  }
+`
+export const EventCardDiv = styled.div`
+  /* margin: 10px; */
+  padding: 20px 30px 0 30px;
+`
+
+export const StyledBox = styled(Box)`
+  @media(max-width: 500px) {
+    width: 100%;
+  }
+`

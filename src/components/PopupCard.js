@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import Fade from "@mui/material/Fade";
 import Backdrop from "@mui/material/Backdrop";
+import { EventCardDiv, StyledBox } from "../styled-components/events.js";
 
 export const PopupCard = ({ open, handleClose, children }) => {
 
@@ -22,7 +23,7 @@ export const PopupCard = ({ open, handleClose, children }) => {
       }}
     >
       <Fade in={open}>
-        <Box sx={modalStyling}>
+        <StyledBox sx={modalStyling}>
           <IconButton
             onClick={handleClose}
             aria-label="close-popup"
@@ -30,9 +31,10 @@ export const PopupCard = ({ open, handleClose, children }) => {
           >
             <CloseIcon fontSize="large" />
           </IconButton>
-
-          {children}
-        </Box>
+          <EventCardDiv>
+            {children}
+          </EventCardDiv>
+        </StyledBox>
       </Fade>
     </StyledModal>
   );
