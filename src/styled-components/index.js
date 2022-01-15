@@ -13,14 +13,11 @@ import {
   m,
   w,
   mr,
-<<<<<<< HEAD
   fontSize,
   mw,
-=======
   mb,
   hoverMixin,
-  bg,
->>>>>>> 002a99c39d4ecba4d9e6c227189dab70af18b3d6
+  bg
 } from "./mixins";
 import { Link } from "react-router-dom";
 import { Alert, Dialog } from "@mui/material";
@@ -36,7 +33,6 @@ export const Container = styled.div`
   ${(props) => props.m && m}
   ${(props) => props.p && p}
   ${(props) => props.w && w}
-<<<<<<< HEAD
   ${(props) => props.mw && mw}
 `;
 
@@ -45,19 +41,9 @@ export const Widget = styled(Container)`
   max-height: 300px;
   overflow-x: hidden;
   overflow-y: scroll;
-=======
   ${(props) => props.bg && bg}
 `;
-
-export const Widget = styled(Container)`
-  padding: 12px;
-  width: 300px;
-  height: 300px;
-  overflow: none;
-  /* overflow-x: hidden; */
-  /* overflow-y: scroll; */
->>>>>>> 002a99c39d4ecba4d9e6c227189dab70af18b3d6
-`;
+// TODO: HIDE SCROLL BAR, BUT STILL ALLOW SCROLLING.
 
 export const MainWindow = styled.div`
   ${flexbox};
@@ -124,11 +110,6 @@ export const StyledAlert = styled(Alert)`
   transform: translate(-50%);
 `;
 
-export const BackWrapper = styled.div`
-  position: absolute;
-  top: 30px;
-  left: 250px;
-`;
 export const Text = styled.p`
   display: flex;
   flex-direction: row;
@@ -142,8 +123,8 @@ export const ErrorText = styled.span`
 `;
 
 export const TextBold = styled.strong`
-  margin-top: 50px;
-  margin-bottom: 50px;
+  /* margin-top: 50px; */
+  /* margin-bottom: 50px; */
   line-height: ${(props) => (props.lh ? props.lh : "2.5")};
   ${(props) => props.mr && mr}
   ${(props) => props.mt && mt}
@@ -207,6 +188,4 @@ export const ButtonScroll = styled.div`
       transform: translateY(200%);
     }
   }
-
-`
-
+`;

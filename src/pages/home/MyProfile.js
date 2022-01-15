@@ -36,13 +36,6 @@ export const MyProfile = (props) => {
     setIsFilePicked(true);
   };
 
-  const changeEmail = () => {
-    
-  }
-
-  const changePassword = () => {
-
-  }
 
   return (
     <MainWindow>
@@ -68,10 +61,15 @@ export const MyProfile = (props) => {
           <Container direction="row">
             <TextBold mr="20px">Email: </TextBold> <Text>{profile.email}</Text>
           </Container>
-          <Container direction="row">
+          {/*
+           ============ SPRINKLE ============
+           Not implementing these functions 
+           ============ SPRINKLE ============
+           */}
+          {/* <Container direction="row">
             <BasicButton text="Change Email" color="info" btnFunction={changeEmail} />
             <BasicButton text="Change Password" color="warning" btnFunction={changePassword} />
-          </Container>
+          </Container> */}
         </Container>
       </Container>
     </MainWindow>
