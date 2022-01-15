@@ -180,7 +180,11 @@ export const Widget = styled(Container)`
   padding: 12px;
   width: 300px;
   height: 300px;
-  overflow: none;
-  /* overflow-x: hidden; */
-  /* overflow-y: scroll; */
+  /* overflow: none; */
+  overflow-x: hidden;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
 `;
