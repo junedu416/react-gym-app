@@ -21,5 +21,7 @@ export const ProfileImage = styled.img`
   ${(props) => props.p && p}
   ${(props) => props.w && w}
   width: 200px;
-  border-radius: 20%;
+  height: 200px;
+  border-radius: 50%;
+  margin-bottom: 20px;
 `;

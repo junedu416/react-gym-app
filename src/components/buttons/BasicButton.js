@@ -4,7 +4,7 @@ const BasicButton = (props) => {
     // Variant types: contained, outlined, text (default)
     // colour options for buttons: primary, secondary, warning, error, success
     // size options: small, medium, large
-    const { btnFunction, text, color, size, style, disabled, variant, startIcon, endIcon, sx, type } = props;
+    const { btnFunction, text, color, size, style, disabled, variant, startIcon, endIcon, sx, type, onChangeFunction } = props;
     const buttonStyle = {height: "55px", minWidth: "140px"}
 
   return (
@@ -19,6 +19,7 @@ const BasicButton = (props) => {
       endIcon={endIcon}
       sx={{my: 2, mx: 1, ...sx}}
       type={type}
+      onChange={onChangeFunction}
     >
       {text}
     </Button>

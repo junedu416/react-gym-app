@@ -7,12 +7,12 @@ const Input = styled('input')({
 });
 
 const Send = (props) => {
-  const { btnFunction } = props;
+  const { btnFunction, sx, text } = props;
   return (
     <label htmlFor="icon-button-file">
       <Input accept="image/*" id="icon-button-file" type="file" filename ="reportImage" onChange={btnFunction} />
-      <IconButton type="file" aria-label="send" color="default" component="span" >
-        <AttachFileIcon />
+      <IconButton type="file" aria-label="send" component="span" sx={{ ...sx }} >
+        <AttachFileIcon /> {text}
       </IconButton>
     </label>
   );

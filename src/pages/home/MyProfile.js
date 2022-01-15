@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
@@ -6,10 +6,18 @@ import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import { Container, Heading, Text, TextBold } from "../../styled-components/";
 import { ProfilePicture } from "../../components/ProfilePicture";
 import BasicButton from "../../components/buttons/BasicButton";
-import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
-
+import AttachmentIcon from "../../components/buttons/AttachmentIcon";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import { styled } from "@mui/material/styles";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { Button, IconButton } from "@mui/material";
+import { ProfileImage } from "../../styled-components/profile";
+// import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
+
+const Input = styled("input")({
+  display: "none",
+});
 
 export const MyProfile = (props) => {
   useRedirectUnauthorisedUser();
@@ -25,14 +33,42 @@ export const MyProfile = (props) => {
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const selectImage = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setIsFilePicked(true);
-  };
-
   const updateProfile = () => {};
 
   console.log("profile: ", profile);
+
+  const uploadImage = (event) => {
+    setSelectedFile(event.target.files[0]);
+    setIsFilePicked(true);
+
+    console.log("Picked: ", isFilePicked);
+    console.log("selected file: ", selectedFile);
+  };
+
+  const imageRef = useRef(null);
+
+  function useDisplayImage() {
+    const [result, setResult] = useState("");
+
+    function uploader(e) {
+      const imageFile = e.target.files[0];
+
+      const reader = new FileReader();
+      reader.addEventListener("load", (e) => {
+        setResult(e.target.result);
+      });
+
+      reader.readAsDataURL(imageFile);
+    }
+
+    profile.photo = imageRef;
+
+    console.log("UPDATE PROFILE: ", profile);
+
+    return { result, uploader };
+  }
+
+  const { result, uploader } = useDisplayImage();
 
   return (
     <Container>
@@ -43,13 +79,38 @@ export const MyProfile = (props) => {
           mw="10vw"
           style={{ alignSelf: mobile ? "center" : "" }}
         >
-          <ProfilePicture profile={profile} />
-          <BasicButton
-            text="Select Photo"
-            startIcon={<PhotoCameraIcon />}
-            btnFunction={selectImage}
-            sx={{ mb: 8 }}
-          />
+          {result ? (
+            <ProfileImage
+              ref={imageRef}
+              src={result}
+              alt="selected avatar photo"
+            />
+          ) : (
+            <ProfilePicture profile={profile} />
+          )}
+
+          <label htmlFor="select-avatar">
+            <Input
+              accept="image/*"
+              id="select-avatar"
+              type="file"
+              onChange={(e) => {
+                setSelectedFile(e.target.files[0]);
+                uploader(e);
+              }}
+            />
+            <Button variant="contained" component="span" sx={{ mb: 3 }}>
+              Select Photo
+            </Button>
+          </label>
+
+          {result && (
+            <BasicButton
+              text="Update"
+              btnFunction={updateProfile}
+              sx={{ alignSelf: mobile ? "center" : "" }}
+            />
+          )}
         </Container>
         <Container
           align="flex-start"
@@ -72,13 +133,6 @@ export const MyProfile = (props) => {
           <Container direction="row">
             <TextBold mr="60px">Email: </TextBold> <Text>{profile.email}</Text>
           </Container>
-          {isFilePicked && (
-            <BasicButton
-              text="Update"
-              btnFunction={updateProfile}
-              sx={{ alignSelf: mobile ? "center" : "" }}
-            />
-          )}
 
           {/*
            ============ SPRINKLE ============

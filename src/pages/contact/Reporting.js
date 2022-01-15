@@ -160,7 +160,7 @@ export const Reporting = () => {
                       </Container>
                     </form>
                     {isFilePicked === true && (
-                      <ContactSubheadings>Image selected!</ContactSubheadings>
+                      <ContactSubheadings style={{ color: "lime"}}>Image selected!</ContactSubheadings>
                     )}
                     {message !== "" && (
                       <ContactSubheadings data-testid="message">
