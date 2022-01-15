@@ -52,12 +52,6 @@ export const ExerciseEditForm = ({open, setFormOpen, exercise, workoutIndex}) =>
   
   const handleSubmit = (exercise) => {
     setFormOpen(false);
-    /*setFormValues({
-      sets: exercise.sets,
-      reps: exercise.reps,
-      weight: exercise.weight,
-      distance: exercise.distance,
-    })*/
     console.log("value to send:", formValues)
     editExercise(exercise, formValues)
     console.log(profile.workouts)

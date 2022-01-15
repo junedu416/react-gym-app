@@ -16,19 +16,16 @@ import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 
 import Typography from "@mui/material/Typography";
 import { Menu, MenuItem } from "@mui/material";
-// import ToggleButton from "@mui/material/ToggleButton";
-// import { Star, StarOutline } from "@mui/icons-material";
 import BasicButton from "../../components/buttons/BasicButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 export const Exercises = () => {
   useRedirectUnauthorisedUser();
-  // const [selected, setSelected] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [exerciseList, setExerciseList] = useState([]);
   const [exerciseIndex, setExerciseIndex] = useState(null);
-  //const [workoutIndex, setWorkoutIndex] = useState(null);
+
   const { store, dispatch } = useGlobalState();
   const { profile, workoutIndex} = store;
   const initialValues = {
@@ -147,7 +144,6 @@ export const Exercises = () => {
     //select workout list
     if(Number(event.target.getAttribute("id")) !== workoutIndex){
       dispatch({type: "selectWorkout", data: Number(event.target.getAttribute("id"))});
-      //setWorkoutIndex(Number(event.target.getAttribute("id")))
     } else {
       console.log("workoutIndex not changed")
       addExerciseToWorkout(workoutIndex);
@@ -155,19 +151,6 @@ export const Exercises = () => {
 
 };
 
-
-// ***** feature (sprinkle) - Add to Favorite  *********
-  // const handleToggle = (selected) => {
-  //   setSelected(!selected);
-  //   if (selected === true) {
-  //     // ====================================================================================
-  //     // NEED BACKEND LOGIC
-  //     // ADD TO FAVOURITES
-  //     // ====================================================================================
-  //   } else {
-  //     // REMOVE FROM FAVOURITES
-  //   }
-  // };
 
   return (
     <MainWindow>
@@ -182,30 +165,9 @@ export const Exercises = () => {
                 key={index}
               >
                 <Container>
-                  {/* <Container
-                    direction="row"
-                    justify="space-between"
-                    style={{ width: "100%" }}
-                  > */}
                     <SmallHeading style={{ fontSize: "1.3rem" }}>
                       {exercise.name}
                     </SmallHeading>
-            {/* ***** feature (sprinkle) - Add to Favorite   ********* */}
-                    {/* <ToggleButton
-                      disableRipple={true}
-                      // value="check"     // Don't know if we need this or not.. 
-                      selected={selected}
-                      size="small"
-                      // Removes button outline and background
-                      style={{ border: "none", background: "none", "&:focus": { border: "none", outline: "none"} }}
-                      onChange={() => {
-                        handleToggle(selected);
-
-                      }}
-                    >
-                      {selected ? <Star sx={{ fontSize:"2.5rem" }} /> : <StarOutline sx={{ fontSize:"2.5rem" }} />}
-                    </ToggleButton>
-                  </Container> */}
 
                   <p>{exercise.description}</p>
                 </Container>

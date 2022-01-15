@@ -86,7 +86,6 @@ export const Workouts = () => {
 
     dispatch({ type: "selectWorkout", data: profile.workouts.length });
     navigate(`/workouts/edit`);
-    // navigate(`/workouts/edit?&workout_index=${profile.workouts.length}`);
   };
 
   const [activeWorkout, setActiveWorkout] = useState(0);
@@ -109,11 +108,6 @@ export const Workouts = () => {
     navigate("/workouts/edit");
   }
 
-  // const desktop = useMediaQuery(
-  //   json2mq({
-  //     minWidth: 1400,
-  //   })
-  // );
 
   const laptop =  useMediaQuery("(min-width:1000px)");
   const desktop = useMediaQuery("(min-width:1400px)");
@@ -152,7 +146,6 @@ export const Workouts = () => {
         </Collapse>
       )}
 
-      {/* ============================================================ lime color heading */}
       {profile && (
         <Container>
           <Heading style={{ color: "lime" }}>Workouts</Heading>
@@ -190,7 +183,6 @@ export const Workouts = () => {
 
                     <WorkoutCardStyling
                       onClick={() => handleClick(index)}
-                      // bg="rgba( 200, 200, 200, 1)"
                       bg="#3F3F3F"
                       style={{
                         color: "white",
@@ -214,7 +206,6 @@ export const Workouts = () => {
                           <Container>
                             <WorkoutList
                               p="0 25px 0 15px"
-                              // style={{ alignItem: "space-evenly" }}
                             >
                               {exercise.exerciseId ? (
                                 <p>{exercise.exerciseId.name}</p>

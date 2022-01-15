@@ -23,7 +23,6 @@ export const WorkoutStart = (props) => {
   const profWorkoutsClone = JSON.parse(JSON.stringify(profile.workouts));
   const workoutList = profWorkoutsClone[workoutIndex];
   console.log("workoutList", workoutList);
-  // const selectedWorkout = workoutList[0];
   const list = workoutList.exercises;
 
   console.log(list);
@@ -32,7 +31,6 @@ export const WorkoutStart = (props) => {
   const [disableExButtons, setDisableExButtons] = useState(
     new Array(list.length)
   );
-  //const [disabledList, setDisabledList] = useState([]);
   const [exerciseCompleted, setExerciseCompleted] = useState({
     ...workoutList,
     exercises: [],
@@ -130,7 +128,6 @@ export const WorkoutStart = (props) => {
             <SmallHeading style={{ margin: "0" }}>
               {workoutList.name}
             </SmallHeading>
-            <EditButton />
           </Container>
 
           <Container
@@ -156,7 +153,6 @@ export const WorkoutStart = (props) => {
                 <SmallHeading
                   size="1.6rem"
                   color="rgba(40, 40, 40, 0.65)"
-                  // color={disableExButtons[index] ? "grey" : "lime"}
                   style={{ margin: "0" }}
                 >
                   {exercise.exerciseId.name}
@@ -201,9 +197,7 @@ export const WorkoutStart = (props) => {
                   <ButtonGroup
                     variant="text"
                     color="inherit"
-                    aria-label="complete workout button group"
-                    // onClick={() => disableGroup(exercise)}    // Don't need this
-                  >
+                    aria-label="complete workout button group"                  >
                     <Button
                       onClick={(e) => {
                         finishExercise(exercise, true);

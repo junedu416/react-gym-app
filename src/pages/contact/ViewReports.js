@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Moment from "react-moment";
 import {
-  Container,
-  ErrorText,
   Heading,
-  HoverBox,
   MainWindow,
   TextBold,
 } from "../../styled-components";
@@ -19,13 +16,12 @@ import ReportIcon from "@mui/icons-material/Report";
 import DoneIcon from "@mui/icons-material/Done";
 import BasicButton from "../../components/buttons/BasicButton";
 
+
 export const ViewReports = () => {
   const { store } = useGlobalState();
   const { profile } = store;
   const [reportList, setReportList] = useState([]);
   const [open, setOpen] = useState([]);
-
-  const [resolved, setResolved] = useState([]); // Don't need this
 
   useEffect(() => {
     const fetchReportsInfo = async () => {
@@ -64,31 +60,9 @@ export const ViewReports = () => {
       reportList[index].resolvedBy = null;
     }
 
-    // CAN REMOVE ALL THIS CODE SINCE DON'T NEED IT.
-
-    // reportList[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
-    // reportList[index].resolvedBy = null;
-
-    // let newResolved = [...resolved, index];
-    // setResolved(newResolved);
-
-    // if (resolved.includes(index)) {
-    //   setResolved(resolved.filter((sindex) => sindex !== index));
-    // } else {
-    //   let newResolved = [...open];
-    //   newResolved.push(index);
-    //   setResolved(newResolved);
-    // }
 
     setReportValues({
       ...reportList[index],
-
-    // resolved: false,
-    // resolvedBy: null,
-    // resolvedBy: `${profile.firstName} ${profile.lastName}`,
-
-    // resolved: !!resolved.includes(index),
-    // resolvedBy: resolved.includes(index)
     });
 
     const request = await editReport(reportList[index]._id, reportList[index]);
@@ -96,7 +70,6 @@ export const ViewReports = () => {
     return request;
   };
 
-  // console.log("reportValueToSend:", reportValues);
 
   const totalUnresolved = reportList.filter(
     (report) => !report.resolved
@@ -116,8 +89,7 @@ export const ViewReports = () => {
       <ul style={{ margin: "0", padding: "0" }}>
         {reportList.map((report, index) => {
           return (
-            <li key={index} style={{ listStyleType: "none" }}>
-              {/* <HoverBox align="flex-start" justify="flex-start"> */}
+            <li key={index} style={{ listStyleType: "none", paddingBottom:"10%"}}>
               <TextBold mr="63px">Type: </TextBold> {report.type}
               <br />
               <TextBold mr="56px">Name: </TextBold> {report.reporterFullName}
@@ -162,8 +134,7 @@ export const ViewReports = () => {
               {open.includes(index) && (
                 <img src={report.reportImage} alt="user uploaded" />
               )}
-              {/* </HoverBox> */}
-            </li>
+            </li>    
           );
         })}
         <br />

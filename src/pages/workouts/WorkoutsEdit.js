@@ -17,7 +17,6 @@ import Divider from "@mui/material/Divider";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
-import { Button, ClickAwayListener } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Menu, MenuItem } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -28,7 +27,6 @@ import { editProfile } from "../../services/profileServices";
 import { ExerciseEditForm } from "./ExerciseEditForm";
 import BasicButton from "../../components/buttons/BasicButton";
 import { DeleteWorkout } from "./DeleteWorkout";
-// import { useSearchParams } from "react-router-dom";
 
 export const EditWorkouts = () => {
   useRedirectUnauthorisedUser();
@@ -39,13 +37,8 @@ export const EditWorkouts = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-  // clare
   const workoutList = profile.workouts[workoutIndex];
-  // end clare
   const choosePath = ["Add From Popular Exercises", "Add Customized Exercise"];
-
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // searchParams.get("workoutIndex");
 
   useEffect(() => {
     if (profile) {
@@ -71,7 +64,6 @@ export const EditWorkouts = () => {
     setAnchorEl(null);
     if (event.target.getAttribute("value") === choosePath[0]) {
       navigate(`/exercises`);
-      // navigate(`/exercises?${searchParams}`);
     } else navigate("/workouts/new");
   };
 

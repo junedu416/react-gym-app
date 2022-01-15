@@ -9,7 +9,6 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import AttachmentIcon from "../../components/buttons/AttachmentIcon";
 import Send from "../../components/buttons/Send";
-// import { UploadIcon } from "../../components/buttons/Upload";
 import { Container } from "../../styled-components";
 import { ContactSubheadings } from "../../styled-components/contact";
 import CampaignIcon from "@mui/icons-material/Campaign";
@@ -20,8 +19,6 @@ import { Collapse } from "@mui/material";
 import { ReusableAlert } from "../../components/ReusableAlert";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 
-// JUNE D 20/12/2021: UploadIcon has been removed. Can implement the function after MVP is done
-// JUNE D 20/12/2021: There is no back-end routes for General Inquiry. Can implement the function after MVP is done
 
 export const Reporting = () => {
   useRedirectUnauthorisedUser();
@@ -116,7 +113,6 @@ export const Reporting = () => {
                 <MenuItem value="Unsocial Behaviour">
                   Report Unsocial Behaviour
                 </MenuItem>
-                {/* <MenuItem value="General Inquiry">General Inquiry</MenuItem> */}
               </Select>
               <FormHelperText>
                 Please select inquiry type (required)
@@ -154,7 +150,6 @@ export const Reporting = () => {
                         ></TextField>
                         <Container>
                           <Send btnFunction={handleSend} />
-                          {/* <UploadIcon /> */}
                           <AttachmentIcon btnFunction={uploadImage} />
                         </Container>
                       </Container>
