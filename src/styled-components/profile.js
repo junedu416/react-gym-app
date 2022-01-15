@@ -20,6 +20,7 @@ export const ProfileImage = styled.img`
   ${(props) => props.m && m}
   ${(props) => props.p && p}
   ${(props) => props.w && w}
+  object-fit: cover;
   width: 200px;
   height: 200px;
   border-radius: 50%;
