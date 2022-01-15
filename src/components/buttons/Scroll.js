@@ -28,7 +28,7 @@ const ScrollButton = () => {
     };
   }, []);
 
-const inAnimation = {
+  const inAnimation = {
     animation: "inAnimation 1400ms ease"
   };
   const outAnimation = {

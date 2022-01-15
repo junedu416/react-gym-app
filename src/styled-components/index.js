@@ -13,9 +13,11 @@ import {
   m,
   w,
   mr,
+  fontSize,
+  minw,
   mb,
   hoverMixin,
-  bg,
+  bg
 } from "./mixins";
 import { Link } from "react-router-dom";
 import { Alert, Dialog } from "@mui/material";
@@ -23,16 +25,19 @@ import { Alert, Dialog } from "@mui/material";
 export const Container = styled.div`
   ${flexbox};
   ${centered};
-  ${props => props.shadow && shadow}
-  ${props => props.greyBorder && greyBorder}
-  ${props => props.mt && mt}
-  ${props => props.ml && ml}
-  ${props => props.mr && mr}
-  ${props => props.m && m}
-  ${props => props.p && p}
-  ${props => props.w && w}
+  ${(props) => props.shadow && shadow}
+  ${(props) => props.greyBorder && greyBorder}
+  ${(props) => props.mt && mt}
+  ${(props) => props.ml && ml}
+  ${(props) => props.mr && mr}
+  ${(props) => props.m && m}
+  ${(props) => props.p && p}
+  ${(props) => props.w && w}
+  ${(props) => props.minw && minw}
   ${props => props.bg && bg}
 `;
+
+// TODO: HIDE SCROLL BAR, BUT STILL ALLOW SCROLLING.
 
 export const MainWindow = styled.div`
   ${flexbox};
@@ -106,7 +111,9 @@ export const StyledAlert = styled(Alert)`
 export const Text = styled.p`
   display: flex;
   flex-direction: row;
-  margin: 0;
+  ${(props) => props.p && p}
+  ${(props) => props.m && m}
+  ${(props) => props.fontSize && fontSize}
 `;
 
 export const ErrorText = styled.span`
@@ -114,12 +121,14 @@ export const ErrorText = styled.span`
 `;
 
 export const TextBold = styled.strong`
-  margin-top: 50px;
-  margin-bottom: 50px;
-  line-height: ${props => props.lh ? props.lh : "2.5"};
-  ${props => props.mr && mr}
-  ${props => props.mt && mt}
-  ${props => props.mb && mb}
+  /* margin-top: 50px; */
+  /* margin-bottom: 50px; */
+  line-height: ${(props) => (props.lh ? props.lh : "2.5")};
+  ${(props) => props.mr && mr}
+  ${(props) => props.mt && mt}
+  ${(props) => props.mb && mb}
+  ${(props) => props.p && p}
+  ${(props) => props.fontSize && fontSize}
 `;
 
 export const BackWrapper = styled.div`
@@ -177,6 +186,7 @@ export const ButtonScroll = styled.div`
     }
   }
 `;
+
 export const Widget = styled(Container)`
   padding: 20px;
   width: 300px;
@@ -184,8 +194,13 @@ export const Widget = styled(Container)`
   /* overflow: none; */
   overflow-x: hidden;
   overflow-y: scroll;
+  ${(props) => props.bg && bg}
   ::-webkit-scrollbar {
     width: 0;
     background: transparent;
   }
 `;
+
+export const Row = styled(Container)`
+  flex-direction: row;
+`
