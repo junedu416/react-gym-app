@@ -76,7 +76,7 @@ export const PerformanceStats = (props) => {
         labels,
         datasets: workoutList[workoutIndex].exercises.map((e, i) => {
           return {
-            label: e.exerciseId.name,
+            label: e.exerciseId?.name || e.customisedName,
             data:  e.prevWeights.length > 0 ? e.prevWeights : e.prevDistances,
             borderColor: colors[i],
             backgroundColor: "black",
