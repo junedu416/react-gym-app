@@ -33,6 +33,7 @@ export const Container = styled.div`
   ${(props) => props.ml && ml}
   ${(props) => props.mr && mr}
   ${(props) => props.m && m}
+  ${(props) => props.mb && mb}
   ${(props) => props.p && p}
   ${(props) => props.pl && pl}
   ${(props) => props.w && w}

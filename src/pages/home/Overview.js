@@ -43,25 +43,26 @@ export const Overview = (props) => {
     <Container>
       <Heading>Welcome back, {profile ? profile.firstName : "user"}</Heading>
       <Grid desktop={desktop} laptop={laptop}>
-        <CardStyle>
+        <CardStyle desktop>
           <CheckInWidget />
         </CardStyle>
         {profile && profile.isStaff && (
-          <CardStyle>
+          <CardStyle desktop>
             <StaffEventsWidget events={eventsList} />
           </CardStyle>
         )}
-        <CardStyle>
+        <CardStyle desktop>
           <UpcomingEventsWidget events={eventsList} />
         </CardStyle>
-        <CardStyle>
+        <CardStyle desktop>
           <UpcomingCompsWidget events={eventsList} />
         </CardStyle>
-        <CardStyle>
+        <CardStyle desktop>
           <ReportWidget />
         </CardStyle>
-        <CardStyle />
-        <CardStyle />
+        <CardStyle desktop>
+
+        </CardStyle>
       </Grid>
     </Container>
   );

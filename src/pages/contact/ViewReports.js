@@ -181,6 +181,7 @@ export const ViewReports = () => {
           w={laptop ? "45%" : "90%"}
           mr={laptop ? "40px" : ""}
           p="20px 6px"
+          mb="50px"
           br="20px"
           // bg="rgba(80, 160, 160, 0.1)"
           // bg="#ffcc80"
