@@ -3,12 +3,7 @@ import { useNavigate } from "react-router";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
-import {
-  Container,
-  Heading,
-  Text,
-  TextBold,
-} from "../../styled-components/";
+import { Container, Heading, Text, TextBold } from "../../styled-components/";
 import { ProfilePicture } from "../../components/ProfilePicture";
 import BasicButton from "../../components/buttons/BasicButton";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
@@ -28,23 +23,27 @@ export const MyProfile = (props) => {
   const [isFilePicked, setIsFilePicked] = useState(false);
 
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const selectImage = (event) => {
     setSelectedFile(event.target.files[0]);
     setIsFilePicked(true);
   };
 
-  const updateProfile = () => {
+  const updateProfile = () => {};
 
-  }
+  console.log("profile: ", profile);
 
   return (
     <Container>
       <Heading>My Profile</Heading>
-      <Container direction={matches ? "column" : "row"} align="flex-start">
-        <Container mr={matches ? "" : "50px"} mw="10vw">
-          <ProfilePicture profile />
+      <Container direction={mobile ? "column" : "row"} align="flex-start">
+        <Container
+          mr={mobile ? "" : "50px"}
+          mw="10vw"
+          style={{ alignSelf: mobile ? "center" : "" }}
+        >
+          <ProfilePicture profile={profile} />
           <BasicButton
             text="Select Photo"
             startIcon={<PhotoCameraIcon />}
@@ -52,7 +51,16 @@ export const MyProfile = (props) => {
             sx={{ mb: 8 }}
           />
         </Container>
-        <Container align="flex-start" mw="30vw">
+        <Container
+          align="flex-start"
+          minw={mobile ? "80vw" : "380px"}
+          p="15px 30px"
+          style={{
+            background: "rgba(40, 100, 150, 0.07",
+            border: "1px solid rgba(40, 40, 40, 0.02)",
+            borderRadius: "20px",
+          }}
+        >
           <Container direction="row">
             <TextBold mr="20px">First Name: </TextBold>{" "}
             <Text>{profile.firstName}</Text>
@@ -64,9 +72,13 @@ export const MyProfile = (props) => {
           <Container direction="row">
             <TextBold mr="60px">Email: </TextBold> <Text>{profile.email}</Text>
           </Container>
-        { isFilePicked &&
-          <BasicButton text="Update" btnFunction={updateProfile} sx={{ alignSelf: matches ? "center" : "" }} />
-        }
+          {isFilePicked && (
+            <BasicButton
+              text="Update"
+              btnFunction={updateProfile}
+              sx={{ alignSelf: mobile ? "center" : "" }}
+            />
+          )}
 
           {/*
            ============ SPRINKLE ============

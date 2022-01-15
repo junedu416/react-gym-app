@@ -14,7 +14,7 @@ import {
   w,
   mr,
   fontSize,
-  mw,
+  minw,
   mb,
   hoverMixin,
   bg
@@ -33,7 +33,7 @@ export const Container = styled.div`
   ${(props) => props.m && m}
   ${(props) => props.p && p}
   ${(props) => props.w && w}
-  ${(props) => props.mw && mw}
+  ${(props) => props.minw && minw}
   ${props => props.bg && bg}
 `;
 

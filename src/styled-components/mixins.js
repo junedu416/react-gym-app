@@ -80,9 +80,9 @@ export const w = (props) => {
   `;
 };
 
-export const mw = (props) => {
+export const minw = (props) => {
   return `
-    min-width: ${props.mw ? props.mw : ""};
+    min-width: ${props.minw ? props.minw : ""};
   `;
 };
 
