@@ -160,7 +160,7 @@ export const Sidebar = (props) => {
 
   return (
     <Container
-      style={{ position: desktop ? "absolute" : "fixed", flexDirection: "row", zIndex: 1 }}
+      style={{ position: desktop ? "absolute" : "fixed", flexDirection: "row", zIndex: 10 }}
       // w={fullScreenSidebar && !open && "0vw"}
       w={ desktop ? drawerWidth : !open && "0vw"}
     >
@@ -178,12 +178,12 @@ export const Sidebar = (props) => {
           {open ? (
             <MultipleStopIcon
               onClick={handleOpen}
-              style={{ height: "60px", width: "60px" }}
+              style={{ height: "60px", width: "60px", zIndex: 50 }}
             />
           ) : (
             <MenuIcon
               onClick={handleOpen}
-              style={{ height: "60px", width: "60px" }}
+              style={{ height: "60px", width: "60px", zIndex: 50 }}
             />
           )}
         </IconButton>
@@ -194,6 +194,7 @@ export const Sidebar = (props) => {
         className="drawer"
         open={desktop ? true : open}
         sx={{
+          zIndex:5,
           // width: fullScreenSidebar ? (open ? "100vw" : "0vw") : drawerWidth,
           width: desktop ? open ? drawerWidth : drawerWidth : "0vw",
           // minWidth: fullScreenSidebar ? "0px" : drawerWidth,

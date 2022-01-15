@@ -53,6 +53,7 @@ export const ViewReports = () => {
   }, []);
 
   const handleImageBtn = (index, type) => {
+    console.log("Index: ", index, "       type: ", type);
     if (type === "Unsocial Behaviour") {
       if (unsocialOpen.includes(index)){
         setUnsocialOpen(unsocialOpen.filter((sindex) => sindex !== index));
@@ -71,14 +72,6 @@ export const ViewReports = () => {
         setOpen(newOpen);  
       }
     }
-    
-      // if (open.includes(index)) {
-    //   setOpen(open.filter((sindex) => sindex !== index));
-    // } else {
-    //   let newOpen = [...open];
-    //   newOpen.push(index);
-    //   setOpen(newOpen);
-    // }
   };
 
   const [reportValues, setReportValues] = useState({});

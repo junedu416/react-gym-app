@@ -21,7 +21,7 @@ export const Landing = (props) => {
   }
   return (
     <>
-      <div
+      <Container
         style={{
           backgroundColor: "black",
           position: "fixed",
@@ -41,7 +41,7 @@ export const Landing = (props) => {
             right: "0px",
           }}
         />
-      </div>
+      </Container>
 
       <Container
         w="100%"

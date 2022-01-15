@@ -12,7 +12,7 @@ const Unresolved = ({ text: unresolvedNumber, style, type }) => {
     <Container direction="row" justify="flex-start" w="100%" ml="50px" style={ style } >
       <RedDot color={determineColor}>{unresolvedNumber}</RedDot>
       <TextBold mt="0" mb="0" lh mr="6px" style={{ color: determineColor() }}>
-        Unresolved {type} Reports
+        Unresolved {type}
       </TextBold>
     </Container>
   );
