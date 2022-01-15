@@ -3,8 +3,6 @@ import Moment from "react-moment";
 import {
   Container,
   Heading,
-  HoverBox,
-  MainWindow,
   Row,
   Text,
   TextBold,
@@ -22,7 +20,8 @@ import BasicButton from "../../components/buttons/BasicButton";
 import WifiProtectedSetupIcon from "@mui/icons-material/WifiProtectedSetup";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { ShowPhoto } from "../../styled-components/contact";
+import { ReportBox, ShowPhoto } from "../../styled-components/contact";
+import { ReportItems } from "./ReportItems";
 
 export const ViewReports = () => {
   const { store } = useGlobalState();
@@ -82,100 +81,99 @@ export const ViewReports = () => {
 
   // console.log("reportValueToSend:", reportValues);
 
-  const totalUnresolved = reportList.filter(
-    (report) => !report.resolved
-  ).length;
-  console.log("Total unresolved: ", totalUnresolved);
+  // const totalUnresolved = reportList.filter((report) => !report.resolved).length;
 
   function displayStatus(resolved) {
     if (resolved) return "Resolved";
     else return "Unresolved";
   }
 
+  const equipmentReports = reportList.filter(
+    (report) => report.type === "Faulty Equipment"
+  );
+  const behaviourReports = reportList.filter(
+    (report) => report.type === "Unsocial Behaviour"
+  );
+  // console.log("EQ Reports: ", equipmentReports);
+  // console.log("B Reports: ", behaviourReports);
+
+  const totalUnresolvedBehaviour = behaviourReports.filter(
+    (report) => !report.resolved
+  ).length;
+  const totalUnresolvedEquipment = equipmentReports.filter(
+    (report) => !report.resolved
+  ).length;
+
   return (
     <Container>
       <Heading>View Reports</Heading>
+      <Container p={!desktop && "20px"}>
+        <Container
+          direction="row"
+          w={desktop ? "100%" : laptop ? "50vw" : "98vw"}
+        >
+          <Container w="45%" mr="50px">
+            <Unresolved text={totalUnresolvedBehaviour} />
+            <ul style={{ margin: "0", padding: "0", zIndex: "2" }}>
+              {/* {reportList.map((report, index) => { */}
 
-      <Container w={desktop ? "30vw" : laptop ? "50vw" : "98vw"}  p={!desktop && "20px"}>
-        <Container w="100%">
-        <Unresolved text={totalUnresolved} />
+              {behaviourReports.map((report, index) => {
+                return (
+                  <ReportItems
+                    open={open}
+                    report={report}
+                    index={report._id}
+                    desktop={desktop}
+                    profile={profile}
+                    handleImageBtn={handleImageBtn}
+                    displayStatus={displayStatus}
+                    handleResolveBtn={handleResolveBtn}
+                  />
+                );
+              })}
+            </ul>
+          </Container>
+
+          <Container
+            w="45%"
+            p="15px"
+            bg="rgba(160, 16, 80, 0.1)"
+            style={{
+              justifyContent: "flex-start",
+              justifyItems: "flex-start",
+              height: "100%",
+              // position: "relative",
+            }}
+          >
+            <Unresolved text={totalUnresolvedEquipment} />
+            <ul
+              style={{
+                margin: "0",
+                padding: "0",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                zIndex: "2",
+                // position: "absolute",
+              }}
+            >
+              {equipmentReports.map((report, index) => {
+                return (
+                  <ReportItems
+                    open={open}
+                    report={report}
+                    index={report._id}
+                    desktop={desktop}
+                    profile={profile}
+                    handleImageBtn={handleImageBtn}
+                    displayStatus={displayStatus}
+                    handleResolveBtn={handleResolveBtn}
+                  />
+                );
+              })}
+            </ul>
+          </Container>
         </Container>
-        <ul style={{ margin: "0", padding: "0" }}>
-          {reportList.map((report, index) => {
-            return (
-              <li key={index} style={{ listStyleType: "none" }}>
-                <Container
-                  p="20px"
-                  m="5px"
-                  bg="rgba(50, 130, 180, 0.08)"
-                  br="20px"
-                  align="flex-start"
-                  justify="flex-start"
-                  // style={{ background: "rgba(50, 130, 180, 0.16)" }}
-                  // style={{ background: "rgba(180, 180, 180, 0.1" }}
-                >
-                  <Row>
-                    <TextBold mr="63px">Type: </TextBold> {report.type}
-                  </Row>
-                  <Row>
-                    <TextBold mr="56px">Name: </TextBold>{" "}
-                    {report.reporterFullName}
-                  </Row>
-                  <Row>
-                    <TextBold mr="28px">Reported: </TextBold>
-                    <Moment fromNow>{report.reportDate}</Moment>
-                  </Row>
-                  <Row>
-                    {/* <Row align="flex-start"> */}
-                    <TextBold mr="10px">Description: </TextBold>
-                    <Text style={{ textAlign: "justify" }}>{report.description}</Text>
-                  </Row>
-                  <Row justify="flex-start" style={{ flexWrap: "wrap" }}>
-                    <TextBold mr={desktop ? "50px" : "10px"}>Status: </TextBold>
-                    <Chip
-                      icon={report.resolved ? <DoneIcon /> : <ReportIcon />}
-                      color={report.resolved ? "success" : "error"}
-                      label={displayStatus(report.resolved)}
-                      variant="filled"
-                    />
-                    <BasicButton
-                      text={report.resolved ? "Unresolved" : " Resolved"}
-                      startIcon={<WifiProtectedSetupIcon />}
-                      color="warning"
-                      sx={{ my: 0, ml: desktop ? 4 : 2 }}
-                      style={{ height: "36px", minWidth: desktop && "150px" }}
-                      btnFunction={() => handleResolveBtn(index)}
-                    />
-                  </Row>
-                  <Row>
-                    {report.resolvedBy && (
-                      <>
-                        <TextBold mr="78px">By: </TextBold>
-                        <Chip
-                          variant="outlined"
-                          label={report.resolvedBy}
-                          sx={{ color: "white", bgcolor: "#000437" }}
-                          avatar={<Avatar src={profile.photo} />}
-                        />
-                      </>
-                    )}
-                  </Row>
-                  <Button variant="contained" sx={{ mt: 2 }} onClick={() => handleImageBtn(index)}>
-                    {open.includes(index) ? "Hide Photo" : "Show Photo"}
-                  </Button>
-                  {open.includes(index) && (
-                    <ShowPhoto
-                      src={report.reportImage}
-                      alt="user uploaded"
-                      width={desktop ? "600px" : "100%"}
-                    />
-                  )}
-                </Container>
-              </li>
-            );
-          })}
-          <br />
-        </ul>
       </Container>
     </Container>
   );

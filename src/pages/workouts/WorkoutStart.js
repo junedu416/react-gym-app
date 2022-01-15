@@ -167,7 +167,7 @@ export const WorkoutStart = (props) => {
                 color="rgba(40, 40, 40, 0.65)"
                 style={{ margin: "0" }}
               >
-                {exercise.exerciseId.name}
+                {exercise.exerciseId?.name || exercise.customisedName}
               </SmallHeading>
               <Container
                 direction="row"

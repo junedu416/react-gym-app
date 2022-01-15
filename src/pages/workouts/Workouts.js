@@ -112,6 +112,8 @@ export const Workouts = () => {
   const laptop =  useMediaQuery("(min-width:1000px)");
   const desktop = useMediaQuery("(min-width:1400px)");
 
+  console.log("workouts ", profile.workouts);
+
   return (
     <>
       <Container direction="row">
@@ -199,7 +201,7 @@ export const Workouts = () => {
                         m="0 0 10px"
                         style={{ fontSize: "1.5rem", color: "lime" }}
                       >
-                        {workout.name}
+                        {workout?.name}
                       </SmallHeading>
 
                       {workout.exercises.map((exercise) => {

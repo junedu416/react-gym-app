@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Container } from ".";
 import { flexbox, centered } from "./mixins";
 
 export const ContactSubheadings = styled.h3`
@@ -23,4 +24,3 @@ export const RedDot = styled.div`
 export const ShowPhoto = styled.img`
   margin-top: 20px;
 `
-
