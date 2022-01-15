@@ -126,6 +126,7 @@ export const BackWrapper = styled.div`
   position: fixed;
   top: 15px;
   left: ${props => props.desktop ? "220px" : props.open ?  "220px" : "10px"};
+  z-index: 5;
 `;
 
 export const HoverBox = styled(Container)`
@@ -177,7 +178,7 @@ export const ButtonScroll = styled.div`
   }
 `;
 export const Widget = styled(Container)`
-  padding: 12px;
+  padding: 20px;
   width: 300px;
   height: 300px;
   /* overflow: none; */
