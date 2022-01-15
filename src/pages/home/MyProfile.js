@@ -6,7 +6,6 @@ import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import {
   Container,
   Heading,
-  MainWindow,
   Text,
   TextBold,
 } from "../../styled-components/";
@@ -36,17 +35,21 @@ export const MyProfile = (props) => {
     setIsFilePicked(true);
   };
 
+  const updateProfile = () => {
+
+  }
 
   return (
-    <MainWindow>
+    <Container>
       <Heading>My Profile</Heading>
       <Container direction={matches ? "column" : "row"} align="flex-start">
-        <Container mr="50px" mw="10vw">
+        <Container mr={matches ? "" : "50px"} mw="10vw">
           <ProfilePicture profile />
           <BasicButton
             text="Select Photo"
             startIcon={<PhotoCameraIcon />}
             btnFunction={selectImage}
+            sx={{ mb: 8 }}
           />
         </Container>
         <Container align="flex-start" mw="30vw">
@@ -59,8 +62,12 @@ export const MyProfile = (props) => {
             <Text>{profile.lastName}</Text>
           </Container>
           <Container direction="row">
-            <TextBold mr="20px">Email: </TextBold> <Text>{profile.email}</Text>
+            <TextBold mr="60px">Email: </TextBold> <Text>{profile.email}</Text>
           </Container>
+        { isFilePicked &&
+          <BasicButton text="Update" btnFunction={updateProfile} sx={{ alignSelf: matches ? "center" : "" }} />
+        }
+
           {/*
            ============ SPRINKLE ============
            Not implementing these functions 
@@ -72,6 +79,6 @@ export const MyProfile = (props) => {
           </Container> */}
         </Container>
       </Container>
-    </MainWindow>
+    </Container>
   );
 };

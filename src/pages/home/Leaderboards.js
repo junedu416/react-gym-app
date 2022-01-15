@@ -5,10 +5,8 @@ import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 export const Leaderboards = (props) => {
   useRedirectUnauthorisedUser();
   return (
-    <MainWindow>
-      <Container>
-        <Heading>Leaderboards</Heading>
-      </Container>
-    </MainWindow>
+    <Container>
+      <Heading>Leaderboards</Heading>
+    </Container>
   );
 };

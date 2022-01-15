@@ -103,7 +103,7 @@ export const PerformanceStats = (props) => {
   }
 
   return (
-    <MainWindow>
+    <>
       <Heading>Performance Stats</Heading>
       <Container>
         {Object.keys(workoutList).length > 0 ? (
@@ -138,6 +138,6 @@ export const PerformanceStats = (props) => {
           </Collapse>
         )}
       </Container>
-    </MainWindow>
+    </>
   );
 };

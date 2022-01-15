@@ -14,14 +14,12 @@ import { getAllExercises } from "../../services/exerciseServices";
 import { editProfile } from "../../services/profileServices";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 
-
 import Typography from "@mui/material/Typography";
 import { Menu, MenuItem } from "@mui/material";
 // import ToggleButton from "@mui/material/ToggleButton";
 // import { Star, StarOutline } from "@mui/icons-material";
 import BasicButton from "../../components/buttons/BasicButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-
 
 export const Exercises = () => {
   useRedirectUnauthorisedUser();

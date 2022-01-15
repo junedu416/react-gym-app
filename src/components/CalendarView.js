@@ -7,7 +7,7 @@ import { getAllEvents } from "../services/eventsServices.js";
 import { eventsReducer } from "../utils/events-reducer";
 import { EventPopup } from "../pages/events/EventPopup";
 import { convertTimeToAcceptedFormat } from "../utils/events-helper-functions.js";
-
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const CalendarView = ({ eventCategory }) => {
   const {store} = useGlobalState()
@@ -76,8 +76,10 @@ const CalendarView = ({ eventCategory }) => {
     }
   };
 
+  const ipadAndPhone = useMediaQuery('(max-width:800px)');
+
   return (
-    <div style={{ height: "80vh", width: "80%", overflowY: "scroll" }}>
+    <div style={{ height: "80vh", width: ipadAndPhone ? "95%" :"80%", overflow: "scroll" }}>
       {clickedEvent && (
         <EventPopup
           event={clickedEvent}
@@ -96,7 +98,7 @@ const CalendarView = ({ eventCategory }) => {
         endAccessor="endTime"
         onSelectEvent={onClickEvent}
         step={30}
-        style={{ height: 1500 }}
+        style={{ height: 1500, width: ipadAndPhone ? "800px" : null }}
         // Set min and max range for time displayed on calendar
         min={new Date(0, 0, 0, 7, 0, 0)}
         max={new Date(0, 0, 0, 21, 0, 0)}

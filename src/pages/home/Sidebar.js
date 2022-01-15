@@ -15,16 +15,16 @@ import { signOutUser } from "../../services/userServices";
 import MenuIcon from "@mui/icons-material/Menu";
 import { SidebarData } from "../../data/sidebarData";
 import { getBaseRoute } from "../../utils/sidebarUtils";
-import { IconButton } from "@mui/material";
-import MultipleStopIcon from '@mui/icons-material/MultipleStop';
+import { IconButton, SwipeableDrawer } from "@mui/material";
+import MultipleStopIcon from "@mui/icons-material/MultipleStop";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { SidebarTitle } from "../../styled-components/sidebarCustomStyling";
+
+const drawerWidth = "240px";
 
 const StyledTabs = styled((props) => (
   <Tabs
     component="a"
-    onClick={(event) => {
-      // event.preventDefault();
-    }}
     {...props}
     TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
   />
@@ -68,9 +68,6 @@ const LinkTab = styled((props) => (
     backgroundColor: "rgba(100, 100, 100, 0.4)",
   },
 }));
-
-const drawerWidth = "15%";
-
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -97,16 +94,17 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export const Sidebar = () => {
+export const Sidebar = (props) => {
   // const [dashboardView, setDashboardView] = useState(<Overview />);
   const [value, setValue] = useState(9);
   const { store, dispatch } = useGlobalState();
   const { profile } = store;
   const navigate = useNavigate();
   const [sbData, setSbData] = useState([]);
-  const [open, setOpen] = useState(true);
 
-  const fullScreenSidebar = useMediaQuery('(max-width:600px)');
+  const { desktop, open, setOpen } = props;
+
+  const fullScreenSidebar = useMediaQuery("(max-width:600px)");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -135,18 +133,7 @@ export const Sidebar = () => {
       );
     } else {
       temp = SidebarData.filter(
-        (e) =>  e.title[1] === "Sign In" || e.title[1] === "Register"
-          // e.title[1] !== "Sign Out" &&
-          // e.title[1] !== "Overview" &&
-          // e.title[1] !== "Check-ins" &&
-          // e.title[1] !== "Performance Stats" &&
-          // e.title[1] !== "Events" &&
-          // e.title[1] !== "Workouts" &&
-          // e.title[1] !== "Profile" &&
-          // e.title[1] !== "Leaderboards" &&
-          // e.title[1] !== "Reports" &&
-          // e.title[1] !== "Our Team"
- 
+        (e) => e.title[1] === "Sign In" || e.title[1] === "Register"
       );
     }
     setSbData(temp);
@@ -157,26 +144,29 @@ export const Sidebar = () => {
     setOpen(!open);
   }
 
-  return (
-    <Container style={{ position: "fixed", flexDirection: "row", zIndex: 1}} w={fullScreenSidebar && !open && "0vw"}>
-      {/* <button style={{border: "none", backgroundColor: "rgba(0,0,0,0)"}} onClick={handleOpen}>
-          
-          <MenuIcon style={{color: open ? "white" : "blue", height: "60px", width: "60px"}}/>
-        </button> */}
+  const sidebarIcon = {
+    color: open ? "white" : "#555",
+    backgroundColor: open ? "rgba(0, 45, 255, 0.4)" : "rgba(0, 160, 255, 95)",
+    transition: "all ease-in 0.3s",
+    "&:hover": {
+      color: open ? "white" : "#DDD",
+      backgroundColor: open ? "rgba(45, 45, 45, 0.75)" : "rgba(0, 180, 255, 1)",
+    },
+  };
 
-      {
+  return (
+    <Container
+      style={{ position: desktop ? "absolute" : "fixed", flexDirection: "row", zIndex: 1 }}
+      // w={fullScreenSidebar && !open && "0vw"}
+      w={ desktop ? drawerWidth : !open && "0vw"}
+    >
+      { desktop ? null :
         <IconButton
-          sx={{
-            color: open ? "white" : "#555",
-            // backgroundColor: open ? "rgba(40, 40, 40, 0.44)" : "rgba(0, 150, 250, 0.8)",
-            backgroundColor: open ? "rgba(0, 45, 255, 0.4)" : "rgba(0, 160, 255, 95)",
-            transition: "all ease-in 0.3s",
-            "&:hover": { color: open ? "white" : "#DDD", backgroundColor: open ? "rgba(45, 45, 45, 0.75)" : "rgba(0, 180, 255, 1)" }
-          }}
+          sx={sidebarIcon}
           style={{
-            position: "absolute",
-            top: 10,
-            left: open ? "65%" : 15,
+            position: "fixed",
+            top: "89vh",
+            left: open ? 130 : 15,
             zIndex: 10,
           }}
           aria-label="open menubar"
@@ -198,38 +188,31 @@ export const Sidebar = () => {
       <CssBaseline />
       <Drawer
         className="drawer"
-        open={open}
+        open={desktop ? true : open}
         sx={{
-          width: fullScreenSidebar ? open ? "100vw" : "0vw" : drawerWidth,
-          minWidth: fullScreenSidebar ? "0px" : "230px",
-          // height: `calc(100vh - 90px)`,
-          height: `100vh`,
+          // width: fullScreenSidebar ? (open ? "100vw" : "0vw") : drawerWidth,
+          width: desktop ? open ? drawerWidth : drawerWidth : "0vw",
+          // minWidth: fullScreenSidebar ? "0px" : drawerWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             paddingTop: `calc(100vh / 8)`,
-            //position: "fixed",
-            zIndex: "1",
-            width: fullScreenSidebar ? "100vw" : drawerWidth,
-            minWidth: fullScreenSidebar ? "0px" : "230px",
+            position: "fixed",
+            zIndex: 2,
+            // width: fullScreenSidebar ? "60vw" : drawerWidth,
+            // minWidth: fullScreenSidebar ? "0px" : "230px",
             boxSizing: "border-box",
             display: "flex",
             alignItems: "center",
             backgroundColor: "blue",
           },
         }}
-        variant="persistent"
+        // variant= {desktop ? "persistent" : "temporary"}
+        variant= "persistent"
       >
-        <h1
-          style={{
-            fontFamily: "'Courgette', cursive",
-            marginBottom: "2em",
-            textAlign: "center",
-            color: "white",
-            width: "100%"
-          }}
+        <SidebarTitle
         >
           Average Joe's
-        </h1>
+        </SidebarTitle>
         <StyledTabs
           orientation="vertical"
           variant="scrollable"

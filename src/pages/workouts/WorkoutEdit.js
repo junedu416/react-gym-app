@@ -15,16 +15,14 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import IconButton from "@mui/material/IconButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import { useGlobalState } from "../../config/globalStore";
-
 
 export const EditWorkout = (props, workout) => {
   useRedirectUnauthorisedUser();
   const navigate = useNavigate();
   const { store, dispatch } = useGlobalState();
   const { profile, workoutId } = store;
- 
 
   const workoutList = [
     {
@@ -52,8 +50,8 @@ export const EditWorkout = (props, workout) => {
       ],
     },
   ];
-  console.log("profile:",profile)
-  console.log("workout id:",workoutId)
+  console.log("profile:", profile);
+  console.log("workout id:", workoutId);
   const [activeWorkout, setActiveWorkout] = useState("");
   const handleClick = (selectedWorkout) => {
     if (selectedWorkout !== null) {
@@ -68,42 +66,40 @@ export const EditWorkout = (props, workout) => {
   }
 
   function editWorkout(workout) {
-    navigate(`/workouts/edit?${workout.name}`)
+    navigate(`/workouts/edit?${workout.name}`);
   }
 
   return (
-    <MainWindow>
-      <Container>
-        <Heading>Workouts</Heading>
+    <Container>
+      <Heading>Workouts</Heading>
 
-        <Container>
-          <WorkoutCardStyling onClick={handleClick}>
-            {workoutList.map((workout) => {
-              return (
-                <Container>
-                  <WorkoutList p="10px 0 10px" ml="20px">
-                    {workout.name}
-                    <IconButton onClick={() => editWorkout(workout)}>
-                      <ArrowForwardIosIcon />
-                    </IconButton>
-                  </WorkoutList>
-                  <Divider sx={{ width: "90%" }} />
-                </Container>
-              );
-            })}
-            <TextLink
-              direction="row"
-              p="20px 0"
-              ml="25px"
-              mt="0"
-              justify="flex-start"
-              onClick={() => navigate("/workouts/new")}
-            >
-              <AddCircleIcon sx={{ mr: 1 }} /> Add Workout
-            </TextLink>
-          </WorkoutCardStyling>
-        </Container>
+      <Container>
+        <WorkoutCardStyling onClick={handleClick}>
+          {workoutList.map((workout) => {
+            return (
+              <Container>
+                <WorkoutList p="10px 0 10px" ml="20px">
+                  {workout.name}
+                  <IconButton onClick={() => editWorkout(workout)}>
+                    <ArrowForwardIosIcon />
+                  </IconButton>
+                </WorkoutList>
+                <Divider sx={{ width: "90%" }} />
+              </Container>
+            );
+          })}
+          <TextLink
+            direction="row"
+            p="20px 0"
+            ml="25px"
+            mt="0"
+            justify="flex-start"
+            onClick={() => navigate("/workouts/new")}
+          >
+            <AddCircleIcon sx={{ mr: 1 }} /> Add Workout
+          </TextLink>
+        </WorkoutCardStyling>
       </Container>
-    </MainWindow>
+    </Container>
   );
 };

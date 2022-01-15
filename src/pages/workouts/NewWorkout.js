@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Heading, MainWindow } from "../../styled-components";
+import { Container, Heading, MainWindow } from "../../styled-components";
 import { ExerciseForm } from'./ExerciseForm';
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
@@ -27,10 +27,10 @@ export const NewWorkout = () => {
 
     
   return (
-    <MainWindow>
+    <Container>
       <Heading>Create Exercise</Heading>
       {errorMessage && <p>{errorMessage}</p>}
       <ExerciseForm submitFunc = {updateProfileExercise} workoutId = {workoutId}/>
-    </MainWindow>
+    </Container>
   );
 };

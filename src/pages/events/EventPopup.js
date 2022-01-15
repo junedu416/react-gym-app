@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
-import Chip from "@mui/material/Chip";
 import { showEventReducer } from "../../utils/showEvent-reducer";
 import BasicButton from "../../components/buttons/BasicButton";
 import { useGlobalState } from "../../config/globalStore";
@@ -13,6 +12,8 @@ import {
 } from "../../utils/events-helper-functions";
 import { DateDisplay } from "./DateDisplay";
 import { PopupCard } from "../../components/PopupCard";
+import { CategoryChip } from "./CategoryChip";
+
 
 export const EventPopup = ({
   open,
@@ -99,35 +100,22 @@ export const EventPopup = ({
     cancelUserRegistration(event, profile._id, updateEvent);
   };
 
-  function determineColor(category) {
-    if (category === "Class") return "success";
-    else if (category === "Personal Training") return "warning";
-    else if (category === "Competition") return "error";
-    else return "primary";
-  }
-
   return (
     <>
       {event && (
         <PopupCard open={open} handleClose={handleClose}>
-          <Typography
-            id="booking-confirmation-title"
-            variant="h5"
-            fontWeight="bold"
-            component="h2"
-          >
-            {event.name}
-          </Typography>
-          <Typography id="booking-confirmation-description" sx={{ my: 3 }}>
-            <p>
-              <Chip
-                label={event.category}
-                color={determineColor(event.category)}
-                variant="outlined"
-              />
-            </p>
-            <DateDisplay formatDates={eventDates} />
-          </Typography>
+            <Typography
+              id="booking-confirmation-title"
+              variant="h5"
+              fontWeight="bold"
+              component="h2"
+            >
+              {event.name}
+            </Typography>
+            <Typography id="booking-confirmation-description" sx={{ my: 3 }}>
+              <p> <CategoryChip category={event.category} /> </p>
+              <DateDisplay formatDates={eventDates} />
+            </Typography>
           {!eventDates.isFinished && (
             <>
               {!userIsRegistered && (
