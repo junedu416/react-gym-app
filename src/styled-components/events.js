@@ -66,7 +66,8 @@ export const ShowEventContent = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  border: solid black 1px;
+  border: 1px solid rgba(40, 40, 40, 0.2);
+  border-radius: 20px;
   @media(min-width: 768px) {
       min-width: 80%;
   }

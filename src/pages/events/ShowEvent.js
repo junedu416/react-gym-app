@@ -106,8 +106,8 @@ export const ShowEvent = () => {
                 {errorMsg && <ReusableAlert open={!!errorMsg} text={errorMsg} btnFunction={()=> setErrorMsg("")} />}
                 {event && 
                     <ShowEventContent>
-                        <Heading phone="2rem" desktop="2.7rem" >{event.name}</Heading>
-                        <h2><CategoryChip category={event.category} /></h2>
+                        <Heading phone="2rem" desktop="2.7rem" m="15px 0">{event.name}</Heading>
+                        <CategoryChip category={event.category} />
                         {instructor && <h3>Event Listed by {`${instructor.firstName} ${instructor.lastName}`}</h3>}
                         {formatDates.isFinished ? <p>This event has already ended.</p> : <DateDisplay formatDates={formatDates} />}
                         {event.eventImage ?  <EventImage src={event.eventImage} alt={event.name}/> : <p>-no image available-</p>}

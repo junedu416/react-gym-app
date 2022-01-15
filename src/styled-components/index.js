@@ -46,7 +46,7 @@ export const Container = styled.div`
 export const MainWindow = styled.div`
   ${flexbox};
   ${vcentered};
-  width: ${props => props.desktop ? "calc(100vw - 220px)" : "100%"};
+  width: ${props => props.desktop ? "calc(100vw - 240px)" : "100%"};
   min-height: 100vh;
   margin-left: ${props => props.desktop ? "220px" : ""};
   z-index: 0;
@@ -65,7 +65,7 @@ export const Heading = styled.h1`
   text-align: ${props => props.textAlign ? props.textAlign : "center"};
   padding-left: 10px; 
   padding-right: 10px; 
-  
+  ${props => props.m && m}
 `;
 
 export const SmallHeading = styled.h2`
@@ -143,9 +143,10 @@ export const TextBold = styled.strong`
 
 export const BackWrapper = styled.div`
   position: fixed;
-  top: 15px;
-  left: ${props => props.desktop ? "220px" : props.open ?  "220px" : "10px"};
-  z-index: 5;
+  top: 5px;
+  /* left: ${props => props.desktop ? "220px" : props.open ?  "220px" : "10px"}; */
+  left: ${props => props.desktop ? "220px" : "0px"};
+  z-index: 10;
 `;
 
 export const HoverBox = styled(Container)`

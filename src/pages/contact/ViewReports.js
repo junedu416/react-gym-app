@@ -29,6 +29,8 @@ export const ViewReports = () => {
   const [reportList, setReportList] = useState([]);
   const [open, setOpen] = useState([]);
   const [unsocialOpen, setUnsocialOpen] = useState([]);
+  const [behaviourList, setBehaviourList] = useState([]);
+  const [equipmentList, setEquipmentList] = useState([]);
 
   // REMOVE LATER!!
   const desktop = useMediaQuery("(min-width:1400px)");
@@ -38,7 +40,7 @@ export const ViewReports = () => {
     const fetchReportsInfo = async () => {
       const reports = await getAllReports();
       for (let report of reports) {
-        console.log("report: ", report);
+        // console.log("report: ", report);
         let reporterProfile = await getUserProfile(report.userId);
         const reporterFullName = reporterProfile
           ? reporterProfile.firstName + " " + reporterProfile.lastName
@@ -47,6 +49,17 @@ export const ViewReports = () => {
       }
 
       setReportList(reports);
+
+      const behaviourReports = reportList.filter(
+        (report) => report.type === "Unsocial Behaviour"
+      );
+
+      const equipmentReports = reportList.filter(
+        (report) => report.type === "Faulty Equipment"
+      );
+
+      setBehaviourList(behaviourReports);
+      setEquipmentList(equipmentReports)
     };
 
     fetchReportsInfo().catch(console.error);
@@ -75,17 +88,46 @@ export const ViewReports = () => {
   };
 
   const [reportValues, setReportValues] = useState({});
-  const handleResolveBtn = async (index) => {
-    reportList[index].resolved = !reportList[index].resolved;
-    if (reportList[index].resolved) {
-      reportList[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
-    } else {
-      reportList[index].resolvedBy = null;
+  const [behaviourReportValues, setBehaviourReportValues] = useState({});
+  const handleResolveBtn = async (index, type) => {
+    if (type === "Unsocial Behaviour") {
+      behaviourReports[index].resolved = !behaviourReports[index].resolved;
+      if (behaviourReports[index].resolved) {
+        behaviourReports[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
+      } else {
+        behaviourReports[index].resolvedBy = null;
+      }
+
+      setBehaviourReportValues({
+        ...behaviourReports[index],
+      });
     }
 
-    setReportValues({
-      ...reportList[index],
-    });
+    else if (type === "Faulty Equipment") {
+      equipmentReports[index].resolved = !equipmentReports[index].resolved;
+      if (equipmentReports[index].resolved) {
+        equipmentReports[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
+      } else {
+        equipmentReports[index].resolvedBy = null;
+      }
+
+      setReportValues({
+        ...equipmentReports[index],
+      });
+    }
+    
+    // WORKING CODE: before separation
+    
+    // reportList[index].resolved = !reportList[index].resolved;
+    // if (reportList[index].resolved) {
+    //   reportList[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
+    // } else {
+    //   reportList[index].resolvedBy = null;
+    // }
+
+    // setReportValues({
+    //   ...reportList[index],
+    // });
 
     const request = await editReport(reportList[index]._id, reportList[index]);
     console.log("REQUEST: ", request);
@@ -100,19 +142,22 @@ export const ViewReports = () => {
     if (resolved) return "Resolved";
     else return "Unresolved";
   }
-  // report.type === "Faulty Equipment"
+  
   const equipmentReports = reportList.filter(
-    (report, index) => {
-      if (report.type === "Faulty Equipment") {
-        return {...report, index}
-      }
-    }
+    (report) => report.type === "Faulty Equipment"
   );
+    //   if (report.type === "Faulty Equipment") {
+    //     return {...report, index}
+    //   }
+    // }
+
   const behaviourReports = reportList.filter(
     (report) => report.type === "Unsocial Behaviour"
   );
+
+  
   console.log("EQ Reports: ", equipmentReports);
-  // console.log("B Reports: ", behaviourReports);
+  console.log("B Reports: ", behaviourReports);
 
   const totalUnresolvedBehaviour = behaviourReports.filter(
     (report) => !report.resolved

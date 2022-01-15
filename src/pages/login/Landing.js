@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 // import LandingS from "../../assets/LandingS.jpg";
 import LandingL from "../../assets/LandingL.jpg";
 import BasicButton from "../../components/buttons/BasicButton";
-import { Container, MainWindow } from "../../styled-components";
+import { Container } from "../../styled-components";
 
 import { useGlobalState } from "../../config/globalStore";
 
