@@ -133,8 +133,9 @@ export const TextBold = styled.strong`
 
 export const BackWrapper = styled.div`
   position: fixed;
-  top: 2px;
-  left: ${props => props.desktop ? "220px" : "0px"};
+  top: 15px;
+  left: ${props => props.desktop ? "220px" : props.open ?  "220px" : "10px"};
+  z-index: 5;
 `;
 
 export const HoverBox = styled(Container)`
@@ -187,13 +188,17 @@ export const ButtonScroll = styled.div`
 `;
 
 export const Widget = styled(Container)`
-  padding: 12px;
+  padding: 20px;
   width: 300px;
   height: 300px;
   /* overflow: none; */
   overflow-x: hidden;
   overflow-y: scroll;
   ${(props) => props.bg && bg}
+  ::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
 `;
 
 export const Row = styled(Container)`
