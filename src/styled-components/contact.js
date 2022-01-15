@@ -20,4 +20,7 @@ export const RedDot = styled.div`
   margin-right: 6px;
 `;
 
+export const ShowPhoto = styled.img`
+  margin-top: 20px;
+`
 

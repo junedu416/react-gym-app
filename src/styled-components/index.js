@@ -17,7 +17,9 @@ import {
   minw,
   mb,
   hoverMixin,
-  bg
+  bg,
+  pl,
+  br
 } from "./mixins";
 import { Link } from "react-router-dom";
 import { Alert, Dialog } from "@mui/material";
@@ -32,9 +34,11 @@ export const Container = styled.div`
   ${(props) => props.mr && mr}
   ${(props) => props.m && m}
   ${(props) => props.p && p}
+  ${(props) => props.pl && pl}
   ${(props) => props.w && w}
   ${(props) => props.minw && minw}
   ${props => props.bg && bg}
+  ${props => props.br && br}
 `;
 
 // TODO: HIDE SCROLL BAR, BUT STILL ALLOW SCROLLING.
@@ -42,9 +46,9 @@ export const Container = styled.div`
 export const MainWindow = styled.div`
   ${flexbox};
   ${vcentered};
-  width: ${props => props.desktop ? "calc(100vw - 230px)" : "100%"};
+  width: ${props => props.desktop ? "calc(100vw - 220px)" : "100%"};
   min-height: 100vh;
-  margin-left: ${props => props.desktop ? "230px" : ""};
+  margin-left: ${props => props.desktop ? "220px" : ""};
   z-index: 0;
   /* ${props => props.verticalMiddle && hcentered} */
   overflow-y: scroll;
@@ -158,9 +162,9 @@ export const ButtonScroll = styled.div`
    border-radius: 15%;
   width: 50px;
   right: 20px;
-  bottom: 80px;
+  bottom: 60px;
   height: 50px;
-  z-index: 10;
+  z-index: 20;
   cursor: pointer;
   color: white;
   background: rgb(0, 120, 250);

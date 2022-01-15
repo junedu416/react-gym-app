@@ -74,6 +74,12 @@ export const p = (props) => {
   `;
 };
 
+export const pl = (props) => {
+  return `
+    padding-left: ${props.pl ? props.pl : "0"};
+  `;
+};
+
 export const w = (props) => {
   return `
     width: ${props.w ? props.w : ""};
@@ -120,6 +126,7 @@ export const hoverMixin = () => {
   return `
   transition: all 0.7s;
   &:hover {
+    background: rgba(0, 145, 250, 0.18);
     background-color: rgba(0, 145, 250, 0.18);
     opacity: 1;
     cursor: pointer;
@@ -132,6 +139,13 @@ export const bg = (props) => {
   return `
     background-color: ${props.bg ? props.bg : "transparent"};
     background: ${props.bg ? props.bg : "transparent"};
+
+  `
+}
+
+export const br = (props) => {
+  return `
+    border-radius: ${props.br ? props.br : ""};
 
   `
 }
