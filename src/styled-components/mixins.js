@@ -80,6 +80,18 @@ export const w = (props) => {
   `;
 };
 
+export const minw = (props) => {
+  return `
+    min-width: ${props.minw ? props.minw : ""};
+  `;
+};
+
+export const fontSize = (props) => {
+  return `
+    font-size: ${props.fontSize ? props.fontSize : "1rem"};
+  `;
+};
+
 export const shadow = () => {
   return `
     box-shadow: 2px 2px 6px 0px rgba(120, 120, 120, 0.8);
