@@ -96,7 +96,7 @@ export const ReportItems = ({
             startIcon={<WifiProtectedSetupIcon />}
             color="warning"
             sx={{ ml: desktop ? 4 : 1 }}
-            style={{ height: "36px", minWidth: desktop && "150px" }}
+            style={{ height: "36px" }}
             btnFunction={() => handleResolveBtn(index, type)}
           />
         </Row>

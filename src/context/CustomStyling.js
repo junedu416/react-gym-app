@@ -24,7 +24,7 @@ export const customStyles = createTheme({
   
       error: {
         light: red[400],
-        main: red.A400,
+        main: red[500],
         dark: red.A700,
       },
   
