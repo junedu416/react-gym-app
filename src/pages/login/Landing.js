@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 // import LandingS from "../../assets/LandingS.jpg";
 import LandingL from "../../assets/LandingL.jpg";
 import BasicButton from "../../components/buttons/BasicButton";
-import { MainWindow } from "../../styled-components";
+import { Container, MainWindow } from "../../styled-components";
 
 import { useGlobalState } from "../../config/globalStore";
 
@@ -20,7 +20,7 @@ export const Landing = (props) => {
     }
   }
   return (
-    <MainWindow justify="center">
+    <>
       <div
         style={{
           backgroundColor: "black",
@@ -43,18 +43,16 @@ export const Landing = (props) => {
         />
       </div>
 
-      <div
+      <Container
+        w="100%"
+        justify="space-evenly"
+        align="center"
+        bg="rgba(0, 0, 0, 0.4)"
         style={{
-          width: "100%",
           height: "100%",
           position: "fixed",
-          display: "flex",
-          flexDirection: "column",
           top: "0px",
           left: "0px",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-          backgroundColor: "rgba(0, 0, 0, 0.5)",
           backdropFilter: "blur(1.5px)",
         }}
       >
@@ -75,13 +73,29 @@ export const Landing = (props) => {
         <BasicButton
           text="Get Started"
           variant="outlined"
-          color="success"
-          style={{ color: "lime", borderColor: "lime" }}
+          sx={{
+            fontSize: "1.4rem",
+            color: "lime",
+            width: "240px",
+            mt: 3,
+            mb: 0,
+            border: "1.7px solid lime",
+            borderRadius: "7px",
+            opacity: "0.8",
+            "&:hover": {
+              opacity: "1",
+              color: "black",
+              backgroundColor: "lime",
+              border: "2.5px solid #65FE08",
+              boxShadow: "3px 5px 6px -2px rgba(160, 160, 160, 0.6)",
+            },
+          }}
+          style={{height: "75px"}}
           btnFunction={() => {
             handleClick();
           }}
         />
-      </div>
-    </MainWindow>
+      </Container>
+    </>
   );
 };

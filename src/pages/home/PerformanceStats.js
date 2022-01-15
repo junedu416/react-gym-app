@@ -102,8 +102,6 @@ export const PerformanceStats = (props) => {
     setWorkoutIndex(event.target.value);
   }
 
-  console.log("workout list ", workoutList);
-
   return (
     <>
       <Heading>Performance Stats</Heading>

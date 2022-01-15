@@ -154,6 +154,10 @@ export const Sidebar = (props) => {
     },
   };
 
+  if (location.pathname === "/") {
+    setOpen(false);
+  }
+
   return (
     <Container
       style={{ position: desktop ? "absolute" : "fixed", flexDirection: "row", zIndex: 1 }}
