@@ -133,7 +133,7 @@ export const Checkins = () => {
   }
 
   return (
-    <MainWindow>
+    <>
       <Heading>Check-ins</Heading>
       <Container>
         {msg && (
@@ -168,6 +168,6 @@ export const Checkins = () => {
         <p>Num checked in: {checkedIn}</p>
         <Bar options={options} data={data} />
       </Container>
-    </MainWindow>
+    </>
   );
 };

@@ -14,7 +14,6 @@ import { sendPasswordResetEmail } from "../../services/userServices";
 import BasicButton from "../../components/buttons/BasicButton";
 import { ReusableAlert } from "../../components/ReusableAlert";
 
-
 export const ForgotPassword = () => {
   const [open, setOpen] = useState(true);
   const [error, setError] = useState("");
@@ -67,77 +66,71 @@ export const ForgotPassword = () => {
 
   // {/* <ReusableAlert open type="error" message={error} btnFunction={() => setOpen(false)} /> */}
   return (
-    <MainWindow verticalMiddle>
-      <Container>
-        {error && (
-          <Collapse in={open}>
-            <ReusableAlert
-              open={open}
-              btnFunction={() => {
-                setOpen(false);
-              }}
-              text={error}
-            />
-          </Collapse>
-        )}
-        {message && (
-          <Collapse in={open}>
-            <StyledAlert
-              severity="success"
-              action={
-                <IconButton
-                  aria-label="close"
-                  color="inherit"
-                  size="small"
-                  onClick={() => {
-                    setOpen(false);
-                  }}
-                >
-                  <CloseIcon />
-                </IconButton>
-              }
-            >
-              {message}
-            </StyledAlert>
-          </Collapse>
-        )}
-        <Heading>Password Reset</Heading>
+    <Container>
+      {error && (
+        <Collapse in={open}>
+          <ReusableAlert
+            open={open}
+            btnFunction={() => {
+              setOpen(false);
+            }}
+            text={error}
+          />
+        </Collapse>
+      )}
+      {message && (
+        <Collapse in={open}>
+          <StyledAlert
+            severity="success"
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            }
+          >
+            {message}
+          </StyledAlert>
+        </Collapse>
+      )}
+      <Heading>Password Reset</Heading>
 
-        <p style={{ width: "75%", marginBottom: "50px" }}>
-          Don't worry! Just fill in your email and we'll send you a link to
-          reset your password.
-        </p>
-        <form onSubmit={handleSubmit}>
-          <Container>
-            <TextField
-              required
-              name="email"
-              type="email"
-              label="Email"
-              style={formStyling}
-              onChange={handleFormChange}
-            />
-
-            <BasicButton
-              text="Reset Password"
-              type="submit"
-              disabled={loading}
-            />
-          </Container>
-        </form>
-
+      <p style={{ width: "75%", marginBottom: "50px" }}>
+        Don't worry! Just fill in your email and we'll send you a link to reset
+        your password.
+      </p>
+      <form onSubmit={handleSubmit}>
         <Container>
-          <p style={{ display: "flex" }}>
-            Don't have an account?
-            <TextLink mt="0" p="0 10px" onClick={navigateToRegister}>
-              Register
-            </TextLink>
-          </p>
-          <TextLink mt="0" onClick={login}>
-            Back to Login
-          </TextLink>
+          <TextField
+            required
+            name="email"
+            type="email"
+            label="Email"
+            style={formStyling}
+            onChange={handleFormChange}
+          />
+
+          <BasicButton text="Reset Password" type="submit" disabled={loading} />
         </Container>
+      </form>
+
+      <Container>
+        <p style={{ display: "flex" }}>
+          Don't have an account?
+          <TextLink mt="0" p="0 10px" onClick={navigateToRegister}>
+            Register
+          </TextLink>
+        </p>
+        <TextLink mt="0" onClick={login}>
+          Back to Login
+        </TextLink>
       </Container>
-    </MainWindow>
+    </Container>
   );
 };

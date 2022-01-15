@@ -5,11 +5,8 @@ import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 export const MeetTheTeam = (props) => {
   useRedirectUnauthorisedUser();
   return (
-    <MainWindow>
+    <Container>
       <Heading>Meet The Team</Heading>
-      <Container>
-        
-      </Container>
-    </MainWindow>
+    </Container>
   );
 };

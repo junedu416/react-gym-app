@@ -71,7 +71,7 @@ export const Reporting = () => {
   };
 
   return (
-    <MainWindow>
+    <>
       <Container>
         {!profile && (
           <Collapse in={open}>
@@ -174,6 +174,6 @@ export const Reporting = () => {
       </Container>
 
       {profile && profile.isStaff && <ViewReports />}
-    </MainWindow>
+    </>
   );
 };

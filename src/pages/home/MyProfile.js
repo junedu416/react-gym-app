@@ -7,14 +7,8 @@ import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 export const MyProfile = (props) => {
   useRedirectUnauthorisedUser();
   return (
-    <MainWindow>
+    <Container>
       <Heading>My Profile</Heading>
-      <Container>
-        <div className="content">
-          {/* <DropZone /> */}
-        </div>
-        {/* <UploadButton /> */}
-      </Container>
-    </MainWindow>
+    </Container>
   );
 };
