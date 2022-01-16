@@ -49,7 +49,6 @@ export const ExerciseForm = ({ workoutIndex, submitFunc }) => {
       (input) => (input.value = "")
     );
     setLoading(false);
-    console.log("go back to -1 page")
     navigate(-1)
   };
 
