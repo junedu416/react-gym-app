@@ -13,7 +13,6 @@ import { useGlobalState } from "../../config/globalStore";
 import { getAllExercises } from "../../services/exerciseServices";
 import { editProfile } from "../../services/profileServices";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
-
 import Typography from "@mui/material/Typography";
 import { Menu, MenuItem } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -133,7 +132,7 @@ export const Exercises = () => {
   
   const containExercise = (list, newObj) => {
     for(var i = 0; i < list.length; i++) {
-      if (list[i].exerciseId._id === newObj.exerciseId) {
+      if (list[i].exerciseId&&list[i].exerciseId._id === newObj.exerciseId) {
         console.log('workoutIndex:', i)
         return true
       }

@@ -17,7 +17,6 @@ import Divider from "@mui/material/Divider";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
-// import { Button, ClickAwayListener } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Menu, MenuItem } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -28,7 +27,7 @@ import { editProfile } from "../../services/profileServices";
 import { ExerciseEditForm } from "./ExerciseEditForm";
 import BasicButton from "../../components/buttons/BasicButton";
 import { DeleteWorkout } from "./DeleteWorkout";
-// import { useSearchParams } from "react-router-dom";
+import ClickAwayListener from '@mui/material/ClickAwayListener';
 
 export const EditWorkouts = () => {
   useRedirectUnauthorisedUser();
@@ -41,6 +40,7 @@ export const EditWorkouts = () => {
   const id = open ? "simple-popover" : undefined;
   const workoutList = profile.workouts[workoutIndex];
   const choosePath = ["Add From Popular Exercises", "Add Customized Exercise"];
+
 
   // WILL USE THIS 
   // const [searchParams, setSearchParams] = useSearchParams();
@@ -93,6 +93,10 @@ export const EditWorkouts = () => {
   function handleFinishEditing() {
     navigate("/workouts");
   }
+
+  const handleClickAway = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <>
@@ -162,6 +166,7 @@ export const EditWorkouts = () => {
                 >
                   <Typography sx={{ p: 2, width: "300px" }}>
                     {choosePath.map((el, i) => (
+                      <ClickAwayListener onClickAway={handleClickAway}>
                       <HoverBox align="flex-start">
                         {/* <Divider width="90%" sx={{ ml: 2 }} /> */}
                         <HoverBox align="flex-start">
@@ -177,6 +182,7 @@ export const EditWorkouts = () => {
                         </HoverBox>
                         {/* <Divider width="90%" sx={{ ml: 2 }} /> */}
                       </HoverBox>
+                      </ClickAwayListener>
                     ))}
                   </Typography>
                 </Menu>

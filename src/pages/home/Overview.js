@@ -60,9 +60,9 @@ export const Overview = (props) => {
         <CardStyle desktop>
           <ReportWidget />
         </CardStyle>
-        <CardStyle desktop>
+        {/* <CardStyle desktop>
 
-        </CardStyle>
+        </CardStyle> */}
       </Grid>
     </Container>
   );

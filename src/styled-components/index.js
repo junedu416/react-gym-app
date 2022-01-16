@@ -210,9 +210,9 @@ export const Widget = styled(Container)`
   padding: 20px;
   width: 300px;
   height: 300px;
-  /* overflow: none; */
-  overflow-x: hidden;
-  overflow-y: scroll;
+  overflow: none;
+  /* overflow-x: hidden;
+  overflow-y: scroll; */
   ${(props) => props.bg && bg}
   ::-webkit-scrollbar {
     width: 0;

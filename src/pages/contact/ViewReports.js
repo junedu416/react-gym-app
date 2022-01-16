@@ -1,32 +1,17 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Heading,
-} from "../../styled-components";
+import { Container, Heading } from "../../styled-components";
 import { useGlobalState } from "../../config/globalStore.js";
-
 import { getAllReports, editReport } from "../../services/reportServices.js";
 import { getUserProfile } from "../../services/userServices.js";
 import Unresolved from "../../components/Unresolved";
-// import { Button, Chip } from "@mui/material";
-// import Avatar from "@mui/material/Avatar";
-// import ReportIcon from "@mui/icons-material/Report";
-// import DoneIcon from "@mui/icons-material/Done";
-// import BasicButton from "../../components/buttons/BasicButton";
-// import WifiProtectedSetupIcon from "@mui/icons-material/WifiProtectedSetup";
-
 import useMediaQuery from "@mui/material/useMediaQuery";
-// import { ReportBox, ShowPhoto } from "../../styled-components/contact";
 import { ReportItems } from "./ReportItems";
 
 export const ViewReports = () => {
   const { store } = useGlobalState();
   const { profile } = store;
-  //const [reportList, setReportList] = useState([]);
   const [open, setOpen] = useState([]);
   const [unsocialOpen, setUnsocialOpen] = useState([]);
-  // const [behaviourList, setBehaviourList] = useState([]);
-  // const [equipmentList, setEquipmentList] = useState([]);
   const [behaviourReports, setBehaviourReports] = useState([]);
   const [equipmentReports, setEquipmentReports] = useState([]);
 
@@ -111,11 +96,6 @@ export const ViewReports = () => {
     return request;
   };
 
-  function displayStatus(resolved) {
-    if (resolved) return "Resolved";
-    else return "Unresolved";
-  }
-
   const totalUnresolvedBehaviour = behaviourReports.filter( report => !report.resolved).length;
   const totalUnresolvedEquipment = equipmentReports.filter( report => !report.resolved).length;
 
@@ -137,7 +117,6 @@ export const ViewReports = () => {
           mb="50px"
           br="20px"
           // bg="rgba(80, 160, 160, 0.1)"
-          // bg="#ffcc80"
           bg="rgba(255, 204, 128, 0.2)"
           greyBorder
           style={{
@@ -161,7 +140,6 @@ export const ViewReports = () => {
                   desktop={desktop}
                   profile={profile}
                   handleImageBtn={handleImageBtn}
-                  displayStatus={displayStatus}
                   handleResolveBtn={handleResolveBtn}
                   type="Unsocial Behaviour"
                 />
@@ -204,7 +182,6 @@ export const ViewReports = () => {
                   desktop={desktop}
                   profile={profile}
                   handleImageBtn={handleImageBtn}
-                  displayStatus={displayStatus}
                   handleResolveBtn={handleResolveBtn}
                   type="Faulty Equipment"
                 />

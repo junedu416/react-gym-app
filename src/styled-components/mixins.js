@@ -167,3 +167,24 @@ export const mainTextColor = () => {
     color: blue;
   `
 }
+
+export const mainParagraphColor = () => {
+  return`
+    color: rgb(56, 56, 56);
+  `
+}
+
+export const backgroundColor = () => {
+  return`
+    background: rgba(40, 100, 150, 0.1);
+  `
+}
+
+export const containEventInScreen = () => {
+  return`
+  max-width: 90vw;
+  @media(min-width: 768px) {
+        max-width: 600px;
+  }
+  `
+}

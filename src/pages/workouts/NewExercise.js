@@ -4,11 +4,13 @@ import { ExerciseForm } from'./ExerciseForm';
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
 
-export const NewWorkout = () => {
+
+export const NewExercise = () => {
 
   const {store, dispatch} = useGlobalState();
-  const {profile, workoutId} = store;
+  const {profile, workoutIndex} = store;
   const [errorMessage, setErrorMessage] = useState("");
+
 
 
   const updateProfileExercise = () => {
@@ -29,7 +31,7 @@ export const NewWorkout = () => {
     <Container>
       <Heading>Create Exercise</Heading>
       {errorMessage && <p>{errorMessage}</p>}
-      <ExerciseForm submitFunc = {updateProfileExercise} workoutId = {workoutId}/>
+      <ExerciseForm submitFunc = {updateProfileExercise} workoutIndex = {workoutIndex}/>
     </Container>
   );
 };

@@ -22,8 +22,8 @@ export const sortFromOldestToMostRecent = (list, dateAttribute) => {
     return sortedList
 }
 
-export const filterToToday = (list, dateAttribute) => {
-    const filteredList = list.filter((item) => moment().isSame(item[dateAttribute], 'day'))
+export const filterToToday = (list, startTime, endTime) => {
+    const filteredList = list.filter((item) => moment().isSame(item[startTime], 'day') && !moment().isAfter(item[endTime]))
     return filteredList
 }
 

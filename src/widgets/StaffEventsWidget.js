@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useGlobalState } from '../config/globalStore';
-import { sortFromOldestToMostRecent, filterToCurrent } from '../utils/widget-helpers';
+import { sortFromMostRecentToOldest, filterToToday } from '../utils/widget-helpers';
 import { Widget } from '../styled-components';
 import { EventDetails } from './EventDetails';
 import { WidgetTitle, GreyText } from '../styled-components/widgets';
@@ -14,8 +14,8 @@ export const StaffEventsWidget = ({events}) => {
     useEffect(() => {
         const getUpcomingEvents = (eventsList) => {
             const eventsByMe = eventsList.filter((event) => event.createdBy === profile._id && event.category !== "Competition");
-            const eventsSortedByDate = sortFromOldestToMostRecent(eventsByMe, 'startTime')
-            const eventsToday = filterToCurrent(eventsSortedByDate, 'startTime', 'endTime')
+            const eventsSortedByDate = sortFromMostRecentToOldest(eventsByMe, 'startTime')
+            const eventsToday = filterToToday(eventsSortedByDate, 'startTime', 'endTime')
             console.log("final return value for staff events", eventsToday)
             return eventsToday
         }
