@@ -222,6 +222,7 @@ export const MyProfile = () => {
                   <TextField
                     label="Description"
                     multiline
+                    placeholder="Enter a description or bio about yourself in third person. This will be displayed in Our Teams."
                     minRows={5}
                     maxRows={20}
                     value={description}
