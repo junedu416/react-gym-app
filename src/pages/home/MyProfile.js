@@ -106,6 +106,10 @@ export const MyProfile = () => {
     setEditMode(true);
   };
 
+  const cancelEdit = () => {
+    setEditMode(false);
+  }
+
   const updateStaffDescription = async (data) => {
     try {
       const result = await editProfile(profile.userId, data);
@@ -132,28 +136,16 @@ export const MyProfile = () => {
 
   const handleUpdateDescription = async (e) => {
     e.preventDefault();
-  
     const updated = {...profile, description: description}
-
-    // console.log("profile after spread: ", updated);
     const dataToSend = {
       ...profile,
       description: description,
     }
-
-    // console.log("DATA TO SEND: =========    ", dataToSend);
-    const data = new FormData();
-
-    for (let key in dataToSend) {
-      if (dataToSend[key]) data.append(`${key}`, dataToSend[key]);
-    }
-  
-    // console.log("SUBMIT DATA: ", data);
-
-    // data.append(`description`, description);
     updateStaffDescription(dataToSend);
     setEditMode(false);
   };
+
+  const buttonUpdateSx = { alignSelf: "center", width: mobile && "100%", ml: "0" }
 
   return (
     <Container>
@@ -196,10 +188,10 @@ export const MyProfile = () => {
         </Container>
         <Container
           align="flex-start"
-          minw={mobile ? "70vw" : tablet && "60%"}
+          minw={mobile ? "98vw" : tablet && "60%"}
           p="15px 30px"
           style={{
-            maxWidth: tablet ? "60vw" : "500px",
+            maxWidth: tablet ? "60vw" : "600px",
             background: "rgba(40, 100, 150, 0.07",
             border: "1px solid rgba(40, 40, 40, 0.02)",
             borderRadius: "20px",
@@ -214,15 +206,15 @@ export const MyProfile = () => {
             <Text>{profile.lastName}</Text>
           </Row>
           <Row>
-            <TextBold mr="60px">Email: </TextBold> <Text>{profile.email}</Text>
+            <TextBold mr={mobile ? "10px" : "60px"}>Email: </TextBold> <Text>{profile.email}</Text>
           </Row>
 
           {profile?.isStaff && (
             <>
-              {profile.description && (
-                <Row>
-                  <TextBold mr="20px">My Bio: </TextBold>
-                  <Text>{profile.description}</Text>
+              {!editMode && profile.description && (
+                <Row justify="flex-start" align="flex-start" col>
+                  <TextBold style={{  margin: "9px 0 -15px 0", minWidth: "60px" }}>My Bio: </TextBold>
+                  <Text style={{ textAlign:"justify" }}>{profile.description}</Text>
                 </Row>
               )}
               {editMode ? (
@@ -234,19 +226,29 @@ export const MyProfile = () => {
                     maxRows={20}
                     value={description}
                     onChange={handleChange}
-                    sx={{ width: mobile ? "100%" : tablet ? "320px" : "480px" }}
+                    sx={{ width: mobile ? "100%" : tablet ? "320px" : "480px", mt: 3 }}
                   />
-
+                {description !== profile.description ?
                   <BasicButton
-                    text="Update Bio"
+                    text= "Update Bio"
                     type="submit"
                     color="warning"
+                    sx={ buttonUpdateSx }
                   />
+                  :
+                  <BasicButton
+                    text= "Cancel"
+                    color="secondary"
+                    btnFunction={cancelEdit}
+                    sx={ buttonUpdateSx }
+                  />
+                }
                 </form>
               ) : (
                 <BasicButton
                   text={profile.description ? "Edit Bio" : "Add Description"}
                   btnFunction={editDescription}
+                  sx={{ alignSelf: mobile && "center" }}
                 />
               )}
             </>

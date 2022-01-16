@@ -214,5 +214,5 @@ export const Widget = styled(Container)`
 `;
 
 export const Row = styled(Container)`
-  flex-direction: row;
+  flex-direction: ${props => props.col ? "column" : "row"};
 `
