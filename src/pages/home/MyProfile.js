@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router";
 import { useGlobalState } from "../../config/globalStore";
-import { editProfile } from "../../services/profileServices";
+import { addProfileImage } from "../../services/profileServices";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import { Container, Heading, Row, Text, TextBold } from "../../styled-components/";
 import { ProfilePicture } from "../../components/ProfilePicture";
@@ -16,11 +16,9 @@ const Input = styled("input")({
   display: "none",
 });
 
-export const MyProfile = (props) => {
+export const MyProfile = () => {
   useRedirectUnauthorisedUser();
-  const { btnFunction } = props;
 
-  const navigate = useNavigate();
   const { store, dispatch } = useGlobalState();
   const { profile } = store;
   const theme = useTheme();
@@ -28,30 +26,34 @@ export const MyProfile = (props) => {
   const imageRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const updateProfile = async (event) => {
-    event.preventDefault();
-    // profile.photo = selectedFile;
-    profile.photo = selectedFile;
-    // const profileData = { ...profile, profile.profile.photo };
-    const profileData = { ...profile };
-    const data = new FormData();
-    for (let key in profileData) {
-      if (profileData[key]) data.append(`${key}`, profileData[key]);
+  function handleImageUpload (e) {
+    e.preventDefault();
+    setSelectedFile(e.target.files[0])
+    uploader(e)
+  }
+
+  const updateMyProfile = async (data) => {
+    try {
+      const result = await addProfileImage(profile.userId, data)
+      if(result.data.error) {
+        dispatch({type: "setNotification", data: "There was an error updating your image"})
+      } else {
+        dispatch({type: "setProfile", data: result.data})
+        dispatch({type: "setNotification", data: "successfully updated your profile image"})
+      }
+    } catch (error) {
+      console.log("error caught: ", error)
+      dispatch({type: "setNotification", data: "There was an error updating your image"})
     }
+  }
 
-    await editProfile(profile.userId, profileData);
-    setSelectedFile(null);
-    dispatch({
-      type: "setNotification",
-      data: "Profile successfully updated!",
-    });
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    const data = new FormData();
+    data.append(`photo`, selectedFile)
+    updateMyProfile(data)
+  }
 
-    // setTimeout(() => {
-    //   setMessage("");
-    // }, 5000);
-
-    // navigate("/Overview")
-  };
 
   function useDisplayImage() {
     const [result, setResult] = useState("");
@@ -70,6 +72,8 @@ export const MyProfile = (props) => {
   }
   console.log("UPDATE PROFILE: ", profile);
   const { result, uploader } = useDisplayImage();
+
+  
 
   return (
     <Container>
@@ -95,10 +99,7 @@ export const MyProfile = (props) => {
               accept="image/*"
               id="select-avatar"
               type="file"
-              onChange={(e) => {
-                setSelectedFile(e.target.files[0]);
-                uploader(e);
-              }}
+              onChange={handleImageUpload}
             />
             <Button variant="contained" component="span" sx={{ mb: 3 }}>
               Select Photo
@@ -108,7 +109,7 @@ export const MyProfile = (props) => {
           {result && (
             <BasicButton
               text="Update"
-              btnFunction={updateProfile}
+              btnFunction={handleSubmit}
               sx={{ alignSelf: mobile ? "center" : "" }}
             />
           )}
