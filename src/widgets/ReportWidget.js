@@ -6,6 +6,7 @@ import { getAllReports } from "../services/reportServices";
 import BasicButton from "../components/buttons/BasicButton";
 import { sortFromOldestToMostRecent } from "../utils/widget-helpers";
 import { WidgetTitle } from "../styled-components/widgets";
+import { getShortenedString } from "../utils/widgetUtils";
 
 
 const ReportWidget = () => {
@@ -30,13 +31,6 @@ const ReportWidget = () => {
         });
     }, [profile]);
 
-    function getShortenedString(string) {
-        let newString = string.substring(0, 50);
-        if (newString.length < string.length) {
-            newString = `${newString}...`
-        }
-        return newString;
-    }
 
     return (
         <Widget>
@@ -53,7 +47,7 @@ const ReportWidget = () => {
                             borderTop: index === 0 ? "0.5px solid black" : "none", 
                             borderBottom: "0.5px solid black", 
                             }}>
-                            <p style={{fontSize: "0.75em"}}>{getShortenedString(report.description)}</p>
+                            <p style={{fontSize: "0.75em"}}>{getShortenedString(report.description, 50)}</p>
                             <p style={{fontSize: "0.75em"}}>{report.resolved ? "Resolved" : "Unresolved"}</p>
                         </div>
                     )

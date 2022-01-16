@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import BasicButton from '../components/buttons/BasicButton';
 import moment from 'moment';
 import { EventDiv, EventTitle, EventParag, AlignRight } from '../styled-components/widgets';
+import { getShortenedString } from '../utils/widgetUtils';
 
 export const EventDetails = ({events, staff}) => {
     const navigate = useNavigate();
@@ -12,11 +13,12 @@ export const EventDetails = ({events, staff}) => {
         navigate(`/events/${eventId}`)
     }
 
+
     return(
         events.map((event, index)=> {
             if(index > 1) return <></>;
             return( <EventDiv key={index} >
-                <EventTitle>{event.name}</EventTitle>
+                <EventTitle>{getShortenedString(event.name, 20)}</EventTitle>
                 <EventParag>{moment(event.startTime).format('h:mm A')} - {moment(event.endTime).format('h:mm A')}</EventParag>
                 {staff && <EventParag>{event.registeredUsers.length} {event.registeredUsers.length === 1 ? "person" : "people"} registered</EventParag>}
                 <AlignRight>
