@@ -90,7 +90,9 @@ export const Grid = styled.div`
       : "repeat(1, minmax(100px, 1fr))"};
   grid-auto-rows: auto;
   gap: ${props =>
-    props.laptop ? props.desktop ? "60px" : "30px" : "15px"};
+    props.laptop ? props.desktop ? "50px" : "30px" : "15px"};
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ButtonLink = styled(Link)`

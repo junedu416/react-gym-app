@@ -12,24 +12,25 @@ export const StaffCard = (props) => {
   const { store, dispatch } = useGlobalState();
   const { profile } = store;
   const theme = useTheme();
+  const mobile = useMediaQuery(theme.breakpoints.down("sm"));
   const tablet = useMediaQuery(
     theme.breakpoints.up("sm") && theme.breakpoints.down("md")
   );
-  const mobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   console.log("Profile in Our TEAM: ", profile);
   console.log("props ", props);
 
   return (
     <Container
-      w={mobile ? "95%" : "500px"}
+      w={mobile ? "95%" : tablet ? "435px" : "400px"}
       h={mobile ? "280px" : "300px"}
       br=" 10px"
       greyBorder
       shadow
       hoverMixin
       justify="flex-start"
-      style={{ overflow: "hidden", height: "1%" }}
+      m="0 auto"
+      style={{ overflow: "hidden", height: "100%" }}
     >
       <SmallHeading m="5px 0 10px" fs={mobile ? "2.2rem" : "2.5rem"  }>
         {profile.firstName} {profile.lastName}
@@ -38,8 +39,8 @@ export const StaffCard = (props) => {
         <Container w="35%">
           <ProfilePicture
             profile={profile}
-            w={mobile ? "85%" : "140px"}
-            h={mobile ? "85%" : "140px"}
+            w="120px"
+            h="120px"
             mb="5px"
           />
           <BasicButton
@@ -50,7 +51,7 @@ export const StaffCard = (props) => {
           />
         </Container>
         <Container w="65%" p="0 20px" align="flex-start">
-          <Text fontSize={mobile ? "12px" : "0.9rem"} m="0" justified>
+          <Text fontSize={mobile ? "12px" : "14px"} m="0" justified>
             {profile.description}
           </Text>
         </Container>

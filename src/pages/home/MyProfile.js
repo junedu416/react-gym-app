@@ -13,10 +13,10 @@ import { ProfilePicture } from "../../components/ProfilePicture";
 import BasicButton from "../../components/buttons/BasicButton";
 import { styled } from "@mui/material/styles";
 import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { Button } from "@mui/material";
 import { ProfileImage } from "../../styled-components/profile";
 import TextField from "@mui/material/TextField";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const Input = styled("input")({
   display: "none",
