@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import { flexbox, centered, backgroundColor } from "./mixins";
+import { flexbox, centered, hoverMixin, backgroundColor } from "./mixins";
 
 export const CardStyle = styled.div`
   ${flexbox};
   ${centered};
+  ${hoverMixin};
   ${backgroundColor};
   width: ${props => props.desktop ? "360px" : "300px"};
   height: ${props => props.desktop ? "360px" : "300px"};

@@ -19,7 +19,9 @@ import {
   hoverMixin,
   bg,
   pl,
-  br
+  br,
+  h,
+  justified
 } from "./mixins";
 import { Link } from "react-router-dom";
 import { Alert, Dialog } from "@mui/material";
@@ -27,17 +29,19 @@ import { Alert, Dialog } from "@mui/material";
 export const Container = styled.div`
   ${flexbox};
   ${centered};
-  ${(props) => props.shadow && shadow}
-  ${(props) => props.greyBorder && greyBorder}
-  ${(props) => props.mt && mt}
-  ${(props) => props.ml && ml}
-  ${(props) => props.mr && mr}
-  ${(props) => props.m && m}
-  ${(props) => props.mb && mb}
-  ${(props) => props.p && p}
-  ${(props) => props.pl && pl}
-  ${(props) => props.w && w}
-  ${(props) => props.minw && minw}
+  ${props => props.shadow && shadow}
+  ${props => props.greyBorder && greyBorder}
+  ${props => props.hoverMixin && hoverMixin}
+  ${props => props.mt && mt}
+  ${props => props.ml && ml}
+  ${props => props.mr && mr}
+  ${props => props.m && m}
+  ${props => props.mb && mb}
+  ${props => props.p && p}
+  ${props => props.pl && pl}
+  ${props => props.w && w}
+  ${props => props.h && h}
+  ${props => props.minw && minw}
   ${props => props.bg && bg}
   ${props => props.br && br}
 `;
@@ -61,7 +65,7 @@ export const MainWindow = styled.div`
 `;
 
 export const Heading = styled.h1`
-  font-size: ${props => props.phone ? "2.7rem" : props.desktop ? "3.6rem" : "3.2rem"};
+  font-size: ${props => props.fs ? props.fs : "3.2rem"};
   color: ${props => props.color ? props.color : "blue"};
   text-align: ${props => props.textAlign ? props.textAlign : "center"};
   padding-left: 10px; 
@@ -72,7 +76,7 @@ export const Heading = styled.h1`
 export const SmallHeading = styled.h2`
   ${p}
   ${m}
-  font-size: ${props => props.size ? props.size : "2.5rem"};
+  font-size: ${props => props.fs ? props.fs : "2.5rem"};
   color: ${props => props.color ? props.color : "blue"};
 `;
 
@@ -86,7 +90,9 @@ export const Grid = styled.div`
       : "repeat(1, minmax(100px, 1fr))"};
   grid-auto-rows: auto;
   gap: ${props =>
-    props.laptop ? props.desktop ? "60px" : "30px" : "15px"};
+    props.laptop ? props.desktop ? "50px" : "30px" : "15px"};
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ButtonLink = styled(Link)`
@@ -124,6 +130,7 @@ export const Text = styled.p`
   flex-direction: row;
   ${(props) => props.p && p}
   ${(props) => props.m && m}
+  ${(props) => props.justified && justified}
   ${(props) => props.fontSize && fontSize}
 `;
 
@@ -214,5 +221,5 @@ export const Widget = styled(Container)`
 `;
 
 export const Row = styled(Container)`
-  flex-direction: row;
+  flex-direction: ${props => props.col ? "column" : "row"};
 `

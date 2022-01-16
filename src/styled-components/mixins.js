@@ -86,6 +86,12 @@ export const w = (props) => {
   `;
 };
 
+export const h = (props) => {
+  return `
+    height: ${props.h ? props.h : ""};
+  `;
+};
+
 export const minw = (props) => {
   return `
     min-width: ${props.minw ? props.minw : ""};
@@ -96,6 +102,12 @@ export const fontSize = (props) => {
   return `
     font-size: ${props.fontSize ? props.fontSize : "1rem"};
   `;
+};
+
+export const justified = (props) => {
+  return `
+    text-align: ${props.justified && "justify"};
+`;
 };
 
 export const shadow = () => {
@@ -129,7 +141,7 @@ export const hoverMixin = () => {
     background: rgba(0, 145, 250, 0.18);
     background-color: rgba(0, 145, 250, 0.18);
     opacity: 1;
-    cursor: pointer;
+    cursor: cursor;
     color: rgba(80, 80, 80, 0.9);
   }
   `;
