@@ -163,7 +163,7 @@ export const EditWorkouts = () => {
                   <Typography sx={{ p: 2, width: "300px" }}>
                     {choosePath.map((el, i) => (
                       <HoverBox align="flex-start">
-                        <Divider width="90%" sx={{ ml: 2 }} />
+                        {/* <Divider width="90%" sx={{ ml: 2 }} /> */}
                         <HoverBox align="flex-start">
                           <MenuItem
                             key={i}
@@ -175,7 +175,7 @@ export const EditWorkouts = () => {
                             <AddCircleIcon sx={{ mr: 1 }} /> {el}
                           </MenuItem>
                         </HoverBox>
-                        <Divider width="90%" sx={{ ml: 2 }} />
+                        {/* <Divider width="90%" sx={{ ml: 2 }} /> */}
                       </HoverBox>
                     ))}
                   </Typography>

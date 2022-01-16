@@ -248,6 +248,7 @@ export const ViewReports = () => {
             {equipmentReports.map((report, index) => {
               return (
                 <ReportItems
+                  key={index}
                   open={open}
                   report={report}
                   index={index}

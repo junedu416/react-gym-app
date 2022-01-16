@@ -167,6 +167,7 @@ export const WorkoutStart = (props) => {
         {list.map((exercise, index) => (
           <>
             <Container
+              key={index}
               align="flex-start"
               w="100%"
               p="5px 0px 0px 15px"

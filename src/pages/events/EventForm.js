@@ -100,8 +100,8 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText }) => {
           sx={{ mb: 2 }}
           fullWidth
         >
-          {eventCategories.map((category) => (
-            <MenuItem value={category}>{category}</MenuItem>
+          {eventCategories.map((category, index) => (
+            <MenuItem key={index} value={category}>{category}</MenuItem>
           ))}
         </TextField>
 
@@ -118,8 +118,8 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText }) => {
                 // helperText="Please select class"
                 fullWidth
               >
-                {gymClasses.map((groupClass) => (
-                  <MenuItem value={groupClass.name}>{groupClass.name}</MenuItem>
+                {gymClasses.map((groupClass, index) => (
+                  <MenuItem key={index} value={groupClass.name}>{groupClass.name}</MenuItem>
                 ))}
               </TextField>
             ) : (
