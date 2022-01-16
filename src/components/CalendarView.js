@@ -10,7 +10,6 @@ import { convertTimeToAcceptedFormat } from "../utils/events-helper-functions.js
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 const CalendarView = ({ eventCategory }) => {
-  // is it keeping my changes
   const {store} = useGlobalState()
   const {profile} = store;
   const localizer = momentLocalizer(moment);
