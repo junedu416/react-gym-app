@@ -1,8 +1,7 @@
 import "whatwg-fetch"
 import { createNewEvent, getAllEvents } from "../src/services/eventsServices";
-import { rest } from "msw";
 import { setupServer } from 'msw/node';
-import { handlers, serverUrl } from "./mocks/handlers";
+import { handlers } from "./mocks/handlers";
 
 
 
@@ -32,19 +31,6 @@ describe("createNewEvent", () => {
         const response = await createNewEvent(eventObj)
         expect(response.name).toBe("testing event")
     })
-
-    // test('that it throws and error when request fails', async() => {
-    //     server.use(
-    //         rest.post(`${serverUrl}/events`, (req, res, ctx) => {
-    //             return res(
-    //                 ctx.status(422),
-    //                 ctx.json({error: "Request failed with status code 422"})
-    //             )
-    //         })
-    //     )
-    //     const response = await createNewEvent(eventObj);
-    //     expect(() => createNewEvent(eventObj)).toThrow();
-    // })
 })
 
 describe("getAllEvents", () => {

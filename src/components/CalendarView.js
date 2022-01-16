@@ -36,24 +36,22 @@ const CalendarView = ({ eventCategory }) => {
       });
     }
     return;
-  }, [eventCategory]);
+  }, [eventCategory, profile]);
 
   //=======
   // load events from backend
   //=======
   useEffect(() => {
-    if (eventsVars.events === null) {
-      getAllEvents()
-        .then((eventsList) => {
-          console.log("fetched data");
-          eventsList.forEach((event) => {
-            convertTimeToAcceptedFormat(event);
-          });
-          dispatchEventsVars({ type: "setEventsList", data: eventsList });
-        })
-        .catch((error) => console.log(`error caught fetching events: `, error));
-    }
-  }, [eventsVars.events]);
+    getAllEvents()
+      .then((eventsList) => {
+        console.log("fetched data");
+        eventsList.forEach((event) => {
+          convertTimeToAcceptedFormat(event);
+        });
+        dispatchEventsVars({ type: "setEventsList", data: eventsList });
+      })
+      .catch((error) => console.log(`error caught fetching events: `, error));
+  }, []);
 
   // ==========
   // filter events  by category

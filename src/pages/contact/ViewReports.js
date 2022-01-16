@@ -29,8 +29,8 @@ export const ViewReports = () => {
   const [reportList, setReportList] = useState([]);
   const [open, setOpen] = useState([]);
   const [unsocialOpen, setUnsocialOpen] = useState([]);
-  const [behaviourList, setBehaviourList] = useState([]);
-  const [equipmentList, setEquipmentList] = useState([]);
+  // const [behaviourList, setBehaviourList] = useState([]);
+  // const [equipmentList, setEquipmentList] = useState([]);
 
   // REMOVE LATER!!
   const desktop = useMediaQuery("(min-width:1400px)");
@@ -57,8 +57,8 @@ export const ViewReports = () => {
         (report) => report.type === "Faulty Equipment"
       );
 
-      setBehaviourList(behaviourReports);
-      setEquipmentList(equipmentReports)
+      // setBehaviourList(behaviourReports);
+      // setEquipmentList(equipmentReports)
     };
 
     fetchReportsInfo().catch(console.error);
@@ -239,6 +239,7 @@ export const ViewReports = () => {
             {equipmentReports.map((report, index) => {
               return (
                 <ReportItems
+                  key={index}
                   open={open}
                   report={report}
                   index={index}

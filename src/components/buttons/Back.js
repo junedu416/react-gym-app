@@ -13,9 +13,8 @@ export const Back = (props) => {
         title="Back"
         arrow
       >
-        <IconButton color="primary" aria-label="back" size="large">
+        <IconButton onClick={btnFunction} color="primary" aria-label="back" size="large">
           <ArrowBackIosNewIcon
-            onClick={btnFunction}
             sx={{ fontSize: "2.2rem" }}
           />
         </IconButton>

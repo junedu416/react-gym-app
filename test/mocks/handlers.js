@@ -34,20 +34,4 @@ export const handlers = [
         }
     ]))
     })
-
-    // rest.get(`${serverUrl}/events/001`, (req, res, ctx) => {
-    //     console.log(`request is`, req)
-    //     const {id} = req.url.searchParams.get('id')
-    //     res(ctx.status(200), ctx.json({
-    //         name: "testing event",
-    //         category: "Competition",
-    //         description: "description of competition",
-    //         startTime: "2021-12-20T04:06:58.000Z",
-    //         endTime: "2021-12-20T09:21:58.000Z",
-    //         spotsAvailable: 100,
-    //         eventImage: null,
-    //         registeredUsers: [],
-    //         _id: id
-    //     }))
-    // })
 ]
