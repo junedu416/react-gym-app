@@ -29,7 +29,7 @@ export const StaffCard = (props) => {
       shadow
       hoverMixin
       justify="flex-start"
-      style={{ overflow: "auto" }}
+      style={{ overflow: "hidden", height: "1%" }}
     >
       <SmallHeading m="5px 0 10px" fs={mobile ? "2.2rem" : "2.5rem"  }>
         {profile.firstName} {profile.lastName}
@@ -38,8 +38,8 @@ export const StaffCard = (props) => {
         <Container w="35%">
           <ProfilePicture
             profile={profile}
-            w={mobile ? "90%" : "140px"}
-            h={mobile ? "90%" : "140px"}
+            w={mobile ? "85%" : "140px"}
+            h={mobile ? "85%" : "140px"}
             mb="5px"
           />
           <BasicButton
