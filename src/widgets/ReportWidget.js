@@ -36,10 +36,10 @@ const ReportWidget = () => {
     return (
         <Widget>
             <WidgetTitle style={{padding: 0, margin: "0.5em"}}>{profile && profile.isStaff ? "Unresolved Reports" : "Your Reports"}</WidgetTitle>
+            {reports && reports.length === 0 && <GreyText>There are no reports</GreyText>}
             {
                 reports
                 &&
-                reports.length === 0 ? <GreyText>There are no reports</GreyText> :
                 reports.map((report, index) => {
                     if (index > 1) return (<></>);
                     return (
@@ -49,7 +49,7 @@ const ReportWidget = () => {
                             {index === 0 && reports.length > 1 && <hr />}
                         </WidgetDiv>
                     )
-                })
+                }) 
             }
             {
                 profile
