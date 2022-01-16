@@ -88,7 +88,7 @@ export const ReportItems = ({
             }
             sx={{ mt: 2 }}
             style={{ height: "36px" }}
-            onClick={() => handleImageBtn(index, type)}
+            btnFunction={() => handleImageBtn(index, type)}
           />
 
           <BasicButton
