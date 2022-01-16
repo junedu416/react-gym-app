@@ -1,24 +1,24 @@
 import React from "react";
 import { Container, Row, SmallHeading, Text } from "../../styled-components";
-import { useGlobalState } from "../../config/globalStore";
 import BasicButton from "../../components/buttons/BasicButton";
-import { styled } from "@mui/material/styles";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { ProfileImage } from "../../styled-components/profile";
 import { ProfilePicture } from "../../components/ProfilePicture";
+import { useNavigate } from "react-router-dom";
 
-export const StaffCard = (props) => {
-  const { store, dispatch } = useGlobalState();
-  const { profile } = store;
+export const StaffCard = ({staff}) => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const mobile = useMediaQuery(theme.breakpoints.down("sm"));
   const tablet = useMediaQuery(
     theme.breakpoints.up("sm") && theme.breakpoints.down("md")
   );
 
-  console.log("Profile in Our TEAM: ", profile);
-  console.log("props ", props);
+  const moveToCalendar = (e) => {
+    e.preventDefault();
+    navigate('/events')
+  }
+
 
   return (
     <Container
@@ -33,12 +33,12 @@ export const StaffCard = (props) => {
       style={{ overflow: "hidden", height: "100%" }}
     >
       <SmallHeading m="5px 0 10px" fs={mobile ? "2.2rem" : "2.5rem"  }>
-        {profile.firstName} {profile.lastName}
+        {staff.firstName} {staff.lastName}
       </SmallHeading>
       <Row align="flex-start" justify="flex-start">
         <Container w="35%">
           <ProfilePicture
-            profile={profile}
+            profile={staff}
             w="120px"
             h="120px"
             mb="5px"
@@ -48,11 +48,12 @@ export const StaffCard = (props) => {
             color="success"
             sx={{ background: "lime", color: "gray" }}
             style={{ minWidth: mobile && "100px", height: "40px" }}
+            btnFunction={moveToCalendar}
           />
         </Container>
         <Container w="65%" p="0 20px" align="flex-start">
           <Text fontSize={mobile ? "12px" : "14px"} m="0" justified>
-            {profile.description}
+            {staff.description}
           </Text>
         </Container>
       </Row>
