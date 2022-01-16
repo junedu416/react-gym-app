@@ -13,6 +13,7 @@ import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { displayUnits } from "../../utils/workoutFunctions";
 
 export const WorkoutStart = (props) => {
   useRedirectUnauthorisedUser();
@@ -47,10 +48,6 @@ export const WorkoutStart = (props) => {
     setOpen(false);
     navigate("/workouts");
   };
-
-  // useEffect(() => {
-  //   setCounter(0)
-  // }, []);
 
   const handleExerciseCompleted = (newExerciseCompleted) => {
     setExerciseCompleted({
@@ -126,12 +123,6 @@ export const WorkoutStart = (props) => {
       // );
     }
   }, [exerciseCompleted, updateProfileWorkouts, list.length]);
-
-  const determineUnits = (distance) => {
-    if (distance > 1000) return `${distance / 1000} km`;
-    else if (distance > 0) return `${distance} m`;
-    else return null;
-  };
 
   return (
     <>
@@ -220,7 +211,7 @@ export const WorkoutStart = (props) => {
                     <Container>
                       <WorkoutText mb="0">Distance</WorkoutText>
                       <WorkoutText>
-                        {determineUnits(exercise.distance)}
+                        {displayUnits(exercise.distance)}
                       </WorkoutText>
                     </Container>
                   )}

@@ -30,7 +30,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
-import { ReusableModal } from "../../components/ReusableModal";
+// import { ReusableModal } from "../../components/ReusableModal";
 import { displayUnits } from "../../utils/workoutFunctions";
 import Workoutbgimg from "../../assets/workouts.jpg";
 import { WorkoutsBackground } from "../../styled-components/workouts";

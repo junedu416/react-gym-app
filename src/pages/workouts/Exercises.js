@@ -16,6 +16,9 @@ import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 
 import Typography from "@mui/material/Typography";
 import { Menu, MenuItem } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
+// ==== SPRINKLE   FAVOURITES ====
 // import ToggleButton from "@mui/material/ToggleButton";
 // import { Star, StarOutline } from "@mui/icons-material";
 import BasicButton from "../../components/buttons/BasicButton";
@@ -23,12 +26,16 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 export const Exercises = () => {
   useRedirectUnauthorisedUser();
+
+  const laptop =  useMediaQuery("(min-width:1024px)");
+  const desktop = useMediaQuery("(min-width:1400px)");
+
+  // ===== Favourites =====
   // const [selected, setSelected] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [exerciseList, setExerciseList] = useState([]);
   const [exerciseIndex, setExerciseIndex] = useState(null);
-  //const [workoutIndex, setWorkoutIndex] = useState(null);
   const { store, dispatch } = useGlobalState();
   const { profile, workoutIndex} = store;
   const initialValues = {
@@ -175,7 +182,7 @@ export const Exercises = () => {
       <Heading>Select Exercise</Heading>
       {profile && (
         <Container>
-          <Grid>
+          <Grid laptop={laptop} desktop={desktop}>
             {exerciseList.map((exercise, index) => (
               <ExerciseCardStyling
                 p="10px 15px"
@@ -183,6 +190,7 @@ export const Exercises = () => {
                 key={index}
               >
                 <Container>
+{/* ==== FAVOURITES ==== */}
                   {/* <Container
                     direction="row"
                     justify="space-between"
@@ -191,7 +199,7 @@ export const Exercises = () => {
                     <SmallHeading style={{ fontSize: "1.3rem" }}>
                       {exercise.name}
                     </SmallHeading>
-            {/* ***** feature (sprinkle) - Add to Favorite   ********* */}
+{/* ==== FAVOURITES ==== */}
                     {/* <ToggleButton
                       disableRipple={true}
                       // value="check"     // Don't know if we need this or not.. 

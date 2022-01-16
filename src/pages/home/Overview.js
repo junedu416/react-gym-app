@@ -36,7 +36,7 @@ export const Overview = (props) => {
     }
   }, [eventsList]);
 
-  const laptop =  useMediaQuery("(min-width:1000px)");
+  const laptop =  useMediaQuery("(min-width:1023px)");
   const desktop = useMediaQuery("(min-width:1400px)");
 
   return (
