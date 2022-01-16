@@ -40,7 +40,6 @@ export const ViewReports = () => {
     const fetchReportsInfo = async () => {
       const reports = await getAllReports();
       for (let report of reports) {
-        // console.log("report: ", report);
         let reporterProfile = await getUserProfile(report.userId);
         const reporterFullName = reporterProfile
           ? reporterProfile.firstName + " " + reporterProfile.lastName
@@ -140,7 +139,6 @@ export const ViewReports = () => {
   };
 
   // console.log("reportValueToSend:", reportValues);
-
   // const totalUnresolved = reportList.filter((report) => !report.resolved).length;
 
   function displayStatus(resolved) {
@@ -151,18 +149,13 @@ export const ViewReports = () => {
   const equipmentReports = reportList.filter(
     (report) => report.type === "Faulty Equipment"
   );
-    //   if (report.type === "Faulty Equipment") {
-    //     return {...report, index}
-    //   }
-    // }
 
   const behaviourReports = reportList.filter(
     (report) => report.type === "Unsocial Behaviour"
   );
 
-  
-  console.log("EQ Reports: ", equipmentReports);
-  console.log("B Reports: ", behaviourReports);
+  // console.log("EQ Reports: ", equipmentReports);
+  // console.log("B Reports: ", behaviourReports);
 
   const totalUnresolvedBehaviour = behaviourReports.filter(
     (report) => !report.resolved
@@ -241,7 +234,6 @@ export const ViewReports = () => {
               flexDirection: "column",
               justifyContent: "flex-start",
               zIndex: "2",
-              // position: "absolute",
             }}
           >
             {equipmentReports.map((report, index) => {
