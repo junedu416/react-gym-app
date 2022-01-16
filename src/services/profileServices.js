@@ -26,8 +26,7 @@ export const addProfileImage = async (uid, imgObj) => {
 export const getStaffProfiles = async () => {
     try{
         const response = await gymApi.get(`/profiles/staff/all`)
-        console.log(response)
-        return response
+        return response.data
     } catch(e) {
         console.log("Error loading staff Info", e)
         throw e
