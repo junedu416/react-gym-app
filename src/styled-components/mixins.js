@@ -155,3 +155,15 @@ export const mainTextColor = () => {
     color: blue;
   `
 }
+
+export const mainParagraphColor = () => {
+  return`
+    color: rgb(56, 56, 56);
+  `
+}
+
+export const backgroundColor = () => {
+  return`
+    background: rgba(40, 100, 150, 0.1);
+  `
+}

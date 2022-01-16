@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mainTextColor } from "./mixins";
+import { mainTextColor, mainParagraphColor } from "./mixins";
 
 export const WidgetTitle = styled.h3`
     ${mainTextColor}; 
@@ -14,17 +14,20 @@ export const GreyText = styled.p`
 `
 
 export const EventTitle = styled.h4`
+    ${mainParagraphColor};
     text-transform: uppercase;
     margin: 0;
     font-size: 1.1rem;
 `
-export const EventDiv = styled.div`
+export const WidgetDiv = styled.div`
     /* border: solid 1px black; */
     width: 100%;
     margin: 0;
+    text-align: ${props => props.centered ? "center" : "left"};
 `
 
 export const EventParag = styled.p`
+    ${mainParagraphColor};
     margin: 0;
     padding: 0;
 `
@@ -36,6 +39,7 @@ export const AlignRight = styled.div`
     width: 100%;
 `
 export const CompTitle = styled.h4`
+    ${mainParagraphColor};
     text-transform: uppercase;
     margin: 0 0 8px 0;
     font-size: 1.1rem;
@@ -49,4 +53,8 @@ export const CompTimes = styled.p`
 export const TimeDiv = styled.div`
     margin: 8px 0 10px 0;
     text-align: center;
+`
+
+export const ReportStatus = styled.p`
+    color: ${props => props.resolved ? "green" : "red"}
 `
