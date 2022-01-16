@@ -18,6 +18,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { getDataInOrder } from "../utils/checkInUtils";
 
 const CheckInWidget = () => {
   const { store, dispatch } = useGlobalState();
@@ -36,8 +37,9 @@ const CheckInWidget = () => {
     getStats().then((data) => {
       if (data) {
         console.log(data);
+        const dataInOrder = getDataInOrder(data);
         setChartData(
-          Object.values(data.dailyStats).map((num) =>
+          Object.values(dataInOrder).map((num) =>
             Math.floor(num / data.weeksActive)
           )
         );
@@ -85,7 +87,8 @@ const CheckInWidget = () => {
           .then(() => {
             getStats().then((data) => {
               console.log(data);
-              const newData = Object.values(data.dailyStats).map((num) =>
+              const dataInOrder = getDataInOrder(data);
+              const newData = Object.values(dataInOrder).map((num) =>
                 Math.floor(num / data.weeksActive)
               );
               setChartData(newData);
