@@ -11,9 +11,10 @@ import { DeleteEvent } from './DeleteEvent';
 import { DateDisplay } from './DateDisplay';
 import { useRedirectUnauthorisedUser } from '../../config/customHooks';
 import { Heading, SmallHeading, Container } from '../../styled-components';
-import { Description, EventImage, ShowEventContent } from '../../styled-components/events';
+import { Description, EventImage, ShowEventContent, DescriptionDiv, TrainerName, SpotsLeft } from '../../styled-components/events';
 import { ReusableAlert } from '../../components/ReusableAlert';
 import { CategoryChip } from './CategoryChip';
+import { GreyText } from '../../styled-components/widgets';
 
 export const ShowEvent = () => {
     useRedirectUnauthorisedUser();
@@ -108,19 +109,22 @@ export const ShowEvent = () => {
                     <ShowEventContent>
                         <Heading phone="2rem" desktop="2.7rem" m="15px 0">{event.name}</Heading>
                         <CategoryChip category={event.category} />
-                        {instructor && <h3>Event Listed by {`${instructor.firstName} ${instructor.lastName}`}</h3>}
-                        {formatDates.isFinished ? <p>This event has already ended.</p> : <DateDisplay formatDates={formatDates} />}
-                        {event.eventImage ?  <EventImage src={event.eventImage} alt={event.name}/> : <p>-no image available-</p>}
-                        <Description>{event.description}</Description>
+                        {instructor && <TrainerName>Event Listed by {`${instructor.firstName} ${instructor.lastName}`}</TrainerName>}
+                        {formatDates.isFinished ? <GreyText>This event has already ended.</GreyText> : <DateDisplay formatDates={formatDates} />}
+                        {event.eventImage ?  <EventImage src={event.eventImage} alt={event.name}/> : <GreyText>-no image available-</GreyText>}
+                        <DescriptionDiv>
+                            <Description>{event.description}</Description>
+                        </DescriptionDiv>
+                        
                         <div>
                         {!formatDates.isFinished && <>
-                            {event.spotsAvailable && (event.spotsAvailable === 0) && <p>There are no more spots available for this event</p>}
+                            {event.spotsAvailable && (event.spotsAvailable === 0) && <GreyText>There are no more spots available for this event</GreyText>}
                             {userIsRegistered && <>
                                 <p>You are already registered in this event</p>
                                 <BasicButton text="Cancel Registration" color="error" size="large" btnFunction={cancelRegistration}/>
                             </>}
                             {event.category !== "Competition" && event.spotsAvailable !== 0 && !userIsRegistered && <>
-                                <p>{event.spotsAvailable} {event.spotsAvailable === 1 ? "spot" : "spots"} left!</p>
+                                <SpotsLeft spotsAvailable={event.spotsAvailable}>{event.spotsAvailable} {event.spotsAvailable === 1 ? "spot" : "spots"} left</SpotsLeft>
                                 {instructor && (instructor._id !== profile._id) && <BasicButton text="Register" color="success" size="large" btnFunction={registerToEvent} />}
                                 </>}
                             {event.category === "Competition" && !userIsRegistered && <BasicButton text="Register" color="success" size="large" btnFunction={registerToEvent} />}

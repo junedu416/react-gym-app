@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Box from "@mui/material/Box";
+import { backgroundColor, shadow, containEventInScreen, mainParagraphColor } from "./mixins";
 
 export const FilterBox = styled(Box)`
   position: absolute;
@@ -53,12 +54,13 @@ export const ClearButtonFade = styled.div`
 `
 
 export const EventImage = styled.img`
-  max-width: 90vw;
+  ${containEventInScreen};
+  border-radius: 20px;
   max-height: 400px;
   @media(min-width: 768px) {
-        max-width: 600px;
         max-height: 60vh;
   }
+  
 `
 
 export const ShowEventContent = styled.div`
@@ -75,11 +77,30 @@ export const Description = styled.p`
   text-align: left;
   padding: 0 10px;
   @media(min-width: 768px) {
-    font-size: 16px;
-    max-width: 700px;
+    font-size: 1.2rem;
   }
 `
 export const EventCardDiv = styled.div`
   /* margin: 10px; */
   padding: 20px 30px 0 30px;
+`
+
+export const DescriptionDiv = styled.div`
+  ${containEventInScreen};
+  ${backgroundColor};
+  ${shadow};
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 20px;
+`
+
+export const TrainerName = styled.h3`
+  ${mainParagraphColor};
+  font-size: 1.3rem;
+
+`
+
+export const SpotsLeft = styled.p`
+  color: ${props => props.spotsAvailable < 3 ? "rgb(244,67,53)" : "rgb(0, 196, 0)"};
+  font-size: 1.2rem;
 `
