@@ -202,7 +202,7 @@ export const ViewReports = () => {
                   open={open}
                   unsocialOpen={unsocialOpen}
                   report={report}
-                  index={report._id}
+                  index={index}
                   laptop={laptop}
                   desktop={desktop}
                   profile={profile}
@@ -244,7 +244,7 @@ export const ViewReports = () => {
                 <ReportItems
                   open={open}
                   report={report}
-                  index={report._id}
+                  index={index}
                   laptop={laptop}
                   desktop={desktop}
                   profile={profile}
