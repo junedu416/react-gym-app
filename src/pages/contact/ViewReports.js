@@ -156,10 +156,10 @@ export const ViewReports = () => {
   // console.log("reportValueToSend:", reportValues);
   // const totalUnresolved = reportList.filter((report) => !report.resolved).length;
 
-  function displayStatus(resolved) {
-    if (resolved) return "Resolved";
-    else return "Unresolved";
-  }
+  // function displayStatus(resolved) {
+  //   if (resolved) return "Resolved";
+  //   else return "Unresolved";
+  // }
   
   
 
@@ -214,7 +214,7 @@ export const ViewReports = () => {
                   desktop={desktop}
                   profile={profile}
                   handleImageBtn={handleImageBtn}
-                  displayStatus={displayStatus}
+                  // displayStatus={displayStatus}
                   handleResolveBtn={handleResolveBtn}
                   type="Unsocial Behaviour"
                 />
@@ -256,7 +256,7 @@ export const ViewReports = () => {
                   desktop={desktop}
                   profile={profile}
                   handleImageBtn={handleImageBtn}
-                  displayStatus={displayStatus}
+                  // displayStatus={displayStatus}
                   handleResolveBtn={handleResolveBtn}
                   type="Faulty Equipment"
                 />

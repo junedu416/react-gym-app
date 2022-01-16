@@ -5,8 +5,9 @@ import { Widget } from "../styled-components/index";
 import { getAllReports } from "../services/reportServices";
 import BasicButton from "../components/buttons/BasicButton";
 import { sortFromOldestToMostRecent } from "../utils/widget-helpers";
-import { WidgetTitle } from "../styled-components/widgets";
+import { WidgetTitle, WidgetDiv, EventParag, GreyText } from "../styled-components/widgets";
 import { getShortenedString } from "../utils/widgetUtils";
+import { ReportStatusIcon } from "../pages/contact/ReportStatusIcon";
 
 
 const ReportWidget = () => {
@@ -38,18 +39,15 @@ const ReportWidget = () => {
             {
                 reports
                 &&
+                reports.length === 0 ? <GreyText>There are no reports</GreyText> :
                 reports.map((report, index) => {
                     if (index > 1) return (<></>);
                     return (
-                        <div key={index} style={{ 
-                            textAlign: "center",
-                            width: "100%", 
-                            borderTop: index === 0 ? "0.5px solid black" : "none", 
-                            borderBottom: "0.5px solid black", 
-                            }}>
-                            <p style={{fontSize: "0.75em"}}>{getShortenedString(report.description, 50)}</p>
-                            <p style={{fontSize: "0.75em"}}>{report.resolved ? "Resolved" : "Unresolved"}</p>
-                        </div>
+                        <WidgetDiv centered>
+                            <EventParag style={{marginBottom: "12px"}}>{getShortenedString(report.description, 50)}</EventParag>
+                            <ReportStatusIcon resolved={report.resolved}/>
+                            {index === 0 && reports.length > 1 && <hr />}
+                        </WidgetDiv>
                     )
                 })
             }

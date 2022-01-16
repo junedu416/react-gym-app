@@ -13,22 +13,17 @@ import { useGlobalState } from "../../config/globalStore";
 import { getAllExercises } from "../../services/exerciseServices";
 import { editProfile } from "../../services/profileServices";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
-
 import Typography from "@mui/material/Typography";
 import { Menu, MenuItem } from "@mui/material";
-// import ToggleButton from "@mui/material/ToggleButton";
-// import { Star, StarOutline } from "@mui/icons-material";
 import BasicButton from "../../components/buttons/BasicButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 export const Exercises = () => {
   useRedirectUnauthorisedUser();
-  // const [selected, setSelected] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [exerciseList, setExerciseList] = useState([]);
   const [exerciseIndex, setExerciseIndex] = useState(null);
-  //const [workoutIndex, setWorkoutIndex] = useState(null);
   const { store, dispatch } = useGlobalState();
   const { profile, workoutIndex} = store;
   const initialValues = {
@@ -126,7 +121,7 @@ export const Exercises = () => {
   
   const containExercise = (list, newObj) => {
     for(var i = 0; i < list.length; i++) {
-      if (list[i].exerciseId._id === newObj.exerciseId) {
+      if (list[i].exerciseId&&list[i].exerciseId._id === newObj.exerciseId) {
         console.log('workoutIndex:', i)
         return true
       }

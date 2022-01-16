@@ -3,13 +3,12 @@ import Moment from "react-moment";
 import { Container, Row, Text, TextBold } from "../../styled-components";
 import { Chip } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-import ReportIcon from "@mui/icons-material/Report";
-import DoneIcon from "@mui/icons-material/Done";
 import BasicButton from "../../components/buttons/BasicButton";
 import WifiProtectedSetupIcon from "@mui/icons-material/WifiProtectedSetup";
 import { ShowPhoto } from "../../styled-components/contact";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { ReportStatusIcon } from "./ReportStatusIcon";
 
 export const ReportItems = ({
   open,
@@ -19,7 +18,6 @@ export const ReportItems = ({
   laptop,
   profile,
   handleImageBtn,
-  displayStatus,
   handleResolveBtn,
   type,
   unsocialOpen,
@@ -60,12 +58,7 @@ export const ReportItems = ({
         </Row>
         <Row justify="flex-start" style={{ flexWrap: "wrap" }}>
           <TextBold mr={desktop ? "15px" : "10px"}>Status: </TextBold>
-          <Chip
-            icon={report.resolved ? <DoneIcon /> : <ReportIcon />}
-            color={report.resolved ? "success" : "error"}
-            label={displayStatus(report.resolved)}
-            variant="filled"
-          />
+          <ReportStatusIcon resolved={report.resolved} />
         </Row>
         <Row>
           {report.resolvedBy && (
