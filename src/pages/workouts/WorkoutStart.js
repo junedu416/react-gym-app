@@ -91,7 +91,7 @@ export const WorkoutStart = (props) => {
   const isWorkoutCompleted = (counter) => {
     if (counter === totalExercises) {
       handleOpen();
-      setTimeout(() => handleClose(), 3500);
+      setTimeout(() => handleClose(), 2000);
     }
   };
 

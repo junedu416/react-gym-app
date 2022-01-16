@@ -82,18 +82,17 @@ export const MyProfile = () => {
     const [result, setResult] = useState("");
 
     function uploader(e) {
-      const imageFile = e.target.files[0]; // Need this line in function otherwise doesn't work.
+      const imageFile = e.target.files[0];
       const reader = new FileReader();
       reader.addEventListener("load", (e) => {
         setResult(e.target.result);
       });
       reader.readAsDataURL(imageFile);
     }
-    // profile.photo = imageRef;
 
     return { result, uploader };
   }
-  console.log("UPDATE PROFILE: ", profile);
+
   const { result, uploader } = useDisplayImage();
 
   useEffect(() => {
@@ -188,10 +187,13 @@ export const MyProfile = () => {
         </Container>
         <Container
           align="flex-start"
+          justify="flex-start"
           minw={mobile ? "98vw" : tablet && "60%"}
+          mb="50px"
           p="15px 30px"
           style={{
             maxWidth: tablet ? "60vw" : "600px",
+            minHeight: mobile ? "100%" : "80vh",
             background: "rgba(40, 100, 150, 0.07",
             border: "1px solid rgba(40, 40, 40, 0.02)",
             borderRadius: "20px",

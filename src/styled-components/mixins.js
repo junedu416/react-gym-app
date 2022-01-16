@@ -104,6 +104,12 @@ export const fontSize = (props) => {
   `;
 };
 
+export const justified = (props) => {
+  return `
+    text-align: ${props.justified && "justify"};
+`;
+};
+
 export const shadow = () => {
   return `
     box-shadow: 2px 2px 6px 0px rgba(120, 120, 120, 0.8);

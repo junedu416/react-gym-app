@@ -20,7 +20,8 @@ import {
   bg,
   pl,
   br,
-  h
+  h,
+  justified
 } from "./mixins";
 import { Link } from "react-router-dom";
 import { Alert, Dialog } from "@mui/material";
@@ -127,6 +128,7 @@ export const Text = styled.p`
   flex-direction: row;
   ${(props) => props.p && p}
   ${(props) => props.m && m}
+  ${(props) => props.justified && justified}
   ${(props) => props.fontSize && fontSize}
 `;
 
