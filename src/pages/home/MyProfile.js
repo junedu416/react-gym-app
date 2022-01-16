@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useGlobalState } from "../../config/globalStore";
 import { addProfileImage, editProfile } from "../../services/profileServices";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
@@ -96,21 +96,15 @@ export const MyProfile = () => {
   console.log("UPDATE PROFILE: ", profile);
   const { result, uploader } = useDisplayImage();
 
-
-
-
-
-
-
-
-
-
-
+  useEffect(() => {
+    if (profile.description) {
+      setDescription(profile.description);
+    }
+  }, []);
 
   const editDescription = () => {
     setEditMode(true);
   };
-
 
   const updateStaffDescription = async (data) => {
     try {
@@ -140,20 +134,10 @@ export const MyProfile = () => {
     e.preventDefault();
     const data = new FormData();
 
-    
     data.append(`description`, description);
     updateStaffDescription(data);
     setEditMode(false);
   };
-
-
-
-
-
-
-
-
-
 
   return (
     <Container>
