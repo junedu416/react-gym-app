@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUserProfile } from '../services/userServices';
 import { useGlobalState } from './globalStore';
@@ -32,7 +32,7 @@ export function useRedirectNonStaffMembers(redirectRoute) {
           }) 
         }
         return
-      }, [profile, dispatch, navigate])
+      }, [profile, dispatch, navigate, redirectRoute])
 }
 
 function checkIfUserIsSaved() {

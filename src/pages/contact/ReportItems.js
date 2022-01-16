@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Moment from "react-moment";
 import { Container, Row, Text, TextBold } from "../../styled-components";
-import { Button, Chip } from "@mui/material";
+import { Chip } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import ReportIcon from "@mui/icons-material/Report";
 import DoneIcon from "@mui/icons-material/Done";

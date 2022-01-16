@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Container, Heading, MainWindow } from "../../styled-components";
+import { Container, Heading } from "../../styled-components";
 import { ExerciseForm } from'./ExerciseForm';
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";

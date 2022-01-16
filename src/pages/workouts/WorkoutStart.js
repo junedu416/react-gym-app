@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import EditButton from "../../components/buttons/Edit";
-import { Container, MainWindow, SmallHeading } from "../../styled-components";
+import React, { useState, useEffect, useCallback } from "react";
+//import EditButton from "../../components/buttons/Edit";
+import { Container, SmallHeading } from "../../styled-components";
 import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
 import Divider from "@mui/material/Divider";
@@ -59,13 +59,13 @@ export const WorkoutStart = (props) => {
     });
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     const tempDisableExButtons = [...disableExButtons];
     for (let i = 0; i < tempDisableExButtons.length; i++) {
       tempDisableExButtons[i] = false;
     }
     setDisableExButtons(tempDisableExButtons);
-  }, []);
+  }, []);*/
 
   function toggleDisabledButtons(index) {
     const tempDisableExButtons = [...disableExButtons];
@@ -98,18 +98,34 @@ export const WorkoutStart = (props) => {
     }
   };
 
+  const updateProfileWorkouts = useCallback(() => {
+    profWorkoutsClone[workoutIndex] = exerciseCompleted;
+    console.log("profWorkoutsClone", profWorkoutsClone);
+    editProfile(profile.userId, {
+      ...profile,
+      workouts: profWorkoutsClone,
+    }).then((response) => {
+      dispatch({ type: "setProfile", data: response.data })
+      setExerciseCompleted({
+        ...exerciseCompleted,
+      exercises: []
+      });
+    });
+  }, [profile, dispatch, profWorkoutsClone, workoutIndex, exerciseCompleted]);
+
   useEffect(() => {
     if (exerciseCompleted.exercises.length === list.length) {
-      profWorkoutsClone[workoutIndex] = exerciseCompleted;
-      console.log("profWorkoutsClone", profWorkoutsClone);
-      editProfile(profile.userId, {
-        ...profile,
-        workouts: profWorkoutsClone,
-      }).then((response) =>
-        dispatch({ type: "setProfile", data: response.data })
-      );
+      updateProfileWorkouts();
+      // profWorkoutsClone[workoutIndex] = exerciseCompleted;
+      // console.log("profWorkoutsClone", profWorkoutsClone);
+      // editProfile(profile.userId, {
+      //   ...profile,
+      //   workouts: profWorkoutsClone,
+      // }).then((response) =>
+      //   dispatch({ type: "setProfile", data: response.data })
+      // );
     }
-  }, [exerciseCompleted]);
+  }, [exerciseCompleted, updateProfileWorkouts, list.length]);
 
   const determineUnits = (distance) => {
     if (distance > 1000) return `${distance / 1000} km`;

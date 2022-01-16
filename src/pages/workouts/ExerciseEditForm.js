@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { formStyling } from "../../styled-components/login";
-import { navigate } from 'react-big-calendar/lib/utils/constants';
+// import { navigate } from 'react-big-calendar/lib/utils/constants';
 import { useGlobalState } from "../../config/globalStore";
 
 
@@ -37,7 +37,7 @@ export const ExerciseEditForm = ({open, setFormOpen, exercise, workoutIndex}) =>
 
   async function editExercise(exercise, formVars){
     const workoutsClone = await JSON.parse(JSON.stringify(profile.workouts));
-    workoutsClone[workoutIndex].exercises.map((el) => {
+    workoutsClone[workoutIndex].exercises.forEach((el) => {
       if(el._id === exercise._id){
         el.sets = formVars.sets;
         el.reps = formVars.reps;

@@ -2,14 +2,14 @@ import { createTheme } from "@mui/material/styles";
 import { red } from "@mui/material/colors";
 import { blue } from "@mui/material/colors";
 import { lightBlue } from "@mui/material/colors";
-import { teal } from "@mui/material/colors";
+//import { teal } from "@mui/material/colors";
 import { green } from "@mui/material/colors";
-import { lightGreen } from "@mui/material/colors";
-import { lime } from "@mui/material/colors";
+//import { lightGreen } from "@mui/material/colors";
+//import { lime } from "@mui/material/colors";
 import { orange } from "@mui/material/colors";
 import { deepOrange } from "@mui/material/colors";
 import { grey } from "@mui/material/colors";
-import { blueGrey } from "@mui/material/colors";
+//import { blueGrey } from "@mui/material/colors";
 
 // const themeConext = useContext(ThemeContext)
 export const customStyles = createTheme({
@@ -93,4 +93,3 @@ export const customStyles = createTheme({
 // blueGrey[200];
 // blueGrey[400];
 // blueGrey[700];
-

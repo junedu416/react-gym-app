@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import CalendarView from "../../components/CalendarView";
@@ -6,7 +6,7 @@ import { Container } from "../../styled-components";
 
 import { FilterEvents } from "../../components/FilterEvents";
 
-import { id } from "date-fns/locale";
+//import { id } from "date-fns/locale";
 
 export const Calendar = (props) => {
   const [eventSelect, setEventSelect] = useState("class");

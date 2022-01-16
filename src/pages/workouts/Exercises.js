@@ -42,8 +42,9 @@ export const Exercises = () => {
   console.log("Workout Index: ", workoutIndex)
 
   const [newExercise, setNewExercise] = useState(initialValues);
-
+  const navigate = useNavigate();
   const addExerciseToWorkout = useCallback(async (workoutIndex) => {
+    
     console.log("useCallback called. workoutIndex is", workoutIndex)
     if(!profile.workouts[workoutIndex]){
         dispatch({
@@ -63,22 +64,23 @@ export const Exercises = () => {
         }).then((response) => {
           dispatch({type: "setProfile", data: response.data});
           dispatch({type: "setNotification", data: "Exercise added to workout"});
+          navigate(-1);
         })
       }
-      navigate(-1);
     
-  }, [profile, dispatch, newExercise])
+  }, [profile, dispatch, newExercise, navigate])
 
-  useEffect(async () => {
-    console.log("use effect running: workoutIndex", workoutIndex)
-    if (workoutIndex !== null) {
-      console.log("inside first if")
-      addExerciseToWorkout(workoutIndex);
-    }
-  }, [workoutIndex])
+  // useEffect(() => {
+  //   console.log("use effect running: workoutIndex", workoutIndex)
+  //   if (workoutIndex !== null) {
+  //     console.log("inside first if")
 
-  useEffect( async() => {    
-    if (exerciseList.length !==0 ){
+  //     // addExerciseToWorkout(workoutIndex);
+  //   }
+  // }, [workoutIndex, addExerciseToWorkout])
+
+  useEffect(() => {    
+    if (exerciseList.length !==0 && exerciseList[exerciseIndex]){
       setNewExercise({
           exerciseId: exerciseList[exerciseIndex]._id,
           sets: exerciseList[exerciseIndex].defaultSets
@@ -95,7 +97,7 @@ export const Exercises = () => {
             : null
         })
     }
-  }, [exerciseIndex]);
+  }, [exerciseIndex, exerciseList]);
 
   useEffect(() => {
     const  fetchExercises = async () => {
@@ -121,7 +123,6 @@ export const Exercises = () => {
 
   const id = open ? "simple-popover" : undefined;
 
-  const navigate = useNavigate();
   
   const containExercise = (list, newObj) => {
     for(var i = 0; i < list.length; i++) {
@@ -147,6 +148,7 @@ export const Exercises = () => {
     //select workout list
     if(Number(event.target.getAttribute("id")) !== workoutIndex){
       dispatch({type: "selectWorkout", data: Number(event.target.getAttribute("id"))});
+      addExerciseToWorkout(Number(event.target.getAttribute("id")));
     } else {
       console.log("workoutIndex not changed")
       addExerciseToWorkout(workoutIndex);
