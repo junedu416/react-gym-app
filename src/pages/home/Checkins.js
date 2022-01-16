@@ -21,6 +21,7 @@ import {
 import { ReusableAlert } from "../../components/ReusableAlert";
 import { Collapse } from "@mui/material";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
+import { getDataInOrder } from "../../utils/checkInUtils";
 
 export const Checkins = () => {
   useRedirectUnauthorisedUser();
@@ -37,17 +38,7 @@ export const Checkins = () => {
   const [chartData, setChartData] = useState([]);
   const [open, setOpen] = useState(true);
 
-  const getDataInOrder = (data) => {
-    return {
-      sun: data.dailyStats.Sunday,
-      mon: data.dailyStats.Monday,
-      tue: data.dailyStats.Tuesday,
-      wed: data.dailyStats.Wednesday,
-      thur: data.dailyStats.Thursday,
-      fri: data.dailyStats.Friday,
-      sat: data.dailyStats.Saturday,
-    }
-  }
+ 
 
   useEffect(() => {
     getCheckedIn().then((data) => {
