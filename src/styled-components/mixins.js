@@ -167,3 +167,12 @@ export const backgroundColor = () => {
     background: rgba(40, 100, 150, 0.1);
   `
 }
+
+export const containEventInScreen = () => {
+  return`
+  max-width: 90vw;
+  @media(min-width: 768px) {
+        max-width: 600px;
+  }
+  `
+}
