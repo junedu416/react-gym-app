@@ -30,7 +30,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
-// import { ReusableModal } from "../../components/ReusableModal";
+import { ReusableModal } from "../../components/ReusableModal";
 import { displayUnits } from "../../utils/workoutFunctions";
 import Workoutbgimg from "../../assets/workouts.jpg";
 import { WorkoutsBackground } from "../../styled-components/workouts";
@@ -293,19 +293,33 @@ export const Workouts = () => {
                 <BasicButton text="Trainer Workouts" color="success" variant="outlined" />
               </ButtonLink>
 
-              <ButtonLink to="/exercises">
+              {/* <ButtonLink to="/exercises">
                 <BasicButton
                   text="View Exercises"
                   variant="outlined"
                   color="error"
                 />
-              </ButtonLink>
+              </ButtonLink> */}
             </Container>
           </Container>
 
           {/* Popup Modal to create Workout */}
-          {/* <ReusableModal /> */}
-          <Dialog open={open} onClose={handleClose}>
+          <ReusableModal
+            children={<TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="New Workout"
+                helperText="Please enter your workout list name"
+                fullWidth
+                variant="standard"
+                onChange={handleChange}
+              />}
+              actionButtons={<><Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={handleCreateBtn}>Create</Button></>}
+           />
+
+          {/* <Dialog open={open} onClose={handleClose}>
             <DialogContent>
               <TextField
                 autoFocus
@@ -322,7 +336,7 @@ export const Workouts = () => {
               <Button onClick={handleClose}>Cancel</Button>
               <Button onClick={handleCreateBtn}>Create</Button>
             </DialogActions>
-          </Dialog>
+          </Dialog> */}
         </Container>
       )}
     </>
