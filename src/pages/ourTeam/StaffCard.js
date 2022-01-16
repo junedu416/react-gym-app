@@ -6,6 +6,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { ProfilePicture } from "../../components/ProfilePicture";
 import { useNavigate } from "react-router-dom";
 
+
 export const StaffCard = ({staff}) => {
   const theme = useTheme();
   const navigate = useNavigate();

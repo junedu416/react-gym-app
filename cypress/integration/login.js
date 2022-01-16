@@ -20,7 +20,8 @@ describe('Login Page', () => {
     afterEach(() => {
         cy.request('DELETE', 'http://localhost:3000/users/delete', {
             uid: uid 
-        }).its('body')
+        }).its('body');
+        cy.request('DELETE', `http://localhost:3000/profiles/${uid}`).its('body');
     })
 
     const loginCorrectUser = () => {
