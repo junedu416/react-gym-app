@@ -129,7 +129,12 @@ export const ViewReports = () => {
     //   ...reportList[index],
     // });
 
-    const request = await editReport(reportList[index]._id, reportList[index]);
+    let request;
+    if (type === "Faulty Equipment") {
+      request = await editReport(equipmentReports[index]._id, equipmentReports[index]);
+    } else {
+      request = await editReport(behaviourReports[index]._id, behaviourReports[index]);
+    }
     console.log("REQUEST: ", request);
     return request;
   };
@@ -202,7 +207,7 @@ export const ViewReports = () => {
                   open={open}
                   unsocialOpen={unsocialOpen}
                   report={report}
-                  index={report._id}
+                  index={index}
                   laptop={laptop}
                   desktop={desktop}
                   profile={profile}
@@ -244,7 +249,7 @@ export const ViewReports = () => {
                 <ReportItems
                   open={open}
                   report={report}
-                  index={report._id}
+                  index={index}
                   laptop={laptop}
                   desktop={desktop}
                   profile={profile}
