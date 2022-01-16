@@ -112,7 +112,7 @@ export const Workouts = () => {
   const laptop =  useMediaQuery("(min-width:1000px)");
   const desktop = useMediaQuery("(min-width:1400px)");
 
-  console.log("workouts ", profile.workouts);
+  // console.log("workouts ", profile.workouts);
 
   return (
     <>
@@ -306,7 +306,7 @@ export const Workouts = () => {
           </Container>
 
           {/* Popup Modal to create Workout */}
-          <ReusableModal />
+          {/* <ReusableModal /> */}
           <Dialog open={open} onClose={handleClose}>
             <DialogContent>
               <TextField

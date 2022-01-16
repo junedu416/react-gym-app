@@ -130,12 +130,28 @@ export const MyProfile = () => {
     }
   };
 
-  const updateDescription = async (e) => {
+  const handleUpdateDescription = async (e) => {
     e.preventDefault();
+  
+    const updated = {...profile, description: description}
+
+    // console.log("profile after spread: ", updated);
+    const dataToSend = {
+      ...profile,
+      description: description,
+    }
+
+    // console.log("DATA TO SEND: =========    ", dataToSend);
     const data = new FormData();
 
-    data.append(`description`, description);
-    updateStaffDescription(data);
+    for (let key in dataToSend) {
+      if (dataToSend[key]) data.append(`${key}`, dataToSend[key]);
+    }
+  
+    // console.log("SUBMIT DATA: ", data);
+
+    // data.append(`description`, description);
+    updateStaffDescription(dataToSend);
     setEditMode(false);
   };
 
@@ -210,7 +226,7 @@ export const MyProfile = () => {
                 </Row>
               )}
               {editMode ? (
-                <>
+                <form onSubmit={handleUpdateDescription}>
                   <TextField
                     label="Description"
                     multiline
@@ -223,10 +239,10 @@ export const MyProfile = () => {
 
                   <BasicButton
                     text="Update Bio"
-                    btnFunction={updateDescription}
+                    type="submit"
                     color="warning"
                   />
-                </>
+                </form>
               ) : (
                 <BasicButton
                   text={profile.description ? "Edit Bio" : "Add Description"}

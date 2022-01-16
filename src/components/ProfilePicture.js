@@ -5,8 +5,8 @@ export const ProfilePicture = (profile) => {
   // const hasProfileImage = Boolean(profile.photo !== null);
   // console.log("has photo? : ", hasProfileImage)
 
-  console.log("IN SIDE PROFILE PICTURE. Profile: ", profile);
-  console.log("profile photo: ", profile.profile.photo);
+  // console.log("IN SIDE PROFILE PICTURE. Profile: ", profile);
+  // console.log("profile photo: ", profile.profile.photo);
 
   return (
     <ProfileImage
