@@ -187,6 +187,7 @@ export const Exercises = () => {
                 p="10px 15px"
                 justify="space-between"
                 key={index}
+                hoverMixin
               >
                 <Container>
 {/* ==== FAVOURITES ==== */}
