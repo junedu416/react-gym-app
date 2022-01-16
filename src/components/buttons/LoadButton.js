@@ -28,7 +28,6 @@ export const LoadButton = (props) => {
       loading={loading}
       loadingPosition={loadPosition ? loadPosition : "end"}
       variant={variant ? variant : "contained"}
-      onClick={btnFunction}
       type={type}
       size={size ? size : "large"}
       style={{ ...buttonStyle, ...style }}

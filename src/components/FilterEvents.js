@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import {
@@ -95,13 +95,14 @@ export const FilterEvents = (props) => {
   // }
 
   // Clears all filters onload
+  /*
   useEffect(() => {
     const tempFilterList = [...filterList];
     for (let i = 0; i < tempFilterList.length; i++) {
       tempFilterList[i] = false;
     }
     setFilterList(tempFilterList);
-  }, []);
+  }, []);*/
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);

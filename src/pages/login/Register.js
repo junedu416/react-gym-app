@@ -6,7 +6,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import {
   Container,
   Heading,
-  MainWindow,
   TextLink,
 } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";

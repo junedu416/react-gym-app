@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useGlobalState } from "../../config/globalStore";
-import { Container, Heading, MainWindow } from "../../styled-components/";
+import { Container, Heading } from "../../styled-components/";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -28,23 +28,12 @@ export const PerformanceStats = (props) => {
   const [data, setData] = useState();
   const [open, setOpen] = useState(true);
 
-  const colors = [
-    "red",
-    "blue",
-    "yellow",
-    "orange",
-    "blueviolet",
-    "brown",
-    "darkgoldenrod",
-    "seagreen",
-    "powderblue",
-    "darkgrey",
-  ];
+  
   const options = {
     responsive: true,
   };
 
-  function getLargestPrevWorkouts() {
+  const getLargestPrevWorkouts = useCallback(() => {
     let longestLength = 0;
     workoutList[workoutIndex].exercises.forEach((exercise) => {
       const prevWeightsLength = exercise.prevWeights.length;
@@ -55,7 +44,7 @@ export const PerformanceStats = (props) => {
       }
     })
     return longestLength;
-  }
+  }, [workoutList, workoutIndex ]);
 
   useEffect(() => {
     if (Object.keys(workoutList).length > 0) {
@@ -67,9 +56,22 @@ export const PerformanceStats = (props) => {
       console.log("newLables will be: ", newLabels);
       setLabels(newLabels);
     }
-  }, [workoutIndex]);
+  }, [workoutIndex, workoutList, getLargestPrevWorkouts]);
 
   useEffect(() => {
+    const colors = [
+      "red",
+      "blue",
+      "yellow",
+      "orange",
+      "blueviolet",
+      "brown",
+      "darkgoldenrod",
+      "seagreen",
+      "powderblue",
+      "darkgrey",
+    ];
+
     console.log("workoutList", workoutList[workoutIndex]);
     if (Object.keys(workoutList).length > 0) {
       const newData = {
@@ -86,7 +88,7 @@ export const PerformanceStats = (props) => {
       console.log("newData", newData);
       setData(newData);
     }
-  }, [labels]);
+  }, [labels, workoutList, workoutIndex]);
 
   ChartJS.register(
     CategoryScale,

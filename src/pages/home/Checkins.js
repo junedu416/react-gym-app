@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Heading, MainWindow } from "../../styled-components/";
+import { Container, Heading } from "../../styled-components/";
 import {
   checkIn,
   checkOut,

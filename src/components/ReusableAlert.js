@@ -1,7 +1,6 @@
 import { Collapse, IconButton } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
-import { useState } from "react";
 import { StyledAlert } from "../styled-components";
 
 export const ReusableAlert = (props) => {

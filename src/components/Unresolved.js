@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Container, Text, TextBold } from "../styled-components";
+import React from "react";
+import { Container, TextBold } from "../styled-components";
 import { RedDot } from "../styled-components/contact";
 
 const Unresolved = ({ text: unresolvedNumber, style, type }) => {

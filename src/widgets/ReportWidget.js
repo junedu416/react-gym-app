@@ -45,7 +45,7 @@ const ReportWidget = () => {
                 reports
                 &&
                 reports.map((report, index) => {
-                    if (index > 1) return;
+                    if (index > 1) return (<></>);
                     return (
                         <div key={index} style={{ 
                             textAlign: "center",
