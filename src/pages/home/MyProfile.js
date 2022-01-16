@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router";
 import { useGlobalState } from "../../config/globalStore";
 import { addProfileImage } from "../../services/profileServices";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";

@@ -3,7 +3,7 @@ import InsertChartIcon from "@mui/icons-material/InsertChart";
 import EventIcon from "@mui/icons-material/Event";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+// import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import CampaignIcon from "@mui/icons-material/Campaign";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import LoginIcon from "@mui/icons-material/Login";
@@ -17,7 +17,7 @@ import { Overview } from "../pages/home/Overview";
 import { Checkins } from "../pages/home/Checkins.js";
 import { PerformanceStats } from "../pages/home/PerformanceStats";
 import { MyProfile } from "../pages/home/MyProfile";
-import { Leaderboards } from "../pages/home/Leaderboards";
+// import { Leaderboards } from "../pages/home/Leaderboards";
 import { Reporting } from "../pages/contact/Reporting";
 import { Register } from "../pages/login/Register";
 import { SignIn } from "../pages/login/Login";
@@ -58,11 +58,6 @@ export const SidebarData = [
     title: [<AccountCircleIcon style={iconMargin} />, "Profile"],
     display: <MyProfile />,
     route: "/myprofile"
-  },
-  {
-    title: [<EmojiEventsIcon style={iconMargin} />, "Leaderboards"],
-    display: <Leaderboards />,
-    route: "/leaderboards"
   },
   {
     title: [<CampaignIcon style={iconMargin} />, "Reports"],
