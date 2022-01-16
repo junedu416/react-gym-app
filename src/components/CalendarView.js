@@ -36,7 +36,7 @@ const CalendarView = ({ eventCategory }) => {
       });
     }
     return;
-  }, [eventCategory]);
+  }, [eventCategory, profile]);
 
   //=======
   // load events from backend

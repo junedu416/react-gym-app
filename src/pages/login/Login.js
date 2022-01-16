@@ -5,7 +5,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import {
   Container,
   Heading,
-  MainWindow,
   TextLink,
 } from "../../styled-components";
 import { formStyling } from "../../styled-components/login";
@@ -15,9 +14,9 @@ import { useNavigate } from "react-router-dom";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { IconButton, InputAdornment, OutlinedInput } from "@mui/material";
-import { RegisterLink, ResetPasswordText } from "../../components/RegisterLink";
+import { RegisterLink } from "../../components/RegisterLink";
 import LoginIcon from "@mui/icons-material/Login";
-import BasicButton from "../../components/buttons/BasicButton";
+// import BasicButton from "../../components/buttons/BasicButton";
 import { LoadButton } from "../../components/buttons/LoadButton";
 import { ReusableAlert } from "../../components/ReusableAlert";
 

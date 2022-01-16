@@ -1,36 +1,34 @@
 import React, { useState, useEffect } from "react";
-import Moment from "react-moment";
 import {
   Container,
   Heading,
-  Row,
-  Text,
-  TextBold,
 } from "../../styled-components";
 import { useGlobalState } from "../../config/globalStore.js";
 
 import { getAllReports, editReport } from "../../services/reportServices.js";
 import { getUserProfile } from "../../services/userServices.js";
 import Unresolved from "../../components/Unresolved";
-import { Button, Chip } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
-import ReportIcon from "@mui/icons-material/Report";
-import DoneIcon from "@mui/icons-material/Done";
-import BasicButton from "../../components/buttons/BasicButton";
-import WifiProtectedSetupIcon from "@mui/icons-material/WifiProtectedSetup";
+// import { Button, Chip } from "@mui/material";
+// import Avatar from "@mui/material/Avatar";
+// import ReportIcon from "@mui/icons-material/Report";
+// import DoneIcon from "@mui/icons-material/Done";
+// import BasicButton from "../../components/buttons/BasicButton";
+// import WifiProtectedSetupIcon from "@mui/icons-material/WifiProtectedSetup";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { ReportBox, ShowPhoto } from "../../styled-components/contact";
+// import { ReportBox, ShowPhoto } from "../../styled-components/contact";
 import { ReportItems } from "./ReportItems";
 
 export const ViewReports = () => {
   const { store } = useGlobalState();
   const { profile } = store;
-  const [reportList, setReportList] = useState([]);
+  //const [reportList, setReportList] = useState([]);
   const [open, setOpen] = useState([]);
   const [unsocialOpen, setUnsocialOpen] = useState([]);
-  const [behaviourList, setBehaviourList] = useState([]);
-  const [equipmentList, setEquipmentList] = useState([]);
+  // const [behaviourList, setBehaviourList] = useState([]);
+  // const [equipmentList, setEquipmentList] = useState([]);
+  const [behaviourReports, setBehaviourReports] = useState([]);
+  const [equipmentReports, setEquipmentReports] = useState([]);
 
   // REMOVE LATER!!
   const desktop = useMediaQuery("(min-width:1400px)");
@@ -47,18 +45,25 @@ export const ViewReports = () => {
         report.reporterFullName = reporterFullName;
       }
 
-      setReportList(reports);
-
-      const behaviourReports = reportList.filter(
-        (report) => report.type === "Unsocial Behaviour"
-      );
-
-      const equipmentReports = reportList.filter(
+      //setReportList(reports);
+      setEquipmentReports(reports.filter(
         (report) => report.type === "Faulty Equipment"
-      );
+      ));
+      setBehaviourReports(reports.filter(
+        (report) => report.type === "Unsocial Behaviour"
+      ))
+      
 
-      setBehaviourList(behaviourReports);
-      setEquipmentList(equipmentReports)
+      // const behaviourReports = reportList.filter(
+      //   (report) => report.type === "Unsocial Behaviour"
+      // );
+
+      // const equipmentReports = reportList.filter(
+      //   (report) => report.type === "Faulty Equipment"
+      // );
+
+      // setBehaviourList(behaviourReports);
+      // setEquipmentList(equipmentReports)
     };
 
     fetchReportsInfo().catch(console.error);
@@ -85,34 +90,44 @@ export const ViewReports = () => {
       }
     }
   };
+  // const equipmentReports = reportList.filter(
+  //   (report) => report.type === "Faulty Equipment"
+  // );
 
-  const [reportValues, setReportValues] = useState({});
-  const [behaviourReportValues, setBehaviourReportValues] = useState({});
+  // const behaviourReports = reportList.filter(
+  //   (report) => report.type === "Unsocial Behaviour"
+  // );
+  // const [reportValues, setReportValues] = useState({});
+  // const [behaviourReportValues, setBehaviourReportValues] = useState({});
   const handleResolveBtn = async (index, type) => {
     if (type === "Unsocial Behaviour") {
-      behaviourReports[index].resolved = !behaviourReports[index].resolved;
-      if (behaviourReports[index].resolved) {
-        behaviourReports[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
+      const behaviourClone = [...behaviourReports];
+      behaviourClone[index].resolved = !behaviourClone[index].resolved;
+      if (behaviourClone[index].resolved) {
+        behaviourClone[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
       } else {
-        behaviourReports[index].resolvedBy = null;
+        behaviourClone[index].resolvedBy = null;
       }
+      setBehaviourReports(behaviourClone);
 
-      setBehaviourReportValues({
-        ...behaviourReports[index],
-      });
+      // setBehaviourReportValues({
+      //   ...behaviourReports[index],
+      // });
     }
 
     else if (type === "Faulty Equipment") {
-      equipmentReports[index].resolved = !equipmentReports[index].resolved;
-      if (equipmentReports[index].resolved) {
-        equipmentReports[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
+      const equipmentClone = [...equipmentReports];
+      equipmentClone[index].resolved = !equipmentClone[index].resolved;
+      if (equipmentClone[index].resolved) {
+        equipmentClone[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
       } else {
-        equipmentReports[index].resolvedBy = null;
+        equipmentClone[index].resolvedBy = null;
       }
+      setEquipmentReports(equipmentClone);
 
-      setReportValues({
-        ...equipmentReports[index],
-      });
+      // setReportValues({
+      //   ...equipmentReports[index],
+      // });
     }
     
     // WORKING CODE: before separation
@@ -146,13 +161,7 @@ export const ViewReports = () => {
     else return "Unresolved";
   }
   
-  const equipmentReports = reportList.filter(
-    (report) => report.type === "Faulty Equipment"
-  );
-
-  const behaviourReports = reportList.filter(
-    (report) => report.type === "Unsocial Behaviour"
-  );
+  
 
   // console.log("EQ Reports: ", equipmentReports);
   // console.log("B Reports: ", behaviourReports);

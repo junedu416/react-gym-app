@@ -11,7 +11,7 @@ import {
   Text,
   TextLink,
 } from "../../styled-components";
-import { Collapse, Paper } from "@mui/material";
+import { Collapse } from "@mui/material";
 import {
   BlackBackground,
   WorkoutCardStyling,
@@ -35,9 +35,9 @@ import { displayUnits } from "../../utils/workoutFunctions";
 import Workoutbgimg from "../../assets/workouts.jpg";
 import { WorkoutsBackground } from "../../styled-components/workouts";
 
-import json2mq from "json2mq";
+//import json2mq from "json2mq";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { Palette } from "@mui/icons-material";
+//import { Palette } from "@mui/icons-material";
 
 export const Workouts = () => {
   useRedirectUnauthorisedUser();

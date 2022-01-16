@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CardStyle } from "../../styled-components/dashboard.js";
-import { Container, Grid, Heading, MainWindow } from "../../styled-components";
+import { Container, Grid, Heading } from "../../styled-components";
 import { useGlobalState } from "../../config/globalStore.js";
 import CheckInWidget from "../../widgets/CheckInWidget.js";
 import ReportWidget from "../../widgets/ReportWidget";

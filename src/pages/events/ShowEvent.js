@@ -10,7 +10,7 @@ import { isUserRegistered, cancelUserRegistration, registerUserToEvent} from '..
 import { DeleteEvent } from './DeleteEvent';
 import { DateDisplay } from './DateDisplay';
 import { useRedirectUnauthorisedUser } from '../../config/customHooks';
-import { Heading, ErrorText, SmallHeading, Container } from '../../styled-components';
+import { Heading, SmallHeading, Container } from '../../styled-components';
 import { Description, EventImage, ShowEventContent } from '../../styled-components/events';
 import { ReusableAlert } from '../../components/ReusableAlert';
 import { CategoryChip } from './CategoryChip';

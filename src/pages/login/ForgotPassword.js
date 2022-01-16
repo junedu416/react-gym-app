@@ -5,7 +5,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import {
   Container,
   Heading,
-  MainWindow,
   StyledAlert,
   TextLink,
 } from "../../styled-components";

@@ -6,6 +6,7 @@ const RememberMe = () => {
     const {dispatch} = useGlobalState();
 
     useEffect(() => {
+        console.log("remembering user")
         const uid = window.localStorage.getItem('uid');
         if (uid) {
             getUserProfile(uid).then((response) => {
@@ -13,7 +14,7 @@ const RememberMe = () => {
                 dispatch({type: "setProfile", data: response});
             });
         }
-    }, []);
+    }, [dispatch]);
 
     return (
         <>
