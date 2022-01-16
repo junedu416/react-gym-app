@@ -17,7 +17,9 @@ import {
   minw,
   mb,
   hoverMixin,
-  bg
+  bg,
+  pl,
+  br
 } from "./mixins";
 import { Link } from "react-router-dom";
 import { Alert, Dialog } from "@mui/material";
@@ -31,10 +33,13 @@ export const Container = styled.div`
   ${(props) => props.ml && ml}
   ${(props) => props.mr && mr}
   ${(props) => props.m && m}
+  ${(props) => props.mb && mb}
   ${(props) => props.p && p}
+  ${(props) => props.pl && pl}
   ${(props) => props.w && w}
   ${(props) => props.minw && minw}
   ${props => props.bg && bg}
+  ${props => props.br && br}
 `;
 
 // TODO: HIDE SCROLL BAR, BUT STILL ALLOW SCROLLING.
@@ -42,11 +47,17 @@ export const Container = styled.div`
 export const MainWindow = styled.div`
   ${flexbox};
   ${vcentered};
-  width: ${props => props.desktop ? "calc(100vw - 230px)" : "100%"};
+  width: ${props => props.desktop ? "calc(100vw - 240px)" : "100%"};
   min-height: 100vh;
-  margin-left: ${props => props.desktop ? "230px" : ""};
+  margin-left: ${props => props.desktop ? "220px" : ""};
   z-index: 0;
   /* ${props => props.verticalMiddle && hcentered} */
+  overflow-y: scroll;
+  overflow-x: hidden;
+  ::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
 `;
 
 export const Heading = styled.h1`
@@ -55,7 +66,7 @@ export const Heading = styled.h1`
   text-align: ${props => props.textAlign ? props.textAlign : "center"};
   padding-left: 10px; 
   padding-right: 10px; 
-  
+  ${props => props.m && m}
 `;
 
 export const SmallHeading = styled.h2`
@@ -133,9 +144,10 @@ export const TextBold = styled.strong`
 
 export const BackWrapper = styled.div`
   position: fixed;
-  top: 15px;
-  left: ${props => props.desktop ? "220px" : props.open ?  "220px" : "10px"};
-  z-index: 5;
+  top: 5px;
+  /* left: ${props => props.desktop ? "220px" : props.open ?  "220px" : "10px"}; */
+  left: ${props => props.desktop ? "220px" : "0px"};
+  z-index: 10;
 `;
 
 export const HoverBox = styled(Container)`
@@ -152,9 +164,9 @@ export const ButtonScroll = styled.div`
    border-radius: 15%;
   width: 50px;
   right: 20px;
-  bottom: 80px;
+  bottom: 60px;
   height: 50px;
-  z-index: 10;
+  z-index: 20;
   cursor: pointer;
   color: white;
   background: rgb(0, 120, 250);

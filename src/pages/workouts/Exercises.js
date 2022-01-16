@@ -147,7 +147,6 @@ export const Exercises = () => {
     //select workout list
     if(Number(event.target.getAttribute("id")) !== workoutIndex){
       dispatch({type: "selectWorkout", data: Number(event.target.getAttribute("id"))});
-      //setWorkoutIndex(Number(event.target.getAttribute("id")))
     } else {
       console.log("workoutIndex not changed")
       addExerciseToWorkout(workoutIndex);

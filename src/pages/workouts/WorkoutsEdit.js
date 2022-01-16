@@ -39,11 +39,10 @@ export const EditWorkouts = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-  // clare
   const workoutList = profile.workouts[workoutIndex];
-  // end clare
   const choosePath = ["Add From Popular Exercises", "Add Customized Exercise"];
 
+  // WILL USE THIS 
   // const [searchParams, setSearchParams] = useSearchParams();
   // searchParams.get("workoutIndex");
 

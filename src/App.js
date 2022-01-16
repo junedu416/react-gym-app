@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Routes, Route } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 
 // import { NavBar } from "./components/NavBar";
 import { Sidebar } from "./pages/home/Sidebar"
@@ -65,7 +64,7 @@ import { customStyles } from "./context/CustomStyling";
 const App = () => {
   const [store, dispatch] = useReducer(globalReducer, initialGlobalState)
   const navigate = useNavigate()
-  // const location = useLocation();
+  const location = useLocation();
   const desktop = useMediaQuery('(min-width:1024px)');
 
   const [open, setOpen] = useState(true); // state for sidebar opened or not  
@@ -77,9 +76,9 @@ const App = () => {
       <ThemeProvider theme={customStyles}>
       <RememberMe />
       <Notification desktop={desktop} open={open} />
-      <Back btnFunction={() => navigate(-1)} open={open} desktop={desktop} />
+      {location.pathname !== "/" && <Back btnFunction={() => navigate(-1)} open={open} desktop={desktop} />}
       <ScrollButton />
-      <Sidebar desktop={desktop} open={open} setOpen={setOpen} />
+      {location.pathname !== "/" && <Sidebar desktop={desktop} open={open} setOpen={setOpen} />}
       <MainWindow desktop={desktop} open={open} >
       <Routes>
         <Route path="/" element={<Landing />} />
