@@ -112,7 +112,6 @@ export const Workouts = () => {
   const laptop =  useMediaQuery("(min-width:1000px)");
   const desktop = useMediaQuery("(min-width:1400px)");
 
-  console.log("workouts ", profile.workouts);
 
   return (
     <>

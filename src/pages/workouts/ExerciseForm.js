@@ -4,11 +4,13 @@ import { formStyling } from "../../styled-components/login";
 import BasicButton from "../../components/buttons/BasicButton";
 import TextField from "@mui/material/TextField";
 import { useGlobalState } from "../../config/globalStore";
+import { useNavigate } from "react-router";
 
-export const ExerciseForm = ({ workoutId, submitFunc }) => {
+export const ExerciseForm = ({ workoutIndex, submitFunc }) => {
   const { store, dispatch } = useGlobalState();
   const { profile } = store;
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const initialFormValues = {
     customisedName: "",
@@ -33,8 +35,10 @@ export const ExerciseForm = ({ workoutId, submitFunc }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const workoutsData = profile.workouts;
+
+    console.log("workouts Data ", workoutsData)
     workoutsData
-      .filter((workout) => workout._id === workoutId)[0]
+      .filter((workout, index) => index === workoutIndex)[0]
       .exercises.push(formValues);
 
     setLoading(true);
@@ -45,6 +49,7 @@ export const ExerciseForm = ({ workoutId, submitFunc }) => {
       (input) => (input.value = "")
     );
     setLoading(false);
+    navigate(-1)
   };
 
   return (

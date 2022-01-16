@@ -26,10 +26,8 @@ import { EditEvent } from './pages/events/EditEvent';
 // Workouts
 import { Workouts } from "./pages/workouts/Workouts";
 import { WorkoutStart } from "./pages/workouts/WorkoutStart";
-import { NewWorkout } from "./pages/workouts/NewWorkout";
+import { NewExercise } from "./pages/workouts/NewExercise";
 import { Exercises } from "./pages/workouts/Exercises";
-// import { Exercise } from "./pages/workouts/Exercise";
-// import { NewExercise } from "./pages/workouts/NewExercise";
 import { EditWorkouts } from "./pages/workouts/WorkoutsEdit";
 
 // Our Team
@@ -82,7 +80,7 @@ const App = () => {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/workouts" element={<Workouts />} />
         <Route path="/workouts/start" element={<WorkoutStart />} />
-        <Route path="/workouts/new" element={<NewWorkout />} />
+        <Route path="/workouts/new" element={<NewExercise />} />
         <Route path="/workouts/edit" element={<EditWorkouts />} />
         <Route path="/exercises" element={<Exercises />} />
         <Route path="/events" element={<Events />} />
