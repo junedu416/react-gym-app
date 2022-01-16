@@ -7,7 +7,7 @@ export const MeetTheTeam = (props) => {
   useRedirectUnauthorisedUser();
   return (
     <Container>
-      <Heading>Meet The Team</Heading>
+      <Heading desktop>Meet The Team</Heading>
 
       <StaffCard />
     </Container>

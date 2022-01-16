@@ -65,7 +65,7 @@ export const MainWindow = styled.div`
 `;
 
 export const Heading = styled.h1`
-  font-size: ${props => props.phone ? "2.7rem" : props.desktop ? "3.6rem" : "3.2rem"};
+  font-size: ${props => props.fs ? props.fs : "3.2rem"};
   color: ${props => props.color ? props.color : "blue"};
   text-align: ${props => props.textAlign ? props.textAlign : "center"};
   padding-left: 10px; 
@@ -76,7 +76,7 @@ export const Heading = styled.h1`
 export const SmallHeading = styled.h2`
   ${p}
   ${m}
-  font-size: ${props => props.size ? props.size : "2.5rem"};
+  font-size: ${props => props.fs ? props.fs : "2.5rem"};
   color: ${props => props.color ? props.color : "blue"};
 `;
 
