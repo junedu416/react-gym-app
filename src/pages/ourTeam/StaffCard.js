@@ -2,14 +2,12 @@ import React from "react";
 import { Container, Row, SmallHeading, Text } from "../../styled-components";
 import { useGlobalState } from "../../config/globalStore";
 import BasicButton from "../../components/buttons/BasicButton";
-import { styled } from "@mui/material/styles";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { ProfileImage } from "../../styled-components/profile";
 import { ProfilePicture } from "../../components/ProfilePicture";
 
 export const StaffCard = (props) => {
-  const { store, dispatch } = useGlobalState();
+  const { store } = useGlobalState();
   const { profile } = store;
   const theme = useTheme();
   const mobile = useMediaQuery(theme.breakpoints.down("sm"));

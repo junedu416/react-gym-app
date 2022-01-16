@@ -2,9 +2,7 @@ import styled from "styled-components";
 import {
   shadow,
   p,
-  m,
-  w,
-  h,
+  m
 } from "./mixins";
 
 export const ProfileImage = styled.img`

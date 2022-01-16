@@ -99,7 +99,7 @@ export const MyProfile = () => {
     if (profile.description) {
       setDescription(profile.description);
     }
-  }, []);
+  }, [profile.description]);
 
   const editDescription = () => {
     setEditMode(true);
@@ -135,7 +135,7 @@ export const MyProfile = () => {
 
   const handleUpdateDescription = async (e) => {
     e.preventDefault();
-    const updated = {...profile, description: description}
+    // const updated = {...profile, description: description}
     const dataToSend = {
       ...profile,
       description: description,
