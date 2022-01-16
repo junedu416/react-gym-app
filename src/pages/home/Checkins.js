@@ -37,6 +37,18 @@ export const Checkins = () => {
   const [chartData, setChartData] = useState([]);
   const [open, setOpen] = useState(true);
 
+  const getDataInOrder = (data) => {
+    return {
+      sun: data.dailyStats.Sunday,
+      mon: data.dailyStats.Monday,
+      tue: data.dailyStats.Tuesday,
+      wed: data.dailyStats.Wednesday,
+      thur: data.dailyStats.Thursday,
+      fri: data.dailyStats.Friday,
+      sat: data.dailyStats.Saturday,
+    }
+  }
+
   useEffect(() => {
     getCheckedIn().then((data) => {
       if (data) setCheckedIn(data.num);
@@ -44,8 +56,9 @@ export const Checkins = () => {
     getStats().then((data) => {
       if (data) {
         console.log(data);
+        const dataInOrder = getDataInOrder(data); 
         setChartData(
-          Object.values(data.dailyStats).map((num) =>
+          Object.values(dataInOrder).map((num) =>
             Math.floor(num / data.weeksActive)
           )
         );
@@ -95,7 +108,8 @@ export const Checkins = () => {
           .then(() => {
             getStats().then((data) => {
               console.log(data);
-              const newData = Object.values(data.dailyStats).map((num) =>
+              const dataInOrder = getDataInOrder(data);
+              const newData = Object.values(dataInOrder).map((num) =>
                 Math.floor(num / data.weeksActive)
               );
               setChartData(newData);
