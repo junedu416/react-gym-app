@@ -20,7 +20,7 @@ import MultipleStopIcon from "@mui/icons-material/MultipleStop";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { SidebarTitle } from "../../styled-components/sidebarCustomStyling";
 
-const drawerWidth = "240px";
+const drawerWidth = "250px";
 
 const StyledTabs = styled((props) => (
   <Tabs
