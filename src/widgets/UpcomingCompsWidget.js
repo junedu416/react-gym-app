@@ -6,6 +6,7 @@ import { Widget } from "../styled-components";
 import BasicButton from '../components/buttons/BasicButton';
 import { useNavigate } from 'react-router-dom';
 import { showEventReducer } from '../utils/showEvent-reducer';
+import { WidgetTitle, GreyText, CompTitle, CompTimes, TimeDiv } from '../styled-components/widgets.js'
 
 export const UpcomingCompsWidget = ({events}) => {
     const {store} = useGlobalState();
@@ -67,16 +68,16 @@ export const UpcomingCompsWidget = ({events}) => {
 
     return(
         <Widget>
-        <h3>Competitions Today</h3>
+        <WidgetTitle>Competitions Today</WidgetTitle>
             {competition ? <>
-                <h4>{competition.name}</h4>
+                <CompTitle>{competition.name}</CompTitle>
                 {compDates.startDate === compDates.endDate ?
-                    <p><b>{compDates.startDate}</b> {compDates.startTime} - {compDates.endTime}</p> : <>
-                        <p><b>From: </b>{compDates.startDate} at {compDates.startTime}</p>
-                        <p><b>To: </b>{compDates.endDate} at {compDates.endTime}</p>
-                    </>}
-                <BasicButton text="Details" btnFunction={((e)=> viewEvent(e, competition._id))} style={{height: "30px", minWidth: "50px"}}/>
-            </> : <p> You are not registered to any competition held today</p>}
+                    <TimeDiv><CompTimes><b>{compDates.startDate}</b> {compDates.startTime} - {compDates.endTime}</CompTimes></TimeDiv> : <TimeDiv>
+                        <CompTimes><b>From: </b>{compDates.startDate} at {compDates.startTime}</CompTimes>
+                        <CompTimes><b>To: </b>{compDates.endDate} at {compDates.endTime}</CompTimes>
+                    </TimeDiv>}
+                <BasicButton text="Details" btnFunction={((e)=> viewEvent(e, competition._id))} style={{height: "40px", minWidth: "100px"}}/>
+            </> : <GreyText> You are not registered to any competition held today</GreyText>}
             
         </Widget>
     )

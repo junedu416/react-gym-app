@@ -4,6 +4,7 @@ import { useGlobalState } from "../config/globalStore.js";
 import {filterEventsByCategory} from "../utils/events-helper-functions.js";
 import { sortFromOldestToMostRecent, filterToToday} from "../utils/widget-helpers.js";
 import { EventDetails } from "./EventDetails";
+import { WidgetTitle, GreyText } from "../styled-components/widgets";
 
 
 export const UpcomingEventsWidget = ({events}) => {
@@ -31,9 +32,9 @@ export const UpcomingEventsWidget = ({events}) => {
 
     return(
         <Widget>
-            <h4>Today you are going to...</h4>
+            <WidgetTitle>Today you are going to...</WidgetTitle>
             {filteredEvents && <>
-                {filteredEvents.length === 0 ? <p>You are not registered for any classes today</p> :
+                {filteredEvents.length === 0 ? <GreyText>You are not registered for any classes today</GreyText> :
                 <EventDetails events={filteredEvents} />}
                 </>
             }

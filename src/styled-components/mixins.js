@@ -149,3 +149,9 @@ export const br = (props) => {
 
   `
 }
+
+export const mainTextColor = () => {
+  return`
+    color: blue;
+  `
+}

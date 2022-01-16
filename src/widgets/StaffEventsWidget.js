@@ -3,6 +3,7 @@ import { useGlobalState } from '../config/globalStore';
 import { sortFromOldestToMostRecent, filterToCurrent } from '../utils/widget-helpers';
 import { Widget } from '../styled-components';
 import { EventDetails } from './EventDetails';
+import { WidgetTitle, GreyText } from '../styled-components/widgets';
 
 export const StaffEventsWidget = ({events}) => {
     const {store} = useGlobalState();
@@ -27,9 +28,9 @@ export const StaffEventsWidget = ({events}) => {
 
     return(
         <Widget>
-        <h4>Classes by You Today</h4>
+        <WidgetTitle>Classes by You Today</WidgetTitle>
             {myEvents && <>
-                {myEvents.length === 0 ? <p>You are not holding any classes today</p> :
+                {myEvents.length === 0 ? <GreyText>You are not holding any classes today</GreyText> :
                 <EventDetails events={myEvents} staff/>
                 }
                 </>
