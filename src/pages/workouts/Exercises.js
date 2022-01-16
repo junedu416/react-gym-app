@@ -29,9 +29,6 @@ export const Exercises = () => {
   const laptop =  useMediaQuery("(min-width:1024px)");
   const desktop = useMediaQuery("(min-width:1400px)");
 
-  // ===== Favourites =====
-  // const [selected, setSelected] = useState(false);
-
   const [anchorEl, setAnchorEl] = useState(null);
   const [exerciseList, setExerciseList] = useState([]);
   const [exerciseIndex, setExerciseIndex] = useState(null);
@@ -76,15 +73,6 @@ export const Exercises = () => {
     
   }, [profile, dispatch, newExercise, navigate])
 
-  // useEffect(() => {
-  //   console.log("use effect running: workoutIndex", workoutIndex)
-  //   if (workoutIndex !== null) {
-  //     console.log("inside first if")
-
-  //     // addExerciseToWorkout(workoutIndex);
-  //   }
-  // }, [workoutIndex, addExerciseToWorkout])
-
   useEffect(() => {    
     if (exerciseList.length !==0 && exerciseList[exerciseIndex]){
       setNewExercise({
@@ -126,10 +114,8 @@ export const Exercises = () => {
   };
 
   const open = Boolean(anchorEl);
-
   const id = open ? "simple-popover" : undefined;
 
-  
   const containExercise = (list, newObj) => {
     for(var i = 0; i < list.length; i++) {
       if (list[i].exerciseId&&list[i].exerciseId._id === newObj.exerciseId) {
@@ -148,9 +134,9 @@ export const Exercises = () => {
     return workoutsClone
   }
 
-
   const handleAddExercise = async (event) => {
     console.log("button clicked")
+    
     //select workout list
     if(Number(event.target.getAttribute("id")) !== workoutIndex){
       dispatch({type: "selectWorkout", data: Number(event.target.getAttribute("id"))});
@@ -161,20 +147,6 @@ export const Exercises = () => {
     }
 
 };
-
-
-// ***** feature (sprinkle) - Add to Favorite  *********
-  // const handleToggle = (selected) => {
-  //   setSelected(!selected);
-  //   if (selected === true) {
-  //     // ====================================================================================
-  //     // NEED BACKEND LOGIC
-  //     // ADD TO FAVOURITES
-  //     // ====================================================================================
-  //   } else {
-  //     // REMOVE FROM FAVOURITES
-  //   }
-  // };
 
   return (
     <MainWindow>
@@ -187,6 +159,7 @@ export const Exercises = () => {
                 p="10px 15px"
                 justify="space-between"
                 key={index}
+                hoverMixin
               >
                 <Container>
 {/* ==== FAVOURITES ==== */}
@@ -208,7 +181,6 @@ export const Exercises = () => {
                       style={{ border: "none", background: "none", "&:focus": { border: "none", outline: "none"} }}
                       onChange={() => {
                         handleToggle(selected);
-
                       }}
                     >
                       {selected ? <Star sx={{ fontSize:"2.5rem" }} /> : <StarOutline sx={{ fontSize:"2.5rem" }} />}
@@ -234,6 +206,7 @@ export const Exercises = () => {
                     vertical: "bottom",
                     horizontal: "left",
                   }}
+                  sx={{ boxShadow: 0 }}
                 >
                   <Typography sx={{ p: 2, width: "280px" }}>
                   {profile.workouts.length === 0 && <p>
@@ -245,6 +218,7 @@ export const Exercises = () => {
                         key={i}
                         id={i}
                         onClick={handleAddExercise}
+                        sx={{ height: "70px", fontSize: "1.5rem", color: "rgba(20, 20, 20, 0.78)" }}
                       >
                         <AddCircleIcon sx={{ mr: 1 }} /> {el.name}
                       </MenuItem>
@@ -259,3 +233,20 @@ export const Exercises = () => {
     </MainWindow>
   );
 };
+
+
+// ***** feature (sprinkle) - Add to Favorite  *********
+  // ===== Favourites =====
+  // const [selected, setSelected] = useState(false);
+
+  // const handleToggle = (selected) => {
+  //   setSelected(!selected);
+  //   if (selected === true) {
+  //     // ====================================================================================
+  //     // NEED BACKEND LOGIC
+  //     // ADD TO FAVOURITES
+  //     // ====================================================================================
+  //   } else {
+  //     // REMOVE FROM FAVOURITES
+  //   }
+  // };

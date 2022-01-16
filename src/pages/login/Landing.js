@@ -3,14 +3,19 @@ import { useNavigate } from "react-router";
 // import LandingS from "../../assets/LandingS.jpg";
 import LandingL from "../../assets/LandingL.jpg";
 import BasicButton from "../../components/buttons/BasicButton";
-import { Container } from "../../styled-components";
-
+import { Container, Heading } from "../../styled-components";
 import { useGlobalState } from "../../config/globalStore";
+
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export const Landing = (props) => {
   const navigate = useNavigate();
   const { store } = useGlobalState();
   const { profile } = store;
+
+  const theme = useTheme();
+  const mobile = useMediaQuery(theme.breakpoints.down('md'));
 
   function handleClick(event) {
     if (profile) {
@@ -48,28 +53,28 @@ export const Landing = (props) => {
         justify="space-evenly"
         align="center"
         bg="rgba(0, 0, 0, 0.4)"
+        h= "100%"
         style={{
-          height: "100%",
           position: "fixed",
           top: "0px",
           left: "0px",
           backdropFilter: "blur(1.5px)",
         }}
       >
-        <h1
+        <Heading
           style={{
             fontFamily: "helvetica",
-            fontSize: "5rem",
+            fontSize: mobile ? "2.3rem" : "5rem",
             color: "white",
             height: "100px",
-            width: "800px",
+            width: mobile ? "90%" : "800px",
             textAlign: "center",
             textShadow: "2px 2px 5px black",
           }}
         >
           Take your training to the{" "}
-          <strong style={{ color: "red", fontSize: "7rem" }}>NEXT</strong> level
-        </h1>
+          <strong style={{ color: "red", fontSize: mobile ? "4.5rem" : "7rem" }}>NEXT</strong> level
+        </Heading>
         <BasicButton
           text="Get Started"
           variant="outlined"

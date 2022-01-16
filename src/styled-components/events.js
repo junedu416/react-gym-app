@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Box from "@mui/material/Box";
-import { backgroundColor, shadow, containEventInScreen, mainParagraphColor } from "./mixins";
+import { backgroundColor, shadow, containEventInScreen, mainParagraphColor, centered, flexbox } from "./mixins";
 
 export const FilterBox = styled(Box)`
   position: absolute;
@@ -63,10 +63,15 @@ export const EventImage = styled.img`
   
 `
 
+// You can add those with mixins to be dry.
 export const ShowEventContent = styled.div`
+
+  ${flexbox}
+  ${centered}
+/* 
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; */
   text-align: center;
   @media(min-width: 768px) {
       min-width: 80%;
