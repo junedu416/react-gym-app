@@ -35,12 +35,17 @@ import { displayUnits } from "../../utils/workoutFunctions";
 import Workoutbgimg from "../../assets/workouts.jpg";
 import { WorkoutsBackground } from "../../styled-components/workouts";
 
-//import json2mq from "json2mq";
+import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-//import { Palette } from "@mui/icons-material";
 
 export const Workouts = () => {
   useRedirectUnauthorisedUser();
+
+  const theme = useTheme();
+  const mobile = useMediaQuery(theme.breakpoints.down("md"));
+  const laptop = useMediaQuery("(min-width:1000px)");
+  const desktop = useMediaQuery("(min-width:1400px)");
+
   const [open, setOpen] = useState(false);
   const initialWorkout = {
     name: null,
@@ -109,9 +114,6 @@ export const Workouts = () => {
     navigate("/workouts/edit");
   }
 
-  const laptop =  useMediaQuery("(min-width:1000px)");
-  const desktop = useMediaQuery("(min-width:1400px)");
-
   return (
     <>
       <Container direction="row">
@@ -148,27 +150,47 @@ export const Workouts = () => {
 
       {/* ============================================================ lime color heading */}
       {profile && (
-        <Container>
+        <Container mb="100px">
           <Heading style={{ color: "lime" }}>Workouts</Heading>
-          <div>
+          <Container direction="row">
             <BasicButton
               text="Create Workout"
               variant="outlined"
               color="success"
               btnFunction={handleClickOpen}
             />
-          </div>
+
+            <ButtonLink to="/workouts/trainer-workouts">
+              <BasicButton
+                text="Trainer Workouts"
+                color="success"
+                variant="outlined"
+              />
+            </ButtonLink>
+
+            {/* <ButtonLink to="/exercises">
+                <BasicButton
+                  text="View Exercises"
+                  variant="outlined"
+                  color="error"
+                />
+              </ButtonLink> */}
+          </Container>
+
           {profile.workouts.length === 0 && (
             <Text>
               You don't have any workouts yet! <br />
               To get started, click on the Create Workout button.
             </Text>
           )}
-          <Container>
+          <Container
+            style={{ justifyContent: "flex-start" }}
+            justify="flex-start"
+          >
             <Grid desktop={desktop} laptop={laptop}>
               {profile.workouts.map((workout, index) => {
                 return (
-                  <Container justify="flex-start">
+                  <Container justify="flex-start" h={!mobile && "100%"}>
                     {activeWorkout === index ? (
                       <EditButton
                         btnFunction={() => editWorkout(index)}
@@ -205,9 +227,7 @@ export const Workouts = () => {
                       {workout.exercises.map((exercise) => {
                         return (
                           <Container>
-                            <WorkoutList
-                              p="0 25px 0 15px"
-                            >
+                            <WorkoutList p="0 25px 0 15px">
                               {exercise.exerciseId ? (
                                 <p>{exercise.exerciseId.name}</p>
                               ) : (
@@ -288,39 +308,13 @@ export const Workouts = () => {
                 );
               })}
             </Grid>
-            <Container direction="row">
-              <ButtonLink to="/workouts/trainer-workouts">
-                <BasicButton text="Trainer Workouts" color="success" variant="outlined" />
-              </ButtonLink>
-
-              {/* <ButtonLink to="/exercises">
-                <BasicButton
-                  text="View Exercises"
-                  variant="outlined"
-                  color="error"
-                />
-              </ButtonLink> */}
-            </Container>
           </Container>
 
           {/* Popup Modal to create Workout */}
           <ReusableModal
-            children={<TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="New Workout"
-                helperText="Please enter your workout list name"
-                fullWidth
-                variant="standard"
-                onChange={handleChange}
-              />}
-              actionButtons={<><Button onClick={handleClose}>Cancel</Button>
-              <Button onClick={handleCreateBtn}>Create</Button></>}
-           />
-
-          {/* <Dialog open={open} onClose={handleClose}>
-            <DialogContent>
+            open={open}
+            handleClose={handleClose}
+            subtitle={
               <TextField
                 autoFocus
                 margin="dense"
@@ -331,12 +325,14 @@ export const Workouts = () => {
                 variant="standard"
                 onChange={handleChange}
               />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose}>Cancel</Button>
-              <Button onClick={handleCreateBtn}>Create</Button>
-            </DialogActions>
-          </Dialog> */}
+            }
+            actionButtons={
+              <>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={handleCreateBtn}>Create</Button>
+              </>
+            }
+          />
         </Container>
       )}
     </>

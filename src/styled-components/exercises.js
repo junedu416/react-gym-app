@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexbox, centered, shadow, p, hoverMixin } from "./mixins";
+import { flexbox, centered, shadow, p, hoverMixin, backgroundColor } from "./mixins";
 
 export const ExerciseCardStyling = styled.div`
   ${flexbox};
@@ -12,4 +12,5 @@ export const ExerciseCardStyling = styled.div`
   ${p};
   ${shadow};
   ${(props) => props.hoverMixin && hoverMixin};
+  ${backgroundColor}
 `

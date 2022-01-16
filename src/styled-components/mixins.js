@@ -176,7 +176,7 @@ export const mainParagraphColor = () => {
 
 export const backgroundColor = () => {
   return`
-    background: rgba(40, 100, 150, 0.1);
+    background: rgba(50, 120, 160, 0.07);
   `
 }
 

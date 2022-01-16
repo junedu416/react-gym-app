@@ -22,6 +22,7 @@ import {
   br,
   h,
   justified,
+  backgroundColor,
 } from "./mixins";
 import { Link } from "react-router-dom";
 import { Alert, Dialog } from "@mui/material";
@@ -32,6 +33,7 @@ export const Container = styled.div`
   ${(props) => props.shadow && shadow}
   ${(props) => props.greyBorder && greyBorder}
   ${(props) => props.hoverMixin && hoverMixin}
+  ${(props) => props.backgroundColor && backgroundColor}
   ${(props) => props.mt && mt}
   ${(props) => props.ml && ml}
   ${(props) => props.mr && mr}
