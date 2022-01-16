@@ -22,7 +22,7 @@ export const ReportItems = ({
   displayStatus,
   handleResolveBtn,
   type,
-  unsocialOpen
+  unsocialOpen,
 }) => {
   return (
     <li key={index} style={{ listStyleType: "none" }}>
@@ -34,6 +34,7 @@ export const ReportItems = ({
         br="20px"
         align="flex-start"
         justify="flex-start"
+        style={{ maxWidth: "98%" }}
         // style={{ background: "rgba(50, 130, 180, 0.16)" }}
         // style={{ background: "rgba(180, 180, 180, 0.1" }}
       >
@@ -101,11 +102,21 @@ export const ReportItems = ({
           />
         </Row>
 
+
+        {/* Doesn't work if these two conditionals are combined with an || to show same component. */}
         {type === "Unsocial Behaviour" && unsocialOpen.includes(index) && (
           <ShowPhoto
             src={report.reportImage}
             alt="user uploaded"
-            width={desktop ? "600px" : "100%"}
+            width="100%"
+          />
+        )}
+
+        {type === "Faulty Equipment" && open.includes(index) && (
+          <ShowPhoto
+            src={report.reportImage}
+            alt="user uploaded"
+            width="100%"
           />
         )}
       </Container>
