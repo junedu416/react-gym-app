@@ -45,25 +45,13 @@ export const ViewReports = () => {
         report.reporterFullName = reporterFullName;
       }
 
-      //setReportList(reports);
       setEquipmentReports(reports.filter(
         (report) => report.type === "Faulty Equipment"
       ));
+
       setBehaviourReports(reports.filter(
         (report) => report.type === "Unsocial Behaviour"
       ))
-      
-
-      // const behaviourReports = reportList.filter(
-      //   (report) => report.type === "Unsocial Behaviour"
-      // );
-
-      // const equipmentReports = reportList.filter(
-      //   (report) => report.type === "Faulty Equipment"
-      // );
-
-      // setBehaviourList(behaviourReports);
-      // setEquipmentList(equipmentReports)
     };
 
     fetchReportsInfo().catch(console.error);
@@ -90,15 +78,7 @@ export const ViewReports = () => {
       }
     }
   };
-  // const equipmentReports = reportList.filter(
-  //   (report) => report.type === "Faulty Equipment"
-  // );
-
-  // const behaviourReports = reportList.filter(
-  //   (report) => report.type === "Unsocial Behaviour"
-  // );
-  // const [reportValues, setReportValues] = useState({});
-  // const [behaviourReportValues, setBehaviourReportValues] = useState({});
+ 
   const handleResolveBtn = async (index, type) => {
     if (type === "Unsocial Behaviour") {
       const behaviourClone = [...behaviourReports];
@@ -109,10 +89,6 @@ export const ViewReports = () => {
         behaviourClone[index].resolvedBy = null;
       }
       setBehaviourReports(behaviourClone);
-
-      // setBehaviourReportValues({
-      //   ...behaviourReports[index],
-      // });
     }
 
     else if (type === "Faulty Equipment") {
@@ -124,24 +100,7 @@ export const ViewReports = () => {
         equipmentClone[index].resolvedBy = null;
       }
       setEquipmentReports(equipmentClone);
-
-      // setReportValues({
-      //   ...equipmentReports[index],
-      // });
     }
-    
-    // WORKING CODE: before separation
-    
-    // reportList[index].resolved = !reportList[index].resolved;
-    // if (reportList[index].resolved) {
-    //   reportList[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
-    // } else {
-    //   reportList[index].resolvedBy = null;
-    // }
-
-    // setReportValues({
-    //   ...reportList[index],
-    // });
 
     let request;
     if (type === "Faulty Equipment") {
@@ -149,29 +108,16 @@ export const ViewReports = () => {
     } else {
       request = await editReport(behaviourReports[index]._id, behaviourReports[index]);
     }
-    console.log("REQUEST: ", request);
     return request;
   };
-
-  // console.log("reportValueToSend:", reportValues);
-  // const totalUnresolved = reportList.filter((report) => !report.resolved).length;
 
   function displayStatus(resolved) {
     if (resolved) return "Resolved";
     else return "Unresolved";
   }
-  
-  
 
-  // console.log("EQ Reports: ", equipmentReports);
-  // console.log("B Reports: ", behaviourReports);
-
-  const totalUnresolvedBehaviour = behaviourReports.filter(
-    (report) => !report.resolved
-  ).length;
-  const totalUnresolvedEquipment = equipmentReports.filter(
-    (report) => !report.resolved
-  ).length;
+  const totalUnresolvedBehaviour = behaviourReports.filter( report => !report.resolved).length;
+  const totalUnresolvedEquipment = equipmentReports.filter( report => !report.resolved).length;
 
   return (
     <Container>
@@ -193,6 +139,7 @@ export const ViewReports = () => {
           // bg="rgba(80, 160, 160, 0.1)"
           // bg="#ffcc80"
           bg="rgba(255, 204, 128, 0.2)"
+          greyBorder
           style={{
             justifyContent: "flex-start",
             justifyItems: "flex-start",
@@ -228,6 +175,7 @@ export const ViewReports = () => {
           p="20px 6px"
           bg="rgba(160, 16, 80, 0.1)"
           br="20px"
+          greyBorder
           style={{
             justifyContent: "flex-start",
             justifyItems: "flex-start",

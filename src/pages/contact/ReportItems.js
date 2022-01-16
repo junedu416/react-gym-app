@@ -28,27 +28,20 @@ export const ReportItems = ({
     <li key={index} style={{ listStyleType: "none" }}>
       <Container
         p="20px"
-        m="5px"
-        // bg="rgba(50, 130, 180, 0.08)"
-        bg="rgba(50, 150, 225, 0.5)"
+        m="10px 5px"
+        bg="rgba(50, 130, 180, 0.12)"
+        // bg="rgba(50, 150, 225, 0.5)"
+        hoverMixin
         br="20px"
         align="flex-start"
         justify="flex-start"
         style={{ maxWidth: "98%" }}
-        // style={{ background: "rgba(50, 130, 180, 0.16)" }}
-        // style={{ background: "rgba(180, 180, 180, 0.1" }}
       >
-        {/* <Row>
-          <TextBold mr="63px">Type: </TextBold> {report.type}
-        </Row> */}
-        {/* <Row>
-          <TextBold mr="56px">Name: </TextBold> {report.reporterFullName}
-        </Row> */}
         <Row>
           <TextBold mr="28px">Reported: </TextBold>
-          <u>
+          <p style={{color: "blue"}}>
             <Moment fromNow>{report.reportDate}</Moment>
-          </u>
+          </p>
           <Text style={{ marginLeft: "15px", marginRight: "10px" }}>by </Text>
           <TextBold> {report.reporterFullName}</TextBold>
         </Row>

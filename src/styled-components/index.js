@@ -19,7 +19,8 @@ import {
   hoverMixin,
   bg,
   pl,
-  br
+  br,
+  h
 } from "./mixins";
 import { Link } from "react-router-dom";
 import { Alert, Dialog } from "@mui/material";
@@ -27,17 +28,19 @@ import { Alert, Dialog } from "@mui/material";
 export const Container = styled.div`
   ${flexbox};
   ${centered};
-  ${(props) => props.shadow && shadow}
-  ${(props) => props.greyBorder && greyBorder}
-  ${(props) => props.mt && mt}
-  ${(props) => props.ml && ml}
-  ${(props) => props.mr && mr}
-  ${(props) => props.m && m}
-  ${(props) => props.mb && mb}
-  ${(props) => props.p && p}
-  ${(props) => props.pl && pl}
-  ${(props) => props.w && w}
-  ${(props) => props.minw && minw}
+  ${props => props.shadow && shadow}
+  ${props => props.greyBorder && greyBorder}
+  ${props => props.hoverMixin && hoverMixin}
+  ${props => props.mt && mt}
+  ${props => props.ml && ml}
+  ${props => props.mr && mr}
+  ${props => props.m && m}
+  ${props => props.mb && mb}
+  ${props => props.p && p}
+  ${props => props.pl && pl}
+  ${props => props.w && w}
+  ${props => props.h && h}
+  ${props => props.minw && minw}
   ${props => props.bg && bg}
   ${props => props.br && br}
 `;

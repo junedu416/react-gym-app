@@ -86,6 +86,12 @@ export const w = (props) => {
   `;
 };
 
+export const h = (props) => {
+  return `
+    height: ${props.h ? props.h : ""};
+  `;
+};
+
 export const minw = (props) => {
   return `
     min-width: ${props.minw ? props.minw : ""};
@@ -129,7 +135,7 @@ export const hoverMixin = () => {
     background: rgba(0, 145, 250, 0.18);
     background-color: rgba(0, 145, 250, 0.18);
     opacity: 1;
-    cursor: pointer;
+    cursor: cursor;
     color: rgba(80, 80, 80, 0.9);
   }
   `;
