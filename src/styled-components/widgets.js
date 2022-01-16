@@ -35,3 +35,18 @@ export const AlignRight = styled.div`
     padding: 0;
     width: 100%;
 `
+export const CompTitle = styled.h4`
+    text-transform: uppercase;
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+`
+
+export const CompTimes = styled.p`
+    margin: 0;
+    padding: 5px 0;
+`
+
+export const TimeDiv = styled.div`
+    margin: 8px 0 10px 0;
+    text-align: center;
+`

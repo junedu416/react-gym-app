@@ -5,6 +5,7 @@ import { Widget } from "../styled-components/index";
 import { getAllReports } from "../services/reportServices";
 import BasicButton from "../components/buttons/BasicButton";
 import { sortFromOldestToMostRecent } from "../utils/widget-helpers";
+import { WidgetTitle } from "../styled-components/widgets";
 
 
 const ReportWidget = () => {
@@ -39,7 +40,7 @@ const ReportWidget = () => {
 
     return (
         <Widget>
-            <h4 style={{padding: 0, margin: "0.5em"}}>{profile && profile.isStaff ? "Unresolved Reports" : "Your Reports"}</h4>
+            <WidgetTitle style={{padding: 0, margin: "0.5em"}}>{profile && profile.isStaff ? "Unresolved Reports" : "Your Reports"}</WidgetTitle>
             {
                 reports
                 &&
