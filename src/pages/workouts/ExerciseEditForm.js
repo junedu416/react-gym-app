@@ -64,12 +64,13 @@ export const ExerciseEditForm = ({open, setFormOpen, exercise, workoutIndex}) =>
         <DialogContent>
           <TextField
             disabled
-            id="outlined-required"
             label="Exercise Name"
             name="customisedName"
             defaultValue={exercise.customisedName? exercise.customisedName: exercise.exerciseId.name}
             style={formStyling}
             onChange={handleFormChange}
+            sx={{ mt: 1 }}
+
             />
         <TextField
             id="outlined-number"
