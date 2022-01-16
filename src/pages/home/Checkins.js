@@ -44,6 +44,15 @@ export const Checkins = () => {
     getStats().then((data) => {
       if (data) {
         console.log(data);
+        // const dataInOrder = {
+        //   sun: data.dailyStats.Sunday,
+        //   mon: data.dailyStats.Monday,
+        //   tue: data.dailyStats.Tuesday,
+        //   wed: data.dailyStats.Wednesday,
+        //   thu: data.dailyStats.Thursday,
+        //   fri: data.dailyStats.Friday,
+        //   sat: data.dailyStats.Saturday
+        // }
         setChartData(
           Object.values(data.dailyStats).map((num) =>
             Math.floor(num / data.weeksActive)

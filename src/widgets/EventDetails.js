@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import BasicButton from '../components/buttons/BasicButton';
 import moment from 'moment';
+import { EventDiv, EventTitle, EventParag, AlignRight } from '../styled-components/widgets';
 
 export const EventDetails = ({events, staff}) => {
     const navigate = useNavigate();
@@ -14,12 +15,15 @@ export const EventDetails = ({events, staff}) => {
     return(
         events.map((event, index)=> {
             if(index > 1) return <></>;
-            return( <div key={index} style={{border: "solid 1px black", width: "100%"}}>
-                <h5>{event.name}</h5>
-                <p>{moment(event.startTime).format('h:mm A')} - {moment(event.endTime).format('h:mm A')}</p>
-                {staff && <p>{event.registeredUsers.length} {event.registeredUsers.length === 1 ? "person" : "people"} registered</p>}
-                <BasicButton text="Details" btnFunction={((e)=> viewEvent(e, event._id))} style={{height: "30px", minWidth: "50px"}}/>
-            </div>)
+            return( <EventDiv key={index} >
+                <EventTitle>{event.name}</EventTitle>
+                <EventParag>{moment(event.startTime).format('h:mm A')} - {moment(event.endTime).format('h:mm A')}</EventParag>
+                {staff && <EventParag>{event.registeredUsers.length} {event.registeredUsers.length === 1 ? "person" : "people"} registered</EventParag>}
+                <AlignRight>
+                    <BasicButton text="Details" btnFunction={((e)=> viewEvent(e, event._id))} style={{height: "38px", minWidth: "100px", textAlign: "right", margin: "0"}}/>
+                </AlignRight>
+                {index === 0 && <hr />}
+            </EventDiv>)
         })
     )
 }
