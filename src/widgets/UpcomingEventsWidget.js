@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import { Widget } from '../styled-components';
 import { useGlobalState } from "../config/globalStore.js";
 import {filterEventsByCategory} from "../utils/events-helper-functions.js";
-import { sortFromOldestToMostRecent, filterToToday} from "../utils/widget-helpers.js";
+import { sortFromMostRecentToOldest, filterToToday} from "../utils/widget-helpers.js";
 import { EventDetails } from "./EventDetails";
 import { WidgetTitle, GreyText } from "../styled-components/widgets";
 
@@ -15,8 +15,8 @@ export const UpcomingEventsWidget = ({events}) => {
     const sortAndFilterEvents = (eventsList, profile) => {
         const registeredEvents = filterEventsByCategory(eventsList, "registered events", profile)
         const eventsExceptCompetitions = registeredEvents.filter((event) => event.category !== "Competition")
-        const eventsSortedByDate = sortFromOldestToMostRecent(eventsExceptCompetitions, 'startTime')
-        const upcomingEvents = filterToToday(eventsSortedByDate, 'startTime')
+        const eventsSortedByDate = sortFromMostRecentToOldest(eventsExceptCompetitions, 'startTime')
+        const upcomingEvents = filterToToday(eventsSortedByDate, 'startTime', 'endTime')
         console.log("final return value for filtered events", upcomingEvents)
         return upcomingEvents
     }
