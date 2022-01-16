@@ -11,3 +11,14 @@ export const editProfile = async (uid, profileObj) => {
         throw e
     }
 }
+
+export const addProfileImage = async (uid, imgObj) => {
+    try {
+        const response = await gymApi.put(`/profiles/${uid}/photo`, imgObj)
+        console.log(response)
+        return response
+    } catch (e) {
+        console.log("Error updating image in backend", e)
+        throw e
+    }
+}
