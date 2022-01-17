@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import EditButton from "../../components/buttons/Edit";
+import { useGlobalState } from "../../config/globalStore";
+import { editProfile } from "../../services/profileServices";
+import { displayUnits } from "../../utils/workoutFunctions";
+
 import {
   Container,
   Heading,
@@ -11,17 +15,18 @@ import {
   Text,
   TextLink,
 } from "../../styled-components";
-import { Collapse } from "@mui/material";
+
 import {
   //BlackBackground,
   WorkoutCardStyling,
   WorkoutList,
 } from "../../styled-components/workouts";
+
+import { Collapse } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import CloseIcon from "@mui/icons-material/Close";
-
 import BasicButton from "../../components/buttons/BasicButton";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -88,7 +93,6 @@ export const Workouts = () => {
 
     dispatch({ type: "selectWorkout", data: profile.workouts.length });
     navigate(`/workouts/edit`);
-    // navigate(`/workouts/edit?&workout_index=${profile.workouts.length}`);
   };
 
   const [activeWorkout, setActiveWorkout] = useState(0);
@@ -164,14 +168,6 @@ export const Workouts = () => {
                 variant="outlined"
               />
             </ButtonLink>
-
-            {/* <ButtonLink to="/exercises">
-                <BasicButton
-                  text="View Exercises"
-                  variant="outlined"
-                  color="error"
-                />
-              </ButtonLink> */}
           </Container>
 
           {profile.workouts.length === 0 && (
