@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import EditButton from "../../components/buttons/Edit";
-import { useGlobalState } from "../../config/globalStore";
-import { editProfile } from "../../services/profileServices";
-import { displayUnits } from "../../utils/workoutFunctions";
 
 import {
   Container,
