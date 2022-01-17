@@ -33,6 +33,7 @@ export const PerformanceStats = (props) => {
     responsive: true,
   };
 
+  //get the prev exercise with the most ammount of data in its statistics to ensure no data is missing.
   const getLargestPrevWorkouts = useCallback(() => {
     let longestLength = 0;
     workoutList[workoutIndex].exercises.forEach((exercise) => {

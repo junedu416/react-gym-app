@@ -4,7 +4,8 @@ import { getUserProfile } from "../services/userServices";
 
 const RememberMe = () => {
     const {dispatch} = useGlobalState();
-
+    //if uid is in local storage then fetch the profile for the user.
+    //Called at app level
     useEffect(() => {
         console.log("remembering user")
         const uid = window.localStorage.getItem('uid');
