@@ -13,7 +13,7 @@ import {
 } from "../../styled-components";
 import { Collapse } from "@mui/material";
 import {
-  BlackBackground,
+  //BlackBackground,
   WorkoutCardStyling,
   WorkoutList,
 } from "../../styled-components/workouts";
@@ -29,8 +29,8 @@ import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
 import { ReusableModal } from "../../components/ReusableModal";
 import { displayUnits } from "../../utils/workoutFunctions";
-import Workoutbgimg from "../../assets/workouts.jpg";
-import { WorkoutsBackground } from "../../styled-components/workouts";
+// import Workoutbgimg from "../../assets/workouts.jpg";
+// import { WorkoutsBackground } from "../../styled-components/workouts";
 
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
