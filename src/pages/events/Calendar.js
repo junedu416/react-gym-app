@@ -65,11 +65,11 @@ export const Calendar = (props) => {
           direction="row"
 // ========================== NEED TO ADJUST LINE BELOW FOR PHONE MEDIA QUERY ==========================
           w={desktop ? "25%" : phone ? "100%" : "100%"}
-          justify={desktop ? "flex-start" : "flex-end"}
+          justify="flex-end"
           style={{
             position: desktop ? "" : "absolute",
             right: 0,
-            bottom: desktop ? "" : 30, // switch around when pass desktop prop in. ***********************
+            bottom: desktop ? 30 : "", // switch around when pass desktop prop in. ***********************
           }}
         >
           <FilterEvents eventSelect={eventSelect} applyFilterFunction={applyFilterFunction} />

@@ -5,8 +5,8 @@ import { backgroundColor, shadow, containEventInScreen, mainParagraphColor, cent
 export const FilterBox = styled(Box)`
   position: absolute;
   /* SWITCH AROUND WHEN PASSING DESKTOP PROP IN  (DON'T NEED TO ATM) */ 
-  bottom: ${props => props.desktop ? "" : "50px" };
-  top: ${props => props.desktop ? "50px" : "" };
+  bottom: ${props => props.desktop ? "50px" : "" };
+  top: ${props => props.desktop ? "" : "50px" };
   right: 20px;
   /* left: 100px; */
   min-width: 210px;

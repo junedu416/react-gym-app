@@ -232,6 +232,8 @@ export const Sidebar = (props) => {
                 label={item.title}
                 style={dashItem}
                 key={index}
+                index={index}
+                value={index}
                 onClick={() => {
                   if (item.title[1] === "Sign Out") {
                     handleSignOut();

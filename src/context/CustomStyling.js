@@ -14,6 +14,7 @@ import { grey } from "@mui/material/colors";
 // const themeConext = useContext(ThemeContext)
 export const customStyles = createTheme({
     palette: {
+
       mode: "light",
   
       primary: {
