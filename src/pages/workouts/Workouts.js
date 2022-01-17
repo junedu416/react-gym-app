@@ -17,7 +17,7 @@ import {
 } from "../../styled-components";
 
 import {
-  BlackBackground,
+  //BlackBackground,
   WorkoutCardStyling,
   WorkoutList,
 } from "../../styled-components/workouts";
@@ -32,7 +32,13 @@ import CloseIcon from "@mui/icons-material/Close";
 import BasicButton from "../../components/buttons/BasicButton";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import { useGlobalState } from "../../config/globalStore";
+import { editProfile } from "../../services/profileServices";
 import { ReusableModal } from "../../components/ReusableModal";
+import { displayUnits } from "../../utils/workoutFunctions";
+// import Workoutbgimg from "../../assets/workouts.jpg";
+// import { WorkoutsBackground } from "../../styled-components/workouts";
+
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
@@ -113,10 +119,10 @@ export const Workouts = () => {
 
   return (
     <>
-      <Container direction="row">
+      {/* <Container direction="row">
         <BlackBackground />
         <WorkoutsBackground src={Workoutbgimg} />
-      </Container>
+      </Container> */}
       {!profile && (
         <Collapse in={display}>
           <StyledAlert
@@ -148,19 +154,19 @@ export const Workouts = () => {
       {/* ============================================================ lime color heading */}
       {profile && (
         <Container mb="100px">
-          <Heading style={{ color: "lime" }}>Workouts</Heading>
+          <Heading style={{ color: "blue" }}>Workouts</Heading>
           <Container direction="row">
             <BasicButton
               text="Create Workout"
               variant="outlined"
-              color="success"
+              color="primary"
               btnFunction={handleClickOpen}
             />
 
             <ButtonLink to="/workouts/trainer-workouts">
               <BasicButton
                 text="Trainer Workouts"
-                color="success"
+                color="primary"
                 variant="outlined"
               />
             </ButtonLink>
@@ -183,8 +189,8 @@ export const Workouts = () => {
                     {activeWorkout === index ? (
                       <EditButton
                         btnFunction={() => editWorkout(index)}
-                        color="rgba(0, 200, 40, 1)"
-                        hoverStyling={{ "&:hover": { color: "lime" } }}
+                        color="blue"
+                        hoverStyling={{ "&:hover": { color: "blue" } }}
                       />
                     ) : (
                       <div style={{ height: "60px" }}>&nbsp;</div>
@@ -197,10 +203,10 @@ export const Workouts = () => {
                       onClick={() => handleClick(index)}
                       bg="#3F3F3F"
                       style={{
-                        color: "white",
+                        //color: "white",
                         borderLeft:
                           activeWorkout === index
-                            ? "6px solid lime"
+                            ? "6px solid blue"
                             : "6px solid transparent",
                       }}
                     >
@@ -208,7 +214,7 @@ export const Workouts = () => {
                       <SmallHeading
                         p="10px 0 0 20px"
                         m="0 0 10px"
-                        style={{ fontSize: "1.5rem", color: "lime" }}
+                        style={{ fontSize: "1.5rem", color: "blue" }}
                       >
                         {workout?.name}
                       </SmallHeading>
@@ -275,17 +281,17 @@ export const Workouts = () => {
                         text="Start Workout"
                         variant="outlined"
                         sx={{
-                          color: "lime",
+                          color: "blue",
                           mt: 3,
                           mb: 0,
-                          border: "1.7px solid lime",
+                          border: "1.7px solid blue",
                           borderRadius: "6px",
                           opacity: "0.8",
                           "&:hover": {
                             opacity: "1",
-                            color: "#444",
-                            backgroundColor: "lime",
-                            border: "2.5px solid #65FE08",
+                            color: "white",
+                            backgroundColor: "blue",
+                            border: "2.5px solid #blue",
                             boxShadow:
                               "3px 5px 6px -2px rgba(160, 160, 160, 0.6)",
                           },

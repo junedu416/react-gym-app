@@ -69,6 +69,7 @@ describe("Reports", () => {
             cy.request('DELETE', 'http://localhost:3000/users/delete', {
                 uid: uid 
             }).its('body');
+            cy.request('DELETE', `http://localhost:3000/profiles/${uid}`).its('body');
         });
         
         it("Deletes report from db", () => {

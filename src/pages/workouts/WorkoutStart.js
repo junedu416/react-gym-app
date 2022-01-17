@@ -27,7 +27,7 @@ export const WorkoutStart = () => {
 
   const { store, dispatch } = useGlobalState();
   const { profile, workoutIndex } = store;
-  const profWorkoutsClone = JSON.parse(JSON.stringify(profile.workouts));
+  const profWorkoutsClone = JSON.parse(JSON.stringify(profile.workouts)); //deep clone
   const workoutList = profWorkoutsClone[workoutIndex];
   const list = workoutList.exercises;
 
@@ -62,6 +62,7 @@ export const WorkoutStart = () => {
     setDisableExButtons(tempDisableExButtons);
   }
 
+  //keep track of previous stats and increment weight/distance for next workout if successful.
   const finishExercise = (exercise, isCompleted) => {
     setCounter(counter + 1);
     if (exercise.weight) {

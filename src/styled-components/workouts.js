@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { bg, flexbox, ml, p, shadow } from "./mixins";
+import { flexbox, ml, p, shadow, backgroundColor } from "./mixins";
 
 export const WorkoutCardStyling = styled.div`
   ${flexbox};
   ${shadow};
-  ${bg};
+  ${backgroundColor};
   min-width: ${props => props.minWidth ? props.minWidth : "350px"};
   min-height: ${props => props.minHeight ? props.minHeight : "" };
   border: 1px solid rgba(150, 150, 150, 0.25);
