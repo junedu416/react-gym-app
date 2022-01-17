@@ -3,14 +3,18 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import CalendarView from "../../components/CalendarView";
 import { Container } from "../../styled-components";
-
-import { FilterEvents } from "../../components/FilterEvents";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 //import { id } from "date-fns/locale";
 
-export const Calendar = (props) => {
+export const Calendar = () => {
   const [eventSelect, setEventSelect] = useState("class");
-  const { desktop, phone } = props;
+
+  const theme = useTheme();
+  const desktop = useMediaQuery(theme.breakpoints.up("md"));
+  const phone = useMediaQuery(theme.breakpoints.down("sm"));
+  
 
   const handleEventSelect = (event, newEventSelect) => {
     if (!newEventSelect) setEventSelect("class");
@@ -19,11 +23,11 @@ export const Calendar = (props) => {
     }
   };
 
-  const applyFilterFunction = () => {
-    // ====================================================================================================
-    // FILTERING CODE HERE
-    // ====================================================================================================
-  };
+  // const applyFilterFunction = () => {
+  //   // ====================================================================================================
+  //   // FILTERING CODE HERE
+  //   // ====================================================================================================
+  // };
 
   return (
     <>
@@ -63,24 +67,25 @@ export const Calendar = (props) => {
 
         <Container
           direction="row"
-// ========================== NEED TO ADJUST LINE BELOW FOR PHONE MEDIA QUERY ==========================
           w={desktop ? "25%" : phone ? "100%" : "100%"}
-          justify={desktop ? "flex-start" : "flex-end"}
+          justify={desktop ? "flex-end" : "flex-end"}
           style={{
             position: desktop ? "" : "absolute",
             right: 0,
-            bottom: desktop ? "" : 30, // switch around when pass desktop prop in. ***********************
+            bottom: desktop ? "" : 30,
           }}
         >
-          <FilterEvents eventSelect={eventSelect} applyFilterFunction={applyFilterFunction} />
+{/*           
+          This Filter component isn't fully functional, it doesn't filter events, but all the logic with selecting and toggling
+          a filter, state for if a filter is selected, and clearing all filters is working.
+          <FilterEvents eventSelect={eventSelect} applyFilterFunction={applyFilterFunction} /> */}
         </Container>
-
-        {/* ================ NEED TO CHANGE THIS WHEN HAVE PHONE MEDIA QUERY DONE ============== */}
+{/* Responsive element to keep everything aligned/centered when shifting the filter button to bottom for phone view.
         {desktop ? null : (
           <Container w={desktop ? "25%" : "15%"}>
             <span>&nbsp;</span>
           </Container>
-        )}
+        )} */}
       </Container>
 
       <CalendarView eventCategory={eventSelect} />

@@ -156,13 +156,6 @@ export const SignIn = () => {
             style={formStyling}
           />
 
-          {/* <BasicButton
-            type="submit"
-            text="Sign In"
-            sx={{ my: 0 }}
-            startIcon={<LoginIcon />}
-          /> */}
-
           <LoadButton
             type="submit"
             text={loading ? "Logging In" : "Sign In"}
