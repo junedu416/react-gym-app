@@ -3,6 +3,7 @@ import { useGlobalState } from "../../config/globalStore";
 import { Container } from "../../styled-components";
 import AttachmentIcon from "../../components/buttons/AttachmentIcon";
 import { MenuItem, TextField, Stack } from "@mui/material";
+import { LoadButton } from "../../components/buttons/LoadButton"
 
 // Date/Time Selection
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -15,7 +16,7 @@ import BasicButton from "../../components/buttons/BasicButton";
 import { useNavigate } from "react-router-dom";
 import { useRedirectNonStaffMembers } from "../../config/customHooks";
 
-export const EventForm = ({ submitFunction, event, eventId, buttonText }) => {
+export const EventForm = ({ submitFunction, event, eventId, buttonText, loading }) => {
   useRedirectNonStaffMembers("/events");
   const navigate = useNavigate();
   const { store } = useGlobalState();
@@ -231,10 +232,13 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText }) => {
               />
             </Container>
             <Container direction="row">
-              <BasicButton
+              <LoadButton
+                loadPosition="start"
+                loading={loading}
                 text={buttonText ? buttonText : "Submit"}
                 type="submit"
               />
+
               <BasicButton
                 text="Cancel"
                 color="secondary"

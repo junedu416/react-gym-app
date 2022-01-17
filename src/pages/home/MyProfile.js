@@ -196,12 +196,13 @@ export const MyProfile = () => {
         <Container
           align="flex-start"
           justify="flex-start"
-          minw={mobile ? "98vw" : tablet && "60%"}
+          minw={mobile ? "98vw" : tablet ? "80%" : "500px"}
           mb="50px"
           p="15px 30px"
           style={{
-            maxWidth: tablet ? "60vw" : "600px",
-            minHeight: mobile ? "100%" : "80vh",
+            maxWidth: tablet ? "60%" : "600px",
+            // : "600px",
+            minHeight: "100%",
             background: "rgba(40, 100, 150, 0.07",
             border: "1px solid rgba(40, 40, 40, 0.02)",
             borderRadius: "20px",
