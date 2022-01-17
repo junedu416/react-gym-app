@@ -12,7 +12,7 @@ export const ProfilePicture = (props) => {
 
   return (
     <ProfileImage
-      src={profile.photo ? profile.photo : DefaultProfile}
+      src={profile?.photo ? profile.photo : DefaultProfile}
       alt="profile avatar"
       w={w}
       h={h}
