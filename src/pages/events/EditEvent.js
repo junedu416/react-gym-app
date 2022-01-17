@@ -14,6 +14,7 @@ export const EditEvent = () => {
     const {store, dispatch} = useGlobalState();
     const {profile} = store;
 
+    // REDIRECT USERS THAT ARE NOT A CREATOR OF EVENT TRYING TO EDIT
     useEffect(() => {
         if(!event) {
             navigate('/events')
@@ -25,10 +26,12 @@ export const EditEvent = () => {
         }
     }, [profile, event, dispatch, createdBy, navigate])
 
+    // MAKES PUT REQ TO BACKEND TO UPDATE EVENT INFO
     const updateEvent = async(data) => {
         try {
           const result = await editEvent(event._id, data);
         if (result.error){
+          // when validation error occurs make error message more readable and displauy on screen.
           console.log("error in data validation: ", result.error)
           const errorClone = await JSON.parse(JSON.stringify(result))
           const errorMsg = errorClone.error.replace(/startTime: |endTime: /ig, "")

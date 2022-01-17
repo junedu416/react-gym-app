@@ -39,7 +39,9 @@ export const EventPopup = ({
     showEventReducer,
     initialEventDates
   );
-
+  
+  // when event is loaded from props set states on event time (formatted correctly in reducer)
+  // and check registration status of user to this particular event
   useEffect(() => {
     if (event) {
       dispatchEventDates({
@@ -54,25 +56,30 @@ export const EventPopup = ({
     }
   }, [event, profile]);
 
+  // closes popup
   const handleClose = () => {
     setOpen(false);
     setEvent(null);
   };
 
+  // onClick handler when user clicks "JOIN". displays confirmation message.
   const bookClass = (e) => {
     e.preventDefault();
     setConfirmMessage("confirm");
   };
 
+  // onClick handler when user clicks "CANCEL REGISTRATION". displays confirmation message.
   const cancelBooking = (e) => {
     e.preventDefault();
     setConfirmMessage("cancel");
   };
 
+  // onClick handler when user clicks "MORE DETAILS".
   const navigateToShowPage = (e) => {
     navigate(`./${event._id}`);
   };
 
+  // CALLBACK function to update user registration to a particular event
   const updateEvent = (columnsToUpdate, message) => {
     const updatedEvent = {
       ...event,
@@ -92,10 +99,12 @@ export const EventPopup = ({
       .catch((e) => console.log(e));
   };
 
+  // regisers user to event and updates backend
   const registerToEvent = (e) => {
     registerUserToEvent(event, profile._id, updateEvent);
   };
 
+  // removes user from registered users list and updates backend
   const cancelRegistration = (e) => {
     cancelUserRegistration(event, profile._id, updateEvent);
   };

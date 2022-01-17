@@ -7,11 +7,11 @@ import { EventForm } from "./EventForm";
 
 
 export const NewEvent = () => {
-  const {store, dispatch} = useGlobalState();
-  const profile = store.profile;
+  const { dispatch } = useGlobalState();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("")
 
+  // onSubmit callback used to create new event via form
   const submitNewEvent = async(data) => {
     try {
         const result = await createNewEvent(data);
@@ -30,13 +30,6 @@ export const NewEvent = () => {
       setErrorMessage("Failed to connect to server")
     }
   }
-
-  useEffect(() => {
-    if(!profile || !profile.isStaff) {
-      dispatch({type: 'setNotification', data: 'You are not authorised to access this page'})
-      navigate("/events")
-    }
-  }, [profile, dispatch, navigate])
 
 
   return (

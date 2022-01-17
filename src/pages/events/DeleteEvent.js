@@ -5,6 +5,7 @@ import { DeletePopup } from "./DeletePopup";
 export const DeleteEvent = ({eventId}) => {
     const [open, setOpen] = useState(false)
 
+    // when open = true opens popup to confirm event deletion
     const confirmDelete = (e) => {
         e.preventDefault();
         setOpen(true);
