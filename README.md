@@ -37,6 +37,10 @@ By June D, Daniel W, Nam N and Clare O
 
 ---
 
+Site is live on https://ajgymapp.netlify.app/ <br/>
+Backend repo: https://github.com/daniel-walters/express-gym-app <br/>
+Project management(Trello): https://trello.com/b/ZRCAUETr/t3a2-full-stack-app
+
 ## About this Application
 
 #### 1. Purpose
@@ -437,7 +441,6 @@ Events now refer to any classes, personal training sessions or competitions held
 
 Based on our wireframes, we have created an overview feature where users can see a summary of relevant information (upcoming events, recent reports, check-in, upcoming competition) that are personalised to the user currently signed in. It is the first page that users are navigated to once they register or sign in. 
 
-
 #### Updated Tech Stack 
 
   **Version Control**
@@ -472,6 +475,7 @@ Based on our wireframes, we have created an overview feature where users can see
   - supertest
   - Mock Service Worker
   - whatwg-fetch
+
 
 ### Major changes from Wireframes
 
@@ -548,3 +552,4 @@ This powerup is extremely useful as it will allow anyone to navigate themselves 
 Over the course of the development process the team has held meetings through a call each week to do standups and sprints for the upcoming week. These meetings were an opportunity for team members to discuss issues they have been facing, share new ideas about a feature of the application and made group decisions on any major changes that an application might need. Each time a group call meeting was held, a summary of agenda and topics that have been discussed were noted on a trello card so team members can refer back at any time.
 
 ![trello card with team call summary](docs/img/team-calls.jpg "trellocard-meeting-example")
+
