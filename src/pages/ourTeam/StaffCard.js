@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, SmallHeading, Text } from "../../styled-components";
 import BasicButton from "../../components/buttons/BasicButton";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ProfilePicture } from "../../components/ProfilePicture";
 import { useNavigate } from "react-router-dom";
+import { getShortenedString } from "../../utils/widgetUtils";
 
 
 export const StaffCard = ({staff}) => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const [showMore, setShowMore] = useState(false);
   const mobile = useMediaQuery(theme.breakpoints.down("sm"));
   const tablet = useMediaQuery(
     theme.breakpoints.up("sm") && theme.breakpoints.down("md")
@@ -18,6 +20,11 @@ export const StaffCard = ({staff}) => {
   const moveToCalendar = (e) => {
     e.preventDefault();
     navigate('/events')
+  }
+
+  const toggleDescriptionLength = (e) => {
+    e.preventDefault();
+    showMore ? setShowMore(false) : setShowMore(true);
   }
 
 
@@ -53,9 +60,13 @@ export const StaffCard = ({staff}) => {
           />
         </Container>
         <Container w="65%" p="0 20px" align="flex-start">
-          <Text fontSize={mobile ? "12px" : "14px"} m="0" justified>
-            {staff.description}
-          </Text>
+          {staff.description && <>
+              <Text fontSize={mobile ? "12px" : "14px"} m="0" justified>
+                {showMore ? `${staff.description}` : `${getShortenedString(staff.description, 150)}`}
+              </Text>
+              <BasicButton text={showMore ? "Hide" : "Show More"} btnFunction={toggleDescriptionLength} style={{height: "40px", maxWidth: "80px", fontSize: "0.7rem"}}/>
+            </>
+          }
         </Container>
       </Row>
     </Container>
