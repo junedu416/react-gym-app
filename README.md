@@ -25,7 +25,7 @@ With the launch and integration of this application, the client should see:
 - Authorization
 - Account settings 
   * a) View account information 
-  * b)Forget/reset password
+  * b) Forget/reset password
 
 **(2) Managing workouts**
 
@@ -369,4 +369,74 @@ During the planning period, team members have held meetings to discuss necessary
 
 
 
+
+---
+# PART B - Noting any changes 
+
+## About this Application
+
+### Functionality and Features updates
+
+**Managing workouts**
+
+In the planning phase, the team had planned to add an extra feature for staff members where their workouts are available publicly. However, this was a sprinkle feature that the team did not have the time to implement. Instead, all workouts are added to each user's profile and are not accessible publicly.
+
+The auto incrementation of an exercise's reps, weights and sets are implemented as planned, however the auto decrement functionality was voided as the implementation of increment functionality took longer than the team had expected.
+
+**Performance Stats**
+
+Performance Stats is an additional feature of the application where users are able to see the progress they have made for each exercise in a workout. The stats are displayed in a line graph where users can filter by workout. 
+
+**Reports**
+
+In the production application, each report will have a status of "unsolved" or "solved" only, to reduce complexity of handling reports both server-side and client-side. 
+
+
+**Check in**
+
+In the production application the user must check out manually. The auto checkout functionality was not implemented after team discussion on how to check user out correctly when application is closed and the server is no longer running to update the check in status. 
+
+**Events**
+
+Events now refer to any classes, personal training sessions or competitions held at Average Joes that users can register to. For competitions, we have decided that scoring would be better handled outside of the application to avoid potential injuries (i.e. participants should be supervised by gym staff for safety reasons) and untruthful submissions. 
+
+**Overview**
+
+We have added a new feature to our application where users can see an overview of relevant information (upcoming events, recent reports, check-in, upcoming competition) that are personalised to the user currently signed in. It is the first page that users are navigated to once they register or sign in and provides users with a summary of the application. 
+
+
+#### Updated Tech Stack 
+
+  **Version Control**
+  - Git
+  - GitHub
+
+  **Front End**
+  - React.js
+  - React Big Calendar
+  - Chart.js
+  - Styled Components
+  - Material UI
+  - moment
+  - date-fns
+  - json2mq (media queries)
+
+  **Back End**
+  - Node.js
+  - Express.js
+  - Mongoose
+  - MongoDB
+  - Firebase Authentication
+  - Firebase Cloud Storage
+  - multer 
+  - moment
+  - cors
+  - dotenv
+
+  **Testing**
+  - Jest
+  - Cypress
+  - supertest
+  - Mock Service Worker
+  - whatwg-fetch
 
