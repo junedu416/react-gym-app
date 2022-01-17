@@ -6,20 +6,15 @@ import { Container } from "../../styled-components";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
-import { FilterEvents } from "../../components/FilterEvents";
-
 //import { id } from "date-fns/locale";
 
-export const Calendar = (props) => {
+export const Calendar = () => {
   const [eventSelect, setEventSelect] = useState("class");
-  // const { desktop, phone } = props;
 
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up("md"));
   const phone = useMediaQuery(theme.breakpoints.down("sm"));
-  const tablet = useMediaQuery(
-    theme.breakpoints.up("sm") && theme.breakpoints.down("md")
-  );
+  
 
   const handleEventSelect = (event, newEventSelect) => {
     if (!newEventSelect) setEventSelect("class");
@@ -28,11 +23,11 @@ export const Calendar = (props) => {
     }
   };
 
-  const applyFilterFunction = () => {
-    // ====================================================================================================
-    // FILTERING CODE HERE
-    // ====================================================================================================
-  };
+  // const applyFilterFunction = () => {
+  //   // ====================================================================================================
+  //   // FILTERING CODE HERE
+  //   // ====================================================================================================
+  // };
 
   return (
     <>

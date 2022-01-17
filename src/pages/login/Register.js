@@ -192,8 +192,6 @@ export const Register = (props) => {
             style={formStyling}
           />
 
-          {/* <BasicButton type="submit" text="Create Account" sx={{ my: 0 }} disabled={disableSubmit} /> */}
-
           <LoadButton
             type="submit"
             text={disableSubmit ? "Processing..." : "Create Account"}

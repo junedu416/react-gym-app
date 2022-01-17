@@ -59,8 +59,6 @@ const LinkTab = styled((props) => (
   },
   "&.Mui-selected": {
     color: "rgb(170,255,170)",
-    // color: "white",
-    // backgroundColor: "rgba(110, 110, 110, 0.6)",
     backgroundColor: "darkblue",
     fontWeight: theme.typography.fontWeightBold,
   },
@@ -95,7 +93,6 @@ TabPanel.propTypes = {
 };
 
 export const Sidebar = (props) => {
-  // const [dashboardView, setDashboardView] = useState(<Overview />);
   const [value, setValue] = useState(9);
   const { store, dispatch } = useGlobalState();
   const { profile } = store;
@@ -162,7 +159,6 @@ export const Sidebar = (props) => {
   return (
     <Container
       style={{ position: desktop ? "absolute" : "fixed", flexDirection: "row", zIndex: 10 }}
-      // w={fullScreenSidebar && !open && "0vw"}
       w={ desktop ? drawerWidth : !open && "0vw"}
     >
       { desktop ? null :
@@ -196,23 +192,18 @@ export const Sidebar = (props) => {
         open={desktop ? true : open}
         sx={{
           zIndex:5,
-          // width: fullScreenSidebar ? (open ? "100vw" : "0vw") : drawerWidth,
           width: desktop ? open ? drawerWidth : drawerWidth : "0vw",
-          // minWidth: fullScreenSidebar ? "0px" : drawerWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             paddingTop: `calc(100vh / 8)`,
             position: "fixed",
             zIndex: 2,
-            // width: fullScreenSidebar ? "60vw" : drawerWidth,
-            // minWidth: fullScreenSidebar ? "0px" : "230px",
             boxSizing: "border-box",
             display: "flex",
             alignItems: "center",
             backgroundColor: "blue",
           },
         }}
-        // variant= {desktop ? "persistent" : "temporary"}
         variant= "persistent"
       >
         <SidebarTitle

@@ -63,7 +63,6 @@ export const ForgotPassword = () => {
     navigate("/auth/login");
   }
 
-  // {/* <ReusableAlert open type="error" message={error} btnFunction={() => setOpen(false)} /> */}
   return (
     <Container>
       {error && (
