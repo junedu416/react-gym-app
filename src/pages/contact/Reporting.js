@@ -91,6 +91,8 @@ export const Reporting = () => {
             />
           </Collapse>
         )}
+
+        {/* Page View for member */}
         {profile && !profile.isStaff && (
           <Container>
             <Heading>Report</Heading>
@@ -111,7 +113,6 @@ export const Reporting = () => {
                 <MenuItem value="Unsocial Behaviour">
                   Report Unsocial Behaviour
                 </MenuItem>
-                {/* <MenuItem value="General Inquiry">General Inquiry</MenuItem> */}
               </Select>
               <FormHelperText>
                 Please select inquiry type (required)
@@ -166,7 +167,8 @@ export const Reporting = () => {
           </Container>
         )}
       </Container>
-
+        
+      {/* Page View for staff */}
       {profile && profile.isStaff && <ViewReports />}
     </>
   );

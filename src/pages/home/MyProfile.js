@@ -37,16 +37,19 @@ export const MyProfile = () => {
   const [description, setDescription] = useState("");
   const [editMode, setEditMode] = useState(false);
 
+  // onChange function for form value in description
   const handleChange = (event) => {
     setDescription(event.target.value);
   };
 
+  // onChange function for image value
   function handleImageUpload(e) {
     e.preventDefault();
     setSelectedFile(e.target.files[0]);
     uploader(e);
   }
 
+  // makes PUT request to add profile.photo
   const updateMyProfile = async (data) => {
     try {
       const result = await addProfileImage(profile.userId, data);
@@ -71,6 +74,7 @@ export const MyProfile = () => {
     }
   };
 
+  // onSubmit function to change profile image
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData();
@@ -78,6 +82,7 @@ export const MyProfile = () => {
     updateMyProfile(data);
   };
 
+  // custom Hook to display image to view before making submission
   function useDisplayImage() {
     const [result, setResult] = useState("");
 
@@ -95,12 +100,14 @@ export const MyProfile = () => {
 
   const { result, uploader } = useDisplayImage();
 
+  // if current user has profile.description set as state
   useEffect(() => {
     if (profile.description) {
       setDescription(profile.description);
     }
   }, [profile.description]);
 
+  // opens form input to edit/add desctiprion
   const editDescription = () => {
     setEditMode(true);
   };
@@ -109,6 +116,7 @@ export const MyProfile = () => {
     setEditMode(false);
   }
 
+  // PUT REQ to backend to add profile.description
   const updateStaffDescription = async (data) => {
     try {
       const result = await editProfile(profile.userId, data);
@@ -133,9 +141,9 @@ export const MyProfile = () => {
     }
   };
 
+  // onSubmit function to update description in backend
   const handleUpdateDescription = async (e) => {
     e.preventDefault();
-    // const updated = {...profile, description: description}
     const dataToSend = {
       ...profile,
       description: description,

@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import { useGlobalState } from "../../config/globalStore";
 import { useNavigate } from "react-router";
 
+//***************Form for gym members to add custom exercise**********************
 export const ExerciseForm = ({ workoutIndex, submitFunc }) => {
   const { store, dispatch } = useGlobalState();
   const { profile } = store;

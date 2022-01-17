@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import EditButton from "../../components/buttons/Edit";
+
 import {
   Container,
   Heading,
@@ -11,29 +12,27 @@ import {
   Text,
   TextLink,
 } from "../../styled-components";
-import { Collapse } from "@mui/material";
+
 import {
-  BlackBackground,
+  //BlackBackground,
   WorkoutCardStyling,
   WorkoutList,
 } from "../../styled-components/workouts";
+
+import { Collapse } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import CloseIcon from "@mui/icons-material/Close";
-
 import BasicButton from "../../components/buttons/BasicButton";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
 import { ReusableModal } from "../../components/ReusableModal";
 import { displayUnits } from "../../utils/workoutFunctions";
-import Workoutbgimg from "../../assets/workouts.jpg";
-import { WorkoutsBackground } from "../../styled-components/workouts";
+// import Workoutbgimg from "../../assets/workouts.jpg";
+// import { WorkoutsBackground } from "../../styled-components/workouts";
 
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -91,7 +90,6 @@ export const Workouts = () => {
 
     dispatch({ type: "selectWorkout", data: profile.workouts.length });
     navigate(`/workouts/edit`);
-    // navigate(`/workouts/edit?&workout_index=${profile.workouts.length}`);
   };
 
   const [activeWorkout, setActiveWorkout] = useState(0);
@@ -116,10 +114,10 @@ export const Workouts = () => {
 
   return (
     <>
-      <Container direction="row">
+      {/* <Container direction="row">
         <BlackBackground />
         <WorkoutsBackground src={Workoutbgimg} />
-      </Container>
+      </Container> */}
       {!profile && (
         <Collapse in={display}>
           <StyledAlert
@@ -151,30 +149,22 @@ export const Workouts = () => {
       {/* ============================================================ lime color heading */}
       {profile && (
         <Container mb="100px">
-          <Heading style={{ color: "lime" }}>Workouts</Heading>
+          <Heading style={{ color: "#0d47a1" }}>Workouts</Heading>
           <Container direction="row">
             <BasicButton
               text="Create Workout"
               variant="outlined"
-              color="success"
+              color="primary"
               btnFunction={handleClickOpen}
             />
 
             <ButtonLink to="/workouts/trainer-workouts">
               <BasicButton
                 text="Trainer Workouts"
-                color="success"
+                color="primary"
                 variant="outlined"
               />
             </ButtonLink>
-
-            {/* <ButtonLink to="/exercises">
-                <BasicButton
-                  text="View Exercises"
-                  variant="outlined"
-                  color="error"
-                />
-              </ButtonLink> */}
           </Container>
 
           {profile.workouts.length === 0 && (
@@ -194,8 +184,8 @@ export const Workouts = () => {
                     {activeWorkout === index ? (
                       <EditButton
                         btnFunction={() => editWorkout(index)}
-                        color="rgba(0, 200, 40, 1)"
-                        hoverStyling={{ "&:hover": { color: "lime" } }}
+                        color="#0d47a1"
+                        hoverStyling={{ "&:hover": { color: "#0d47a1" } }}
                       />
                     ) : (
                       <div style={{ height: "60px" }}>&nbsp;</div>
@@ -208,10 +198,10 @@ export const Workouts = () => {
                       onClick={() => handleClick(index)}
                       bg="#3F3F3F"
                       style={{
-                        color: "white",
+                        //color: "white",
                         borderLeft:
                           activeWorkout === index
-                            ? "6px solid lime"
+                            ? "6px solid #0d47a1"
                             : "6px solid transparent",
                       }}
                     >
@@ -219,7 +209,7 @@ export const Workouts = () => {
                       <SmallHeading
                         p="10px 0 0 20px"
                         m="0 0 10px"
-                        style={{ fontSize: "1.5rem", color: "lime" }}
+                        style={{ fontSize: "1.5rem", color: "#0d47a1" }}
                       >
                         {workout?.name}
                       </SmallHeading>
@@ -286,17 +276,17 @@ export const Workouts = () => {
                         text="Start Workout"
                         variant="outlined"
                         sx={{
-                          color: "lime",
+                          color: "#0d47a1",
                           mt: 3,
                           mb: 0,
-                          border: "1.7px solid lime",
+                          border: "1.7px solid #0d47a1",
                           borderRadius: "6px",
                           opacity: "0.8",
                           "&:hover": {
                             opacity: "1",
-                            color: "#444",
-                            backgroundColor: "lime",
-                            border: "2.5px solid #65FE08",
+                            color: "white",
+                            backgroundColor: "#0d47a1",
+                            border: "2.5px solid #0d47a1",
                             boxShadow:
                               "3px 5px 6px -2px rgba(160, 160, 160, 0.6)",
                           },

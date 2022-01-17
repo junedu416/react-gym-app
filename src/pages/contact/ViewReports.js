@@ -116,7 +116,6 @@ export const ViewReports = () => {
           p="20px 6px"
           mb="50px"
           br="20px"
-          // bg="rgba(80, 160, 160, 0.1)"
           bg="rgba(255, 204, 128, 0.2)"
           greyBorder
           style={{
@@ -127,7 +126,6 @@ export const ViewReports = () => {
         >
           <Unresolved text={totalUnresolvedBehaviour} type="Unsocial Behaviour" />
           <ul style={{ margin: "0", padding: "0", zIndex: "2" }}>
-            {/* {reportList.map((report, index) => { */}
 
             {behaviourReports.map((report, index) => {
               return (

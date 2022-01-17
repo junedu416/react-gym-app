@@ -2840,6 +2840,8 @@
   "version" "5.2.0"
 
 "ansicolors@*":
+  "integrity" "sha1-ZlWX3oap/+Oqm/vmyuXG6kJrSXk="
+  "resolved" "https://registry.npmjs.org/ansicolors/-/ansicolors-0.3.2.tgz"
   "version" "0.3.2"
 
 "ansicolors@~0.3.2":
