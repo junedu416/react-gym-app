@@ -10,7 +10,7 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { MobileDatePicker, MobileTimePicker } from "@mui/lab";
 
 // services
-import { gymClasses } from "../../data/classes";
+import { gymClasses } from "../../data/events";
 import BasicButton from "../../components/buttons/BasicButton";
 import { useNavigate } from "react-router-dom";
 import { useRedirectNonStaffMembers } from "../../config/customHooks";
