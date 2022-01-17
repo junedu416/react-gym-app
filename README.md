@@ -2,6 +2,39 @@
 
 By June D, Daniel W, Nam N and Clare O
 
+**Application (Front End):** https://ajgymapp.netlify.app/
+
+*GitHub Repository:* https://github.com/junedu416/react-gym-app
+
+**Api (Back End):** https://gym-dev-server.herokuapp.com/
+
+*GitHub Repository:* https://github.com/daniel-walters/express-gym-app
+
+##### Recommended Accounts to view this application
+
+*Staff Accounts*
+
+- mikemichaels@email.com (password: passWord1)
+- jasonjayson@email.com (password: passWord1)
+
+*User Accounts*
+
+- jamesjameson@email.com (password: passWord1)
+- jillianjills@email.com (password: passWord1)
+
+##### Valid membership ids to register with
+
+*Staff memberships*
+
+- 1111
+- 2222
+
+*User memberships*
+
+- 3333
+- 4444
+- 1234
+
 ---
 
 ## About this Application
@@ -402,7 +435,7 @@ Events now refer to any classes, personal training sessions or competitions held
 
 **Overview**
 
-We have added a new feature to our application where users can see an overview of relevant information (upcoming events, recent reports, check-in, upcoming competition) that are personalised to the user currently signed in. It is the first page that users are navigated to once they register or sign in and provides users with a summary of the application. 
+Based on our wireframes, we have created an overview feature where users can see a summary of relevant information (upcoming events, recent reports, check-in, upcoming competition) that are personalised to the user currently signed in. It is the first page that users are navigated to once they register or sign in. 
 
 
 #### Updated Tech Stack 
@@ -440,3 +473,78 @@ We have added a new feature to our application where users can see an overview o
   - Mock Service Worker
   - whatwg-fetch
 
+### Major changes from Wireframes
+
+One of the biggest changes that the team has decided to make from the initial wireframes is the navigation bar. The initial plan was to have a navigation bar along the top of the browser window for desktop and along the bottom for smaller screens. However, the wireframes have also included the sidebar that sits along the left side of the window. During the development period we have noticed that there were multiple overlaps in the functionality and purpose of sidebar and navigation bar, hence having both in one window would be too confusing for the users to interact with the application. After a team discussion we have decided that a sidebar which can be folded out of the view would be useful in smaller screens, and for that reason decided to remove the horizontal navigation bar and move all necessary navigation links to the sidebar. 
+
+Another notable change from the wireframes is the removal of the exercise details page, which was planned to show details about a specific exercise that exist in the database. 
+
+![wireframe exercise view](docs/img/wireframes/exercise-view.png "exercise view")
+
+This page was removed as it was not a page that was prioritised for this application to run smoothly. Majority of the team members had also pointed out that any exercise that a user would try for the first time, they should get an assistance from trainers so that they do not get injured or misuse any equipments. As it is a dafer choice to be informed about equipment use and exercise method in person, we deemed that the page is not necessary for us to build. 
+
+### Changes from the Application Architecture Diagrams
+
+The Application Architecture Diagram (AAD) shows that the application will use session storage to persist information about a user. For the production application, we have instead used local storage. Local storage will keep the user id (uid) of a signed in user which is a unique id for firebase to authenticate a user. However, the uid is only stored in local storage if a user decides to check `Remember Me` checkbox when signing in. The purpose of using local storage in our application is that the user information persists when the applciation is closed and reloaded, but only for those that have requested the application to remember their profile. It is not required for the application to store uid in local storage for user verification in any other methods (e.g. submitting a form) as uid is also stored in a user's profile schema which is retrieved from the backend then stored in a global state. 
+
+*Example of a trello card which links to a GitHub pull request*
+
+![local storage example](docs/img/localStorage.jpg "localstorage-example")
+
+### Final schemas in the backend API
+
+In the production api, we have the following schemas created using MongoDB and Mongoose;
+
+**Profile**
+
+![profile schema](docs/img/profileSchema.jpg "profile-schema")
+
+Profile schema holds a variety of information about a user including userId for firebase authentication, whether they are a staff member or not, profile photo and more. Custom workouts that a user creates also sits in a profile, as we have initially planned on only saving the public workouts in the workout schema to prevent duplicate workouts (workouts that two users create may have the same exercises and same name but would need to be kept separate to maintain exercise reps, sets and weight) from being saved. This decision was also made as we are using the profile in our global state hence requires less calls to the backend if workouts are kept in the profile. The arrays of previous weights, sets and reps are used for auto incrementation functionalities of these values, as well as performance stats where progress can be tracked through a chart.
+
+**CheckIn**
+
+![checkIn schema](docs/img/checkinSchema.jpg "checkin-schema")
+CheckIn schema holds information about the number of people that are checkec in on certain days. This is used to display the bar chart for average checkins to both users and staff members.
+
+**Event**
+
+![event schema](docs/img/eventSchema.jpg "event-schema")
+
+Event Schema holds information about personal training, classes and competitions. The creator of the event can be populated via createdBy column which links to a profile id.
+
+**Exercise**
+
+![exercise schema](docs/img/exerciseSchema.jpg "exercise-schema")
+
+Exercise schema holds all exercises that are listed in the "popular exercises", which any user can add to their workout. The default sets, reps and weights are used as initial values for each exercise when they are added to a workout.
+
+**Report**
+
+![report schema](docs/img/reportSchema.jpg "report-schema")
+
+Report Schema holds any information about faulty equipment or unsocial behaviour reports, and whether the issue has been resolved or not.
+
+**Workout**
+
+![workout schema](docs/img/workoutSchema.jpg "workout-schema")
+
+Workout Schema holds an array of exercises that are added to a workout along with the name of the workout. 
+
+### Project Management
+Aside from the features already mentioned in part A, the development team have linked their work on github to each trello card to easily track each other's progress in the task. For this, we have used the trello card's GitHub powerup which allows users to link a gitHub pull request or feature branch. 
+
+*Example of a trello card which links to a GitHub pull request*
+
+![trello card with github pull request link](docs/img/trellocard-gh-sample.jpg "trellocard-github-example")
+
+*Example of a trello card which links to GitHub branches*
+
+![trello card with github branch link](docs/img/trellocard-gh-sample2.jpg "trellocard-github-example-2")
+
+This powerup is extremely useful as it will allow anyone to navigate themselves quickly into a branch that is being listed, and is helpful when a team member requires help with an issue they are facing in a specific branch. 
+
+**Team Meetings**
+
+Over the course of the development process the team has held meetings through a call each week to do standups and sprints for the upcoming week. These meetings were an opportunity for team members to discuss issues they have been facing, share new ideas about a feature of the application and made group decisions on any major changes that an application might need. Each time a group call meeting was held, a summary of agenda and topics that have been discussed were noted on a trello card so team members can refer back at any time.
+
+![trello card with team call summary](docs/img/team-calls.jpg "trellocard-meeting-example")
