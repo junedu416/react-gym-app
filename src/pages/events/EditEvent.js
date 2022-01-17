@@ -11,6 +11,7 @@ export const EditEvent = () => {
     console.log("state pulled from useLocation", state)
     const {event, createdBy} = state;
     const [errorMessage, setErrorMessage] = useState("");
+    const [loading, setLoading] = useState(false);
     const {store, dispatch} = useGlobalState();
     const {profile} = store;
 
@@ -29,6 +30,7 @@ export const EditEvent = () => {
     // MAKES PUT REQ TO BACKEND TO UPDATE EVENT INFO
     const updateEvent = async(data) => {
         try {
+          setLoading(true);
           const result = await editEvent(event._id, data);
         if (result.error){
           // when validation error occurs make error message more readable and displauy on screen.
@@ -36,6 +38,7 @@ export const EditEvent = () => {
           const errorClone = await JSON.parse(JSON.stringify(result))
           const errorMsg = errorClone.error.replace(/startTime: |endTime: /ig, "")
           setErrorMessage(errorMsg)
+          setLoading(false)
         } else {
           setErrorMessage("")
           dispatch({type: "setNotification", data: "Successfully updated event"})
@@ -43,6 +46,7 @@ export const EditEvent = () => {
         }
       } catch(e) {
         console.log("error caught: ", e)
+        setLoading(false)
         setErrorMessage("Failed to connect to server")
       }
     }
@@ -52,7 +56,7 @@ export const EditEvent = () => {
         <MainWindow>
             <Heading>Edit Event</Heading>
             {errorMessage && <p>{errorMessage}</p>}
-            <EventForm submitFunction={updateEvent} event={event} eventId={event._id} buttonText="Update" />
+            <EventForm submitFunction={updateEvent} event={event} eventId={event._id} buttonText="Update" loading={loading}/>
         </MainWindow>
     )
 }
