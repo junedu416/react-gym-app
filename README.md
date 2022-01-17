@@ -423,7 +423,6 @@ We have added a new feature to our application where users can see an overview o
   - Material UI
   - moment
   - date-fns
-  - json2mq (media queries)
 
   **Back End**
   - Node.js
