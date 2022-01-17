@@ -7,6 +7,7 @@ import { ProfilePicture } from "../../components/ProfilePicture";
 import { useNavigate } from "react-router-dom";
 import { getShortenedString } from "../../utils/widgetUtils";
 
+
 export const StaffCard = ({staff}) => {
   const theme = useTheme();
   const navigate = useNavigate();
