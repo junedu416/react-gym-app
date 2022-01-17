@@ -13,14 +13,11 @@ import { StaffEventsWidget } from "../../widgets/StaffEventsWidget.js";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-export const Overview = (props) => {
+export const Overview = () => {
   useRedirectUnauthorisedUser();
   const { store } = useGlobalState();
   const { profile } = store;
   const [eventsList, setEventsList] = useState(null);
-  // const [eventsList, dispatchEventsList] = useReducer(eventsReducer, {events: null})
-
-  // const { desktop } = props;
 
   useEffect(() => {
     if (!eventsList) {
@@ -60,9 +57,6 @@ export const Overview = (props) => {
         <CardStyle desktop>
           <ReportWidget />
         </CardStyle>
-        {/* <CardStyle desktop>
-
-        </CardStyle> */}
       </Grid>
     </Container>
   );

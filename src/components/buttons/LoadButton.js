@@ -4,7 +4,6 @@ export const LoadButton = (props) => {
   const {
     btnFunction,
     color,
-    disabled,
     endIcon,
     loading,
     loadPosition,
@@ -32,7 +31,7 @@ export const LoadButton = (props) => {
       size={size ? size : "large"}
       style={{ ...buttonStyle, ...style }}
       sx={{ my: 2, mx: 1, ...sx }}
-      disabled={disabled}
+      disabled={loading}
     >
       {text}
     </LoadingButton>

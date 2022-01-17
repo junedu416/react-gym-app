@@ -26,11 +26,11 @@ export const NewEvent = () => {
       } else {
         setErrorMessage("")
         dispatch({type: "setNotification", data: "Event successfully created"})
-        setLoading(false);
         navigate('/events')
       }
     } catch(e) {
       console.log("error caught: ", e)
+      setLoading(false)
       setErrorMessage("Failed to connect to server")
     }
   }
