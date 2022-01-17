@@ -34,14 +34,7 @@ export const ShowEvent = () => {
     const [instructor, setInstructor] = useState(initialInstructor)
     const [userIsRegistered, setUserIsRegistered] = useState(false)
 
-    useEffect(() => {
-        if(!profile) {
-            dispatch({type: "setNotification", data: "You must be logged in to view this page"})
-            navigate("/auth/login")
-        }
-        return
-    }, [profile, dispatch, navigate])
-
+    // FETCH EVENT FROM BACKEND BY ID FROM URL PARAM
     useEffect(() => {
         getEventById(id)
         .then((response) => {
@@ -61,6 +54,7 @@ export const ShowEvent = () => {
         })
     }, [id])
 
+    // CHECK IF USER IS REGISTERED TO EVENT AND SET NEW STATE (BOOLEAN)
     useEffect(() => {
         if(event) {
             const userIsRegistered = isUserRegistered(profile, event.registeredUsers)
@@ -68,6 +62,7 @@ export const ShowEvent = () => {
         }
     }, [event, profile])
 
+    // CALLBACK FN CALLED WHEN USER REGISTERS/CANCELS REGISTRATION
     const updateEvent = (columnsToUpdate, message) => {
         const updatedEvent = {
           ...event,

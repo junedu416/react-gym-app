@@ -10,7 +10,7 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { MobileDatePicker, MobileTimePicker } from "@mui/lab";
 
 // services
-import { gymClasses } from "../../data/classes";
+import { gymClasses } from "../../data/events";
 import BasicButton from "../../components/buttons/BasicButton";
 import { useNavigate } from "react-router-dom";
 import { useRedirectNonStaffMembers } from "../../config/customHooks";
@@ -31,6 +31,7 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText }) => {
   };
   const [formValues, setFormValues] = useState(initialValues);
 
+  // if user is editing event get info from props and set as current state
   useEffect(() => {
     if (event) {
       setFormValues({
@@ -45,6 +46,7 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText }) => {
     }
   }, [event]);
 
+  // onChange event handler
   const handleChange = (event) => {
     setFormValues({
       ...formValues,
@@ -52,9 +54,11 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText }) => {
     });
   };
 
+  // onSubmit event handler
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("submitted");
+    // combine all states to one object
     const infoToSend = {
       ...formValues,
       startTime: startTime,
@@ -62,18 +66,22 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText }) => {
       createdBy: profile._id,
       eventImage: image,
     };
+    // convert to FormData so image file can be uploaded
     const data = new FormData();
     for (let key in infoToSend) {
       if (infoToSend[key]) data.append(`${key}`, infoToSend[key]);
     }
+    // create or update event
     submitFunction(data, eventId);
   };
 
+  // onChange handler for image form value
   const handleImageUpload = (event) => {
     console.log(event.target.files[0]);
     setImage(event.target.files[0]);
   };
 
+  // navigate user when cancel submission
   const goBack = (e) => {
     e.preventDefault();
     navigate(-1);

@@ -149,7 +149,7 @@ export const Workouts = () => {
       {/* ============================================================ lime color heading */}
       {profile && (
         <Container mb="100px">
-          <Heading style={{ color: "blue" }}>Workouts</Heading>
+          <Heading style={{ color: "#0d47a1" }}>Workouts</Heading>
           <Container direction="row">
             <BasicButton
               text="Create Workout"
@@ -184,8 +184,8 @@ export const Workouts = () => {
                     {activeWorkout === index ? (
                       <EditButton
                         btnFunction={() => editWorkout(index)}
-                        color="blue"
-                        hoverStyling={{ "&:hover": { color: "blue" } }}
+                        color="#0d47a1"
+                        hoverStyling={{ "&:hover": { color: "#0d47a1" } }}
                       />
                     ) : (
                       <div style={{ height: "60px" }}>&nbsp;</div>
@@ -201,7 +201,7 @@ export const Workouts = () => {
                         //color: "white",
                         borderLeft:
                           activeWorkout === index
-                            ? "6px solid blue"
+                            ? "6px solid #0d47a1"
                             : "6px solid transparent",
                       }}
                     >
@@ -209,7 +209,7 @@ export const Workouts = () => {
                       <SmallHeading
                         p="10px 0 0 20px"
                         m="0 0 10px"
-                        style={{ fontSize: "1.5rem", color: "blue" }}
+                        style={{ fontSize: "1.5rem", color: "#0d47a1" }}
                       >
                         {workout?.name}
                       </SmallHeading>
@@ -276,17 +276,17 @@ export const Workouts = () => {
                         text="Start Workout"
                         variant="outlined"
                         sx={{
-                          color: "blue",
+                          color: "#0d47a1",
                           mt: 3,
                           mb: 0,
-                          border: "1.7px solid blue",
+                          border: "1.7px solid #0d47a1",
                           borderRadius: "6px",
                           opacity: "0.8",
                           "&:hover": {
                             opacity: "1",
                             color: "white",
-                            backgroundColor: "blue",
-                            border: "2.5px solid #blue",
+                            backgroundColor: "#0d47a1",
+                            border: "2.5px solid #0d47a1",
                             boxShadow:
                               "3px 5px 6px -2px rgba(160, 160, 160, 0.6)",
                           },
