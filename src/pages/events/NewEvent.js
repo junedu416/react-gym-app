@@ -10,19 +10,23 @@ export const NewEvent = () => {
   const { dispatch } = useGlobalState();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("")
+  const [loading, setLoading] = useState(false);
 
   // onSubmit callback used to create new event via form
   const submitNewEvent = async(data) => {
     try {
+        setLoading(true);
         const result = await createNewEvent(data);
       if (result.error){
         console.log("error in data validation: ", result.error)
         const errorClone = await JSON.parse(JSON.stringify(result))
         const errorMsg = errorClone.error.replace(/startTime: |endTime: /ig, "")
         setErrorMessage(errorMsg)
+        setLoading(false);
       } else {
         setErrorMessage("")
         dispatch({type: "setNotification", data: "Event successfully created"})
+        setLoading(false);
         navigate('/events')
       }
     } catch(e) {
@@ -36,7 +40,7 @@ export const NewEvent = () => {
     <MainWindow>
       <Heading>Create Event</Heading>
       {errorMessage && <p>{errorMessage}</p>}
-      <EventForm submitFunction={submitNewEvent}/>
+      <EventForm submitFunction={submitNewEvent} loading={loading} />
     </MainWindow>
   );
 };
