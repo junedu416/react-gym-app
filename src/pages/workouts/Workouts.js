@@ -22,8 +22,6 @@ import {
   WorkoutList,
 } from "../../styled-components/workouts";
 
-import { WorkoutsBackground } from "../../styled-components/workouts";
-import Workoutbgimg from "../../assets/workouts.jpg";
 import { Collapse } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
