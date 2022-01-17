@@ -9,7 +9,6 @@ export const eventsReducer = (state, action) => {
             }
         }
         case 'setCategorisedEventsList': {
-            // const filteredEvents = state.events.filter((event) => event.category.toLowerCase() === action.data.toLowerCase())
             const filteredEvents = filterEventsByCategory(state.events, action.data.category, action.data.profile)
             return {
                 ...state,
