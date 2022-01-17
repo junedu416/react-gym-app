@@ -205,6 +205,7 @@ export const Workouts = () => {
                             : "6px solid transparent",
                       }}
                     >
+                    
                       {/* ================================== NEED TO CHANGE TO MUI HEADING LEAVE HERE */}
                       <SmallHeading
                         p="10px 0 0 20px"
