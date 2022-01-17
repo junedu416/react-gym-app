@@ -235,7 +235,7 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
               <LoadButton
                 loadPosition="start"
                 loading={loading}
-                text={buttonText ? buttonText : "Submit"}
+                text={buttonText ? buttonText : "Create"}
                 type="submit"
               />
 
