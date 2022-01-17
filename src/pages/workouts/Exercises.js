@@ -94,6 +94,7 @@ export const Exercises = () => {
   }, [exerciseIndex, exerciseList]);
 
   useEffect(() => {
+    //get all exercises from database:
     const  fetchExercises = async () => {
       const exercises = await getAllExercises();
       setExerciseList(exercises)

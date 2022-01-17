@@ -1,21 +1,24 @@
 import React, { useState, useEffect, useCallback } from "react";
-//import EditButton from "../../components/buttons/Edit";
+import moment from "moment";
+
+import { editProfile } from "../../services/profileServices";
+import { displayUnits } from "../../utils/workoutFunctions";
+import { useRedirectUnauthorisedUser } from "../../config/customHooks";
+import { useGlobalState } from "../../config/globalStore";
+
 import { Container, SmallHeading } from "../../styled-components";
+import { WorkoutDate, WorkoutText } from "../../styled-components/workouts";
+
 import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
 import Divider from "@mui/material/Divider";
-import { WorkoutDate, WorkoutText } from "../../styled-components/workouts";
-import moment from "moment";
 import { Button, ButtonGroup } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { ReusableModal } from "../../components/ReusableModal";
-import { useRedirectUnauthorisedUser } from "../../config/customHooks";
-import { useGlobalState } from "../../config/globalStore";
-import { editProfile } from "../../services/profileServices";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { displayUnits } from "../../utils/workoutFunctions";
 
-export const WorkoutStart = (props) => {
+
+export const WorkoutStart = () => {
   useRedirectUnauthorisedUser();
   const navigate = useNavigate();
 
@@ -24,12 +27,9 @@ export const WorkoutStart = (props) => {
 
   const { store, dispatch } = useGlobalState();
   const { profile, workoutIndex } = store;
-  const profWorkoutsClone = JSON.parse(JSON.stringify(profile.workouts));
+  const profWorkoutsClone = JSON.parse(JSON.stringify(profile.workouts)); //deep clone
   const workoutList = profWorkoutsClone[workoutIndex];
-  console.log("workoutList", workoutList);
   const list = workoutList.exercises;
-
-  console.log(list);
 
   const [counter, setCounter] = useState(0);
   const [disableExButtons, setDisableExButtons] = useState(
@@ -56,20 +56,13 @@ export const WorkoutStart = (props) => {
     });
   };
 
-  /*useEffect(() => {
-    const tempDisableExButtons = [...disableExButtons];
-    for (let i = 0; i < tempDisableExButtons.length; i++) {
-      tempDisableExButtons[i] = false;
-    }
-    setDisableExButtons(tempDisableExButtons);
-  }, []);*/
-
   function toggleDisabledButtons(index) {
     const tempDisableExButtons = [...disableExButtons];
     tempDisableExButtons[index] = !tempDisableExButtons[index];
     setDisableExButtons(tempDisableExButtons);
   }
 
+  //keep track of previous stats and increment weight/distance for next workout if successful.
   const finishExercise = (exercise, isCompleted) => {
     setCounter(counter + 1);
     if (exercise.weight) {
@@ -113,14 +106,6 @@ export const WorkoutStart = (props) => {
   useEffect(() => {
     if (exerciseCompleted.exercises.length === list.length) {
       updateProfileWorkouts();
-      // profWorkoutsClone[workoutIndex] = exerciseCompleted;
-      // console.log("profWorkoutsClone", profWorkoutsClone);
-      // editProfile(profile.userId, {
-      //   ...profile,
-      //   workouts: profWorkoutsClone,
-      // }).then((response) =>
-      //   dispatch({ type: "setProfile", data: response.data })
-      // );
     }
   }, [exerciseCompleted, updateProfileWorkouts, list.length]);
 
@@ -162,7 +147,6 @@ export const WorkoutStart = (props) => {
               align="flex-start"
               w="100%"
               p="5px 0px 0px 15px"
-              // style={{ maxWidth: "95vw" }}
               style={{
                 minWidth: desktop ? "400px" : "",
                 maxWidth: desktop ? "450px" : "100%",

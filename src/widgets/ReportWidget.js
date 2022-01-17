@@ -16,6 +16,7 @@ const ReportWidget = () => {
     const navigate = useNavigate();
     const [reports, setReports] = useState([]);
 
+    //get all reports and filter by if current user created them or all if a staff member is logged in
     useEffect(() => {
         getAllReports().then((data) => {
             let reportsToShow;

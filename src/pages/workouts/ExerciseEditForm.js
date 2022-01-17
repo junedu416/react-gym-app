@@ -6,10 +6,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { formStyling } from "../../styled-components/login";
-// import { navigate } from 'react-big-calendar/lib/utils/constants';
 import { useGlobalState } from "../../config/globalStore";
 
-
+// **********************Edit form for single exercise *******************************
 export const ExerciseEditForm = ({open, setFormOpen, exercise, workoutIndex}) => {
 
   const { store, dispatch } = useGlobalState();
@@ -60,6 +59,7 @@ export const ExerciseEditForm = ({open, setFormOpen, exercise, workoutIndex}) =>
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
+        {/* If the exercise doesn't hava a custom name, render the exercise original names (only user added exercise has a custom name) */}
         <DialogTitle>Edit {exercise.exerciseId? exercise.exerciseId.name: exercise.customisedName}</DialogTitle>
         <DialogContent>
           <TextField

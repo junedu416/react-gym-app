@@ -125,6 +125,7 @@ export const Sidebar = (props) => {
     setValue(index);
   }, [location, sbData]);
 
+  //filter what links are shown on the sidebar depending if a user is signed in or not.
   useEffect(() => {
     let temp;
     if (profile) {

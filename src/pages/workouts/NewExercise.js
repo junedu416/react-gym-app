@@ -11,8 +11,6 @@ export const NewExercise = () => {
   const {profile, workoutIndex} = store;
   const [errorMessage, setErrorMessage] = useState("");
 
-
-
   const updateProfileExercise = () => {
     console.log('profile workouts:', [profile.workouts] )
     editProfile(profile.userId, profile)
