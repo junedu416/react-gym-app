@@ -28,7 +28,6 @@ export const ReportItems = ({
         p="20px"
         m="10px 5px"
         bg="rgba(50, 130, 180, 0.12)"
-        // bg="rgba(50, 150, 225, 0.5)"
         hoverMixin
         br="20px"
         align="flex-start"
@@ -57,7 +56,6 @@ export const ReportItems = ({
           {report.resolvedBy && (
             <>
               <TextBold mr="20px">By: </TextBold>
-              {/* <TextBold mr="78px">By: </TextBold> */}
               <Chip
                 variant="outlined"
                 label={report.resolvedBy}

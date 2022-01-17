@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+
 import {
   Container,
   Heading,
@@ -20,14 +21,15 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { Menu, MenuItem } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { ReusableModal } from "../../components/ReusableModal";
+
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import { useGlobalState } from "../../config/globalStore";
 import { editProfile } from "../../services/profileServices";
 import { ExerciseEditForm } from "./ExerciseEditForm";
 import BasicButton from "../../components/buttons/BasicButton";
 import { DeleteWorkout } from "./DeleteWorkout";
-import ClickAwayListener from '@mui/material/ClickAwayListener';
 
 export const EditWorkouts = () => {
   useRedirectUnauthorisedUser();
@@ -68,9 +70,9 @@ export const EditWorkouts = () => {
 
   const handleMenuClose = (event) => {
     setAnchorEl(null);
+    // Direct users to different page upon menu choose
     if (event.target.getAttribute("value") === choosePath[0]) {
       navigate(`/exercises`);
-      // navigate(`/exercises?${searchParams}`);
     } else navigate("/workouts/new");
   };
 
@@ -84,10 +86,10 @@ export const EditWorkouts = () => {
       (el) => el._id !== exercise._id
     );
     const profileWorkouts = profile.workouts;
+    //mutate user workout list
     profileWorkouts[workoutIndex].exercises = newWorkout;
-
+    // dispatch amended workout to user profile 
     dispatch({ type: "setWorkout", data: profileWorkouts });
-    console.log("the profile workouts are:", profile.workouts);
   }
 
   function handleFinishEditing() {
@@ -168,7 +170,6 @@ export const EditWorkouts = () => {
                     {choosePath.map((el, i) => (
                       <ClickAwayListener onClickAway={handleClickAway}>
                       <HoverBox align="flex-start">
-                        {/* <Divider width="90%" sx={{ ml: 2 }} /> */}
                         <HoverBox align="flex-start">
                           <MenuItem
                             key={i}
@@ -180,7 +181,6 @@ export const EditWorkouts = () => {
                             <AddCircleIcon sx={{ mr: 1 }} /> {el}
                           </MenuItem>
                         </HoverBox>
-                        {/* <Divider width="90%" sx={{ ml: 2 }} /> */}
                       </HoverBox>
                       </ClickAwayListener>
                     ))}
