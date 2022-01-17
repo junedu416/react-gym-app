@@ -1,3 +1,6 @@
+// THIS COMPONENT IS NOT USED IN PRODUCTION, 
+// THE COMPONENT IS COMMENTED OUT, NOT FULLY FUNCTIONAL AS IT ISN'T FILTERING ANY EVENTS.
+
 import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import ClickAwayListener from "@mui/material/ClickAwayListener";

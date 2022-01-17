@@ -17,6 +17,7 @@ import { Button } from "@mui/material";
 import { ProfileImage } from "../../styled-components/profile";
 import TextField from "@mui/material/TextField";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { LoadButton } from "../../components/buttons/LoadButton";
 
 const Input = styled("input")({
   display: "none",
@@ -36,6 +37,7 @@ export const MyProfile = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [description, setDescription] = useState("");
   const [editMode, setEditMode] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // onChange function for form value in description
   const handleChange = (event) => {
@@ -52,18 +54,22 @@ export const MyProfile = () => {
   // makes PUT request to add profile.photo
   const updateMyProfile = async (data) => {
     try {
+      setLoading(true);
       const result = await addProfileImage(profile.userId, data);
       if (result.data.error) {
         dispatch({
           type: "setNotification",
           data: "There was an error updating your image",
+          
         });
+        setLoading(false);
       } else {
         dispatch({ type: "setProfile", data: result.data });
         dispatch({
           type: "setNotification",
           data: "successfully updated your profile image",
         });
+        setLoading(false);
       }
     } catch (error) {
       console.log("error caught: ", error);
@@ -119,18 +125,21 @@ export const MyProfile = () => {
   // PUT REQ to backend to add profile.description
   const updateStaffDescription = async (data) => {
     try {
+      setLoading(true);
       const result = await editProfile(profile.userId, data);
       if (result.data.error) {
         dispatch({
           type: "setNotification",
           data: "There was an error updating your bio description",
         });
+        setLoading(false);
       } else {
         dispatch({ type: "setProfile", data: result.data });
         dispatch({
           type: "setNotification",
           data: "Successfully updated your bio description",
         });
+        setLoading(false);
       }
     } catch (error) {
       console.log("error caught: ", error);
@@ -186,8 +195,10 @@ export const MyProfile = () => {
           </label>
 
           {result && (
-            <BasicButton
-              text="Update"
+            <LoadButton
+              loadPosition="start"
+              loading={loading}
+              text={loading ? "Updating" : "Update"}
               btnFunction={handleSubmit}
               sx={{ alignSelf: mobile ? "center" : "" }}
             />
@@ -241,8 +252,10 @@ export const MyProfile = () => {
                     sx={{ width: mobile ? "100%" : tablet ? "320px" : "480px", mt: 3 }}
                   />
                 {description !== profile.description ?
-                  <BasicButton
-                    text= "Update Bio"
+                  <LoadButton
+                    text={loading ? "Updating... " : "Update Bio"}
+                    loadPosition="start"
+                    loading={loading}
                     type="submit"
                     color="warning"
                     sx={ buttonUpdateSx }
