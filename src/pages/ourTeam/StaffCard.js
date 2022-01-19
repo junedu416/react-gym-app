@@ -6,9 +6,10 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { ProfilePicture } from "../../components/ProfilePicture";
 import { useNavigate } from "react-router-dom";
 import { getShortenedString } from "../../utils/widgetUtils";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
-
-export const StaffCard = ({staff}) => {
+export const StaffCard = ({ staff }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const [showMore, setShowMore] = useState(false);
@@ -19,14 +20,13 @@ export const StaffCard = ({staff}) => {
 
   const moveToCalendar = (e) => {
     e.preventDefault();
-    navigate('/events')
-  }
+    navigate("/events");
+  };
 
   const toggleDescriptionLength = (e) => {
     e.preventDefault();
     showMore ? setShowMore(false) : setShowMore(true);
-  }
-
+  };
 
   return (
     <Container
@@ -40,17 +40,12 @@ export const StaffCard = ({staff}) => {
       m="0 auto"
       style={{ overflow: "hidden", height: "100%" }}
     >
-      <SmallHeading m="5px 0 10px" fs={mobile ? "2.2rem" : "2.5rem"  }>
+      <SmallHeading m="5px 0 10px" fs={mobile ? "2.2rem" : "2.5rem"}>
         {staff.firstName} {staff.lastName}
       </SmallHeading>
       <Row align="flex-start" justify="flex-start">
         <Container w="35%">
-          <ProfilePicture
-            profile={staff}
-            w="120px"
-            h="120px"
-            mb="5px"
-          />
+          <ProfilePicture profile={staff} w="120px" h="120px" mb="5px" />
           <BasicButton
             text="Book"
             color="success"
@@ -60,13 +55,23 @@ export const StaffCard = ({staff}) => {
           />
         </Container>
         <Container w="65%" p="0 20px" align="flex-start">
-          {staff.description && <>
+          {staff.description && (
+            <>
               <Text fontSize={mobile ? "12px" : "14px"} m="0" justified>
-                {showMore ? `${staff.description}` : `${getShortenedString(staff.description, 150)}`}
+                {showMore
+                  ? `${staff.description}`
+                  : `${getShortenedString(staff.description, 150)}`}
               </Text>
-              <BasicButton text={showMore ? "Hide" : "Show More"} btnFunction={toggleDescriptionLength} style={{height: "40px", maxWidth: "80px", fontSize: "0.7rem"}}/>
+              { staff.description.length >= 150 &&
+              <BasicButton
+                text={showMore ? <>Hide <ExpandLessIcon /> </> : <>Show More <ExpandMoreIcon /> </> }
+                variant="text"
+                btnFunction={toggleDescriptionLength}
+                style={{ height: "40px", maxWidth: "80px", fontSize: "0.7rem" }}
+              />
+              }
             </>
-          }
+          )}
         </Container>
       </Row>
     </Container>
