@@ -81,6 +81,7 @@ export const ShowEventContent = styled.div`
 export const Description = styled.p`
   text-align: left;
   padding: 0 10px;
+  white-space: pre-line;
   @media(min-width: 768px) {
     font-size: 1.2rem;
   }
