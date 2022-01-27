@@ -8,8 +8,10 @@ import { useTheme } from "@mui/material/styles";
 
 //import { id } from "date-fns/locale";
 
-export const Calendar = () => {
-  const [eventSelect, setEventSelect] = useState("class");
+export const Calendar = (props) => {
+  const { categoryParams, trainerParams } = props; 
+
+  const [eventSelect, setEventSelect] = useState(categoryParams ? categoryParams : "class");
 
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up("md"));

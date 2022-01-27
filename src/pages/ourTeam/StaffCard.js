@@ -20,7 +20,7 @@ export const StaffCard = ({ staff }) => {
 
   const moveToCalendar = (e) => {
     e.preventDefault();
-    navigate("/events");
+    navigate(`/events?category=personal%20training&trainer=${staff._id}`);
   };
 
   const toggleDescriptionLength = (e) => {
