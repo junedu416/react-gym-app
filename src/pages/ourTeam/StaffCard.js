@@ -6,8 +6,8 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { ProfilePicture } from "../../components/ProfilePicture";
 import { useNavigate } from "react-router-dom";
 import { getShortenedString } from "../../utils/widgetUtils";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 export const StaffCard = ({ staff }) => {
   const theme = useTheme();
@@ -28,7 +28,7 @@ export const StaffCard = ({ staff }) => {
     showMore ? setShowMore(false) : setShowMore(true);
   };
 
-  return (
+  return (  
     <Container
       w={mobile ? "95%" : tablet ? "435px" : "400px"}
       h={mobile ? "280px" : "300px"}
@@ -62,14 +62,28 @@ export const StaffCard = ({ staff }) => {
                   ? `${staff.description}`
                   : `${getShortenedString(staff.description, 150)}`}
               </Text>
-              { staff.description.length >= 150 &&
-              <BasicButton
-                text={showMore ? <>Hide <ExpandLessIcon /> </> : <>Show More <ExpandMoreIcon /> </> }
-                variant="text"
-                btnFunction={toggleDescriptionLength}
-                style={{ height: "40px", maxWidth: "80px", fontSize: "0.7rem" }}
-              />
-              }
+              {staff.description.length >= 150 && (
+                <BasicButton
+                  text={
+                    showMore ? (
+                      <>
+                        Hide <ExpandLessIcon />
+                      </>
+                    ) : (
+                      <>
+                        Show More <ExpandMoreIcon />
+                      </>
+                    )
+                  }
+                  variant="text"
+                  btnFunction={toggleDescriptionLength}
+                  style={{
+                    height: "40px",
+                    maxWidth: "80px",
+                    fontSize: "0.7rem",
+                  }}
+                />
+              )}
             </>
           )}
         </Container>
