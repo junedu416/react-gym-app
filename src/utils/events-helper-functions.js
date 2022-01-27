@@ -16,6 +16,14 @@ export const filterEventsByCategory = (events, category, profile) => {
     return filteredEvents;
 }
 
+export const filterEventsByTrainer = (events, category, trainerId) => {
+    let filteredEvents
+    if (category === "personal training"){
+        filteredEvents = events.filter((event) => event.category.toLowerCase() === category.toLowerCase() && event.createdBy === trainerId)
+    }
+    return filteredEvents;
+}
+
 export const convertTimeToAcceptedFormat = (eventObj) => {
     eventObj.startTime = new Date(eventObj.startTime);
     eventObj.endTime = new Date(eventObj.endTime);

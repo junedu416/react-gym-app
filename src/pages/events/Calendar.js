@@ -16,6 +16,8 @@ export const Calendar = (props) => {
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up("md"));
   const phone = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const [classFilters, setClassFilters] = useState([]);
   
 
   const handleEventSelect = (event, eventSelect) => {
@@ -88,7 +90,7 @@ export const Calendar = (props) => {
         )} */}
       </Container>
 
-      <CalendarView eventCategory={eventSelect} />
+      <CalendarView eventCategory={eventSelect} trainerParams={trainerParams} classFilters={classFilters} />
 
       <Container></Container>
     </>
