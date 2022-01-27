@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import CalendarView from "../../components/CalendarView";
+import { FilterEvents } from "../../components/FilterEvents";
 import { Container } from "../../styled-components";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
@@ -34,11 +35,11 @@ export const Calendar = (props) => {
     }
   };
 
-  // const applyFilterFunction = () => {
+  const applyFilterFunction = () => {
   //   // ====================================================================================================
   //   // FILTERING CODE HERE
   //   // ====================================================================================================
-  // };
+  };
 
   return (
     <>
@@ -86,17 +87,17 @@ export const Calendar = (props) => {
             bottom: desktop ? "" : 30,
           }}
         >
-{/*           
-          This Filter component isn't fully functional, it doesn't filter events, but all the logic with selecting and toggling
-          a filter, state for if a filter is selected, and clearing all filters is working.
-          <FilterEvents eventSelect={eventSelect} applyFilterFunction={applyFilterFunction} /> */}
+          
+          {/* This Filter component isn't fully functional, it doesn't filter events, but all the logic with selecting and toggling
+          a filter, state for if a filter is selected, and clearing all filters is working. */}
+          <FilterEvents eventSelect={eventSelect} applyFilterFunction={applyFilterFunction} />
         </Container>
-{/* Responsive element to keep everything aligned/centered when shifting the filter button to bottom for phone view.
+{/* Responsive element to keep everything aligned/centered when shifting the filter button to bottom for phone view. */}
         {desktop ? null : (
           <Container w={desktop ? "25%" : "15%"}>
             <span>&nbsp;</span>
           </Container>
-        )} */}
+        )}
       </Container>
 
       <CalendarView eventCategory={eventSelect} trainerParams={trainerParams} classFilters={classFilters} setClassFilters={setClassFilters} />

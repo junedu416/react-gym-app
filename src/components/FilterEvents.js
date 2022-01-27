@@ -9,7 +9,7 @@ import {
   trainers,
   weekdays,
   competitionFilters,
-//   allFilters,
+  allFilters,
 } from "../data/events";
 
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
@@ -24,6 +24,9 @@ import Button from "@mui/material/Button";
 import { Container } from "../styled-components";
 import BasicButton from "./buttons/BasicButton";
 import { ClearButtonFade, FilterBox, FilterItem } from "../styled-components/events";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+
 
 // import { Translate } from "@mui/icons-material";
 // import CloseIcon from '@mui/icons-material/Close';
@@ -71,6 +74,11 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export const FilterEvents = (props) => {
   const { eventSelect, applyFilterFunction } = props;
+
+  const theme = useTheme();
+  const desktop = useMediaQuery(theme.breakpoints.up("md"));
+  const phone = useMediaQuery(theme.breakpoints.down("sm"));
+
 
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState("panel1");
@@ -171,7 +179,7 @@ export const FilterEvents = (props) => {
           </Container>
 
           {open ? (
-            <FilterBox>
+            <FilterBox desktop={desktop} phone={phone} >
               {eventSelect === "competition" ? (
                 <Accordion
                   expanded
