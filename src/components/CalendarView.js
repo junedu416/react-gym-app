@@ -40,7 +40,7 @@ const CalendarView = ({ eventCategory, trainerParams, classFilters }) => {
 
   const filterEventsByTrainer = useCallback(() => {
     if (trainerParams) {
-      console.log("filtered Trainer ID from params: ", trainerParams);
+      // console.log("filtered Trainer ID from params: ", trainerParams);
       dispatchEventsVars({
         type: "filterByTrainer",
         data: { category: eventCategory, trainerId: trainerParams },
@@ -69,7 +69,7 @@ const CalendarView = ({ eventCategory, trainerParams, classFilters }) => {
   // ===========
   useEffect(() => {
     if (eventsVars.events && eventsVars.events.length > 0) {
-      console.log("dispatch function called from useEffect, filter events by category");
+      // console.log("dispatch function called from useEffect, filter events by category");
       filterEventsByCategory();
       filterEventsByTrainer();
     }

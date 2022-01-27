@@ -37,7 +37,6 @@ export function useRedirectNonStaffMembers(redirectRoute) {
 
 function checkIfUserIsSaved() {
   const uid = window.localStorage.getItem('uid');
-  console.log(uid);
-  console.log("returning:", !!uid)
+  console.log("uid:", uid, "!!uid: ", !!uid);
   return uid !== "null";
 }

@@ -5,11 +5,10 @@ import CalendarView from "../../components/CalendarView";
 import { Container } from "../../styled-components";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-
-//import { id } from "date-fns/locale";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const Calendar = (props) => {
-  const { categoryParams, trainerParams } = props; 
+  const { categoryParams, trainerParams, setSearchParams } = props; 
 
   const [eventSelect, setEventSelect] = useState(categoryParams ? categoryParams : "class");
 
@@ -19,10 +18,20 @@ export const Calendar = (props) => {
 
   const [classFilters, setClassFilters] = useState([]);
   
+  const location = useLocation()
+  const history = useNavigate()
+
+  // const removeQueries = (eventSelect) => {
+  //   URL.search = `?category=${eventSelect}`;
+  // }
 
   const handleEventSelect = (event, eventSelect) => {
     if (event.target.value !== eventSelect) return null;
-    else setEventSelect(eventSelect);
+    else {
+      // removeQueries(eventSelect);
+      setSearchParams(`category=${eventSelect}`)
+      setEventSelect(eventSelect);
+    }
   };
 
   // const applyFilterFunction = () => {
@@ -90,7 +99,7 @@ export const Calendar = (props) => {
         )} */}
       </Container>
 
-      <CalendarView eventCategory={eventSelect} trainerParams={trainerParams} classFilters={classFilters} />
+      <CalendarView eventCategory={eventSelect} trainerParams={trainerParams} classFilters={classFilters} setClassFilters={setClassFilters} />
 
       <Container></Container>
     </>
