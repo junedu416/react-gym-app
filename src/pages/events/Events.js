@@ -17,8 +17,9 @@ export const Events = (props) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryParams = searchParams.get("category");
   const trainerParams = searchParams.get("trainer");
+  // const categoryParams = decodeURIComponent(searchParams.get("category"));
 
-  console.log("decoded category params: ", categoryParams);
+  console.log("DECODED category params: ", categoryParams);
   console.log("Trainer params: ", trainerParams);
 
   function handleNewEvent() {

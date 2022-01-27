@@ -18,11 +18,9 @@ export const Calendar = (props) => {
   const phone = useMediaQuery(theme.breakpoints.down("sm"));
   
 
-  const handleEventSelect = (event, newEventSelect) => {
-    if (!newEventSelect) setEventSelect("class");
-    else {
-      setEventSelect(newEventSelect);
-    }
+  const handleEventSelect = (event, eventSelect) => {
+    if (event.target.value !== eventSelect) return null;
+    else setEventSelect(eventSelect);
   };
 
   // const applyFilterFunction = () => {
