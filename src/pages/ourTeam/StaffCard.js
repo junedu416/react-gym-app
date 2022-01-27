@@ -62,7 +62,7 @@ export const StaffCard = ({ staff }) => {
                   ? `${staff.description}`
                   : `${getShortenedString(staff.description, 150)}`}
               </Text>
-              {staff.description.length >= 150 && (
+              {staff?.description?.length >= 150 && (
                 <BasicButton
                   text={
                     showMore ? (
