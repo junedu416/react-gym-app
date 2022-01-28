@@ -48,8 +48,8 @@ export const StaffCard = ({ staff }) => {
           <ProfilePicture profile={staff} w="120px" h="120px" mb="5px" />
           <BasicButton
             text="Book"
-            color="success"
-            sx={{ background: "lime", color: "gray" }}
+            color="primary"
+            // sx={{ background: "lime", color: "gray" }}
             style={{ minWidth: mobile && "100px", height: "40px" }}
             btnFunction={moveToCalendar}
           />
