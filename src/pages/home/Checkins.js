@@ -77,14 +77,14 @@ export const Checkins = () => {
       scales: {
         y: {
          grid: {
-            // color: "rgba(60, 60, 60, 0.11)",
-            color: "transparent",
+           color: "rgba(50, 50, 50, 0.08)",
+          //  color: "transparent",
           },
         },
         x: {
          grid: {
-            // color: "rgba(60, 60, 60, 0.14)",
-            color: "transparent",
+           color: "rgba(50, 50, 50, 0.08)",
+           color: "transparent",
           },
         },
       },
