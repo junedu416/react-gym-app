@@ -43,8 +43,8 @@ export const StaffCard = ({ staff }) => {
       <SmallHeading m="5px 0 10px" fs={mobile ? "2.2rem" : "2.5rem"}>
         {staff.firstName} {staff.lastName}
       </SmallHeading>
-      <Row align="flex-start" justify="flex-start">
-        <Container w="35%">
+      <Row justify="space-between" align="flex-start">
+        <Container w="35%" style={{ minWidth: "35%", maxWidth: "35%" }}>
           <ProfilePicture profile={staff} w="120px" h="120px" mb="5px" />
           <BasicButton
             text="Book"
@@ -54,7 +54,7 @@ export const StaffCard = ({ staff }) => {
             btnFunction={moveToCalendar}
           />
         </Container>
-        <Container w="65%" p="0 20px" align="flex-start">
+        <Container w="65%" p="0 20px" align="flex-start" style={{ minWidth: "65%", maxWidth: "65%" }}>
           {staff.description && (
             <>
               <Text fontSize={mobile ? "12px" : "14px"} m="0" justified>

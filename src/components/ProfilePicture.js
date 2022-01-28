@@ -5,9 +5,9 @@ export const ProfilePicture = (props) => {
   // const hasProfileImage = Boolean(profile.photo !== null);
   // console.log("has photo? : ", hasProfileImage)
   const { profile, w, h, mb } = props;
-  console.log("Props in Profile Picture ", props)
 
-  console.log("Profile Object: ", profile);
+  // console.log("Props in Profile Picture ", props)
+  // console.log("Profile Object: ", profile);
   // console.log("profile photo: ", profile.profile.photo);
 
   return (

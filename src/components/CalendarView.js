@@ -24,6 +24,8 @@ const CalendarView = ({ eventCategory, trainerParams, classFilters }) => {
   const [clickedEvent, setClickedEvent] = useState(null);
   const [open, setOpen] = useState(false);
 
+  const ipadAndPhone = useMediaQuery("(max-width:800px)");
+
   const scrollToTime = new Date();
   scrollToTime.setHours(9, 0, 0);
 
@@ -44,10 +46,21 @@ const CalendarView = ({ eventCategory, trainerParams, classFilters }) => {
       dispatchEventsVars({
         type: "filterByTrainer",
         data: { category: eventCategory, trainerId: trainerParams },
-      })
+      });
     }
     return;
-  }, [trainerParams, eventCategory])
+  }, [trainerParams, eventCategory]);
+
+  const filterEventsByClass = useCallback(() => {
+    if (classFilters) {
+      console.log("CLASS FILTERS: ", classFilters);
+      dispatchEventsVars({
+        type: "filterByClass",
+        data: { category: "Class", gymClass: classFilters[0] },
+      });
+    }
+    return;
+  }, [trainerParams, eventCategory]);
 
   //=======
   // load events from backend
@@ -68,8 +81,7 @@ const CalendarView = ({ eventCategory, trainerParams, classFilters }) => {
   // filter events  by category
   // ===========
   useEffect(() => {
-    if (eventsVars.events && eventsVars.events.length > 0) {
-      // console.log("dispatch function called from useEffect, filter events by category");
+    if (eventsVars.events?.length > 0) {
       filterEventsByCategory();
       filterEventsByTrainer();
     }
@@ -85,8 +97,6 @@ const CalendarView = ({ eventCategory, trainerParams, classFilters }) => {
       setClickedEvent(e);
     }
   };
-
-  const ipadAndPhone = useMediaQuery("(max-width:800px)");
 
   return (
     <div

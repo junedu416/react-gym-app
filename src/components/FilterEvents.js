@@ -76,7 +76,7 @@ export const FilterEvents = (props) => {
   const { eventSelect, applyFilterFunction } = props;
 
   const theme = useTheme();
-  const desktop = useMediaQuery(theme.breakpoints.up("md"));
+  const desktop = useMediaQuery(theme.breakpoints.up("lg"));
   const phone = useMediaQuery(theme.breakpoints.down("sm"));
 
 
@@ -142,13 +142,13 @@ export const FilterEvents = (props) => {
       {hasFilters ? (
        <ClearButtonFade style={ hasFilters ? fadeInAnimation : fadeOutAnimation }>
         <BasicButton
+          m="0px"
           text="Clear Filters"
           endIcon={<CancelIcon sx={{ color: "rgba(40, 40, 40, 0.7)" }} />}
           size="small"
           variant="outlined"
           sx={{
             p: 0,
-            m: "0 20px",
             backgroundColor: "rgba(180,180,180, 0.8)",
             border: "none",
             color: "rgba(40, 40, 40, 0.7)",
@@ -170,7 +170,7 @@ export const FilterEvents = (props) => {
       }
 
       <ClickAwayListener onClickAway={handleClickAway}>
-        <Container pl="20px" style={{ position: "relative" }}>
+        <Container pl="10px" style={{ position: "relative" }}>
           <Container direction="row" ml="0px" mr="20px">
             <Button variant="outlined" onClick={handleClick} sx={{ pl: 1 }}>
               <FilterAltIcon sx={{ mr: "5px" }} />
@@ -311,7 +311,7 @@ export const FilterEvents = (props) => {
                     size="small"
                     sx={{ m: "10px auto" }}
                     style={{ height: "40px" }}
-                    btnFunction={applyFilterFunction}
+                    btnFunction={applyFilterFunction(filterList)}
                   />
                   </ClearButtonFade>
                 )}
