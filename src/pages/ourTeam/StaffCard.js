@@ -28,7 +28,7 @@ export const StaffCard = ({ staff }) => {
     showMore ? setShowMore(false) : setShowMore(true);
   };
 
-  return (  
+  return (
     <Container
       w={mobile ? "95%" : tablet ? "435px" : "400px"}
       h={mobile ? "280px" : "300px"}
@@ -43,8 +43,8 @@ export const StaffCard = ({ staff }) => {
       <SmallHeading m="5px 0 10px" fs={mobile ? "2.2rem" : "2.5rem"}>
         {staff.firstName} {staff.lastName}
       </SmallHeading>
-      <Row justify="space-between" align="flex-start">
-        <Container w="35%" style={{ minWidth: "35%", maxWidth: "35%" }}>
+      <Row align="flex-start" w="100%" pl="15px" justify="flex-start">
+        <Container w="minmax(35%, 35%)">
           <ProfilePicture profile={staff} w="120px" h="120px" mb="5px" />
           <BasicButton
             text="Book"
@@ -54,7 +54,11 @@ export const StaffCard = ({ staff }) => {
             btnFunction={moveToCalendar}
           />
         </Container>
-        <Container w="65%" p="0 20px" align="flex-start" style={{ minWidth: "65%", maxWidth: "65%" }}>
+        <Container
+          w="minmax(65%, 65%)"
+          p="0 20px"
+          align="flex-start"
+        >
           {staff.description && (
             <>
               <Text fontSize={mobile ? "12px" : "14px"} m="0" justified>

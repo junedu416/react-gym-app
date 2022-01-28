@@ -175,7 +175,7 @@ export const ButtonScroll = styled.div`
   border-radius: 15%;
   width: 50px;
   right: 20px;
-  bottom: 60px;
+  bottom: 20px;
   height: 50px;
   z-index: 20;
   cursor: pointer;
