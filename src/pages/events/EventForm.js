@@ -111,6 +111,7 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
       ...formValues,
       [event.target.name]: selection,
       spotsAvailable: selection === "Class" ? 12 : selection === "Personal Training" ? 1 : null,
+      description: selection === "Personal Training" ? profile.description : "",
     })
 
 
