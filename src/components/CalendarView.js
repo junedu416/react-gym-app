@@ -49,7 +49,7 @@ const CalendarView = ({
     return;
   }, [eventCategory, profile]);
 
-  const filterEventsByTrainer = useCallback(() => {
+  const filterEventsByTrainerParams = useCallback(() => {
     if (trainerParams) {
       // console.log("filtered Trainer ID from params: ", trainerParams);
       dispatchEventsVars({
@@ -66,6 +66,17 @@ const CalendarView = ({
       dispatchEventsVars({
         type: "filterByClass",
         data: { category: "Class", gymClass: classFilters },
+      });
+    }
+    return;
+  }, [classFilters]);
+
+  const filterEventsByTrainer = useCallback(() => {
+    if (trainerFilters) {
+      console.log("TRAINER FILTERS: ", trainerFilters);
+      dispatchEventsVars({
+        type: "filterByTrainer",
+        data: { category: "Personal Training", trainer: trainerFilters },
       });
     }
     return;
@@ -92,10 +103,10 @@ const CalendarView = ({
   useEffect(() => {
     if (eventsVars.events?.length > 0) {
       filterEventsByCategory();
-      filterEventsByTrainer();
+      filterEventsByTrainerParams();
     }
     return;
-  }, [eventsVars.events, filterEventsByCategory, filterEventsByTrainer]);
+  }, [eventsVars.events, filterEventsByCategory, filterEventsByTrainerParams]);
 
   useEffect(() => {
     if (eventsVars.events?.length > 0 && classFilters.length > 0) {
@@ -103,6 +114,13 @@ const CalendarView = ({
     }
     return;
   }, [eventsVars.events, filterEventsByClass])
+
+  useEffect(() => {
+    if (eventsVars.events?.length > 0 && trainerFilters.length > 0) {
+      filterEventsByTrainer();
+    }
+    return;
+  }, [eventsVars.events, filterEventsByTrainer])
 
 
   const onClickEvent = (e) => {

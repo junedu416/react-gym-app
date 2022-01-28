@@ -91,7 +91,7 @@ export const FilterEvents = (props) => {
   } = props;
 
   const trainers = staffProfiles.map(profile => `${profile.firstName} ${profile.lastName}`);
-  console.log("Trainers full names: ", trainers);
+  // console.log("Trainers full names: ", trainers);
 
   const hasFilters = Boolean(filterList.length > 0);
 
@@ -107,7 +107,7 @@ export const FilterEvents = (props) => {
       filterList.filter((selection) => selection === item.label)
     );
     const trainerSelection = trainers.map((trainer) =>
-      filterList.filter((selection) => selection === trainer.name)
+      filterList.filter((selection) => selection === trainer)
     );
     const competitionSelection = competitionFilters.map((competitionCategory) =>
       filterList.filter((selection) => selection === competitionCategory.label)

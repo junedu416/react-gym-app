@@ -2,6 +2,7 @@ import {
   convertTimeToAcceptedFormat,
   filterEventsByCategory,
   filterEventsByTrainer,
+  filterEventsByTrainerParams,
   filterEventsByClass,
 } from "./events-helper-functions";
 
@@ -36,8 +37,8 @@ export const eventsReducer = (state, action) => {
         events: clonedEvents,
       };
     }
-    case "filterByTrainer": {
-      const filteredEvents = filterEventsByTrainer(
+    case "filterByTrainerParams": {
+      const filteredEvents = filterEventsByTrainerParams(
         state.events,
         action.data.category,
         action.data.trainerId
@@ -58,7 +59,17 @@ export const eventsReducer = (state, action) => {
         filteredEvents: filteredEvents,
       };
     }
-
+    case "filterByTrainer": {
+      const filteredEvents = filterEventsByTrainer(
+        state.events,
+        action.data.category,
+        action.data.trainer
+      );
+      return {
+        ...state,
+        filteredEvents: filteredEvents,
+      };
+    }
     default:
       return state;
   }
