@@ -23,7 +23,10 @@ export const Calendar = (props) => {
   const phone = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [classFilters, setClassFilters] = useState([]);
-
+  const [weekdayFilters, setWeekdayFilters] = useState([]);
+  const [trainerFilters, setTrainerFilters] = useState([]);
+  const [competitionFilters, setCompetitionFilters] = useState([])
+  
   // const location = useLocation()
   // const history = useNavigate()
 
@@ -112,6 +115,9 @@ export const Calendar = (props) => {
             filterList={filterList}
             setFilterList={setFilterList}
             setClassFilters={setClassFilters}
+            setWeekdayFilters={setWeekdayFilters}
+            setTrainerFilters={setTrainerFilters}
+            setCompetitionFilters={setCompetitionFilters}
           />
         </Container>
         {/* Responsive element to keep everything aligned/centered when shifting the filter button to bottom for phone view. */}
@@ -125,10 +131,12 @@ export const Calendar = (props) => {
       <CalendarView
         eventCategory={eventSelect}
         trainerParams={trainerParams}
-        classFilters={classFilters}
-        setClassFilters={setClassFilters}
         filterList={filterList}
         setFilterList={setFilterList}
+        classFilters={classFilters}
+        weekdayFilters={weekdayFilters}
+        trainerFilters={trainerFilters}
+        competitionFilters={competitionFilters}
       />
 
       <Container></Container>

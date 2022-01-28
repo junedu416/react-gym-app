@@ -76,7 +76,7 @@ export const FilterEvents = (props) => {
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up("lg"));
   const phone = useMediaQuery(theme.breakpoints.down("sm"));
-  const { eventSelect, filterList, setFilterList, setClassFilters } = props;
+  const { eventSelect, filterList, setFilterList, setClassFilters, setWeekdayFilters, setTrainerFilters, setCompetitionFilters } = props;
   const hasFilters = Boolean(filterList.length > 0);
 
   const [open, setOpen] = useState(false);
@@ -84,16 +84,20 @@ export const FilterEvents = (props) => {
 
   const applyFilterFunction = () => {
     console.log("FILTER LIST IS: ", filterList);
-    const classesSelected = gymClasses.map(item => filterList.filter(gymClass => gymClass === item.name));
+    const classSelection = gymClasses.map(item => filterList.filter(gymClass => gymClass === item.name));
     const weekdaySelection = weekdays.map(item => filterList.filter(selection => selection === item.label));
     const trainerSelection = trainers.map(trainer => filterList.filter(selection => selection === trainer.name));
     const competitionSelection = competitionFilters.map(competitionCategory => filterList.filter(selection => selection === competitionCategory.label));
-    console.log("classes selected: ", classesSelected.flat());
+    
+    console.log("classes selected: ", classSelection.flat());
     console.log("weekday selected: ", weekdaySelection.flat());
     console.log("trainer selected: ", trainerSelection.flat());
     console.log("competition selected: ", competitionSelection.flat());
     
-    setClassFilters(classesSelected.flat());
+    setClassFilters(classSelection.flat());
+    setWeekdayFilters(weekdaySelection.flat());
+    setTrainerFilters(trainerSelection.flat());
+    setCompetitionFilters(competitionSelection.flat());
   }
 
 

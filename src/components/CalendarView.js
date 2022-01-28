@@ -9,7 +9,16 @@ import { EventPopup } from "../pages/events/EventPopup";
 import { convertTimeToAcceptedFormat } from "../utils/events-helper-functions.js";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-const CalendarView = ({ eventCategory, trainerParams, classFilters, filterList }) => {
+const CalendarView = ({
+  eventCategory,
+  trainerParams,
+  classFilters,
+  filterList,
+  setFilterList,
+  trainerFilters,
+  competitionFilters,
+  weekdayFilters,
+}) => {
   const { store } = useGlobalState();
   const { profile } = store;
   const localizer = momentLocalizer(moment);
@@ -56,11 +65,11 @@ const CalendarView = ({ eventCategory, trainerParams, classFilters, filterList }
       console.log("CLASS FILTERS: ", classFilters);
       dispatchEventsVars({
         type: "filterByClass",
-        data: { category: "Class", gymClass: classFilters[0] },
+        data: { category: "Class", gymClass: classFilters },
       });
     }
     return;
-  }, [trainerParams, eventCategory]);
+  }, [classFilters]);
 
   //=======
   // load events from backend
@@ -78,7 +87,7 @@ const CalendarView = ({ eventCategory, trainerParams, classFilters, filterList }
   }, []);
 
   // ==========
-  // filter events  by category
+  // filter events  by category, and if params exist for trainer and personal training, filter events by trainer
   // ===========
   useEffect(() => {
     if (eventsVars.events?.length > 0) {
@@ -87,6 +96,14 @@ const CalendarView = ({ eventCategory, trainerParams, classFilters, filterList }
     }
     return;
   }, [eventsVars.events, filterEventsByCategory, filterEventsByTrainer]);
+
+  useEffect(() => {
+    if (eventsVars.events?.length > 0 && classFilters.length > 0) {
+      filterEventsByClass();
+    }
+    return;
+  }, [eventsVars.events, filterEventsByClass])
+
 
   const onClickEvent = (e) => {
     console.log(e);

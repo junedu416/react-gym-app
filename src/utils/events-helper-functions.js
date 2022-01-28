@@ -32,14 +32,18 @@ export const filterEventsByTrainer = (events, category, trainerId) => {
 };
 
 export const filterEventsByClass = (events, category, gymClass) => {
-  let filteredEvents;
-  if (category === "class") {
-    filteredEvents = events.filter(
-      (event) =>
-        event.category.toLowerCase() === category.toLowerCase() &&
-        event.name === gymClass
-    );
+  let filteredEvents = [];
+  if (category === "Class") {
+    gymClass.map((item) => {
+      events.filter((event) => {
+        if (event.name === item) {
+          filteredEvents.push(event);
+        }
+      });
+    });
   }
+  //   console.log("Filtered Events By Class: ", filteredEvents);
+
   return filteredEvents;
 };
 
