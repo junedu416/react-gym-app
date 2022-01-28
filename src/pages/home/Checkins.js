@@ -22,6 +22,8 @@ import { ReusableAlert } from "../../components/ReusableAlert";
 import { Collapse } from "@mui/material";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import { getDataInOrder } from "../../utils/checkInUtils";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 export const Checkins = () => {
   useRedirectUnauthorisedUser();
@@ -38,7 +40,9 @@ export const Checkins = () => {
   const [chartData, setChartData] = useState([]);
   const [open, setOpen] = useState(true);
 
- 
+  const theme = useTheme();
+  const desktop = useMediaQuery(theme.breakpoints.up("md"));
+  const phone = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
     getCheckedIn().then((data) => {
@@ -68,14 +72,18 @@ export const Checkins = () => {
   );
 
   const options = {
-    responsive: true,
+    // responsive: true,
   };
+
 
   const labels = ["Sun", "Mon", "Tues", "Weds", "Thurs", "Fri", "Sat"];
   const data = {
     labels,
+
     datasets: [
       {
+        hoverBorderColor: "rgb(20, 100, 180)",
+        hoverBackgroundColor: "rgb(20, 100, 180)",
         label: "Average Check-ins",
         data: chartData,
         backgroundColor: "blue",
@@ -171,7 +179,9 @@ export const Checkins = () => {
           </BasicButton>
         </div>
         <p>Num checked in: {checkedIn}</p>
-        <Bar options={options} data={data} />
+        <Container w={desktop ? "60vw" : "90vw"}>
+          <Bar options={options} data={data} style={{ width: "80%", height:"auto" }} />
+        </Container>
       </Container>
     </>
   );
