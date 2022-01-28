@@ -19,18 +19,6 @@ export const filterEventsByCategory = (events, category, profile) => {
   return filteredEvents;
 };
 
-export const filterEventsByTrainerParams = (events, category, trainerId) => {
-  let filteredEvents;
-  if (category === "personal training") {
-    filteredEvents = events.filter(
-      (event) =>
-        event.category.toLowerCase() === category.toLowerCase() &&
-        event.createdBy === trainerId
-    );
-  }
-  return filteredEvents;
-};
-
 export const filterEventsByClass = (events, category, gymClass) => {
   let filteredEvents = [];
   if (category === "Class") {
@@ -49,7 +37,7 @@ export const filterEventsByClass = (events, category, gymClass) => {
 
 export const filterEventsByTrainer = (events, category, trainerList) => {
   let filteredEvents = [];
-
+  if (category === "Personal Training" && trainerList) {
     trainerList.map((trainer) => {
       events.filter((event) => {
         if (event.category === "Personal Training" && event.name === trainer) {
@@ -57,9 +45,19 @@ export const filterEventsByTrainer = (events, category, trainerList) => {
         }
       });
     });
-  
-    console.log("Filtered Events By Trainer: ", filteredEvents);
+  }
+  // console.log("Filtered Events By Trainer: ", filteredEvents);
 
+  return filteredEvents;
+};
+
+export const filterEventsByTrainerParams = (events, category, trainerId) => {
+  let filteredEvents;
+  if (category === "Personal Training") {
+    filteredEvents = events.filter(
+      (event) => event.category === category && event.createdBy === trainerId
+    );
+  }
   return filteredEvents;
 };
 

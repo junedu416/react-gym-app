@@ -164,6 +164,10 @@ export const FilterEvents = (props) => {
   };
   const clearFilters = () => {
     setFilterList([]);
+    setClassFilters("");
+    setWeekdayFilters("");
+    setTrainerFilters("");
+    setCompetitionFilters("");
   };
 
   const fadeInAnimation = {

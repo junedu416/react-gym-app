@@ -53,7 +53,7 @@ const CalendarView = ({
     if (trainerParams) {
       // console.log("filtered Trainer ID from params: ", trainerParams);
       dispatchEventsVars({
-        type: "filterByTrainer",
+        type: "filterByTrainerParams",
         data: { category: eventCategory, trainerId: trainerParams },
       });
     }
@@ -72,7 +72,7 @@ const CalendarView = ({
   }, [classFilters]);
 
   const filterEventsByTrainer = useCallback(() => {
-    if (trainerFilters) {
+    if (!trainerParams && trainerFilters) {
       console.log("TRAINER FILTERS: ", trainerFilters);
       dispatchEventsVars({
         type: "filterByTrainer",
@@ -80,7 +80,7 @@ const CalendarView = ({
       });
     }
     return;
-  }, [classFilters]);
+  }, [trainerFilters]);
 
   //=======
   // load events from backend
@@ -98,15 +98,16 @@ const CalendarView = ({
   }, []);
 
   // ==========
-  // filter events  by category, and if params exist for trainer and personal training, filter events by trainer
+  // filter events  by category
   // ===========
   useEffect(() => {
     if (eventsVars.events?.length > 0) {
       filterEventsByCategory();
-      filterEventsByTrainerParams();
     }
     return;
-  }, [eventsVars.events, filterEventsByCategory, filterEventsByTrainerParams]);
+  }, [eventsVars.events, filterEventsByCategory]);
+
+
 
   useEffect(() => {
     if (eventsVars.events?.length > 0 && classFilters.length > 0) {
@@ -116,11 +117,20 @@ const CalendarView = ({
   }, [eventsVars.events, filterEventsByClass])
 
   useEffect(() => {
-    if (eventsVars.events?.length > 0 && trainerFilters.length > 0) {
+    if (eventsVars.events?.length > 0 && trainerFilters.length > 0 && !trainerParams) {
       filterEventsByTrainer();
     }
     return;
   }, [eventsVars.events, filterEventsByTrainer])
+
+
+  //if params exist for trainer, filter events by trainer
+  useEffect(() => {
+    if (eventsVars.events?.length > 0 && trainerParams) {
+      filterEventsByTrainerParams();
+    }
+    return;
+  }, [eventsVars.events, filterEventsByTrainerParams]);
 
 
   const onClickEvent = (e) => {
