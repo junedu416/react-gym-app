@@ -10,7 +10,7 @@ import { gymClasses } from "../../data/events";
 // import { useLocation, useNavigate } from 'react-router-dom';
 
 export const Calendar = (props) => {
-  const { categoryParams, trainerParams, setSearchParams } = props;
+  const { categoryParams, trainerParams, setSearchParams, staffProfiles } = props;
 
   const [eventSelect, setEventSelect] = useState(
     categoryParams ? categoryParams : "class"
@@ -118,6 +118,7 @@ export const Calendar = (props) => {
             setWeekdayFilters={setWeekdayFilters}
             setTrainerFilters={setTrainerFilters}
             setCompetitionFilters={setCompetitionFilters}
+            staffProfiles={staffProfiles}
           />
         </Container>
         {/* Responsive element to keep everything aligned/centered when shifting the filter button to bottom for phone view. */}

@@ -1,4 +1,4 @@
-// THIS COMPONENT IS NOT USED IN PRODUCTION, 
+// THIS COMPONENT IS NOT USED IN PRODUCTION,
 // THE COMPONENT IS COMMENTED OUT, NOT FULLY FUNCTIONAL AS IT ISN'T FILTERING ANY EVENTS.
 
 import React, { useState } from "react";
@@ -6,7 +6,7 @@ import { styled } from "@mui/material/styles";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import {
   gymClasses,
-  trainers,
+  // trainers,
   weekdays,
   competitionFilters,
   allFilters,
@@ -23,10 +23,13 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import Button from "@mui/material/Button";
 import { Container } from "../styled-components";
 import BasicButton from "./buttons/BasicButton";
-import { ClearButtonFade, FilterBox, FilterItem } from "../styled-components/events";
+import {
+  ClearButtonFade,
+  FilterBox,
+  FilterItem,
+} from "../styled-components/events";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-
 
 // import { Translate } from "@mui/icons-material";
 // import CloseIcon from '@mui/icons-material/Close';
@@ -76,7 +79,20 @@ export const FilterEvents = (props) => {
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up("lg"));
   const phone = useMediaQuery(theme.breakpoints.down("sm"));
-  const { eventSelect, filterList, setFilterList, setClassFilters, setWeekdayFilters, setTrainerFilters, setCompetitionFilters } = props;
+  const {
+    eventSelect,
+    filterList,
+    setFilterList,
+    setClassFilters,
+    setWeekdayFilters,
+    setTrainerFilters,
+    setCompetitionFilters,
+    staffProfiles,
+  } = props;
+
+  const trainers = staffProfiles.map(profile => `${profile.firstName} ${profile.lastName}`);
+  console.log("Trainers full names: ", trainers);
+
   const hasFilters = Boolean(filterList.length > 0);
 
   const [open, setOpen] = useState(false);
@@ -84,22 +100,29 @@ export const FilterEvents = (props) => {
 
   const applyFilterFunction = () => {
     console.log("FILTER LIST IS: ", filterList);
-    const classSelection = gymClasses.map(item => filterList.filter(gymClass => gymClass === item.name));
-    const weekdaySelection = weekdays.map(item => filterList.filter(selection => selection === item.label));
-    const trainerSelection = trainers.map(trainer => filterList.filter(selection => selection === trainer.name));
-    const competitionSelection = competitionFilters.map(competitionCategory => filterList.filter(selection => selection === competitionCategory.label));
-    
+    const classSelection = gymClasses.map((item) =>
+      filterList.filter((gymClass) => gymClass === item.name)
+    );
+    const weekdaySelection = weekdays.map((item) =>
+      filterList.filter((selection) => selection === item.label)
+    );
+    const trainerSelection = trainers.map((trainer) =>
+      filterList.filter((selection) => selection === trainer.name)
+    );
+    const competitionSelection = competitionFilters.map((competitionCategory) =>
+      filterList.filter((selection) => selection === competitionCategory.label)
+    );
+
     console.log("classes selected: ", classSelection.flat());
     console.log("weekday selected: ", weekdaySelection.flat());
     console.log("trainer selected: ", trainerSelection.flat());
     console.log("competition selected: ", competitionSelection.flat());
-    
+
     setClassFilters(classSelection.flat());
     setWeekdayFilters(weekdaySelection.flat());
     setTrainerFilters(trainerSelection.flat());
     setCompetitionFilters(competitionSelection.flat());
-  }
-
+  };
 
   const handleFilterSelect = (filter) => {
     const isSelected = filterList.includes(filter);
@@ -144,43 +167,43 @@ export const FilterEvents = (props) => {
   };
 
   const fadeInAnimation = {
-    animation: "fadeInAnimation 1000ms ease-in"
+    animation: "fadeInAnimation 1000ms ease-in",
   };
   const fadeOutAnimation = {
-    animation: "fadeOutAnimation 1000ms ease-in-out"
+    animation: "fadeOutAnimation 1000ms ease-in-out",
   };
 
   return (
     <>
       {hasFilters ? (
-       <ClearButtonFade style={ hasFilters ? fadeInAnimation : fadeOutAnimation }>
-        <BasicButton
-          m="0px"
-          text="Clear Filters"
-          endIcon={<CancelIcon sx={{ color: "rgba(40, 40, 40, 0.7)" }} />}
-          size="small"
-          variant="outlined"
-          sx={{
-            p: 0,
-            backgroundColor: "rgba(180,180,180, 0.8)",
-            border: "none",
-            color: "rgba(40, 40, 40, 0.7)",
-            "&:hover": {
-              backgroundColor: "rgb(150, 150, 150)",
+        <ClearButtonFade
+          style={hasFilters ? fadeInAnimation : fadeOutAnimation}
+        >
+          <BasicButton
+            m="0px"
+            text="Clear Filters"
+            endIcon={<CancelIcon sx={{ color: "rgba(40, 40, 40, 0.7)" }} />}
+            size="small"
+            variant="outlined"
+            sx={{
+              p: 0,
+              backgroundColor: "rgba(180,180,180, 0.8)",
               border: "none",
-            },
-          }}
-          style={{ height: "37px", transition: "all ease-in 0.7s" }}
-          btnFunction={clearFilters}
-        />
+              color: "rgba(40, 40, 40, 0.7)",
+              "&:hover": {
+                backgroundColor: "rgb(150, 150, 150)",
+                border: "none",
+              },
+            }}
+            style={{ height: "37px", transition: "all ease-in 0.7s" }}
+            btnFunction={clearFilters}
+          />
         </ClearButtonFade>
-      ) :
-      ( <Container w="200px">
+      ) : (
+        <Container w="200px">
           <span>&nbsp;</span>
-      </Container>
-
-      )
-      }
+        </Container>
+      )}
 
       <ClickAwayListener onClickAway={handleClickAway}>
         <Container pl="10px" style={{ position: "relative" }}>
@@ -192,7 +215,7 @@ export const FilterEvents = (props) => {
           </Container>
 
           {open ? (
-            <FilterBox desktop={desktop} phone={phone} >
+            <FilterBox desktop={desktop} phone={phone}>
               {eventSelect === "competition" ? (
                 <Accordion
                   expanded
@@ -296,11 +319,11 @@ export const FilterEvents = (props) => {
                       {trainers.map((instructor) => {
                         return (
                           <FilterItem
-                            key={instructor.name}
-                            onClick={() => handleFilterSelect(instructor.name)}
+                            key={instructor}
+                            onClick={() => handleFilterSelect(instructor)}
                           >
-                            <Typography>{instructor.name}</Typography>
-                            {filterList.includes(instructor.name) && (
+                            <Typography>{instructor}</Typography>
+                            {filterList.includes(instructor) && (
                               <DoneIcon color="success" />
                             )}
                           </FilterItem>
@@ -318,14 +341,17 @@ export const FilterEvents = (props) => {
                 }}
               >
                 {hasFilters && (
-                <ClearButtonFade applyButton={true} style={ hasFilters ? fadeInAnimation : fadeOutAnimation }>
-                  <BasicButton
-                    text="Apply"
-                    size="small"
-                    sx={{ m: "10px auto" }}
-                    style={{ height: "40px" }}
-                    btnFunction={applyFilterFunction}
-                  />
+                  <ClearButtonFade
+                    applyButton={true}
+                    style={hasFilters ? fadeInAnimation : fadeOutAnimation}
+                  >
+                    <BasicButton
+                      text="Apply"
+                      size="small"
+                      sx={{ m: "10px auto" }}
+                      style={{ height: "40px" }}
+                      btnFunction={applyFilterFunction}
+                    />
                   </ClearButtonFade>
                 )}
               </Container>
