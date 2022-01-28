@@ -135,10 +135,8 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
               <TextField
                 required
                 label="Event Name"
-                //   variant="outlined"
                 fullWidth
-                value={formValues.name}
-                // sx={{ minWidth: 480, mb: 3 }}
+                value={formValues.category === "Personal Training" ? `${profile.firstName} ${profile.lastName}` : formValues.name}
                 name="name"
                 onChange={handleChange}
               />
