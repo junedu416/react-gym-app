@@ -28,8 +28,8 @@ import { useTheme } from "@mui/material/styles";
 export const Checkins = () => {
   useRedirectUnauthorisedUser();
 
-  const {store, dispatch} = useGlobalState();
-  const {profile} = store;
+  const { store, dispatch } = useGlobalState();
+  const { profile } = store;
 
   const [checkedIn, setCheckedIn] = useState(0);
   const [msg, setMsg] = useState("");
@@ -51,7 +51,7 @@ export const Checkins = () => {
     getStats().then((data) => {
       if (data) {
         console.log(data);
-        const dataInOrder = getDataInOrder(data); 
+        const dataInOrder = getDataInOrder(data);
         setChartData(
           Object.values(dataInOrder).map((num) =>
             Math.floor(num / data.weeksActive)
@@ -73,8 +73,23 @@ export const Checkins = () => {
 
   const options = {
     // responsive: true,
+    
+      scales: {
+        y: {
+         grid: {
+            color: "rgba(60, 60, 60, 0.11)",
+            // color: "transparent",
+          },
+        },
+        x: {
+         grid: {
+            color: "rgba(60, 60, 60, 0.14)",
+            // color: "white",
+          },
+        },
+      },
+    
   };
-
 
   const labels = ["Sun", "Mon", "Tues", "Weds", "Thurs", "Fri", "Sat"];
   const data = {
@@ -86,7 +101,11 @@ export const Checkins = () => {
         hoverBackgroundColor: "rgb(20, 100, 180)",
         label: "Average Check-ins",
         data: chartData,
-        backgroundColor: "blue",
+        backgroundColor: "rgba(20, 120, 220, 0.95)",
+        borderColor: "rgba(20, 100, 180)",
+        borderWidth: "1",
+        borderRadius: "10",
+        // borderColor: "5px solid rgb(40, 140, 250)",
       },
     ],
   };
@@ -116,11 +135,11 @@ export const Checkins = () => {
           });
       } else {
         setMsg("You are already checked in.");
-        setAlertType("error")
+        setAlertType("error");
       }
     } else {
       setMsg("You must be logged in first");
-      setAlertType("error")
+      setAlertType("error");
     }
   }
 
@@ -132,16 +151,16 @@ export const Checkins = () => {
           if (data) setCheckedIn(data.num);
           dispatch({ type: "toggleCheckIn" });
           setMsg("Checked out");
-          setAlertType("success")
+          setAlertType("success");
           setLoading(false);
         });
       } else {
         setMsg("You are already checked out.");
-        setAlertType("error")
+        setAlertType("error");
       }
     } else {
       setMsg("You must be logged in first.");
-      setAlertType("error")
+      setAlertType("error");
     }
   }
 
@@ -180,7 +199,11 @@ export const Checkins = () => {
         </div>
         <p>Num checked in: {checkedIn}</p>
         <Container w={desktop ? "60vw" : "90vw"}>
-          <Bar options={options} data={data} style={{ width: "80%", height:"auto" }} />
+          <Bar
+            options={options}
+            data={data}
+            style={{ width: "80%", height: "auto" }}
+          />
         </Container>
       </Container>
     </>
