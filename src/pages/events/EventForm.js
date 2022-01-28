@@ -117,14 +117,6 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
     })
   }
 
-  const autofillName = () => {
-    setFormValues({
-      ...formValues,
-      name: `${profile.firstName} ${profile.lastName}`,
-    })
-    console.log("****** AUTOFILL NAME: ", formValues);
-  }
-
   return (
     <form onSubmit={handleSubmit}>
       <Container style={{ minWidth: "400px" }}>
@@ -182,6 +174,7 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
                     value={startTime}
                     onChange={(newValue) => {
                       setStartTime(newValue);
+                      setEndTime(newValue);
                     }}
                     renderInput={(params) => (
                       <TextField sx={{ mb: 2 }} {...params} />
@@ -205,10 +198,13 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
                     value={startTime}
                     onChange={(newValue) => {
                       setStartTime(newValue);
+                      setEndTime(newValue + 60);
                     }}
                     renderInput={(params) => (
                       <TextField sx={{ mb: 2 }} {...params} />
                     )}
+                    minTime={new Date(0, 0, 0, 7)}
+                    maxTime={new Date(0, 0, 0, 20, 31)}
                   />
                   <MobileTimePicker
                     label="End Time"
@@ -219,6 +215,8 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
                     renderInput={(params) => (
                       <TextField sx={{ mb: 2 }} {...params} />
                     )}
+                    minTime={new Date(0, 0, 0, 7, 29)}
+                    maxTime={new Date(0, 0, 0, 21, 1)}
                   />
                 </Stack>
               </Container>
