@@ -77,14 +77,14 @@ export const Checkins = () => {
       scales: {
         y: {
          grid: {
-            color: "rgba(60, 60, 60, 0.11)",
-            // color: "transparent",
+            // color: "rgba(60, 60, 60, 0.11)",
+            color: "transparent",
           },
         },
         x: {
          grid: {
-            color: "rgba(60, 60, 60, 0.14)",
-            // color: "white",
+            // color: "rgba(60, 60, 60, 0.14)",
+            color: "transparent",
           },
         },
       },
@@ -92,19 +92,22 @@ export const Checkins = () => {
   };
 
   const labels = ["Sun", "Mon", "Tues", "Weds", "Thurs", "Fri", "Sat"];
+  
   const data = {
     labels,
-
     datasets: [
       {
         hoverBorderColor: "rgb(20, 100, 180)",
         hoverBackgroundColor: "rgb(20, 100, 180)",
+        hoverBorderWidth: "0",
         label: "Average Check-ins",
         data: chartData,
-        backgroundColor: "rgba(20, 120, 220, 0.95)",
-        borderColor: "rgba(20, 100, 180)",
-        borderWidth: "1",
-        borderRadius: "10",
+        // backgroundColor: "rgba(20, 120, 220, 0.97)",
+        // backgroundColor: "rgba(20, 120, 180, 0.2)",
+        backgroundColor: "rgba(0, 82, 255, 0.8)",
+        borderColor: "rgba(20, 100, 180, 0.92)",
+        borderWidth: "2",
+        borderRadius: "12",
         // borderColor: "5px solid rgb(40, 140, 250)",
       },
     ],
