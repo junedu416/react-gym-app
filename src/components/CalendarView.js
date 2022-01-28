@@ -9,7 +9,7 @@ import { EventPopup } from "../pages/events/EventPopup";
 import { convertTimeToAcceptedFormat } from "../utils/events-helper-functions.js";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-const CalendarView = ({ eventCategory, trainerParams, classFilters }) => {
+const CalendarView = ({ eventCategory, trainerParams, classFilters, filterList }) => {
   const { store } = useGlobalState();
   const { profile } = store;
   const localizer = momentLocalizer(moment);

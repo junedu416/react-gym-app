@@ -6,6 +6,7 @@ import { FilterEvents } from "../../components/FilterEvents";
 import { Container } from "../../styled-components";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { gymClasses } from "../../data/events";
 // import { useLocation, useNavigate } from 'react-router-dom';
 
 export const Calendar = (props) => {
@@ -14,6 +15,8 @@ export const Calendar = (props) => {
   const [eventSelect, setEventSelect] = useState(
     categoryParams ? categoryParams : "class"
   );
+
+  const [filterList, setFilterList] = useState([]);
 
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up("lg"));
@@ -37,16 +40,19 @@ export const Calendar = (props) => {
     }
   };
 
-  const applyFilterFunction = (filterList) => {
-    //   // ====================================================================================================
-    //   // FILTERING CODE HERE
-    //   // ====================================================================================================
+  // const applyFilterFunction = (filterList) => {
+  //   //   // ====================================================================================================
+  //   //   // FILTERING CODE HERE
+  //   //   // ====================================================================================================
 
-    // This is updating whenever a selection is made, but button isn't clicked.....
+  //   // This is updating whenever a selection is made, but button isn't clicked.....
 
-    console.log("APPLYING FILTERS: filterlist is ", filterList);
-    const filteredEvents = "a";
-  };
+  //   console.log("APPLYING FILTERS: filterlist is ", filterList);
+  //   const classesSelected = filterList.filter((gymClass) => gymClasses.map(item => gymClass === item.name))
+  //   console.log("classes selected: ", classesSelected);
+
+  //   setClassFilters(classesSelected);
+  // };
 
   return (
     <>
@@ -102,7 +108,10 @@ export const Calendar = (props) => {
           a filter, state for if a filter is selected, and clearing all filters is working. */}
           <FilterEvents
             eventSelect={eventSelect}
-            applyFilterFunction={applyFilterFunction}
+            // applyFilterFunction={applyFilterFunction}
+            filterList={filterList}
+            setFilterList={setFilterList}
+            setClassFilters={setClassFilters}
           />
         </Container>
         {/* Responsive element to keep everything aligned/centered when shifting the filter button to bottom for phone view. */}
@@ -118,6 +127,8 @@ export const Calendar = (props) => {
         trainerParams={trainerParams}
         classFilters={classFilters}
         setClassFilters={setClassFilters}
+        filterList={filterList}
+        setFilterList={setFilterList}
       />
 
       <Container></Container>

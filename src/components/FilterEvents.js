@@ -73,20 +73,24 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 export const FilterEvents = (props) => {
-  const { eventSelect, applyFilterFunction } = props;
-
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up("lg"));
   const phone = useMediaQuery(theme.breakpoints.down("sm"));
-
+  const { eventSelect, filterList, setFilterList, setClassFilters } = props;
+  const hasFilters = Boolean(filterList.length > 0);
 
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState("panel1");
 
-  // const [filters, setFilters] = useState(() => []);
+  const applyFilterFunction = () => {
+    console.log("FILTER LIST IS: ", filterList);
+    const classesSelected = gymClasses.map(item => filterList.filter(gymClass => gymClass === item.name));
+    const weekdaySelection = weekdays.map(item => filterList.filter(selection => selection === item.label));
+    console.log("classes selected: ", classesSelected.flat());
+    console.log("weekday selected: ", weekdaySelection.flat());
+    setClassFilters(classesSelected.flat());
+  }
 
-  const [filterList, setFilterList] = useState([]);
-  const hasFilters = Boolean(filterList.length > 0);
 
   const handleFilterSelect = (filter) => {
     const isSelected = filterList.includes(filter);
@@ -311,7 +315,7 @@ export const FilterEvents = (props) => {
                     size="small"
                     sx={{ m: "10px auto" }}
                     style={{ height: "40px" }}
-                    btnFunction={applyFilterFunction(filterList)}
+                    btnFunction={applyFilterFunction}
                   />
                   </ClearButtonFade>
                 )}
