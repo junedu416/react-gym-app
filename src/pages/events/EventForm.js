@@ -101,7 +101,19 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
       ...formValues,
       [event.target.name]: event.target.value,
       description: groupClass[0].description,
+      spotsAvailable: 12,
     })
+  }
+
+  const autofillSpots = (event) => {
+    const selection = event.target.value
+    setFormValues({
+      ...formValues,
+      [event.target.name]: selection,
+      spotsAvailable: selection === "Class" ? 12 : selection === "Personal Training" ? 1 : null,
+    })
+
+
   }
 
   return (
@@ -112,7 +124,7 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
           label="Event Type"
           required
           value={formValues.category}
-          onChange={handleChange}
+          onChange={autofillSpots}
           name="category"
           helperText="Please select the event type"
           sx={{ mb: 2 }}
@@ -211,7 +223,7 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
                 name="spotsAvailable"
                 inputProps={{ min: "1", step: "1" }}
                 onChange={handleChange}
-                defaultValue = {formValues.category === "Personal Training" ? 1 : formValues.category === "Class" ? 12 : null}
+                // defaultValue = {formValues.category === "Personal Training" ? 1 : formValues.category === "Class" ? 12 : null}
                 value={formValues.spotsAvailable}
                 style={alignLeft}
               />
