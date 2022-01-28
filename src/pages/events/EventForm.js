@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useGlobalState } from "../../config/globalStore";
 import { Container } from "../../styled-components";
 import AttachmentIcon from "../../components/buttons/AttachmentIcon";
 import { MenuItem, TextField, Stack } from "@mui/material";
 import { LoadButton } from "../../components/buttons/LoadButton"
+import BasicButton from "../../components/buttons/BasicButton";
 
 // Date/Time Selection
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -12,8 +14,6 @@ import { MobileDatePicker, MobileTimePicker } from "@mui/lab";
 
 // services
 import { gymClasses } from "../../data/events";
-import BasicButton from "../../components/buttons/BasicButton";
-import { useNavigate } from "react-router-dom";
 import { useRedirectNonStaffMembers } from "../../config/customHooks";
 
 export const EventForm = ({ submitFunction, event, eventId, buttonText, loading }) => {
@@ -202,6 +202,7 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
                 name="spotsAvailable"
                 inputProps={{ min: "1", step: "1" }}
                 onChange={handleChange}
+                defaultValue = {formValues.category === "Personal Training" ? 1 : formValues.category === "Class" ? 12 : null}
                 value={formValues.spotsAvailable}
                 style={alignLeft}
               />
@@ -211,6 +212,7 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
               label="Description"
               multiline
               rows={4}
+              // defaultValue={formValues.category === "Class" && formValues.name !== null ? }
               value={formValues.description}
               name="description"
               onChange={handleChange}
