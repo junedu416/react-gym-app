@@ -95,6 +95,15 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
 
   const eventCategories = ["Class", "Competition", "Personal Training"];
 
+  const autoComplete = (event) => {
+    const groupClass = gymClasses.filter(item => item.name === event.target.value)
+    setFormValues({
+      ...formValues,
+      [event.target.name]: event.target.value,
+      description: groupClass[0].description,
+    })
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <Container style={{ minWidth: "400px" }}>
@@ -122,7 +131,7 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
                 required
                 label="Select Class"
                 value={formValues.name}
-                onChange={handleChange}
+                onChange={autoComplete}
                 name="name"
                 // helperText="Please select class"
                 fullWidth
@@ -208,11 +217,11 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
               />
             )}
 
+          { formValues.category === "Class" && !formValues.name ? null :     
             <TextField
               label="Description"
               multiline
               rows={4}
-              // defaultValue={formValues.category === "Class" && formValues.name !== null ? }
               value={formValues.description}
               name="description"
               onChange={handleChange}
@@ -220,7 +229,7 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
               sx={{ mb: 2 }}
               required
             />
-
+          }
             <Container direction="row" style={alignLeft}>
               <AttachmentIcon />
               <input
