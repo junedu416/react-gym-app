@@ -107,14 +107,22 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
 
   const autofillSpots = (event) => {
     const selection = event.target.value
+    console.log("SELECION: ", selection)
     setFormValues({
       ...formValues,
-      [event.target.name]: selection,
+      [event.target.name]: event.target.value,
       spotsAvailable: selection === "Class" ? 12 : selection === "Personal Training" ? 1 : null,
       description: selection === "Personal Training" ? profile.description : "",
+      name: selection === "Personal Training" ? `${profile.firstName} ${profile.lastName}` : "",
     })
+  }
 
-
+  const autofillName = () => {
+    setFormValues({
+      ...formValues,
+      name: `${profile.firstName} ${profile.lastName}`,
+    })
+    console.log("****** AUTOFILL NAME: ", formValues);
   }
 
   return (
@@ -158,7 +166,8 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
                 required
                 label="Event Name"
                 fullWidth
-                value={formValues.category === "Personal Training" ? `${profile.firstName} ${profile.lastName}` : formValues.name}
+                // value={formValues.category === "Personal Training" ? autofillName : formValues.name}
+                value={formValues.name}
                 name="name"
                 onChange={handleChange}
               />
