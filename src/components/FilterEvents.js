@@ -86,8 +86,13 @@ export const FilterEvents = (props) => {
     console.log("FILTER LIST IS: ", filterList);
     const classesSelected = gymClasses.map(item => filterList.filter(gymClass => gymClass === item.name));
     const weekdaySelection = weekdays.map(item => filterList.filter(selection => selection === item.label));
+    const trainerSelection = trainers.map(trainer => filterList.filter(selection => selection === trainer.name));
+    const competitionSelection = competitionFilters.map(competitionCategory => filterList.filter(selection => selection === competitionCategory.label));
     console.log("classes selected: ", classesSelected.flat());
     console.log("weekday selected: ", weekdaySelection.flat());
+    console.log("trainer selected: ", trainerSelection.flat());
+    console.log("competition selected: ", competitionSelection.flat());
+    
     setClassFilters(classesSelected.flat());
   }
 
