@@ -9,6 +9,11 @@ import { EventPopup } from "../pages/events/EventPopup";
 import { convertTimeToAcceptedFormat } from "../utils/events-helper-functions.js";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
+// Changes Calendar days to start on Mon - Sun, rather than Sun - Sat
+import 'moment/locale/en-gb';
+moment.locale('en-gb');
+
+
 const CalendarView = ({
   eventCategory,
   trainerParams,

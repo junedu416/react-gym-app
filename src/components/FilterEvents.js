@@ -135,22 +135,6 @@ export const FilterEvents = (props) => {
     setFilterList(newSelection);
   };
 
-  // function toggleFilters(id) {
-  //   const tempFilterList = [...filterList];
-  //   tempFilterList[id] = !tempFilterList[id];
-  //   setFilterList(tempFilterList);
-  // }
-
-  // Clears all filters onload
-  /*
-  useEffect(() => {
-    const tempFilterList = [...filterList];
-    for (let i = 0; i < tempFilterList.length; i++) {
-      tempFilterList[i] = false;
-    }
-    setFilterList(tempFilterList);
-  }, []);*/
-
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };

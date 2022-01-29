@@ -43,20 +43,6 @@ export const Calendar = (props) => {
     }
   };
 
-  // const applyFilterFunction = (filterList) => {
-  //   //   // ====================================================================================================
-  //   //   // FILTERING CODE HERE
-  //   //   // ====================================================================================================
-
-  //   // This is updating whenever a selection is made, but button isn't clicked.....
-
-  //   console.log("APPLYING FILTERS: filterlist is ", filterList);
-  //   const classesSelected = filterList.filter((gymClass) => gymClasses.map(item => gymClass === item.name))
-  //   console.log("classes selected: ", classesSelected);
-
-  //   setClassFilters(classesSelected);
-  // };
-
   return (
     <>
       <Container
@@ -107,8 +93,7 @@ export const Calendar = (props) => {
             bottom: desktop ? "" : 30,
           }}
         >
-          {/* This Filter component isn't fully functional, it doesn't filter events, but all the logic with selecting and toggling
-          a filter, state for if a filter is selected, and clearing all filters is working. */}
+
           <FilterEvents
             eventSelect={eventSelect}
             // applyFilterFunction={applyFilterFunction}
@@ -120,6 +105,7 @@ export const Calendar = (props) => {
             setCompetitionFilters={setCompetitionFilters}
             staffProfiles={staffProfiles}
           />
+          
         </Container>
         {/* Responsive element to keep everything aligned/centered when shifting the filter button to bottom for phone view. */}
         {desktop ? null : (
