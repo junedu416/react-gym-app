@@ -73,7 +73,7 @@ const CalendarView = ({
       console.log("CLASS FILTERS: ", classFilters);
       dispatchEventsVars({
         type: "filterByClass",
-        data: { category: eventCategory, gymClass: classFilters },
+        data: { category: "Class", gymClass: classFilters },
       });
     }
     return;
@@ -133,7 +133,7 @@ const CalendarView = ({
 
   //if params exist for trainer, filter events by trainer
   useEffect(() => {
-    if (eventsVars.events?.length > 0 && trainerParams) {
+    if (trainerParams && eventsVars.events?.length > 0) {
       filterEventsByTrainerParams();
     }
     return;
@@ -150,7 +150,6 @@ const CalendarView = ({
     }
   };
 
-  console.log("ALL EVENTS: ", allevents);
   return (
     <div
       style={{

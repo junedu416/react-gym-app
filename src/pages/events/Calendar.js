@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer, useCallback } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import CalendarView from "../../components/CalendarView";
@@ -8,14 +8,24 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { gymClasses } from "../../data/events";
 // import { useLocation, useNavigate } from 'react-router-dom';
+import { eventsReducer } from "../../utils/events-reducer";
 
 export const Calendar = (props) => {
-  const { categoryParams, trainerParams, setSearchParams, staffProfiles, profile } = props;
+  const { categoryParams, trainerParams, setSearchParams, staffProfiles, profile, allevents } = props;
 
-  const [eventSelect, setEventSelect] = useState(
-    categoryParams ? categoryParams : "class"
+  const [eventSelect, setEventSelect] = useState(categoryParams ? categoryParams.toLowerCase() : "class");
+
+  const initialEventsVars = {
+    events: null,
+    filteredEvents: [],
+  };
+
+  const [eventsVars, dispatchEventsVars] = useReducer(
+    eventsReducer,
+    initialEventsVars
   );
 
+  // console.log("TOGGLE: ", eventSelect);
   const [filterList, setFilterList] = useState([]);
 
   const theme = useTheme();
@@ -42,6 +52,16 @@ export const Calendar = (props) => {
       setEventSelect(eventSelect);
     }
   };
+
+  const resetFilters = useCallback(() => {
+    if (eventSelect) {
+      dispatchEventsVars({
+        type: "resetEvents",
+        data: { events: allevents, category: eventSelect },
+      });
+    }
+    return;
+  }, [eventSelect]);
 
   return (
     <>
@@ -93,7 +113,7 @@ export const Calendar = (props) => {
             bottom: desktop ? "" : 30,
           }}
         >
-
+        {trainerParams ? null : 
           <FilterEvents
             eventCategory={eventSelect}
             // applyFilterFunction={applyFilterFunction}
@@ -105,7 +125,10 @@ export const Calendar = (props) => {
             setCompetitionFilters={setCompetitionFilters}
             staffProfiles={staffProfiles}
             profile={profile}
+            resetFilters={resetFilters}
+            allevents={allevents}
           />
+        }
 
         </Container>
         {/* Responsive element to keep everything aligned/centered when shifting the filter button to bottom for phone view. */}
@@ -125,6 +148,7 @@ export const Calendar = (props) => {
         weekdayFilters={weekdayFilters}
         trainerFilters={trainerFilters}
         competitionFilters={competitionFilters}
+        allevents={allevents}
       />
 
       <Container></Container>

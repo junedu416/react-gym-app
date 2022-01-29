@@ -6,7 +6,6 @@ import { styled } from "@mui/material/styles";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import {
   gymClasses,
-  // trainers,
   weekdays,
   competitionFilters,
   allFilters,
@@ -31,6 +30,7 @@ import {
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { eventsReducer } from "../utils/events-reducer";
+// import { resetEventFilters } from "../utils/events-helper-functions";
 
 // import { Translate } from "@mui/icons-material";
 // import CloseIcon from '@mui/icons-material/Close';
@@ -89,7 +89,8 @@ export const FilterEvents = (props) => {
     setTrainerFilters,
     setCompetitionFilters,
     staffProfiles,
-    profile
+    profile,
+    resetFilters,
   } = props;
 
   const initialEventsVars = {
@@ -102,12 +103,14 @@ export const FilterEvents = (props) => {
   );
 
   const trainers = staffProfiles.map(
-    (profile) => `${profile.firstName} ${profile.lastName}` 
-  );
+    (profile) => { 
+    return {
+      fullname: `${profile.firstName} ${profile.lastName}`,
+      id: profile._id,
+    }
+    });
 
-  const trainersById = staffProfiles.map((profile) => profile._id);
-  // console.log("Trainers by id: ", trainersById);
-  // console.log("Trainers full names: ", trainers);
+ 
 
   const hasFilters = Boolean(filterList.length > 0);
 
@@ -116,6 +119,10 @@ export const FilterEvents = (props) => {
 
   const applyFilterFunction = () => {
     console.log("FILTER LIST IS: ", filterList);
+    console.log("TRAINER FULLNAME AND ID: ", trainers);
+
+    console.log("FIRST TRAINER FULLNAME: ", trainers[8].fullname);
+
     const classSelection = gymClasses.map((item) =>
       filterList.filter((gymClass) => gymClass === item.name)
     );
@@ -123,19 +130,17 @@ export const FilterEvents = (props) => {
       filterList.filter((selection) => selection === item.label)
     );
     const trainerSelection = trainers.map((trainer) => {
-        filterList.filter((selection) => selection === trainer);
+        filterList.filter((selection) => selection === trainer.fullname);
     });
     
     const competitionSelection = competitionFilters.map((competitionCategory) =>
       filterList.filter((selection) => selection === competitionCategory.label)
     );
 
-    console.log("classes selected: ", classSelection.flat());
-    console.log("weekday selected: ", weekdaySelection.flat());
-    console.log("trainer selected: ", trainerSelection.flat());
-    console.log("competition selected: ", competitionSelection.flat());
-    // console.log("trainer by ID selected: ", trainerClassSelection.flat());
-    
+    console.log("classes selection: ", classSelection.flat());
+    console.log("weekday selection: ", weekdaySelection.flat());
+    console.log("trainer selection: ", trainerSelection.flat());
+    console.log("competition selection: ", competitionSelection.flat());
 
     setClassFilters(classSelection.flat());
     setWeekdayFilters(weekdaySelection.flat());
@@ -167,23 +172,13 @@ export const FilterEvents = (props) => {
   };
   const clearFilters = () => {
     setFilterList([]);
-    setClassFilters("");
-    setWeekdayFilters("");
-    setTrainerFilters("");
-    setCompetitionFilters("");
+    setClassFilters([]);
+    setWeekdayFilters([]);
+    setTrainerFilters([]);
+    setCompetitionFilters([]);
     
-    filterEventsByCategory();
+    resetFilters();
   };
-
-  const filterEventsByCategory = useCallback(() => {
-    if (eventCategory) {
-      dispatchEventsVars({
-        type: "setCategorisedEventsList",
-        data: { category: eventCategory, profile: profile },
-      });
-    }
-    return;
-  }, [eventCategory, profile]);
 
   const fadeInAnimation = {
     animation: "fadeInAnimation 1000ms ease-in",
@@ -338,11 +333,11 @@ export const FilterEvents = (props) => {
                       {trainers.map((instructor) => {
                         return (
                           <FilterItem
-                            key={instructor}
-                            onClick={() => handleFilterSelect(instructor)}
+                            key={instructor.fullname}
+                            onClick={() => handleFilterSelect(instructor.fullname)}
                           >
-                            <Typography>{instructor}</Typography>
-                            {filterList.includes(instructor) && (
+                            <Typography>{instructor.fullname}</Typography>
+                            {filterList.includes(instructor.fullname) && (
                               <DoneIcon color="success" />
                             )}
                           </FilterItem>

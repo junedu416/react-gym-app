@@ -4,7 +4,9 @@ import {
   filterEventsByTrainer,
   filterEventsByTrainerParams,
   filterEventsByClass,
+  resetEventFilters,
 } from "./events-helper-functions";
+
 
 export const eventsReducer = (state, action) => {
   switch (action.type) {
@@ -52,7 +54,7 @@ export const eventsReducer = (state, action) => {
       const filteredEvents = filterEventsByClass(
         state.events,
         action.data.category,
-        action.data.gymClass
+        action.data.gymClass,
       );
       return {
         ...state,
@@ -63,13 +65,26 @@ export const eventsReducer = (state, action) => {
       const filteredEvents = filterEventsByTrainer(
         state.events,
         action.data.category,
-        action.data.trainer
+        action.data.trainerFullname,
+        action.data.trainerId,
       );
       return {
         ...state,
         filteredEvents: filteredEvents,
       };
     }
+
+    case "resetEvents": {
+      const filteredEvents = resetEventFilters(
+        state.events,
+        action.data.category,
+      );
+      return {
+        ...state,
+        filteredEvents: filteredEvents,
+      };
+    }
+
     default:
       return state;
   }

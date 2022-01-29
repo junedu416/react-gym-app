@@ -12,7 +12,7 @@ export const Events = (props) => {
   useRedirectUnauthorisedUser();
   const navigate = useNavigate();
   const { store } = useGlobalState();
-  const { profile } = store;
+  const { profile, allevents } = store;
   const { desktop, phone } = props;
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryParams = searchParams.get("category");
@@ -51,6 +51,7 @@ export const Events = (props) => {
         setSearchParams={setSearchParams}
         staffProfiles={staffProfs}
         profile={profile}
+        allevents={allevents}
       />
 
       {profile?.isStaff && (
