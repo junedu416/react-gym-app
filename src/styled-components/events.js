@@ -134,4 +134,25 @@ export const Wrapper = styled.div`
     z-index: 2;
     background: rgb(250, 250, 250);
   }
+
+  & .rbc-time-gutter {
+    background: rgb(250, 250, 250);
+    color: #0d47a1;
+    width: 66px;
+    text-align: center;
+    font-weight: bold; 
+    /* position: sticky !important; */
+    /* position: sticky; */
+    /* overflow-y: hidden; */
+    /* left: 0px; */
+    /* top: 42px; */
+    /* background: red; */
+  }
+
+  & .rbc-time-column {
+    /* THIS IS BACKGROUND COLOR FOR CELLS */
+    /* background: grey; */
+    
+    /* font-weight: bold; */    
+  }
 `
