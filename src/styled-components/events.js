@@ -111,3 +111,9 @@ export const SpotsLeft = styled.p`
   color: ${props => props.spotsAvailable < 3 ? "rgb(244,67,53)" : "rgb(0, 196, 0)"};
   font-size: 1.2rem;
 `
+
+export const Wrapper = styled.div`
+  & .rbc-allday-cell {
+  display: none;
+  }
+`

@@ -11,6 +11,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 // Changes Calendar days to start on Mon - Sun, rather than Sun - Sat
 import 'moment/locale/en-gb';
+import { Wrapper } from "../styled-components/events";
 moment.locale('en-gb');
 
 
@@ -165,23 +166,25 @@ const CalendarView = ({
           dispatchEventsVars={dispatchEventsVars}
         />
       )}
-      <Calendar
-        localizer={localizer}
-        defaultView="week"
-        events={eventsVars.filteredEvents}
-        titleAccessor="name"
-        startAccessor="startTime"
-        endAccessor="endTime"
-        onSelectEvent={onClickEvent}
-        step={30}
-        style={{ height: 1500, width: ipadAndPhone ? "800px" : null }}
-        // Set min and max range for time displayed on calendar
-        min={new Date(0, 0, 0, 7, 0, 0)}
-        max={new Date(0, 0, 0, 21, 0, 0)}
-        // showMultiDayTimes //Needs to be included to show times for multi-day events instead of it being treated as all day - Daniel
-        scrollToTime={scrollToTime}
-        views={["month", "week", "day"]}
-      />
+      <Wrapper>
+        <Calendar
+          localizer={localizer}
+          defaultView="week"
+          events={eventsVars.filteredEvents}
+          titleAccessor="name"
+          startAccessor="startTime"
+          endAccessor="endTime"
+          onSelectEvent={onClickEvent}
+          step={30}
+          style={{ height: 1500, width: ipadAndPhone ? "800px" : null }}
+          // Set min and max range for time displayed on calendar
+          min={new Date(0, 0, 0, 7, 0, 0)}
+          max={new Date(0, 0, 0, 21, 0, 0)}
+          // showMultiDayTimes //Needs to be included to show times for multi-day events instead of it being treated as all day - Daniel
+          scrollToTime={scrollToTime}
+          views={["month", "week", "day"]}
+        />
+      </Wrapper>
     </div>
   );
 };
