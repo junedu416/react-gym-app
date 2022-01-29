@@ -112,8 +112,26 @@ export const SpotsLeft = styled.p`
   font-size: 1.2rem;
 `
 
+// Styling that targets classes in React Big Calendar
 export const Wrapper = styled.div`
   & .rbc-allday-cell {
   display: none;
+  }
+
+  & .rbc-toolbar {
+    position: sticky;
+    top: -1px;
+    z-index: 2;
+    background: rgb(250, 250, 250);
+    margin: 0;
+    padding: 3px 0 10px;
+  }
+
+  & .rbc-time-header {
+    position: sticky;
+    top: 41px;
+    color: #0d47a1;
+    z-index: 2;
+    background: rgb(250, 250, 250);
   }
 `
