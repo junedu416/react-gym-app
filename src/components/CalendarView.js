@@ -26,12 +26,14 @@ const CalendarView = ({
   weekdayFilters,
 }) => {
   const { store } = useGlobalState();
-  const { profile } = store;
+  const { dispatch } = useGlobalState();
+  const { profile, allevents } = store;
   const localizer = momentLocalizer(moment);
   const initialEventsVars = {
     events: null,
     filteredEvents: [],
   };
+
   const [eventsVars, dispatchEventsVars] = useReducer(
     eventsReducer,
     initialEventsVars
@@ -60,7 +62,7 @@ const CalendarView = ({
       // console.log("filtered Trainer ID from params: ", trainerParams);
       dispatchEventsVars({
         type: "filterByTrainerParams",
-        data: { category: eventCategory, trainerId: trainerParams },
+        data: { category: "Personal Training", trainerId: trainerParams },
       });
     }
     return;
@@ -71,7 +73,7 @@ const CalendarView = ({
       console.log("CLASS FILTERS: ", classFilters);
       dispatchEventsVars({
         type: "filterByClass",
-        data: { category: "Class", gymClass: classFilters },
+        data: { category: eventCategory, gymClass: classFilters },
       });
     }
     return;
@@ -99,6 +101,7 @@ const CalendarView = ({
           convertTimeToAcceptedFormat(event);
         });
         dispatchEventsVars({ type: "setEventsList", data: eventsList });
+        dispatch({ type: "setAllEvents", data: eventsList});
       })
       .catch((error) => console.log(`error caught fetching events: `, error));
   }, []);
@@ -112,8 +115,6 @@ const CalendarView = ({
     }
     return;
   }, [eventsVars.events, filterEventsByCategory]);
-
-
 
   useEffect(() => {
     if (eventsVars.events?.length > 0 && classFilters.length > 0) {
@@ -149,12 +150,14 @@ const CalendarView = ({
     }
   };
 
+  console.log("ALL EVENTS: ", allevents);
   return (
     <div
       style={{
         height: "80vh",
         width: ipadAndPhone ? "95%" : "80%",
-        overflow: "scroll",
+        overflowY: "scroll",
+
       }}
     >
       {clickedEvent && (

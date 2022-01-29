@@ -1,7 +1,7 @@
 // THIS COMPONENT IS NOT USED IN PRODUCTION,
 // THE COMPONENT IS COMMENTED OUT, NOT FULLY FUNCTIONAL AS IT ISN'T FILTERING ANY EVENTS.
 
-import React, { useState } from "react";
+import React, { useState, useReducer, useEffect, useCallback } from "react";
 import { styled } from "@mui/material/styles";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import {
@@ -30,6 +30,7 @@ import {
 } from "../styled-components/events";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { eventsReducer } from "../utils/events-reducer";
 
 // import { Translate } from "@mui/icons-material";
 // import CloseIcon from '@mui/icons-material/Close';
@@ -80,7 +81,7 @@ export const FilterEvents = (props) => {
   const desktop = useMediaQuery(theme.breakpoints.up("lg"));
   const phone = useMediaQuery(theme.breakpoints.down("sm"));
   const {
-    eventSelect,
+    eventCategory,
     filterList,
     setFilterList,
     setClassFilters,
@@ -88,9 +89,24 @@ export const FilterEvents = (props) => {
     setTrainerFilters,
     setCompetitionFilters,
     staffProfiles,
+    profile
   } = props;
 
-  const trainers = staffProfiles.map(profile => `${profile.firstName} ${profile.lastName}`);
+  const initialEventsVars = {
+    events: null,
+    filteredEvents: [],
+  };
+  const [eventsVars, dispatchEventsVars] = useReducer(
+    eventsReducer,
+    initialEventsVars
+  );
+
+  const trainers = staffProfiles.map(
+    (profile) => `${profile.firstName} ${profile.lastName}` 
+  );
+
+  const trainersById = staffProfiles.map((profile) => profile._id);
+  // console.log("Trainers by id: ", trainersById);
   // console.log("Trainers full names: ", trainers);
 
   const hasFilters = Boolean(filterList.length > 0);
@@ -106,9 +122,10 @@ export const FilterEvents = (props) => {
     const weekdaySelection = weekdays.map((item) =>
       filterList.filter((selection) => selection === item.label)
     );
-    const trainerSelection = trainers.map((trainer) =>
-      filterList.filter((selection) => selection === trainer)
-    );
+    const trainerSelection = trainers.map((trainer) => {
+        filterList.filter((selection) => selection === trainer);
+    });
+    
     const competitionSelection = competitionFilters.map((competitionCategory) =>
       filterList.filter((selection) => selection === competitionCategory.label)
     );
@@ -117,6 +134,8 @@ export const FilterEvents = (props) => {
     console.log("weekday selected: ", weekdaySelection.flat());
     console.log("trainer selected: ", trainerSelection.flat());
     console.log("competition selected: ", competitionSelection.flat());
+    // console.log("trainer by ID selected: ", trainerClassSelection.flat());
+    
 
     setClassFilters(classSelection.flat());
     setWeekdayFilters(weekdaySelection.flat());
@@ -152,7 +171,19 @@ export const FilterEvents = (props) => {
     setWeekdayFilters("");
     setTrainerFilters("");
     setCompetitionFilters("");
+    
+    filterEventsByCategory();
   };
+
+  const filterEventsByCategory = useCallback(() => {
+    if (eventCategory) {
+      dispatchEventsVars({
+        type: "setCategorisedEventsList",
+        data: { category: eventCategory, profile: profile },
+      });
+    }
+    return;
+  }, [eventCategory, profile]);
 
   const fadeInAnimation = {
     animation: "fadeInAnimation 1000ms ease-in",
@@ -204,7 +235,7 @@ export const FilterEvents = (props) => {
 
           {open ? (
             <FilterBox desktop={desktop} phone={phone}>
-              {eventSelect === "competition" ? (
+              {eventCategory === "competition" ? (
                 <Accordion
                   expanded
                   onChange={handleChange("panel3")}
@@ -268,7 +299,7 @@ export const FilterEvents = (props) => {
                     </AccordionDetails>
                   </Accordion>
 
-                  {eventSelect === "class" && (
+                  {eventCategory === "class" && (
                     <Accordion
                       expanded={expanded === "panel2"}
                       onChange={handleChange("panel2")}

@@ -52,6 +52,12 @@ const globalReducer = (state, action) => {
         workoutIndex: action.data,
       };
 
+    case "setAllEvents":
+      return {
+        ...state,
+        allevents: action.data,
+      };
+
     default:
       throw new Error("Undefined global action");
   }

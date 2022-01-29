@@ -50,6 +50,7 @@ export const Events = (props) => {
         searchParams={searchParams}
         setSearchParams={setSearchParams}
         staffProfiles={staffProfs}
+        profile={profile}
       />
 
       {profile?.isStaff && (

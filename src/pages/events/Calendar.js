@@ -10,7 +10,7 @@ import { gymClasses } from "../../data/events";
 // import { useLocation, useNavigate } from 'react-router-dom';
 
 export const Calendar = (props) => {
-  const { categoryParams, trainerParams, setSearchParams, staffProfiles } = props;
+  const { categoryParams, trainerParams, setSearchParams, staffProfiles, profile } = props;
 
   const [eventSelect, setEventSelect] = useState(
     categoryParams ? categoryParams : "class"
@@ -95,7 +95,7 @@ export const Calendar = (props) => {
         >
 
           <FilterEvents
-            eventSelect={eventSelect}
+            eventCategory={eventSelect}
             // applyFilterFunction={applyFilterFunction}
             filterList={filterList}
             setFilterList={setFilterList}
@@ -104,8 +104,9 @@ export const Calendar = (props) => {
             setTrainerFilters={setTrainerFilters}
             setCompetitionFilters={setCompetitionFilters}
             staffProfiles={staffProfiles}
+            profile={profile}
           />
-          
+
         </Container>
         {/* Responsive element to keep everything aligned/centered when shifting the filter button to bottom for phone view. */}
         {desktop ? null : (
