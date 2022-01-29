@@ -107,7 +107,7 @@ export const Checkins = () => {
         backgroundColor: "rgba(0, 82, 255, 0.8)",
         borderColor: "rgba(20, 100, 180, 0.92)",
         borderWidth: "2",
-        borderRadius: "12",
+        borderRadius: "9",
         // borderColor: "5px solid rgb(40, 140, 250)",
       },
     ],

@@ -61,7 +61,7 @@ export const StaffCard = ({ staff }) => {
         >
           {staff.description && (
             <>
-              <Text fontSize={mobile ? "12px" : "14px"} m="0" justified>
+              <Text fontSize={mobile ? "12px" : "14px"} m="0" justified style={{ whiteSpace: "pre-line" }}>
                 {showMore
                   ? `${staff.description}`
                   : `${getShortenedString(staff.description, 150)}`}

@@ -61,7 +61,7 @@ export const ReportItems = ({
         </Row>
         <Row align="flex-start">
           <TextBold mr="10px">Description: </TextBold>
-          <Text style={{ textAlign: "justify", marginTop: "8px" }}>
+          <Text style={{ textAlign: "justify", marginTop: "8px", whiteSpace: "pre-line" }}>
             {report.description}
           </Text>
         </Row>

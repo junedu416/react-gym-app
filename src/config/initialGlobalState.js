@@ -1,6 +1,6 @@
 const initialGlobalState = {
-    profile: null,
-    notificationMsg: ""
-}
+  profile: null,
+  notificationMsg: "",
+};
 
 export default initialGlobalState;

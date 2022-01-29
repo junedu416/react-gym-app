@@ -236,7 +236,7 @@ export const MyProfile = () => {
               {!editMode && profile?.description && (
                 <Row justify="flex-start" align="flex-start" col>
                   <TextBold style={{  margin: "9px 0 -15px 0", minWidth: "60px" }}>My Bio: </TextBold>
-                  <Text style={{ textAlign:"justify" }}>{profile?.description}</Text>
+                  <Text style={{ textAlign:"justify", whiteSpace: "pre-line" }}>{profile?.description}</Text>
                 </Row>
               )}
               {editMode ? (
