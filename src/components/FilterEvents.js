@@ -87,6 +87,7 @@ export const FilterEvents = (props) => {
     setFilterList,
     setClassFilters,
     setWeekdayFilters,
+    trainerFilters,
     setTrainerFilters,
     setCompetitionFilters,
     staffProfiles,
@@ -111,7 +112,7 @@ export const FilterEvents = (props) => {
     }
     });
 
- 
+//  console.log("TRAINERS==================== ", trainers);
 
   const hasFilters = Boolean(filterList.length > 0);
 
@@ -126,17 +127,13 @@ export const FilterEvents = (props) => {
 
     const classSelection = gymClasses.map((item) =>
       filterList.filter((gymClass) => gymClass === item.name)
-    );
+    ).flat();
     const weekdaySelection = weekdays.map((item) =>
       filterList.filter((selection) => selection === item.label)
-    );
-    const trainerSelection = trainers.map((trainer) => {
-        if (eventCategory === "class") {
-          return filterList.filter((selection) => selection === trainer.fullname);
-        } else if (eventCategory === "personal training") {
-          return filterList.filter((selection) => selection === trainer.fullname);
-        }
-    });
+    ).flat();
+    const trainerSelection = filterList.map((selection) => {
+      return trainers.filter((trainer) => selection === trainer.fullname);
+    }).flat();
     
     const competitionSelection = competitionFilters.map((competitionCategory) =>
       filterList.filter((selection) => selection === competitionCategory.label)
@@ -155,13 +152,9 @@ export const FilterEvents = (props) => {
       setWeekdayFilters(weekdaySelection.flat())
       // filterEventsByWeekdday();
     };
-    if (trainerSelection.flat().length > 0) {
-      setTrainerFilters(trainerSelection.flat());
-      if (eventCategory === "class") {
-        // filterClassesByTrainer()
-      } else if (eventCategory === "personal training") { 
-        // filterEventsByTrainer()
-      };          
+    if (trainerSelection.length > 0) {
+      console.log("TRAINER FILTER SELECTED HERE!!!!!!!!! :     ", trainerSelection)
+      setTrainerFilters(trainerSelection);   
     } 
     if (eventCategory === "competition" && competitionSelection.flat().length > 0) {
       setCompetitionFilters(competitionSelection.flat());
@@ -197,7 +190,7 @@ export const FilterEvents = (props) => {
     setTrainerFilters([]);
     setCompetitionFilters([]);
     
-    resetFilters();
+    // resetFilters();
   };
 
   const fadeInAnimation = {
@@ -354,7 +347,12 @@ export const FilterEvents = (props) => {
                         return (
                           <FilterItem
                             key={instructor.fullname}
-                            onClick={() => handleFilterSelect(instructor.fullname)}
+                            onClick={() => {
+                              // customAction(instructor)
+                              console.log("HI TRAINER:", instructor)
+                              handleFilterSelect(instructor.fullname)
+                            }
+                              }
                           >
                             <Typography>{instructor.fullname}</Typography>
                             {filterList.includes(instructor.fullname) && (

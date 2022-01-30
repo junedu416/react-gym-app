@@ -8,7 +8,6 @@ import {
   resetEventFilters,
 } from "./events-helper-functions";
 
-
 export const eventsReducer = (state, action) => {
   switch (action.type) {
     case "setEventsList": {
@@ -68,9 +67,6 @@ export const eventsReducer = (state, action) => {
         state.events,
         action.data.category,
         action.data.trainers,
-        null,
-        // action.data.trainerFullname,
-        // action.data.trainerId,
       );
       return {
         ...state,
@@ -78,20 +74,20 @@ export const eventsReducer = (state, action) => {
       };
     }
 
-    case "filterClassesByTrainer": {
-      const filteredEvents = filterClassesByTrainer(
-        state.events,
-        action.data.category,
-        null,
-        action.data.trainers,
-        // action.data.trainerFullname,
-        // action.data.trainerId,
-      );
-      return {
-        ...state,
-        filteredEvents: filteredEvents,
-      };
-    }
+    // case "filterClassesByTrainer": {
+    //   const filteredEvents = filterClassesByTrainer(
+    //     state.events,
+    //     action.data.category,
+    //     null,
+    //     action.data.trainers,
+    //     // action.data.trainerFullname,
+    //     // action.data.trainerId,
+    //   );
+    //   return {
+    //     ...state,
+    //     filteredEvents: filteredEvents,
+    //   };
+    // }
 
     case "resetEvents": {
       const filteredEvents = resetEventFilters(

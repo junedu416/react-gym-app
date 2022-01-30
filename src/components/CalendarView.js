@@ -69,10 +69,12 @@ const CalendarView = ({
   }, [classFilters, eventCategory]);
 
   const filterClassesByTrainer = useCallback(() => {
-    if (eventCategory === "class" && trainerFilters.filter(trainer => trainer !== undefined).length > 0) {
+    // if (eventCategory === "class" && trainerFilters.filter(trainer => trainer !== undefined).length > 0) {
+    if (eventCategory === "class" && trainerFilters.length > 0) {
       console.log("TOGGLE: ", eventCategory, "  TRAINERS selected: ", trainerFilters);
+      console.log("CALLED IN CALENDAR VIEW, FILTERCLASSES BY TRAINER, toggle: ", eventCategory, " trainer List: ", trainerFilters)
       dispatchEventsVars({
-        type: "filterClassesByTrainer",
+        type: "filterEventsByTrainer",
         data: { category: eventCategory, trainers: trainerFilters },
       });
     }
@@ -91,7 +93,7 @@ const CalendarView = ({
   }, [trainerParams, eventCategory]);
 
   const filterEventsByTrainer = useCallback(() => {
-    if (!trainerParams && trainerFilters) {
+    if (trainerFilters && !trainerParams) {
       console.log("TRAINER FILTERS: ", trainerFilters, "category: ", eventCategory);
       dispatchEventsVars({
         type: "filterEventsByTrainer",
@@ -132,21 +134,21 @@ const CalendarView = ({
       filterEventsByClass();
     }
     return;
-  }, [eventsVars.events, filterEventsByClass])
+  }, [eventsVars.events, filterEventsByClass, eventCategory])
 
   useEffect(() => {
     if (eventsVars.events?.length > 0 && eventCategory === "personal training" && trainerFilters.length > 0 && !trainerParams) {
       filterEventsByTrainer();
     }
     return;
-  }, [eventsVars.events, filterEventsByTrainer])
+  }, [eventsVars.events, filterEventsByTrainer, eventCategory])
 
   useEffect(() => {
     if (eventsVars.events?.length > 0 && eventCategory === "class" && trainerFilters.length > 0) {
       filterClassesByTrainer();
     }
     return;
-  }, [eventsVars.events, filterClassesByTrainer])
+  }, [eventsVars.events, filterClassesByTrainer, eventCategory])
 
   //if params exist for trainer, filter events by trainer
   useEffect(() => {
@@ -154,7 +156,7 @@ const CalendarView = ({
       filterEventsByTrainerParams();
     }
     return;
-  }, [eventsVars.events, filterEventsByTrainerParams]);
+  }, [eventsVars.events, filterEventsByTrainerParams, eventCategory]);
 
 
   const onClickEvent = (e) => {

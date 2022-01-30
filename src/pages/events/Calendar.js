@@ -37,6 +37,7 @@ export const Calendar = (props) => {
   const [trainerFilters, setTrainerFilters] = useState([]);
   const [competitionFilters, setCompetitionFilters] = useState([])
   
+  console.log("TRAINER FILTERS ===========", trainerFilters);
   // const location = useLocation()
   // const history = useNavigate()
 
@@ -123,6 +124,7 @@ export const Calendar = (props) => {
             setFilterList={setFilterList}
             setClassFilters={setClassFilters}
             setWeekdayFilters={setWeekdayFilters}
+            trainerFilters={trainerFilters}
             setTrainerFilters={setTrainerFilters}
             setCompetitionFilters={setCompetitionFilters}
             staffProfiles={staffProfiles}

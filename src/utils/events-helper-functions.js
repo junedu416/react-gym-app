@@ -21,66 +21,46 @@ export const filterEventsByCategory = (events, category, profile) => {
 
 export const filterEventsByClass = (events, category, gymClass) => {
   let filteredEvents = [];
-  // console.log('EVENTS filter by class: ', events, category, gymClass);
   if (category === "class") {
     gymClass.map((className) => {
-      events.filter((event) => { 
+      events.filter((event) => {
         if (event.name === className) filteredEvents.push(event);
       });
     });
   }
 
-  // console.log("Filtered Events By Class: ", filteredEvents);
-
   return filteredEvents;
 };
 
-export const filterClassesByTrainer = (events, category, trainers) => {
+// export const filterClassesByTrainer = (events, category, trainers) => {
+//   let filteredEvents = [];
+//   console.log('Filter CLASSES BY TRAINER: ', events, category, trainers.filter(item => item != undefined));
+//   if (category === "class" && trainers.filter( item => item !== undefined).length > 0) {
+//     trainers.map((trainer) => {
+//       events.filter((event) => {
+//         if (event.category === "Class" && event.createdBy === trainer?.id) filteredEvents.push(event);
+//       });
+//     });
+//     console.log("Filtered Classes by Trainer: ", filteredEvents);
+//   }
+
+//   return filteredEvents;
+// };
+
+export const filterEventsByTrainer = (events, category, trainerList) => {
   let filteredEvents = [];
-  console.log('Filter CLASSES BY TRAINER: ', events, category, trainers.filter(item => item != undefined));
-  if (category === "class" && trainers.filter( item => item !== undefined).length > 0) {
-    trainers.map((trainer) => {
-      events.filter((event) => { 
-        if (event.category === "Class" && event.createdBy === trainer?.id) {
-          console.log("CLASS MATCH FOR TRAINER: ", event, trainer);
-          filteredEvents.push(event);
 
-        } 
-
-      });
-    });
-    console.log("Filtered Classes by Trainer: ", filteredEvents);
-  }
-
-
-  return filteredEvents;
-};
-
-export const filterEventsByTrainer = (
-  events,
-  category,
-  trainerList,
-  trainerIds
-) => {
-  console.log("category passed in: ", category, "  TRAINERLIST: ", trainerList, "   TRAINER IDS: ", trainerIds);
-  let filteredEvents = [];
-  if (category === "class" && trainerIds) {
-    trainerIds?.map((trainerId) => {
-      events?.filter((event) => {
-        if (event.category === "class" && event.createdBy === trainerId) {
-          filteredEvents.push(event);
-        }
-      });
-    });
-  }
-
-  if (category === "personal training" && trainerList) {
+  if (trainerList) {
     trainerList.map((trainer) => {
       events.filter((event) => {
-        if (event.category === "Personal Training" && event.name === trainer) {
-          console.log("MATCH!!: ", event, event.name, trainer);
+        if (
+          category === "class" &&
+          event.category === "Class" &&
+          event.createdBy === trainer.id
+        )
           filteredEvents.push(event);
-        }
+        if (category === "personal training" && event.name === trainer.fullname)
+          filteredEvents.push(event);
       });
     });
   }
@@ -89,7 +69,6 @@ export const filterEventsByTrainer = (
 };
 
 export const resetEventFilters = (events, category) => {
-
   console.log("RESET EVENTS: ", events, "Category: ", category);
   let filteredEvents;
   filteredEvents = events.filter(
@@ -97,7 +76,7 @@ export const resetEventFilters = (events, category) => {
   );
 
   return filteredEvents;
-}
+};
 
 export const filterEventsByTrainerParams = (events, category, trainerId) => {
   let filteredEvents;
