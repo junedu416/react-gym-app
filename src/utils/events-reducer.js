@@ -4,7 +4,7 @@ import {
   filterEventsByTrainer,
   filterEventsByTrainerParams,
   filterEventsByClass,
-  filterClassesByTrainer,
+  // filterClassesByTrainer,
   resetEventFilters,
 } from "./events-helper-functions";
 
@@ -90,13 +90,10 @@ export const eventsReducer = (state, action) => {
     // }
 
     case "resetEvents": {
-      const filteredEvents = resetEventFilters(
-        state.events,
-        action.data.category,
-      );
+      const allEvents = action.data.events;
       return {
         ...state,
-        filteredEvents: filteredEvents,
+        events: allEvents,
       };
     }
 

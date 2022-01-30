@@ -48,7 +48,6 @@ const CalendarView = ({
 
   const filterEventsByCategory = useCallback(() => {
     if (eventCategory) {
-      // console.log(`event Category from prop is: ${eventCategory}`);
       dispatchEventsVars({
         type: "setCategorisedEventsList",
         data: { category: eventCategory, profile: profile },
@@ -59,7 +58,6 @@ const CalendarView = ({
 
   const filterEventsByClass = useCallback(() => {
     if (classFilters) {
-      // console.log("CLASS FILTERS: ", classFilters);
       dispatchEventsVars({
         type: "filterByClass",
         data: { category: eventCategory, gymClass: classFilters },
@@ -68,22 +66,8 @@ const CalendarView = ({
     return;
   }, [classFilters, eventCategory]);
 
-  const filterClassesByTrainer = useCallback(() => {
-    // if (eventCategory === "class" && trainerFilters.filter(trainer => trainer !== undefined).length > 0) {
-    if (eventCategory === "class" && trainerFilters.length > 0) {
-      console.log("TOGGLE: ", eventCategory, "  TRAINERS selected: ", trainerFilters);
-      console.log("CALLED IN CALENDAR VIEW, FILTERCLASSES BY TRAINER, toggle: ", eventCategory, " trainer List: ", trainerFilters)
-      dispatchEventsVars({
-        type: "filterEventsByTrainer",
-        data: { category: eventCategory, trainers: trainerFilters },
-      });
-    }
-    return;
-  }, [trainerFilters, eventCategory]);
-
   const filterEventsByTrainerParams = useCallback(() => {
     if (trainerParams) {
-      // console.log("filtered Trainer ID from params: ", trainerParams);
       dispatchEventsVars({
         type: "filterByTrainerParams",
         data: { category: "Personal Training", trainerId: trainerParams },
@@ -94,7 +78,6 @@ const CalendarView = ({
 
   const filterEventsByTrainer = useCallback(() => {
     if (trainerFilters && !trainerParams) {
-      console.log("TRAINER FILTERS: ", trainerFilters, "category: ", eventCategory);
       dispatchEventsVars({
         type: "filterEventsByTrainer",
         data: { category: eventCategory, trainers: trainerFilters },
@@ -109,7 +92,6 @@ const CalendarView = ({
   useEffect(() => {
     getAllEvents()
       .then((eventsList) => {
-        // console.log("fetched data", eventsList);
         eventsList.forEach((event) => {
           convertTimeToAcceptedFormat(event);
         });
@@ -137,18 +119,11 @@ const CalendarView = ({
   }, [eventsVars.events, filterEventsByClass, eventCategory])
 
   useEffect(() => {
-    if (eventsVars.events?.length > 0 && eventCategory === "personal training" && trainerFilters.length > 0 && !trainerParams) {
+    if (eventsVars.events?.length > 0 && (eventCategory === "personal training" || eventCategory === "class") && trainerFilters.length > 0 && !trainerParams) {
       filterEventsByTrainer();
     }
     return;
   }, [eventsVars.events, filterEventsByTrainer, eventCategory])
-
-  useEffect(() => {
-    if (eventsVars.events?.length > 0 && eventCategory === "class" && trainerFilters.length > 0) {
-      filterClassesByTrainer();
-    }
-    return;
-  }, [eventsVars.events, filterClassesByTrainer, eventCategory])
 
   //if params exist for trainer, filter events by trainer
   useEffect(() => {
@@ -168,11 +143,6 @@ const CalendarView = ({
       setClickedEvent(e);
     }
   };
-
-  const applyFilters = () => {
-
-
-  }
 
   return (
     <div

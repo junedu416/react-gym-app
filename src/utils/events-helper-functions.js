@@ -13,7 +13,7 @@ export const filterEventsByCategory = (events, category, profile) => {
     );
   } else {
     filteredEvents = events.filter(
-      (event) => event.category.toLowerCase() === category.toLowerCase()
+      (event) => event.category.toLowerCase() === category
     );
   }
   return filteredEvents;
@@ -34,7 +34,6 @@ export const filterEventsByClass = (events, category, gymClass) => {
 
 // export const filterClassesByTrainer = (events, category, trainers) => {
 //   let filteredEvents = [];
-//   console.log('Filter CLASSES BY TRAINER: ', events, category, trainers.filter(item => item != undefined));
 //   if (category === "class" && trainers.filter( item => item !== undefined).length > 0) {
 //     trainers.map((trainer) => {
 //       events.filter((event) => {
@@ -43,7 +42,6 @@ export const filterEventsByClass = (events, category, gymClass) => {
 //     });
 //     console.log("Filtered Classes by Trainer: ", filteredEvents);
 //   }
-
 //   return filteredEvents;
 // };
 

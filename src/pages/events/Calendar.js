@@ -57,8 +57,12 @@ export const Calendar = (props) => {
   const resetFilters = useCallback(() => {
     if (eventSelect) {
       dispatchEventsVars({
-        type: "resetEvents",
-        data: { events: allevents, category: eventSelect },
+        type: "setEventsList",
+        data: { events: allevents },
+      });
+      dispatchEventsVars({
+        type: "setCategorisedEventsList",
+        data: { category: eventSelect, profile: profile }
       });
     }
     return;

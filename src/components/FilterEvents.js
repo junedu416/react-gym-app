@@ -93,6 +93,7 @@ export const FilterEvents = (props) => {
     staffProfiles,
     profile,
     resetFilters,
+    allevents,
   } = props;
 
   const initialEventsVars = {
@@ -190,7 +191,7 @@ export const FilterEvents = (props) => {
     setTrainerFilters([]);
     setCompetitionFilters([]);
     
-    // resetFilters();
+    resetFilters();
   };
 
   const fadeInAnimation = {
