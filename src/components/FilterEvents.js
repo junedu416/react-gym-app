@@ -190,8 +190,9 @@ export const FilterEvents = (props) => {
     setWeekdayFilters([]);
     setTrainerFilters([]);
     setCompetitionFilters([]);
-    
-    resetFilters();
+
+    console.log("ALLEVENTS AT CLEAR FILTER BUTTON: ############# ", allevents);
+    resetFilters(allevents);
   };
 
   const fadeInAnimation = {

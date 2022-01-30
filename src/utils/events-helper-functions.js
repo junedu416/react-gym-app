@@ -68,6 +68,7 @@ export const filterEventsByTrainer = (events, category, trainerList) => {
 
 export const resetEventFilters = (events, category) => {
   console.log("RESET EVENTS: ", events, "Category: ", category);
+  // const filteredEvents = events;
   let filteredEvents;
   filteredEvents = events.filter(
     (event) => event.category.toLowerCase() === category.toLowerCase()

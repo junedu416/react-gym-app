@@ -54,15 +54,17 @@ export const Calendar = (props) => {
     }
   };
 
-  const resetFilters = useCallback(() => {
+  console.log("ALL EVENTS CALENDAR LEVEL============= : ", allevents);
+
+  const resetFilters = useCallback((everyEvent) => {
     if (eventSelect) {
+      console.log("INSIDE RESET FILTER CALLBACK!!!!!!!!!!!!! ", everyEvent);
+
       dispatchEventsVars({
         type: "setEventsList",
-        data: { events: allevents },
-      });
-      dispatchEventsVars({
-        type: "setCategorisedEventsList",
-        data: { category: eventSelect, profile: profile }
+        data: { events: everyEvent },
+        type: "resetEvents",
+        data: { events: everyEvent, category: eventSelect },
       });
     }
     return;
