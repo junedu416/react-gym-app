@@ -1,7 +1,8 @@
 import Skeleton from "@mui/material/Skeleton";
 import { Container } from "../styled-components";
 
-export const SkeletonSquare = () => {
+export const SkeletonSquare = (props) => {
+  const { sx, style } = props;
   return (
     <Skeleton
       animation="wave"
@@ -14,7 +15,9 @@ export const SkeletonSquare = () => {
         p: "20px",
         m: "10px 5px",
         maxWidth: "98%",
+        ...sx,
       }}
+      style={{ ...style }}
     />
   );
 };
@@ -31,5 +34,20 @@ export const SkeletonNotification = () => {
       />
       <Skeleton animation="wave" variant="text" width={250} />
     </Container>
+  );
+};
+
+export const SkeletonText = (props) => {
+  const { sx, style } = props;
+
+  return (
+    <Skeleton
+      animation="wave"
+      variant="text"
+      width={props.width ? props.width : "100%"}
+      height={props ? props.height : 80}
+      sx={{ mb: 1, ...sx }}
+      style={{ ...style }}
+    />
   );
 };
