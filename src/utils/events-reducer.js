@@ -63,11 +63,12 @@ export const eventsReducer = (state, action) => {
       };
     }
 
-    case "filterByTrainer": {
+    case "filterEventsByTrainer": {
       const filteredEvents = filterEventsByTrainer(
         state.events,
         action.data.category,
-        action.data.trainers
+        action.data.trainers,
+        null,
         // action.data.trainerFullname,
         // action.data.trainerId,
       );
@@ -81,6 +82,7 @@ export const eventsReducer = (state, action) => {
       const filteredEvents = filterClassesByTrainer(
         state.events,
         action.data.category,
+        null,
         action.data.trainers,
         // action.data.trainerFullname,
         // action.data.trainerId,

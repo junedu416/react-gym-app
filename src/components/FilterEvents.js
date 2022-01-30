@@ -30,6 +30,7 @@ import {
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { eventsReducer } from "../utils/events-reducer";
+import { filterEventsByTrainer } from "../utils/events-helper-functions";
 // import { resetEventFilters } from "../utils/events-helper-functions";
 
 // import { Translate } from "@mui/icons-material";
@@ -119,9 +120,9 @@ export const FilterEvents = (props) => {
 
   const applyFilterFunction = () => {
     console.log("FILTER LIST IS: ", filterList);
-    console.log("TRAINER FULLNAME AND ID: ", trainers);
-
-    console.log("FIRST TRAINER FULLNAME: ", trainers[8].fullname);
+    console.log("ALL TRAINER FULLNAME AND ID: ", trainers);
+    console.log("MATCH: ", filterList.filter(item => trainers.map(trainer => trainer.fullname === item)))
+    // console.log("FIRST TRAINER FULLNAME: ", trainers[8].fullname);
 
     const classSelection = gymClasses.map((item) =>
       filterList.filter((gymClass) => gymClass === item.name)
@@ -130,7 +131,11 @@ export const FilterEvents = (props) => {
       filterList.filter((selection) => selection === item.label)
     );
     const trainerSelection = trainers.map((trainer) => {
-        filterList.filter((selection) => selection === trainer.fullname);
+        if (eventCategory === "class") {
+          return filterList.filter((selection) => selection === trainer.fullname);
+        } else if (eventCategory === "personal training") {
+          return filterList.filter((selection) => selection === trainer.fullname);
+        }
     });
     
     const competitionSelection = competitionFilters.map((competitionCategory) =>
@@ -142,10 +147,25 @@ export const FilterEvents = (props) => {
     console.log("trainer selection: ", trainerSelection.flat());
     console.log("competition selection: ", competitionSelection.flat());
 
-    if (classSelection.flat().length > 0) setClassFilters(classSelection.flat());
-    if (weekdaySelection.flat().length > 0) setWeekdayFilters(weekdaySelection.flat());
-    if (trainerSelection.flat().length > 0) setTrainerFilters(trainerSelection.flat());
-    if (competitionSelection.flat().length > 0) setCompetitionFilters(competitionSelection.flat());
+    if (classSelection.flat().length > 0) {
+      setClassFilters(classSelection.flat())
+      // filterEventsByClass();
+    };
+    if (weekdaySelection.flat().length > 0) {
+      setWeekdayFilters(weekdaySelection.flat())
+      // filterEventsByWeekdday();
+    };
+    if (trainerSelection.flat().length > 0) {
+      setTrainerFilters(trainerSelection.flat());
+      if (eventCategory === "class") {
+        // filterClassesByTrainer()
+      } else if (eventCategory === "personal training") { 
+        // filterEventsByTrainer()
+      };          
+    } 
+    if (eventCategory === "competition" && competitionSelection.flat().length > 0) {
+      setCompetitionFilters(competitionSelection.flat());
+    }
   };
 
   const handleFilterSelect = (filter) => {

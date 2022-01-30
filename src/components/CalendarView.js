@@ -59,7 +59,7 @@ const CalendarView = ({
 
   const filterEventsByClass = useCallback(() => {
     if (classFilters) {
-      console.log("CLASS FILTERS: ", classFilters);
+      // console.log("CLASS FILTERS: ", classFilters);
       dispatchEventsVars({
         type: "filterByClass",
         data: { category: eventCategory, gymClass: classFilters },
@@ -92,14 +92,14 @@ const CalendarView = ({
 
   const filterEventsByTrainer = useCallback(() => {
     if (!trainerParams && trainerFilters) {
-      console.log("TRAINER FILTERS: ", trainerFilters);
+      console.log("TRAINER FILTERS: ", trainerFilters, "category: ", eventCategory);
       dispatchEventsVars({
-        type: "filterByTrainer",
-        data: { category: eventCategory, trainer: trainerFilters },
+        type: "filterEventsByTrainer",
+        data: { category: eventCategory, trainers: trainerFilters },
       });
     }
     return;
-  }, [trainerFilters]);
+  }, [trainerFilters, eventCategory]);
 
   //=======
   // load events from backend
