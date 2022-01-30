@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Container, Heading } from "../../styled-components";
+import { Container, Heading, Row } from "../../styled-components";
 import { useGlobalState } from "../../config/globalStore.js";
 import { getAllReports, editReport } from "../../services/reportServices.js";
 import { getUserProfile } from "../../services/userServices.js";
 import Unresolved from "../../components/Unresolved";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ReportItems } from "./ReportItems";
+import Skeleton from "@mui/material/Skeleton";
+import {
+  SkeletonNotification,
+  SkeletonSquare,
+} from "../../components/SkeletonSquare";
 
 export const ViewReports = () => {
   const { store } = useGlobalState();
@@ -14,6 +19,7 @@ export const ViewReports = () => {
   const [unsocialOpen, setUnsocialOpen] = useState([]);
   const [behaviourReports, setBehaviourReports] = useState([]);
   const [equipmentReports, setEquipmentReports] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   // REMOVE LATER!!
   const desktop = useMediaQuery("(min-width:1400px)");
@@ -21,6 +27,7 @@ export const ViewReports = () => {
 
   useEffect(() => {
     const fetchReportsInfo = async () => {
+      setLoading(true);
       const reports = await getAllReports();
       for (let report of reports) {
         let reporterProfile = await getUserProfile(report.userId);
@@ -40,6 +47,7 @@ export const ViewReports = () => {
     };
 
     fetchReportsInfo().catch(console.error);
+    setLoading(false)
   }, []);
 
   const handleImageBtn = (index, type) => {
@@ -136,38 +144,50 @@ export const ViewReports = () => {
             maxWidth: desktop ? "680px" : "",
           }}
         >
-          <Unresolved
-            text={totalUnresolvedBehaviour}
-            type="Unsocial Behaviour"
-          />
-          <ul
-            style={{
-              margin: "0",
-              padding: "0",
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-start",
-              zIndex: "2",
-            }}
-          >
-            {behaviourReports.map((report, index) => {
-              return (
-                <ReportItems
-                  open={open}
-                  unsocialOpen={unsocialOpen}
-                  report={report}
-                  index={index}
-                  laptop={laptop}
-                  desktop={desktop}
-                  profile={profile}
-                  handleImageBtn={handleImageBtn}
-                  handleResolveBtn={handleResolveBtn}
-                  type="Unsocial Behaviour"
-                />
-              );
-            })}
-          </ul>
+          {loading ? (
+            <>
+              <SkeletonNotification />
+              <Container direction="column" justify="flex-start" w="100%">
+                <SkeletonSquare />
+                <SkeletonSquare />
+              </Container>
+            </>
+          ) : (
+            <>
+              <Unresolved
+                text={totalUnresolvedBehaviour}
+                type="Unsocial Behaviour"
+              />
+              <ul
+                style={{
+                  margin: "0",
+                  padding: "0",
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                  zIndex: "2",
+                }}
+              >
+                {behaviourReports.map((report, index) => {
+                  return (
+                    <ReportItems
+                      open={open}
+                      unsocialOpen={unsocialOpen}
+                      report={report}
+                      index={index}
+                      laptop={laptop}
+                      desktop={desktop}
+                      profile={profile}
+                      handleImageBtn={handleImageBtn}
+                      handleResolveBtn={handleResolveBtn}
+                      type="Unsocial Behaviour"
+                    />
+                  );
+                })}
+              </ul>
+            </>
+          )}
         </Container>
 
         <Container
@@ -184,35 +204,51 @@ export const ViewReports = () => {
             maxWidth: desktop ? "680px" : "",
           }}
         >
-          <Unresolved text={totalUnresolvedEquipment} type="Faulty Equipment" />
-          <ul
-            style={{
-              margin: "0",
-              padding: "0",
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-start",
-              zIndex: "2",
-            }}
-          >
-            {equipmentReports.map((report, index) => {
-              return (
-                <ReportItems
-                  key={index}
-                  open={open}
-                  report={report}
-                  index={index}
-                  laptop={laptop}
-                  desktop={desktop}
-                  profile={profile}
-                  handleImageBtn={handleImageBtn}
-                  handleResolveBtn={handleResolveBtn}
-                  type="Faulty Equipment"
-                />
-              );
-            })}
-          </ul>
+          {loading ? (
+            <>
+              <SkeletonNotification />
+
+              <Container direction="column" justify="flex-start" w="100%">
+                <SkeletonSquare />
+                <SkeletonSquare />
+              </Container>
+            </>
+          ) : (
+            <>
+              <Unresolved
+                text={totalUnresolvedEquipment}
+                type="Faulty Equipment"
+              />
+              <ul
+                style={{
+                  margin: "0",
+                  padding: "0",
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                  zIndex: "2",
+                }}
+              >
+                {equipmentReports.map((report, index) => {
+                  return (
+                    <ReportItems
+                      key={index}
+                      open={open}
+                      report={report}
+                      index={index}
+                      laptop={laptop}
+                      desktop={desktop}
+                      profile={profile}
+                      handleImageBtn={handleImageBtn}
+                      handleResolveBtn={handleResolveBtn}
+                      type="Faulty Equipment"
+                    />
+                  );
+                })}
+              </ul>
+            </>
+          )}
         </Container>
       </Container>
     </Container>

@@ -72,7 +72,7 @@ export const ReportItems = ({
         <Row>
           {report.resolvedBy && (
             <>
-              <TextBold mr="20px">By: </TextBold>
+              <TextBold mr={ desktop ? "20px" : "14px" }>By: </TextBold>
               <Chip
                 variant="outlined"
                 label={report.resolvedBy}
