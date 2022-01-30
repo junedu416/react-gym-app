@@ -1,15 +1,10 @@
 // THIS COMPONENT IS NOT USED IN PRODUCTION,
 // THE COMPONENT IS COMMENTED OUT, NOT FULLY FUNCTIONAL AS IT ISN'T FILTERING ANY EVENTS.
 
-import React, { useState, useReducer, useEffect, useCallback } from "react";
+import React, { useState, useReducer } from "react";
 import { styled } from "@mui/material/styles";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-import {
-  gymClasses,
-  weekdays,
-  competitionFilters,
-  allFilters,
-} from "../data/events";
+import { gymClasses, weekdays, competitionFilters } from "../data/events";
 
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
@@ -30,11 +25,6 @@ import {
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { eventsReducer } from "../utils/events-reducer";
-import { filterEventsByTrainer } from "../utils/events-helper-functions";
-// import { resetEventFilters } from "../utils/events-helper-functions";
-
-// import { Translate } from "@mui/icons-material";
-// import CloseIcon from '@mui/icons-material/Close';
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -96,6 +86,8 @@ export const FilterEvents = (props) => {
     allevents,
   } = props;
 
+  // const [disabled, setDisabled] = useState(false);
+
   const initialEventsVars = {
     events: null,
     filteredEvents: [],
@@ -105,15 +97,14 @@ export const FilterEvents = (props) => {
     initialEventsVars
   );
 
-  const trainers = staffProfiles.map(
-    (profile) => { 
+  const trainers = staffProfiles.map((profile) => {
     return {
       fullname: `${profile.firstName} ${profile.lastName}`,
       id: profile._id,
-    }
-    });
+    };
+  });
 
-//  console.log("TRAINERS==================== ", trainers);
+  //  console.log("TRAINERS==================== ", trainers);
 
   const hasFilters = Boolean(filterList.length > 0);
 
@@ -123,19 +114,26 @@ export const FilterEvents = (props) => {
   const applyFilterFunction = () => {
     console.log("FILTER LIST IS: ", filterList);
     console.log("ALL TRAINER FULLNAME AND ID: ", trainers);
-    console.log("MATCH: ", filterList.filter(item => trainers.map(trainer => trainer.fullname === item)))
+    console.log(
+      "MATCH: ",
+      filterList.filter((item) =>
+        trainers.map((trainer) => trainer.fullname === item)
+      )
+    );
     // console.log("FIRST TRAINER FULLNAME: ", trainers[8].fullname);
 
-    const classSelection = gymClasses.map((item) =>
-      filterList.filter((gymClass) => gymClass === item.name)
-    ).flat();
-    const weekdaySelection = weekdays.map((item) =>
-      filterList.filter((selection) => selection === item.label)
-    ).flat();
-    const trainerSelection = filterList.map((selection) => {
-      return trainers.filter((trainer) => selection === trainer.fullname);
-    }).flat();
-    
+    const classSelection = gymClasses
+      .map((item) => filterList.filter((gymClass) => gymClass === item.name))
+      .flat();
+    const weekdaySelection = weekdays
+      .map((item) => filterList.filter((selection) => selection === item.label))
+      .flat();
+    const trainerSelection = filterList
+      .map((selection) => {
+        return trainers.filter((trainer) => selection === trainer.fullname);
+      })
+      .flat();
+
     const competitionSelection = competitionFilters.map((competitionCategory) =>
       filterList.filter((selection) => selection === competitionCategory.label)
     );
@@ -146,18 +144,22 @@ export const FilterEvents = (props) => {
     console.log("competition selection: ", competitionSelection.flat());
 
     if (classSelection.flat().length > 0) {
-      setClassFilters(classSelection.flat())
-      // filterEventsByClass();
-    };
+      setClassFilters(classSelection.flat());
+    }
     if (weekdaySelection.flat().length > 0) {
-      setWeekdayFilters(weekdaySelection.flat())
-      // filterEventsByWeekdday();
-    };
+      setWeekdayFilters(weekdaySelection.flat());
+    }
     if (trainerSelection.length > 0) {
-      console.log("TRAINER FILTER SELECTED HERE!!!!!!!!! :     ", trainerSelection)
-      setTrainerFilters(trainerSelection);   
-    } 
-    if (eventCategory === "competition" && competitionSelection.flat().length > 0) {
+      console.log(
+        "TRAINER FILTER SELECTED HERE!!!!!!!!! :     ",
+        trainerSelection
+      );
+      setTrainerFilters(trainerSelection);
+    }
+    if (
+      eventCategory === "competition" &&
+      competitionSelection.flat().length > 0
+    ) {
       setCompetitionFilters(competitionSelection.flat());
     }
   };
@@ -237,7 +239,12 @@ export const FilterEvents = (props) => {
       <ClickAwayListener onClickAway={handleClickAway}>
         <Container pl="10px" style={{ position: "relative" }}>
           <Container direction="row" ml="0px" mr="20px">
-            <Button variant="outlined" onClick={handleClick} sx={{ pl: 1 }}>
+            <Button
+              variant="outlined"
+              onClick={handleClick}
+              sx={{ pl: 1 }}
+              disabled={eventCategory === "competition" || eventCategory === "registered events" ? true : false}
+            >
               <FilterAltIcon sx={{ mr: "5px" }} />
               Filters
             </Button>
@@ -245,29 +252,25 @@ export const FilterEvents = (props) => {
 
           {open ? (
             <FilterBox desktop={desktop} phone={phone}>
-              {eventCategory === "competition" ? (
+              {eventCategory === "class" && (
                 <Accordion
-                  expanded
-                  onChange={handleChange("panel3")}
-                  sx={{
-                    borderBottomLeftRadius: "8px",
-                    borderBottomRightRadius: "8px",
-                  }}
+                  expanded={expanded === "panel1"}
+                  onChange={handleChange("panel1")}
                 >
                   <AccordionSummary>
-                    <Typography fontWeight="bold">Comp. Category</Typography>
+                    <Typography fontWeight="bold">Class</Typography>
                   </AccordionSummary>
                   <AccordionDetails sx={{ p: 1 }}>
-                    {competitionFilters.map((category, index) => {
+                    {gymClasses.map((groupClass) => {
                       return (
                         <FilterItem
-                          key={category.label}
+                          key={groupClass.name}
                           onClick={() => {
-                            handleFilterSelect(category.label);
+                            handleFilterSelect(groupClass.name);
                           }}
                         >
-                          <Typography>{category.label}</Typography>
-                          {filterList.includes(category.label) && (
+                          <Typography>{groupClass.name}</Typography>
+                          {filterList.includes(groupClass.name) && (
                             <DoneIcon color="success" />
                           )}
                         </FilterItem>
@@ -275,98 +278,36 @@ export const FilterEvents = (props) => {
                     })}
                   </AccordionDetails>
                 </Accordion>
-              ) : (
-                <>
-                  <Accordion
-                    expanded={expanded === "panel1"}
-                    onChange={handleChange("panel1")}
-                    sx={
-                      {
-                        // borderTopLeftRadius: "8px",
-                        // borderTopRightRadius: "8px",
-                      }
-                    }
-                  >
-                    <AccordionSummary>
-                      <Typography fontWeight="bold">Day</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails sx={{ p: 1 }}>
-                      {weekdays.map((day) => {
-                        return (
-                          <FilterItem
-                            key={day.label}
-                            onClick={() => {
-                              handleFilterSelect(day.label);
-                            }}
-                          >
-                            <Typography>{day.label}</Typography>
-                            {filterList.includes(day.label) && (
-                              <DoneIcon color="success" />
-                            )}
-                          </FilterItem>
-                        );
-                      })}
-                    </AccordionDetails>
-                  </Accordion>
-
-                  {eventCategory === "class" && (
-                    <Accordion
-                      expanded={expanded === "panel2"}
-                      onChange={handleChange("panel2")}
-                    >
-                      <AccordionSummary>
-                        <Typography fontWeight="bold">Class</Typography>
-                      </AccordionSummary>
-                      <AccordionDetails sx={{ p: 1 }}>
-                        {gymClasses.map((groupClass) => {
-                          return (
-                            <FilterItem
-                              key={groupClass.name}
-                              onClick={() => {
-                                handleFilterSelect(groupClass.name);
-                              }}
-                            >
-                              <Typography>{groupClass.name}</Typography>
-                              {filterList.includes(groupClass.name) && (
-                                <DoneIcon color="success" />
-                              )}
-                            </FilterItem>
-                          );
-                        })}
-                      </AccordionDetails>
-                    </Accordion>
-                  )}
-
-                  <Accordion
-                    expanded={expanded === "panel4"}
-                    onChange={handleChange("panel4")}
-                  >
-                    <AccordionSummary>
-                      <Typography fontWeight="bold">Instructor</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails sx={{ p: 1 }}>
-                      {trainers.map((instructor) => {
-                        return (
-                          <FilterItem
-                            key={instructor.fullname}
-                            onClick={() => {
-                              // customAction(instructor)
-                              console.log("HI TRAINER:", instructor)
-                              handleFilterSelect(instructor.fullname)
-                            }
-                              }
-                          >
-                            <Typography>{instructor.fullname}</Typography>
-                            {filterList.includes(instructor.fullname) && (
-                              <DoneIcon color="success" />
-                            )}
-                          </FilterItem>
-                        );
-                      })}
-                    </AccordionDetails>
-                  </Accordion>
-                </>
               )}
+
+              <Accordion
+                expanded={expanded === "panel2"}
+                onChange={handleChange("panel2")}
+              >
+                <AccordionSummary>
+                  <Typography fontWeight="bold">Instructor</Typography>
+                </AccordionSummary>
+                <AccordionDetails sx={{ p: 1 }}>
+                  {trainers.map((instructor) => {
+                    return (
+                      <FilterItem
+                        key={instructor.fullname}
+                        onClick={() => {
+                          // customAction(instructor)
+                          console.log("HI TRAINER:", instructor);
+                          handleFilterSelect(instructor.fullname);
+                        }}
+                      >
+                        <Typography>{instructor.fullname}</Typography>
+                        {filterList.includes(instructor.fullname) && (
+                          <DoneIcon color="success" />
+                        )}
+                      </FilterItem>
+                    );
+                  })}
+                </AccordionDetails>
+              </Accordion>
+
               <Container
                 style={{
                   backgroundColor: "white",
