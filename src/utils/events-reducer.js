@@ -4,6 +4,7 @@ import {
   filterEventsByTrainer,
   filterEventsByTrainerParams,
   filterEventsByClass,
+  filterClassesByTrainer,
   resetEventFilters,
 } from "./events-helper-functions";
 
@@ -61,12 +62,28 @@ export const eventsReducer = (state, action) => {
         filteredEvents: filteredEvents,
       };
     }
+
     case "filterByTrainer": {
       const filteredEvents = filterEventsByTrainer(
         state.events,
         action.data.category,
-        action.data.trainerFullname,
-        action.data.trainerId,
+        action.data.trainers
+        // action.data.trainerFullname,
+        // action.data.trainerId,
+      );
+      return {
+        ...state,
+        filteredEvents: filteredEvents,
+      };
+    }
+
+    case "filterClassesByTrainer": {
+      const filteredEvents = filterClassesByTrainer(
+        state.events,
+        action.data.category,
+        action.data.trainers,
+        // action.data.trainerFullname,
+        // action.data.trainerId,
       );
       return {
         ...state,

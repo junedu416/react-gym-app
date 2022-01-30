@@ -142,10 +142,10 @@ export const FilterEvents = (props) => {
     console.log("trainer selection: ", trainerSelection.flat());
     console.log("competition selection: ", competitionSelection.flat());
 
-    setClassFilters(classSelection.flat());
-    setWeekdayFilters(weekdaySelection.flat());
-    setTrainerFilters(trainerSelection.flat());
-    setCompetitionFilters(competitionSelection.flat());
+    if (classSelection.flat().length > 0) setClassFilters(classSelection.flat());
+    if (weekdaySelection.flat().length > 0) setWeekdayFilters(weekdaySelection.flat());
+    if (trainerSelection.flat().length > 0) setTrainerFilters(trainerSelection.flat());
+    if (competitionSelection.flat().length > 0) setCompetitionFilters(competitionSelection.flat());
   };
 
   const handleFilterSelect = (filter) => {

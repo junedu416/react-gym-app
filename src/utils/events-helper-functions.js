@@ -22,15 +22,31 @@ export const filterEventsByCategory = (events, category, profile) => {
 export const filterEventsByClass = (events, category, gymClass) => {
   let filteredEvents = [];
   console.log('EVENTS filter by class: ', events, category, gymClass);
-  if (category === "Class") {
-    gymClass.map((item) => {
+  if (category === "class") {
+    gymClass.map((className) => {
       events.filter((event) => { 
-        if (event.name === item) filteredEvents.push(event);
+        if (event.name === className) filteredEvents.push(event);
       });
     });
   }
 
   console.log("Filtered Events By Class: ", filteredEvents);
+
+  return filteredEvents;
+};
+
+export const filterClassesByTrainer = (events, category, trainers) => {
+  let filteredEvents = [];
+  // console.log('Filter CLASSES BY TRAINER: ', events, category, trainers.filter(item => item != undefined));
+  if (category === "class" && trainers.filter( item => item !== undefined).length > 0) {
+    trainers.map((trainer) => {
+      events.filter((event) => { 
+        if (event.category === "Class" && event.createdBy === trainer?.id) filteredEvents.push(event);
+      });
+    });
+    console.log("Filtered Classes by Trainer: ", filteredEvents);
+  }
+
 
   return filteredEvents;
 };

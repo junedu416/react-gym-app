@@ -113,6 +113,8 @@ export const Calendar = (props) => {
             bottom: desktop ? "" : 30,
           }}
         >
+        {/* If there's trainer params, it's already showing filtered PT events for that trainer, don't need to filter events,
+            hence, only show if there aren't any trainer params */}
         {trainerParams ? null : 
           <FilterEvents
             eventCategory={eventSelect}
