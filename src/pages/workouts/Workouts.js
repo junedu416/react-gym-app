@@ -180,7 +180,7 @@ export const Workouts = () => {
             <Grid desktop={desktop} laptop={laptop}>
               {profile.workouts.map((workout, index) => {
                 return (
-                  <Container justify="flex-start" h={!mobile && "100%"}>
+                  <Container justify="flex-start" h={!mobile && "100%"} key={index}>
                     {activeWorkout === index ? (
                       <EditButton
                         btnFunction={() => editWorkout(index)}
@@ -244,16 +244,16 @@ export const Workouts = () => {
                                   </Container>
                                 )}
                                 <Container ml="40px">
-                                  <Text>
-                                    {exercise.weight === null || 0
-                                      ? null
-                                      : `${exercise.weight}kg`}
-                                  </Text>
-                                  <Text>
-                                    {exercise.distance === null || 0
-                                      ? null
-                                      : displayUnits(exercise.distance)}
-                                  </Text>
+                                  {exercise.weight === null || 0 ? null : (
+                                    <Text>
+                                      {`${exercise.weight}kg`}
+                                    </Text>
+                                  )}
+                                  {exercise.distance === null || 0 ? null : (
+                                    <Text>
+                                      {displayUnits(exercise.distance)}
+                                    </Text>
+                                  )}
                                 </Container>
                               </Container>
                             </WorkoutList>

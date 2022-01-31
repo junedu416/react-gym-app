@@ -20,57 +20,27 @@ export const filterEventsByCategory = (events, category, profile) => {
 };
 
 export const filterEventsByClass = (events, category, gymClass) => {
-  let filteredEvents = [];
+  let filteredEvents;
   if (category === "class") {
-    gymClass.map((className) => {
-      return events.filter((event) => {
-        if (event.name === className) {
-          filteredEvents.push(event);
-          return event;
-        }
-      });
-    });
+    filteredEvents = events.filter((event) =>
+      gymClass.find((className) => className === event.name)
+    );
   }
 
   return filteredEvents;
 };
 
-// export const filterClassesByTrainer = (events, category, trainers) => {
-//   let filteredEvents = [];
-//   if (category === "class" && trainers.filter( item => item !== undefined).length > 0) {
-//     trainers.map((trainer) => {
-//       events.filter((event) => {
-//         if (event.category === "Class" && event.createdBy === trainer?.id) filteredEvents.push(event);
-//       });
-//     });
-//     console.log("Filtered Classes by Trainer: ", filteredEvents);
-//   }
-//   return filteredEvents;
-// };
-
 export const filterEventsByTrainer = (events, category, trainerList) => {
-  let filteredEvents = [];
+  let filteredEvents;
 
   if (trainerList) {
-    trainerList.map((trainer) => {
-      return events.filter((event) => {
-        if (
-          category === "class" &&
-          event.category === "Class" &&
-          event.createdBy === trainer.id
-        ) {
-          filteredEvents.push(event);
-          return event;
-        }
-        if (
-          category === "personal training" &&
-          event.name === trainer.fullname
-        ) {
-          filteredEvents.push(event);
-          return event;
-        }
-      });
-    });
+    filteredEvents = events.filter((event) =>
+      trainerList.find(
+        (trainer) =>
+          (category === "class" && event.category === "Class" && event.createdBy === trainer.id) ||
+          (category === "personal training" && event.name === trainer.fullname)
+      )
+    );
   }
 
   return filteredEvents;

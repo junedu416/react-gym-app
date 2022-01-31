@@ -25,7 +25,9 @@ const CalendarView = ({
 }) => {
   const { store } = useGlobalState();
   const { dispatch } = useGlobalState();
-  const { profile, allevents } = store;
+  const { profile,
+          // allevents
+   } = store;
   const localizer = momentLocalizer(moment);
   const initialEventsVars = {
     events: null,
