@@ -22,12 +22,14 @@ import { ReusableAlert } from "../../components/ReusableAlert";
 import { Collapse } from "@mui/material";
 import { useRedirectUnauthorisedUser } from "../../config/customHooks";
 import { getDataInOrder } from "../../utils/checkInUtils";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 export const Checkins = () => {
   useRedirectUnauthorisedUser();
 
-  const {store, dispatch} = useGlobalState();
-  const {profile} = store;
+  const { store, dispatch } = useGlobalState();
+  const { profile } = store;
 
   const [checkedIn, setCheckedIn] = useState(0);
   const [msg, setMsg] = useState("");
@@ -38,7 +40,9 @@ export const Checkins = () => {
   const [chartData, setChartData] = useState([]);
   const [open, setOpen] = useState(true);
 
- 
+  const theme = useTheme();
+  const desktop = useMediaQuery(theme.breakpoints.up("md"));
+  const phone = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
     getCheckedIn().then((data) => {
@@ -47,7 +51,7 @@ export const Checkins = () => {
     getStats().then((data) => {
       if (data) {
         console.log(data);
-        const dataInOrder = getDataInOrder(data); 
+        const dataInOrder = getDataInOrder(data);
         setChartData(
           Object.values(dataInOrder).map((num) =>
             Math.floor(num / data.weeksActive)
@@ -68,17 +72,43 @@ export const Checkins = () => {
   );
 
   const options = {
-    responsive: true,
+    // responsive: true,
+    
+      scales: {
+        y: {
+         grid: {
+           color: "rgba(50, 50, 50, 0.08)",
+          //  color: "transparent",
+          },
+        },
+        x: {
+         grid: {
+           color: "rgba(50, 50, 50, 0.08)",
+           color: "transparent",
+          },
+        },
+      },
+    
   };
 
   const labels = ["Sun", "Mon", "Tues", "Weds", "Thurs", "Fri", "Sat"];
+  
   const data = {
     labels,
     datasets: [
       {
+        hoverBorderColor: "rgb(20, 100, 180)",
+        hoverBackgroundColor: "rgb(20, 100, 180)",
+        hoverBorderWidth: "0",
         label: "Average Check-ins",
         data: chartData,
-        backgroundColor: "blue",
+        // backgroundColor: "rgba(20, 120, 220, 0.97)",
+        // backgroundColor: "rgba(20, 120, 180, 0.2)",
+        backgroundColor: "rgba(0, 82, 255, 0.8)",
+        borderColor: "rgba(20, 100, 180, 0.92)",
+        borderWidth: "2",
+        borderRadius: "12",
+        // borderColor: "5px solid rgb(40, 140, 250)",
       },
     ],
   };
@@ -108,11 +138,11 @@ export const Checkins = () => {
           });
       } else {
         setMsg("You are already checked in.");
-        setAlertType("error")
+        setAlertType("error");
       }
     } else {
       setMsg("You must be logged in first");
-      setAlertType("error")
+      setAlertType("error");
     }
   }
 
@@ -124,16 +154,16 @@ export const Checkins = () => {
           if (data) setCheckedIn(data.num);
           dispatch({ type: "toggleCheckIn" });
           setMsg("Checked out");
-          setAlertType("success")
+          setAlertType("success");
           setLoading(false);
         });
       } else {
         setMsg("You are already checked out.");
-        setAlertType("error")
+        setAlertType("error");
       }
     } else {
       setMsg("You must be logged in first.");
-      setAlertType("error")
+      setAlertType("error");
     }
   }
 
@@ -171,7 +201,13 @@ export const Checkins = () => {
           </BasicButton>
         </div>
         <p>Num checked in: {checkedIn}</p>
-        <Bar options={options} data={data} />
+        <Container w={desktop ? "60vw" : "90vw"}>
+          <Bar
+            options={options}
+            data={data}
+            style={{ width: "80%", height: "auto" }}
+          />
+        </Container>
       </Container>
     </>
   );
