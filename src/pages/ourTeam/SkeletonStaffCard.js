@@ -23,7 +23,7 @@ export const SkeletonStaffCard = () => {
       m="0 auto"
       style={{ overflow: "hidden", height: "100%" }}
     >
-      <Skeleton animation="wave" variant="text" width="70%" height={70} />
+      <Skeleton animation="wave" variant="text" width="70%" height={65} />
       <Row w="100%" p="0 20px 25px">
         <Container w="minmax(35%, 35%)" justify="flex-start" mr="12px">
           <Skeleton
@@ -37,7 +37,7 @@ export const SkeletonStaffCard = () => {
             animation="wave"
             variant="rectangular"
             width={100}
-            height={50}
+            height={45}
             sx={{
               mr: 1,
               borderRadius: "7px",
@@ -48,7 +48,6 @@ export const SkeletonStaffCard = () => {
         </Container>
 
         <Container w="65%" h="100%" justify="flex-start" ml="20px">
-          <SkeletonText />
           <SkeletonText />
           <SkeletonText />
           <SkeletonText />

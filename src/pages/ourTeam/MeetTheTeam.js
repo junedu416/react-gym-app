@@ -30,6 +30,9 @@ export const MeetTheTeam = () => {
     <Container>
       <Heading>Meet The Team</Heading>
       <Container>
+        {staffProfs.length === 0 && (
+          <p>There are no staff profiles available</p>
+        )}
         <Grid laptop={laptop} desktop={desktop}>
           {loading ? (
             <>
@@ -41,18 +44,14 @@ export const MeetTheTeam = () => {
               <SkeletonStaffCard />
             </>
           ) : (
-            staffProfs.length === 0 && (
-              <p>There are no staff profiles available</p>
-            )
+            staffProfs.map((staff, index) => {
+              return staff.description?.length > 20 ? (
+                <StaffCard key={index} staff={staff} />
+              ) : null;
+            })
           )}
-          {staffProfs.map((staff, index) => {
-            return staff.description?.length > 20 ? (
-              <StaffCard key={index} staff={staff} />
-            ) : null;
-          })}
         </Grid>
       </Container>
     </Container>
   );
 };
-
