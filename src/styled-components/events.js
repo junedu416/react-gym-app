@@ -81,6 +81,7 @@ export const ShowEventContent = styled.div`
 export const Description = styled.p`
   text-align: left;
   padding: 0 10px;
+  white-space: pre-line;
   @media(min-width: 768px) {
     font-size: 1.2rem;
   }
@@ -97,6 +98,7 @@ export const DescriptionDiv = styled.div`
   border-radius: 20px;
   padding: 20px;
   margin-top: 20px;
+  margin-bottom: 20px;
 `
 
 export const TrainerName = styled.h3`

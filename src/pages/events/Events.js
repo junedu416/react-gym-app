@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
+import { useSearchParams } from "react-router-dom";
 // import { MainWindow } from "../../styled-components";
 import { Calendar } from "./Calendar";
 import BasicButton from "../../components/buttons/BasicButton";
@@ -11,7 +12,15 @@ export const Events = (props) => {
   const navigate = useNavigate();
   const { store } = useGlobalState();
   const { profile } = store;
-  const { desktop, phone } = props
+  const { desktop, phone } = props;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const categoryParams = searchParams.get("category");
+  const trainerParams = searchParams.get("trainer");
+
+  // const categoryParams = decodeURIComponent(searchParams.get("category"));
+
+  // console.log("DECODED category params: ", categoryParams);
+  // console.log("Trainer params: ", trainerParams);
 
   function handleNewEvent() {
     navigate("/events/new");
@@ -19,7 +28,14 @@ export const Events = (props) => {
 
   return (
     <>
-      <Calendar desktop={desktop} phone={phone} />
+      <Calendar
+        desktop={desktop}
+        phone={phone}
+        categoryParams={categoryParams}
+        trainerParams={trainerParams}
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
+      />
 
       {profile && profile.isStaff && (
         <BasicButton

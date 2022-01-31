@@ -34,7 +34,7 @@ export const ReportItems = ({
         justify="flex-start"
         style={{ maxWidth: "98%" }}
       >
-        <Row>
+        <Row style={{ flexWrap: "wrap", justifyContent:"flex-start" }}>
           <TextBold mr="28px">Reported: </TextBold>
           <p style={{color: "blue"}}>
             <Moment fromNow>{report.reportDate}</Moment>

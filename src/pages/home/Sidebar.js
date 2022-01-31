@@ -166,7 +166,8 @@ export const Sidebar = (props) => {
           sx={sidebarIcon}
           style={{
             position: "fixed",
-            top: "89vh",
+            // top: "89vh",
+            bottom: "20px",
             left: open ? 130 : 15,
             zIndex: 10,
           }}

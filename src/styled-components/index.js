@@ -138,6 +138,7 @@ export const Text = styled.p`
 
 export const ErrorText = styled.span`
   color: ${(props) => (props.color ? props.color : "red")};
+  ${(props) => props.mt && mt}
 `;
 
 export const TextBold = styled.strong`
@@ -174,7 +175,7 @@ export const ButtonScroll = styled.div`
   border-radius: 15%;
   width: 50px;
   right: 20px;
-  bottom: 60px;
+  bottom: 20px;
   height: 50px;
   z-index: 20;
   cursor: pointer;
@@ -187,7 +188,7 @@ export const ButtonScroll = styled.div`
     transform: translateY(-5%);
   }
 
-  @media(max-width: 768px) {
+  @media (max-width: 768px) {
     bottom: 25px;
   }
 

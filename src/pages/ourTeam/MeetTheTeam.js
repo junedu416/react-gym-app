@@ -27,7 +27,7 @@ export const MeetTheTeam = () => {
       <Container>
         {staffProfs.length === 0 && <GreyText>No Staff Profiles Available</GreyText>}
       <Grid laptop={laptop} desktop={desktop}>
-        {staffProfs.map((staff, index) => <StaffCard key={index} staff={staff} />)}
+        {staffProfs.map((staff, index) => staff.description?.length > 0 ? <StaffCard key={index} staff={staff} /> : null)}
       </Grid>
       </Container>
     </Container>

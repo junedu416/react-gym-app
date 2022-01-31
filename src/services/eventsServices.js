@@ -6,7 +6,7 @@ import gymApi from '../config/api';
 export const getAllEvents = async () => {
     try {
         const response = await gymApi.get('/events')
-        console.log(response.data)
+        console.log("Fetched Events Data: ", response.data)
         return response.data
     } catch (e) {
         return e.message
