@@ -110,8 +110,8 @@ export const EditWorkouts = () => {
               <Container>
                 <WorkoutCardStyling noHoverStyling>
                   <WorkoutUL>
-                    {workoutList.exercises.map((exercise) => (
-                      <ListItems>
+                    {workoutList.exercises.map((exercise, index) => (
+                      <ListItems key={index}>
                         <WorkoutList p="10px 0px" ml="20px">
                           {exercise.exerciseId
                             ? exercise.exerciseId.name

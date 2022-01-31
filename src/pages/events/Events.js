@@ -39,7 +39,7 @@ export const Events = (props) => {
     navigate("/events/new");
   }
   
-  console.log("ALL EVENTS AT TOP LEVEL: ========", allevents);
+  // console.log("ALL EVENTS AT TOP LEVEL: ========", allevents);
 
   return (
     <>

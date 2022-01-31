@@ -115,14 +115,14 @@ export const FilterEvents = (props) => {
   const [expanded, setExpanded] = useState("panel1");
 
   const applyFilterFunction = () => {
-    console.log("FILTER LIST IS: ", filterList);
-    console.log("ALL TRAINER FULLNAME AND ID: ", trainers);
-    console.log(
-      "MATCH: ",
-      filterList.filter((item) =>
-        trainers.map((trainer) => trainer.fullname === item)
-      )
-    );
+    // console.log("FILTER LIST IS: ", filterList);
+    // console.log("ALL TRAINER FULLNAME AND ID: ", trainers);
+    // console.log(
+    //   "MATCH: ",
+    //   filterList.filter((item) =>
+    //     trainers.map((trainer) => trainer.fullname === item)
+    //   )
+    // );
     // console.log("FIRST TRAINER FULLNAME: ", trainers[8].fullname);
 
     const classSelection = gymClasses

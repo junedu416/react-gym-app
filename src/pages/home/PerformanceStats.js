@@ -21,7 +21,7 @@ export const PerformanceStats = (props) => {
   useRedirectUnauthorisedUser();
   const {store} = useGlobalState();
   const {profile} = store;
-  const workoutList = profile.workouts;
+  const workoutList = profile?.workouts;
 
   const [workoutIndex, setWorkoutIndex] = useState(0);
   const [labels, setLabels] = useState();

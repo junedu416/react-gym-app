@@ -18,10 +18,10 @@ const CalendarView = ({
   eventCategory,
   trainerParams,
   classFilters,
-  filterList,
-  setFilterList,
+  // filterList,
+  // setFilterList,
   trainerFilters,
-  resetFilters,
+  // resetFilters,
 }) => {
   const { store } = useGlobalState();
   const { dispatch } = useGlobalState();
@@ -84,13 +84,13 @@ const CalendarView = ({
     return;
   }, [trainerFilters, eventCategory, trainerParams]);
 
-  resetFilters = useCallback(() => {
-    dispatchEventsVars({
-      type: "resetEvents",
-      data: { events: allevents, category: eventCategory },
-    });
-    return;
-  }, [allevents, eventCategory]);
+  // resetFilters = useCallback(() => {
+  //   dispatchEventsVars({
+  //     type: "resetEvents",
+  //     data: { events: allevents, category: eventCategory },
+  //   });
+  //   return;
+  // }, [allevents, eventCategory]);
 
   //=======
   // load events from backend

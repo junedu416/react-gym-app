@@ -41,14 +41,13 @@ const ReportWidget = () => {
   return (
     <Widget key="Report Widget">
       <WidgetTitle style={{ padding: 0, margin: "0.5em" }}>
-        {profile && profile.isStaff ? "Unresolved Reports" : "Your Reports"}
+        {profile?.isStaff ? "Unresolved Reports" : "Your Reports"}
       </WidgetTitle>
-      {reports && reports.length === 0 && (
+      {reports?.length === 0 && (
         <GreyText>There are no reports</GreyText>
       )}
-      {reports &&
-        reports.map((report, index) => {
-          if (index > 1) return <></>;
+      {reports?.map((report, index) => {
+          if (index > 1) return null;
           return (
             <WidgetDiv centered key={index}>
               <EventParag style={{ marginBottom: "12px" }}>
