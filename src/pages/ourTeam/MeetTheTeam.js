@@ -23,9 +23,6 @@ export const MeetTheTeam = () => {
         setStaffProfs(response);
       })
       .catch((e) => console.log("error:", e));
-    // setTimeout(() => console.log("SETTING TIME OUT"), 10000);
-    // setTimeout(() => {setLoading(true)}, 10000);
-    // setTimeout(() => {setLoading(false)}, 500);
     setLoading(false);
   }, []);
 
@@ -36,12 +33,6 @@ export const MeetTheTeam = () => {
         {loading
           ? null
           : staffProfs.length === 0 && (
-              <GreyText>
-                There are currently no staff profiles available
-              </GreyText>
-            )}
-        <Grid laptop={laptop} desktop={desktop}>
-          {loading ? (
             <>
               <SkeletonStaffCard />
               <SkeletonStaffCard />
@@ -49,6 +40,11 @@ export const MeetTheTeam = () => {
               <SkeletonStaffCard />
               <SkeletonStaffCard />
               <SkeletonStaffCard />
+            </>
+            )}
+        <Grid laptop={laptop} desktop={desktop}>
+          {loading ? (
+            <>
             </>
           ) : (
             staffProfs.map((staff, index) => {
