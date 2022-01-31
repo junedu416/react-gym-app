@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useGlobalState } from "../../config/globalStore";
 import { Container } from "../../styled-components";
 import AttachmentIcon from "../../components/buttons/AttachmentIcon";
 import { MenuItem, TextField, Stack } from "@mui/material";
 import { LoadButton } from "../../components/buttons/LoadButton"
+import BasicButton from "../../components/buttons/BasicButton";
 
 // Date/Time Selection
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -12,8 +14,6 @@ import { MobileDatePicker, MobileTimePicker } from "@mui/lab";
 
 // services
 import { gymClasses } from "../../data/events";
-import BasicButton from "../../components/buttons/BasicButton";
-import { useNavigate } from "react-router-dom";
 import { useRedirectNonStaffMembers } from "../../config/customHooks";
 
 export const EventForm = ({ submitFunction, event, eventId, buttonText, loading }) => {
@@ -95,6 +95,28 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
 
   const eventCategories = ["Class", "Competition", "Personal Training"];
 
+  const autoComplete = (event) => {
+    const groupClass = gymClasses.filter(item => item.name === event.target.value)
+    setFormValues({
+      ...formValues,
+      [event.target.name]: event.target.value,
+      description: groupClass[0].description,
+      spotsAvailable: 12,
+    })
+  }
+
+  const autofillSpots = (event) => {
+    const selection = event.target.value
+    console.log("SELECION: ", selection)
+    setFormValues({
+      ...formValues,
+      [event.target.name]: event.target.value,
+      spotsAvailable: selection === "Class" ? 12 : selection === "Personal Training" ? 1 : null,
+      description: selection === "Personal Training" ? profile.description : "",
+      name: selection === "Personal Training" ? `${profile.firstName} ${profile.lastName}` : "",
+    })
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <Container style={{ minWidth: "400px" }}>
@@ -103,7 +125,7 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
           label="Event Type"
           required
           value={formValues.category}
-          onChange={handleChange}
+          onChange={autofillSpots}
           name="category"
           helperText="Please select the event type"
           sx={{ mb: 2 }}
@@ -122,7 +144,7 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
                 required
                 label="Select Class"
                 value={formValues.name}
-                onChange={handleChange}
+                onChange={autoComplete}
                 name="name"
                 // helperText="Please select class"
                 fullWidth
@@ -135,10 +157,9 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
               <TextField
                 required
                 label="Event Name"
-                //   variant="outlined"
                 fullWidth
+                // value={formValues.category === "Personal Training" ? autofillName : formValues.name}
                 value={formValues.name}
-                // sx={{ minWidth: 480, mb: 3 }}
                 name="name"
                 onChange={handleChange}
               />
@@ -153,6 +174,7 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
                     value={startTime}
                     onChange={(newValue) => {
                       setStartTime(newValue);
+                      setEndTime(newValue);
                     }}
                     renderInput={(params) => (
                       <TextField sx={{ mb: 2 }} {...params} />
@@ -176,10 +198,13 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
                     value={startTime}
                     onChange={(newValue) => {
                       setStartTime(newValue);
+                      setEndTime(newValue + 60);
                     }}
                     renderInput={(params) => (
                       <TextField sx={{ mb: 2 }} {...params} />
                     )}
+                    minTime={new Date(0, 0, 0, 7)}
+                    maxTime={new Date(0, 0, 0, 20, 31)}
                   />
                   <MobileTimePicker
                     label="End Time"
@@ -190,6 +215,8 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
                     renderInput={(params) => (
                       <TextField sx={{ mb: 2 }} {...params} />
                     )}
+                    minTime={new Date(0, 0, 0, 7, 29)}
+                    maxTime={new Date(0, 0, 0, 21, 1)}
                   />
                 </Stack>
               </Container>
@@ -204,11 +231,13 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
                 name="spotsAvailable"
                 inputProps={{ min: "1", step: "1" }}
                 onChange={handleChange}
+                // defaultValue = {formValues.category === "Personal Training" ? 1 : formValues.category === "Class" ? 12 : null}
                 value={formValues.spotsAvailable}
                 style={alignLeft}
               />
             )}
 
+          { formValues.category === "Class" && !formValues.name ? null :     
             <TextField
               label="Description"
               multiline
@@ -220,7 +249,7 @@ export const EventForm = ({ submitFunction, event, eventId, buttonText, loading 
               sx={{ mb: 2 }}
               required
             />
-
+          }
             <Container direction="row" style={alignLeft}>
               <AttachmentIcon />
               <input

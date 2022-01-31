@@ -108,10 +108,10 @@ export const MyProfile = () => {
 
   // if current user has profile.description set as state
   useEffect(() => {
-    if (profile.description) {
+    if (profile?.description) {
       setDescription(profile.description);
     }
-  }, [profile.description]);
+  }, [profile?.description]);
 
   // opens form input to edit/add desctiprion
   const editDescription = () => {
@@ -221,22 +221,22 @@ export const MyProfile = () => {
         >
           <Row>
             <TextBold mr="20px">First Name: </TextBold>
-            <Text>{profile.firstName}</Text>
+            <Text>{profile?.firstName}</Text>
           </Row>
           <Row>
             <TextBold mr="20px">Last Name: </TextBold>
-            <Text>{profile.lastName}</Text>
+            <Text>{profile?.lastName}</Text>
           </Row>
           <Row>
-            <TextBold mr={mobile ? "10px" : "60px"}>Email: </TextBold> <Text>{profile.email}</Text>
+            <TextBold mr={mobile ? "10px" : "60px"}>Email: </TextBold> <Text>{profile?.email}</Text>
           </Row>
 
           {profile?.isStaff && (
             <>
-              {!editMode && profile.description && (
+              {!editMode && profile?.description && (
                 <Row justify="flex-start" align="flex-start" col>
                   <TextBold style={{  margin: "9px 0 -15px 0", minWidth: "60px" }}>My Bio: </TextBold>
-                  <Text style={{ textAlign:"justify" }}>{profile.description}</Text>
+                  <Text style={{ textAlign:"justify", whiteSpace: "pre-line" }}>{profile?.description}</Text>
                 </Row>
               )}
               {editMode ? (
@@ -271,7 +271,7 @@ export const MyProfile = () => {
                 </form>
               ) : (
                 <BasicButton
-                  text={profile.description ? "Edit Bio" : "Add Description"}
+                  text={profile?.description ? "Edit Bio" : "Add Description"}
                   btnFunction={editDescription}
                   sx={{ alignSelf: mobile && "center" }}
                 />

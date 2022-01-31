@@ -6,6 +6,10 @@ import { getUserProfile } from "../../services/userServices.js";
 import Unresolved from "../../components/Unresolved";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ReportItems } from "./ReportItems";
+import {
+  SkeletonNotification,
+  SkeletonSquare,
+} from "../../components/SkeletonSquare";
 
 export const ViewReports = () => {
   const { store } = useGlobalState();
@@ -14,6 +18,7 @@ export const ViewReports = () => {
   const [unsocialOpen, setUnsocialOpen] = useState([]);
   const [behaviourReports, setBehaviourReports] = useState([]);
   const [equipmentReports, setEquipmentReports] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   // REMOVE LATER!!
   const desktop = useMediaQuery("(min-width:1400px)");
@@ -21,6 +26,7 @@ export const ViewReports = () => {
 
   useEffect(() => {
     const fetchReportsInfo = async () => {
+      setLoading(true);
       const reports = await getAllReports();
       for (let report of reports) {
         let reporterProfile = await getUserProfile(report.userId);
@@ -30,57 +36,59 @@ export const ViewReports = () => {
         report.reporterFullName = reporterFullName;
       }
 
-      setEquipmentReports(reports.filter(
-        (report) => report.type === "Faulty Equipment"
-      ));
+      setEquipmentReports(
+        reports.filter((report) => report.type === "Faulty Equipment")
+      );
 
-      setBehaviourReports(reports.filter(
-        (report) => report.type === "Unsocial Behaviour"
-      ))
+      setBehaviourReports(
+        reports.filter((report) => report.type === "Unsocial Behaviour")
+      );
     };
 
     fetchReportsInfo().catch(console.error);
+    setLoading(false)
   }, []);
 
   const handleImageBtn = (index, type) => {
     console.log("Index: ", index, "       type: ", type);
     if (type === "Unsocial Behaviour") {
-      if (unsocialOpen.includes(index)){
+      if (unsocialOpen.includes(index)) {
         setUnsocialOpen(unsocialOpen.filter((sindex) => sindex !== index));
       } else {
         let newUnsocialOpen = [...unsocialOpen];
         newUnsocialOpen.push(index);
-        setUnsocialOpen(newUnsocialOpen);  
+        setUnsocialOpen(newUnsocialOpen);
       }
-    } 
-    else if (type === "Faulty Equipment" ) {
-      if (open.includes(index)){
+    } else if (type === "Faulty Equipment") {
+      if (open.includes(index)) {
         setOpen(open.filter((sindex) => sindex !== index));
       } else {
         let newOpen = [...open];
         newOpen.push(index);
-        setOpen(newOpen);  
+        setOpen(newOpen);
       }
     }
   };
- 
+
   const handleResolveBtn = async (index, type) => {
     if (type === "Unsocial Behaviour") {
       const behaviourClone = [...behaviourReports];
       behaviourClone[index].resolved = !behaviourClone[index].resolved;
       if (behaviourClone[index].resolved) {
-        behaviourClone[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
+        behaviourClone[
+          index
+        ].resolvedBy = `${profile.firstName} ${profile.lastName}`;
       } else {
         behaviourClone[index].resolvedBy = null;
       }
       setBehaviourReports(behaviourClone);
-    }
-
-    else if (type === "Faulty Equipment") {
+    } else if (type === "Faulty Equipment") {
       const equipmentClone = [...equipmentReports];
       equipmentClone[index].resolved = !equipmentClone[index].resolved;
       if (equipmentClone[index].resolved) {
-        equipmentClone[index].resolvedBy = `${profile.firstName} ${profile.lastName}`;
+        equipmentClone[
+          index
+        ].resolvedBy = `${profile.firstName} ${profile.lastName}`;
       } else {
         equipmentClone[index].resolvedBy = null;
       }
@@ -89,15 +97,25 @@ export const ViewReports = () => {
 
     let request;
     if (type === "Faulty Equipment") {
-      request = await editReport(equipmentReports[index]._id, equipmentReports[index]);
+      request = await editReport(
+        equipmentReports[index]._id,
+        equipmentReports[index]
+      );
     } else {
-      request = await editReport(behaviourReports[index]._id, behaviourReports[index]);
+      request = await editReport(
+        behaviourReports[index]._id,
+        behaviourReports[index]
+      );
     }
     return request;
   };
 
-  const totalUnresolvedBehaviour = behaviourReports.filter( report => !report.resolved).length;
-  const totalUnresolvedEquipment = equipmentReports.filter( report => !report.resolved).length;
+  const totalUnresolvedBehaviour = behaviourReports.filter(
+    (report) => !report.resolved
+  ).length;
+  const totalUnresolvedEquipment = equipmentReports.filter(
+    (report) => !report.resolved
+  ).length;
 
   return (
     <Container>
@@ -122,70 +140,115 @@ export const ViewReports = () => {
             justifyContent: "flex-start",
             justifyItems: "flex-start",
             height: "100%",
+            maxWidth: desktop ? "680px" : "",
           }}
         >
-          <Unresolved text={totalUnresolvedBehaviour} type="Unsocial Behaviour" />
-          <ul style={{ margin: "0", padding: "0", zIndex: "2" }}>
-
-            {behaviourReports.map((report, index) => {
-              return (
-                <ReportItems
-                  open={open}
-                  unsocialOpen={unsocialOpen}
-                  report={report}
-                  index={index}
-                  laptop={laptop}
-                  desktop={desktop}
-                  profile={profile}
-                  handleImageBtn={handleImageBtn}
-                  handleResolveBtn={handleResolveBtn}
-                  type="Unsocial Behaviour"
-                />
-              );
-            })}
-          </ul>
+          {loading ? (
+            <>
+              <SkeletonNotification />
+              <Container direction="column" justify="flex-start" w="100%">
+                <SkeletonSquare />
+                <SkeletonSquare />
+              </Container>
+            </>
+          ) : (
+            <>
+              <Unresolved
+                text={totalUnresolvedBehaviour}
+                type="Unsocial Behaviour"
+              />
+              <ul
+                style={{
+                  margin: "0",
+                  padding: "0",
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                  zIndex: "2",
+                }}
+              >
+                {behaviourReports.map((report, index) => {
+                  return (
+                    <ReportItems
+                      key={index}
+                      open={open}
+                      unsocialOpen={unsocialOpen}
+                      report={report}
+                      index={index}
+                      laptop={laptop}
+                      desktop={desktop}
+                      profile={profile}
+                      handleImageBtn={handleImageBtn}
+                      handleResolveBtn={handleResolveBtn}
+                      type="Unsocial Behaviour"
+                    />
+                  );
+                })}
+              </ul>
+            </>
+          )}
         </Container>
 
         <Container
           w={laptop ? "45%" : "90%"}
           p="20px 6px"
           bg="rgba(160, 16, 80, 0.1)"
+          mb="50px"
           br="20px"
           greyBorder
           style={{
             justifyContent: "flex-start",
             justifyItems: "flex-start",
             height: "100%",
+            maxWidth: desktop ? "680px" : "",
           }}
         >
-          <Unresolved text={totalUnresolvedEquipment} type="Faulty Equipment" />
-          <ul
-            style={{
-              margin: "0",
-              padding: "0",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-start",
-              zIndex: "2",
-            }}
-          >
-            {equipmentReports.map((report, index) => {
-              return (
-                <ReportItems
-                  key={index}
-                  open={open}
-                  report={report}
-                  index={index}
-                  laptop={laptop}
-                  desktop={desktop}
-                  profile={profile}
-                  handleImageBtn={handleImageBtn}
-                  handleResolveBtn={handleResolveBtn}
-                  type="Faulty Equipment"
-                />
-              );
-            })}
-          </ul>
+          {loading ? (
+            <>
+              <SkeletonNotification />
+
+              <Container direction="column" justify="flex-start" w="100%">
+                <SkeletonSquare />
+                <SkeletonSquare />
+              </Container>
+            </>
+          ) : (
+            <>
+              <Unresolved
+                text={totalUnresolvedEquipment}
+                type="Faulty Equipment"
+              />
+              <ul
+                style={{
+                  margin: "0",
+                  padding: "0",
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                  zIndex: "2",
+                }}
+              >
+                {equipmentReports.map((report, index) => {
+                  return (
+                    <ReportItems
+                      key={index}
+                      open={open}
+                      report={report}
+                      index={index}
+                      laptop={laptop}
+                      desktop={desktop}
+                      profile={profile}
+                      handleImageBtn={handleImageBtn}
+                      handleResolveBtn={handleResolveBtn}
+                      type="Faulty Equipment"
+                    />
+                  );
+                })}
+              </ul>
+            </>
+          )}
         </Container>
       </Container>
     </Container>

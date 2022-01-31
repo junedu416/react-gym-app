@@ -1,37 +1,83 @@
-import React, { useState } from "react";
+import React, { useState, useReducer, useCallback } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import CalendarView from "../../components/CalendarView";
+import { FilterEvents } from "../../components/FilterEvents";
 import { Container } from "../../styled-components";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { eventsReducer } from "../../utils/events-reducer";
+// import { useLocation, useNavigate } from 'react-router-dom';
 
-//import { id } from "date-fns/locale";
+export const Calendar = (props) => {
+  const { categoryParams, trainerParams, setSearchParams, staffProfiles, profile, allevents } = props;
 
-export const Calendar = () => {
-  const [eventSelect, setEventSelect] = useState("class");
+  const [eventSelect, setEventSelect] = useState(categoryParams ? categoryParams.toLowerCase() : "class");
+
+  const initialEventsVars = {
+    events: null,
+    filteredEvents: [],
+  };
+
+  const [eventsVars, dispatchEventsVars] = useReducer(
+    eventsReducer,
+    initialEventsVars
+  );
+
+  // console.log("TOGGLE: ", eventSelect);
+  const [filterList, setFilterList] = useState([]);
 
   const theme = useTheme();
-  const desktop = useMediaQuery(theme.breakpoints.up("md"));
-  const phone = useMediaQuery(theme.breakpoints.down("sm"));
-  
+  const desktop = useMediaQuery(theme.breakpoints.up("lg"));
+  // const phone = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const handleEventSelect = (event, newEventSelect) => {
-    if (!newEventSelect) setEventSelect("class");
+  const [classFilters, setClassFilters] = useState([]);
+  const [trainerFilters, setTrainerFilters] = useState([]);
+  // const [weekdayFilters, setWeekdayFilters] = useState([]);
+  // const [competitionFilters, setCompetitionFilters] = useState([])
+  
+  // console.log("TRAINER FILTERS ===========", trainerFilters);
+
+  // const location = useLocation()
+  // const history = useNavigate()
+
+  // const removeQueries = (eventSelect) => {
+  //   URL.search = `?category=${eventSelect}`;
+  // }
+
+  const handleEventSelect = (event, eventSelect) => {
+    if (event.target.value !== eventSelect) return null;
     else {
-      setEventSelect(newEventSelect);
+      // removeQueries(eventSelect);
+      setSearchParams(`category=${eventSelect}`);
+      setEventSelect(eventSelect);
     }
   };
 
-  // const applyFilterFunction = () => {
-  //   // ====================================================================================================
-  //   // FILTERING CODE HERE
-  //   // ====================================================================================================
-  // };
+  // console.log("ALL EVENTS CALENDAR LEVEL============= : ", allevents);
+
+  const resetFilters = useCallback((everyEvent) => {
+    if (eventSelect) {
+      // console.log("INSIDE RESET FILTER CALLBACK!!!!!!!!!!!!! ", everyEvent);
+      dispatchEventsVars({
+        type: "setEventsList",
+        data: { category: eventSelect, profile: profile },
+      });
+      dispatchEventsVars({
+        type: "resetEvents",
+        data: { events: everyEvent, category: eventSelect },
+      });
+    }
+    return;
+  }, [eventSelect, profile]);
 
   return (
     <>
-      <Container direction="row" w="calc(100% - 260px)" justify="space-between">
+      <Container
+        direction="row"
+        w={desktop ? "calc(100vw - 220px)" : "100%"}
+        justify="space-between"
+      >
         <Container w={desktop ? "25%" : "15%"}>
           <span>&nbsp;</span>
         </Container>
@@ -67,7 +113,7 @@ export const Calendar = () => {
 
         <Container
           direction="row"
-          w={desktop ? "25%" : phone ? "100%" : "100%"}
+          w={desktop ? "25%" : "100%"}
           justify={desktop ? "flex-end" : "flex-end"}
           style={{
             position: desktop ? "" : "absolute",
@@ -75,20 +121,44 @@ export const Calendar = () => {
             bottom: desktop ? "" : 30,
           }}
         >
-{/*           
-          This Filter component isn't fully functional, it doesn't filter events, but all the logic with selecting and toggling
-          a filter, state for if a filter is selected, and clearing all filters is working.
-          <FilterEvents eventSelect={eventSelect} applyFilterFunction={applyFilterFunction} /> */}
+        {/* If there's trainer params, it's already showing filtered PT events for that trainer, don't need to filter events,
+            hence, only show if there aren't any trainer params */}
+        {trainerParams ? null : 
+          <FilterEvents
+            eventCategory={eventSelect}
+            // applyFilterFunction={applyFilterFunction}
+            filterList={filterList}
+            setFilterList={setFilterList}
+            setClassFilters={setClassFilters}
+            trainerFilters={trainerFilters}
+            setTrainerFilters={setTrainerFilters}
+            // setWeekdayFilters={setWeekdayFilters}
+            // setCompetitionFilters={setCompetitionFilters}
+            staffProfiles={staffProfiles}
+            profile={profile}
+            resetFilters={resetFilters}
+            allevents={allevents}
+          />
+        }
+
         </Container>
-{/* Responsive element to keep everything aligned/centered when shifting the filter button to bottom for phone view.
+        {/* Responsive element to keep everything aligned/centered when shifting the filter button to bottom for phone view. */}
         {desktop ? null : (
           <Container w={desktop ? "25%" : "15%"}>
             <span>&nbsp;</span>
           </Container>
-        )} */}
+        )}
       </Container>
 
-      <CalendarView eventCategory={eventSelect} />
+      <CalendarView
+        eventCategory={eventSelect}
+        trainerParams={trainerParams}
+        filterList={filterList}
+        setFilterList={setFilterList}
+        classFilters={classFilters}
+        trainerFilters={trainerFilters}
+        allevents={allevents}
+      />
 
       <Container></Container>
     </>
