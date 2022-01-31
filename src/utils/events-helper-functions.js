@@ -23,8 +23,8 @@ export const filterEventsByClass = (events, category, gymClass) => {
   let filteredEvents = [];
   if (category === "class") {
     gymClass.map((className) => {
-      events.filter((event) => {
-        if (event.name === className) filteredEvents.push(event);
+      return events.filter((event) => {
+        if (event.name === className) return filteredEvents.push(event);
       });
     });
   }
@@ -50,15 +50,22 @@ export const filterEventsByTrainer = (events, category, trainerList) => {
 
   if (trainerList) {
     trainerList.map((trainer) => {
-      events.filter((event) => {
+      return events.filter((event) => {
         if (
           category === "class" &&
           event.category === "Class" &&
           event.createdBy === trainer.id
-        )
+        ) {
           filteredEvents.push(event);
-        if (category === "personal training" && event.name === trainer.fullname)
+          return event;
+        }
+        if (
+          category === "personal training" &&
+          event.name === trainer.fullname
+        ) {
           filteredEvents.push(event);
+          return event;
+        }
       });
     });
   }

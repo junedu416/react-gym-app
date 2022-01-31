@@ -39,7 +39,7 @@ const ReportWidget = () => {
   }, [profile]);
 
   return (
-    <Widget>
+    <Widget key="Report Widget">
       <WidgetTitle style={{ padding: 0, margin: "0.5em" }}>
         {profile && profile.isStaff ? "Unresolved Reports" : "Your Reports"}
       </WidgetTitle>

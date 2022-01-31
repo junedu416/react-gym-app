@@ -80,7 +80,7 @@ export const eventsReducer = (state, action) => {
       ) 
       return {
         ...state,
-        events: allEvents,
+        filteredEvents: allEvents,
       };
     }
 
