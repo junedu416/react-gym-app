@@ -119,6 +119,7 @@ export const Sidebar = (props) => {
   useEffect(() => {
     const baseRoute = getBaseRoute(location.pathname);
     const index = sbData.findIndex((data) => data.route === baseRoute);
+    console.log("SB INDEX: ==== ", index, "   BASE ROUTE: ", baseRoute );
     setValue(index);
   }, [location, sbData]);
 
@@ -224,7 +225,7 @@ export const Sidebar = (props) => {
               <LinkTab
                 label={item.title}
                 style={dashItem}
-                key={index}
+                key={item.route}
                 onClick={() => {
                   if (item.title[1] === "Sign Out") {
                     handleSignOut();

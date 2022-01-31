@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Moment from "react-moment";
 import { Container, Row, Text, TextBold } from "../../styled-components";
 import { Chip } from "@mui/material";
@@ -9,19 +9,36 @@ import { ShowPhoto } from "../../styled-components/contact";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { ReportStatusIcon } from "./ReportStatusIcon";
+import { getStaffProfiles } from "../../services/profileServices";
 
 export const ReportItems = ({
   open,
   report,
   index,
   desktop,
-  laptop,
-  profile,
   handleImageBtn,
   handleResolveBtn,
   type,
   unsocialOpen,
 }) => {
+
+  const [staffProfiles, setStaffProfiles] = useState([])
+
+  useEffect(() => {
+    getStaffProfiles()
+    .then(response => {
+      // console.log("fetched staff profiles:", response)
+      setStaffProfiles(response)
+    }).catch(e => console.log("error:", e))
+  }, [])
+
+  const assignStaffPhoto = (fullname) => {
+    const firstName = fullname.split(" ")[0];
+    const lastName = fullname.split(" ")[1];
+    const resolver = staffProfiles?.filter(staff => staff.firstName === firstName && staff.lastName === lastName)
+    return resolver[0]?.photo;
+  }
+
   return (
     <li key={index} style={{ listStyleType: "none" }}>
       <Container
@@ -44,7 +61,7 @@ export const ReportItems = ({
         </Row>
         <Row align="flex-start">
           <TextBold mr="10px">Description: </TextBold>
-          <Text style={{ textAlign: "justify", marginTop: "8px" }}>
+          <Text style={{ textAlign: "justify", marginTop: "8px", whiteSpace: "pre-line" }}>
             {report.description}
           </Text>
         </Row>
@@ -55,12 +72,13 @@ export const ReportItems = ({
         <Row>
           {report.resolvedBy && (
             <>
-              <TextBold mr="20px">By: </TextBold>
+              <TextBold mr={ desktop ? "20px" : "14px" }>By: </TextBold>
               <Chip
                 variant="outlined"
                 label={report.resolvedBy}
                 sx={{ color: "white", bgcolor: "#000437" }}
-                avatar={<Avatar src={profile.photo} />}
+                // avatar={<Avatar src={profile.photo} />}
+                avatar={<Avatar src={assignStaffPhoto(report.resolvedBy)} />}
               />
             </>
           )}
@@ -85,7 +103,6 @@ export const ReportItems = ({
             btnFunction={() => handleResolveBtn(index, type)}
           />
         </Row>
-
 
         {/* Doesn't work if these two conditionals are combined with an || to show same component. */}
         {type === "Unsocial Behaviour" && unsocialOpen.includes(index) && (

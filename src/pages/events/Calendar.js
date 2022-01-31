@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer, useCallback } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import CalendarView from "../../components/CalendarView";
@@ -6,20 +6,37 @@ import { FilterEvents } from "../../components/FilterEvents";
 import { Container } from "../../styled-components";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { eventsReducer } from "../../utils/events-reducer";
 // import { useLocation, useNavigate } from 'react-router-dom';
 
 export const Calendar = (props) => {
-  const { categoryParams, trainerParams, setSearchParams } = props;
+  const { categoryParams, trainerParams, setSearchParams, staffProfiles, profile, allevents } = props;
 
-  const [eventSelect, setEventSelect] = useState(
-    categoryParams ? categoryParams : "class"
+  const [eventSelect, setEventSelect] = useState(categoryParams ? categoryParams.toLowerCase() : "class");
+
+  const initialEventsVars = {
+    events: null,
+    filteredEvents: [],
+  };
+
+  const [eventsVars, dispatchEventsVars] = useReducer(
+    eventsReducer,
+    initialEventsVars
   );
+
+  // console.log("TOGGLE: ", eventSelect);
+  const [filterList, setFilterList] = useState([]);
 
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up("lg"));
-  const phone = useMediaQuery(theme.breakpoints.down("sm"));
+  // const phone = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [classFilters, setClassFilters] = useState([]);
+  const [trainerFilters, setTrainerFilters] = useState([]);
+  // const [weekdayFilters, setWeekdayFilters] = useState([]);
+  // const [competitionFilters, setCompetitionFilters] = useState([])
+  
+  // console.log("TRAINER FILTERS ===========", trainerFilters);
 
   // const location = useLocation()
   // const history = useNavigate()
@@ -37,16 +54,22 @@ export const Calendar = (props) => {
     }
   };
 
-  const applyFilterFunction = (filterList) => {
-    //   // ====================================================================================================
-    //   // FILTERING CODE HERE
-    //   // ====================================================================================================
+  // console.log("ALL EVENTS CALENDAR LEVEL============= : ", allevents);
 
-    // This is updating whenever a selection is made, but button isn't clicked.....
-
-    console.log("APPLYING FILTERS: filterlist is ", filterList);
-    const filteredEvents = "a";
-  };
+  const resetFilters = useCallback((everyEvent) => {
+    if (eventSelect) {
+      // console.log("INSIDE RESET FILTER CALLBACK!!!!!!!!!!!!! ", everyEvent);
+      dispatchEventsVars({
+        type: "setEventsList",
+        data: { category: eventSelect, profile: profile },
+      });
+      dispatchEventsVars({
+        type: "resetEvents",
+        data: { events: everyEvent, category: eventSelect },
+      });
+    }
+    return;
+  }, [eventSelect, profile]);
 
   return (
     <>
@@ -98,12 +121,26 @@ export const Calendar = (props) => {
             bottom: desktop ? "" : 30,
           }}
         >
-          {/* This Filter component isn't fully functional, it doesn't filter events, but all the logic with selecting and toggling
-          a filter, state for if a filter is selected, and clearing all filters is working. */}
+        {/* If there's trainer params, it's already showing filtered PT events for that trainer, don't need to filter events,
+            hence, only show if there aren't any trainer params */}
+        {trainerParams ? null : 
           <FilterEvents
-            eventSelect={eventSelect}
-            applyFilterFunction={applyFilterFunction}
+            eventCategory={eventSelect}
+            // applyFilterFunction={applyFilterFunction}
+            filterList={filterList}
+            setFilterList={setFilterList}
+            setClassFilters={setClassFilters}
+            trainerFilters={trainerFilters}
+            setTrainerFilters={setTrainerFilters}
+            // setWeekdayFilters={setWeekdayFilters}
+            // setCompetitionFilters={setCompetitionFilters}
+            staffProfiles={staffProfiles}
+            profile={profile}
+            resetFilters={resetFilters}
+            allevents={allevents}
           />
+        }
+
         </Container>
         {/* Responsive element to keep everything aligned/centered when shifting the filter button to bottom for phone view. */}
         {desktop ? null : (
@@ -116,8 +153,11 @@ export const Calendar = (props) => {
       <CalendarView
         eventCategory={eventSelect}
         trainerParams={trainerParams}
+        filterList={filterList}
+        setFilterList={setFilterList}
         classFilters={classFilters}
-        setClassFilters={setClassFilters}
+        trainerFilters={trainerFilters}
+        allevents={allevents}
       />
 
       <Container></Container>

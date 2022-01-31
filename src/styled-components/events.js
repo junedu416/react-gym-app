@@ -111,3 +111,48 @@ export const SpotsLeft = styled.p`
   color: ${props => props.spotsAvailable < 3 ? "rgb(244,67,53)" : "rgb(0, 196, 0)"};
   font-size: 1.2rem;
 `
+
+// Styling that targets classes in React Big Calendar
+export const Wrapper = styled.div`
+  & .rbc-allday-cell {
+  display: none;
+  }
+
+  & .rbc-toolbar {
+    position: sticky;
+    top: -1px;
+    z-index: 2;
+    background: rgb(250, 250, 250);
+    margin: 0;
+    padding: 3px 0 10px;
+  }
+
+  & .rbc-time-header {
+    position: sticky;
+    top: 41px;
+    color: #0d47a1;
+    z-index: 2;
+    background: rgb(250, 250, 250);
+  }
+
+  & .rbc-time-gutter {
+    background: rgb(250, 250, 250);
+    color: #0d47a1;
+    width: 66px;
+    text-align: center;
+    font-weight: bold; 
+    /* position: sticky !important; */
+    /* position: sticky; */
+    /* overflow-y: hidden; */
+    /* left: 0px; */
+    /* top: 42px; */
+    /* background: red; */
+  }
+
+  & .rbc-time-column {
+    /* THIS IS BACKGROUND COLOR FOR CELLS */
+    /* background: grey; */
+    
+    /* font-weight: bold; */    
+  }
+`

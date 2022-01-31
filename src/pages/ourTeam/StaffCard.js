@@ -20,7 +20,7 @@ export const StaffCard = ({ staff }) => {
 
   const moveToCalendar = (e) => {
     e.preventDefault();
-    navigate(`/events?category=personal%20training&trainer=${staff._id}`);
+    navigate(`/events?category=Personal%20Training&trainer=${staff._id}`);
   };
 
   const toggleDescriptionLength = (e) => {
@@ -54,14 +54,15 @@ export const StaffCard = ({ staff }) => {
             btnFunction={moveToCalendar}
           />
         </Container>
-        <Container
-          w="minmax(65%, 65%)"
-          p="0 20px"
-          align="flex-start"
-        >
+        <Container w="minmax(65%, 65%)" p="0 20px" align="flex-start">
           {staff.description && (
             <>
-              <Text fontSize={mobile ? "12px" : "14px"} m="0" justified>
+              <Text
+                fontSize={mobile ? "12px" : "14px"}
+                m="0"
+                justified
+                style={{ whiteSpace: "pre-line" }}
+              >
                 {showMore
                   ? `${staff.description}`
                   : `${getShortenedString(staff.description, 150)}`}

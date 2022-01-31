@@ -233,7 +233,7 @@ export const WorkoutStart = () => {
                 </ButtonGroup>
               </Container>
             </Container>
-            <Divider sx={{ width: "95%", pb: 1, mb: desktop ? 1 : 0, mr: 3 }} />
+            <Divider key={`divider ${index}`} sx={{ width: "95%", pb: 1, mb: desktop ? 1 : 0, mr: 3 }} />
           </>
         ))}
       </Container>

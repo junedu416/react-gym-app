@@ -21,7 +21,7 @@ export const PerformanceStats = (props) => {
   useRedirectUnauthorisedUser();
   const {store} = useGlobalState();
   const {profile} = store;
-  const workoutList = profile.workouts;
+  const workoutList = profile?.workouts;
 
   const [workoutIndex, setWorkoutIndex] = useState(0);
   const [labels, setLabels] = useState();
@@ -112,13 +112,14 @@ export const PerformanceStats = (props) => {
         {Object.keys(workoutList).length > 0 ? (
           <Container align="flex-end">
             <Select
+              key={workoutIndex}
               value={workoutIndex}
               onChange={handleChange}
               sx={{ p: 1, mb: 2 }}
               style={{ height: "30px", background: "lightgrey" }}
             >
               {workoutList.map((workout, i) => (
-                <MenuItem value={i}>{workout.name}</MenuItem>
+                <MenuItem key={i} value={i}>{workout.name}</MenuItem>
               ))}
             </Select>
             {labels && (

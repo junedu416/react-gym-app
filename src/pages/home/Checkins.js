@@ -42,7 +42,7 @@ export const Checkins = () => {
 
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up("md"));
-  const phone = useMediaQuery(theme.breakpoints.down("sm"));
+  // const phone = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
     getCheckedIn().then((data) => {
@@ -83,7 +83,7 @@ export const Checkins = () => {
         },
         x: {
          grid: {
-           color: "rgba(50, 50, 50, 0.08)",
+          //  color: "rgba(50, 50, 50, 0.08)",
            color: "transparent",
           },
         },
@@ -107,7 +107,7 @@ export const Checkins = () => {
         backgroundColor: "rgba(0, 82, 255, 0.8)",
         borderColor: "rgba(20, 100, 180, 0.92)",
         borderWidth: "2",
-        borderRadius: "12",
+        borderRadius: "9",
         // borderColor: "5px solid rgb(40, 140, 250)",
       },
     ],

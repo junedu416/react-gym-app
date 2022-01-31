@@ -9,14 +9,29 @@ import { EventPopup } from "../pages/events/EventPopup";
 import { convertTimeToAcceptedFormat } from "../utils/events-helper-functions.js";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-const CalendarView = ({ eventCategory, trainerParams, classFilters }) => {
+// Changes Calendar days to start on Mon - Sun, rather than Sun - Sat
+import "moment/locale/en-gb";
+import { Wrapper } from "../styled-components/events";
+moment.locale("en-gb");
+
+const CalendarView = ({
+  eventCategory,
+  trainerParams,
+  classFilters,
+  // filterList,
+  // setFilterList,
+  trainerFilters,
+  // resetFilters,
+}) => {
   const { store } = useGlobalState();
-  const { profile } = store;
+  const { dispatch } = useGlobalState();
+  const { profile, allevents } = store;
   const localizer = momentLocalizer(moment);
   const initialEventsVars = {
     events: null,
     filteredEvents: [],
   };
+
   const [eventsVars, dispatchEventsVars] = useReducer(
     eventsReducer,
     initialEventsVars
@@ -31,7 +46,6 @@ const CalendarView = ({ eventCategory, trainerParams, classFilters }) => {
 
   const filterEventsByCategory = useCallback(() => {
     if (eventCategory) {
-      // console.log(`event Category from prop is: ${eventCategory}`);
       dispatchEventsVars({
         type: "setCategorisedEventsList",
         data: { category: eventCategory, profile: profile },
@@ -40,27 +54,43 @@ const CalendarView = ({ eventCategory, trainerParams, classFilters }) => {
     return;
   }, [eventCategory, profile]);
 
-  const filterEventsByTrainer = useCallback(() => {
-    if (trainerParams) {
-      // console.log("filtered Trainer ID from params: ", trainerParams);
-      dispatchEventsVars({
-        type: "filterByTrainer",
-        data: { category: eventCategory, trainerId: trainerParams },
-      });
-    }
-    return;
-  }, [trainerParams, eventCategory]);
-
   const filterEventsByClass = useCallback(() => {
     if (classFilters) {
-      console.log("CLASS FILTERS: ", classFilters);
       dispatchEventsVars({
         type: "filterByClass",
-        data: { category: "Class", gymClass: classFilters[0] },
+        data: { category: eventCategory, gymClass: classFilters },
       });
     }
     return;
-  }, [trainerParams, eventCategory]);
+  }, [classFilters, eventCategory]);
+
+  const filterEventsByTrainerParams = useCallback(() => {
+    if (trainerParams) {
+      dispatchEventsVars({
+        type: "filterByTrainerParams",
+        data: { category: "Personal Training", trainerId: trainerParams },
+      });
+    }
+    return;
+  }, [trainerParams]);
+
+  const filterEventsByTrainer = useCallback(() => {
+    if (trainerFilters && !trainerParams) {
+      dispatchEventsVars({
+        type: "filterEventsByTrainer",
+        data: { category: eventCategory, trainers: trainerFilters },
+      });
+    }
+    return;
+  }, [trainerFilters, eventCategory, trainerParams]);
+
+  // resetFilters = useCallback(() => {
+  //   dispatchEventsVars({
+  //     type: "resetEvents",
+  //     data: { events: allevents, category: eventCategory },
+  //   });
+  //   return;
+  // }, [allevents, eventCategory]);
 
   //=======
   // load events from backend
@@ -68,14 +98,14 @@ const CalendarView = ({ eventCategory, trainerParams, classFilters }) => {
   useEffect(() => {
     getAllEvents()
       .then((eventsList) => {
-        // console.log("fetched data", eventsList);
         eventsList.forEach((event) => {
           convertTimeToAcceptedFormat(event);
         });
         dispatchEventsVars({ type: "setEventsList", data: eventsList });
+        dispatch({ type: "setAllEvents", data: eventsList });
       })
       .catch((error) => console.log(`error caught fetching events: `, error));
-  }, []);
+  }, [dispatch]);
 
   // ==========
   // filter events  by category
@@ -83,10 +113,51 @@ const CalendarView = ({ eventCategory, trainerParams, classFilters }) => {
   useEffect(() => {
     if (eventsVars.events?.length > 0) {
       filterEventsByCategory();
+    }
+    return;
+  }, [eventsVars.events, filterEventsByCategory]);
+
+  useEffect(() => {
+    if (
+      eventsVars.events?.length > 0 &&
+      eventCategory === "class" &&
+      classFilters.length > 0
+    ) {
+      filterEventsByClass();
+    }
+    return;
+  }, [eventsVars.events, filterEventsByClass, eventCategory, classFilters]);
+
+  useEffect(() => {
+    if (
+      eventsVars.events?.length > 0 &&
+      (eventCategory === "personal training" || eventCategory === "class") &&
+      trainerFilters.length > 0 &&
+      !trainerParams
+    ) {
       filterEventsByTrainer();
     }
     return;
-  }, [eventsVars.events, filterEventsByCategory, filterEventsByTrainer]);
+  }, [
+    eventsVars.events,
+    filterEventsByTrainer,
+    eventCategory,
+    trainerFilters,
+    trainerParams,
+  ]);
+
+  //if params exist for trainer, filter events by trainer
+  useEffect(() => {
+    if (trainerParams && eventsVars.events?.length > 0) {
+      filterEventsByTrainerParams();
+    }
+    return;
+  }, [
+    eventsVars.events,
+    filterEventsByTrainerParams,
+    eventCategory,
+    trainerParams,
+  ]);
 
   const onClickEvent = (e) => {
     console.log(e);
@@ -103,7 +174,7 @@ const CalendarView = ({ eventCategory, trainerParams, classFilters }) => {
       style={{
         height: "80vh",
         width: ipadAndPhone ? "95%" : "80%",
-        overflow: "scroll",
+        overflowY: "scroll",
       }}
     >
       {clickedEvent && (
@@ -115,23 +186,25 @@ const CalendarView = ({ eventCategory, trainerParams, classFilters }) => {
           dispatchEventsVars={dispatchEventsVars}
         />
       )}
-      <Calendar
-        localizer={localizer}
-        defaultView="week"
-        events={eventsVars.filteredEvents}
-        titleAccessor="name"
-        startAccessor="startTime"
-        endAccessor="endTime"
-        onSelectEvent={onClickEvent}
-        step={30}
-        style={{ height: 1500, width: ipadAndPhone ? "800px" : null }}
-        // Set min and max range for time displayed on calendar
-        min={new Date(0, 0, 0, 7, 0, 0)}
-        max={new Date(0, 0, 0, 21, 0, 0)}
-        // showMultiDayTimes //Needs to be included to show times for multi-day events instead of it being treated as all day - Daniel
-        scrollToTime={scrollToTime}
-        views={["month", "week", "day"]}
-      />
+      <Wrapper>
+        <Calendar
+          localizer={localizer}
+          defaultView="week"
+          events={eventsVars.filteredEvents}
+          titleAccessor="name"
+          startAccessor="startTime"
+          endAccessor="endTime"
+          onSelectEvent={onClickEvent}
+          step={30}
+          style={{ height: 1500, width: ipadAndPhone ? "800px" : null }}
+          // Set min and max range for time displayed on calendar
+          min={new Date(0, 0, 0, 7, 0, 0)}
+          max={new Date(0, 0, 0, 21, 0, 0)}
+          // showMultiDayTimes //Needs to be included to show times for multi-day events instead of it being treated as all day - Daniel
+          scrollToTime={scrollToTime}
+          views={["month", "week", "day"]}
+        />
+      </Wrapper>
     </div>
   );
 };

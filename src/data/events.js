@@ -25,7 +25,7 @@ export const gymClasses = [
   },
   {
     name: "Cycle",
-    description: "Cycling class",
+    description: "A fun, heart-pumping workout ride on the flats, up hills, through rolling hills led by a certified instructor motivated by fantastic music. Cycle is perfect for everyone since you control the resistance and pedal speed creating just the right intensity for you. Beginners are welcome at all classes. We’ll help fit your bike and get you started so you'll feel comfortable.",
   },
   {
     name: "HIIT",
@@ -37,7 +37,7 @@ export const gymClasses = [
   },
   {
     name: "Yoga",
-    description: "Yoga",
+    description: "This class is for those new to yoga or those who are interested in a gentle practice. Gentle Flow Yoga class incorporates simple flowing sequences to warm up the body and slower paced movements focusing on alignment, balance, flexibility and strength. Class will end with an extended period of relaxation. This class is appropriate for all ages, shape or size, no experience or flexibility required.",
   },
   {
     name: "Zumba",
