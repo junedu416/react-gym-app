@@ -33,25 +33,21 @@ export const MeetTheTeam = () => {
         {loading
           ? null
           : staffProfs.length === 0 && (
-            <>
-              <SkeletonStaffCard />
-              <SkeletonStaffCard />
-              <SkeletonStaffCard />
-              <SkeletonStaffCard />
-              <SkeletonStaffCard />
-              <SkeletonStaffCard />
-            </>
+              <Grid laptop={laptop} desktop={desktop}>
+                <SkeletonStaffCard />
+                <SkeletonStaffCard />
+                <SkeletonStaffCard />
+                <SkeletonStaffCard />
+                <SkeletonStaffCard />
+                <SkeletonStaffCard />
+              </Grid>
             )}
-        <Grid laptop={laptop} desktop={desktop}>
-          {loading ? (
-            <>
-            </>
-          ) : (
-            staffProfs.map((staff, index) => {
-              return(staff.description?.length > 0 ? <StaffCard key={index} staff={staff} /> : null);
-            })
-          )}
-        </Grid>
+
+        {staffProfs.map((staff, index) => {
+          return staff.description?.length > 0 ? (
+            <StaffCard key={index} staff={staff} />
+          ) : null;
+        })}
       </Container>
     </Container>
   );
