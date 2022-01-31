@@ -214,20 +214,20 @@ export const Workouts = () => {
                         {workout?.name}
                       </SmallHeading>
 
-                      {workout.exercises.map((exercise) => {
+                      {workout.exercises.map((exercise, index) => {
                         return (
-                          <Container key={exercise.exerciseId}>
+                          <Container key={index}>
                             <WorkoutList p="0 25px 0 15px">
                               {exercise.exerciseId ? (
-                                <p>{exercise.exerciseId.name}</p>
+                                <Text>{exercise.exerciseId.name}</Text>
                               ) : (
-                                <p>{exercise.customisedName}</p>
+                                <Text>{exercise.customisedName}</Text>
                               )}
 
                               <Container direction="row">
                                 {exercise.sets === null || 0 ? null : (
                                   <Container direction="row">
-                                    <p>{exercise.sets}</p>
+                                    <Text>{exercise.sets}</Text>
                                     <Text
                                       style={{
                                         textTransform: "none",
@@ -248,11 +248,11 @@ export const Workouts = () => {
                                     {exercise.weight === null || 0
                                       ? null
                                       : `${exercise.weight}kg`}
-                                    {exercise.distance === null || 0 ? null : (
-                                      <Text>
-                                        {displayUnits(exercise.distance)}
-                                      </Text>
-                                    )}
+                                  </Text>
+                                  <Text>
+                                    {exercise.distance === null || 0
+                                      ? null
+                                      : displayUnits(exercise.distance)}
                                   </Text>
                                 </Container>
                               </Container>

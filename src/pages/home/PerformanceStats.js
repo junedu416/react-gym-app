@@ -119,7 +119,7 @@ export const PerformanceStats = (props) => {
               style={{ height: "30px", background: "lightgrey" }}
             >
               {workoutList.map((workout, i) => (
-                <MenuItem value={i}>{workout.name}</MenuItem>
+                <MenuItem key={i} value={i}>{workout.name}</MenuItem>
               ))}
             </Select>
             {labels && (

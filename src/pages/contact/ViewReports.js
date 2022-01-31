@@ -171,6 +171,7 @@ export const ViewReports = () => {
                 {behaviourReports.map((report, index) => {
                   return (
                     <ReportItems
+                      key={index}
                       open={open}
                       unsocialOpen={unsocialOpen}
                       report={report}

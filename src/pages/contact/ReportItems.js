@@ -30,7 +30,7 @@ export const ReportItems = ({
       // console.log("fetched staff profiles:", response)
       setStaffProfiles(response)
     }).catch(e => console.log("error:", e))
-  }, [getStaffProfiles])
+  }, [])
 
   const assignStaffPhoto = (fullname) => {
     const firstName = fullname.split(" ")[0];

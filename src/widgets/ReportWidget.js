@@ -50,7 +50,7 @@ const ReportWidget = () => {
         reports.map((report, index) => {
           if (index > 1) return <></>;
           return (
-            <WidgetDiv centered>
+            <WidgetDiv centered key={index}>
               <EventParag style={{ marginBottom: "12px" }}>
                 {getShortenedString(report.description, 50)}
               </EventParag>
