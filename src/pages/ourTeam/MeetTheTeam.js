@@ -30,25 +30,27 @@ export const MeetTheTeam = () => {
     <Container>
       <Heading>Meet The Team</Heading>
       <Container>
-        {loading
-          ? null
-          : staffProfs.length === 0 && (
-              <Grid laptop={laptop} desktop={desktop}>
-                <SkeletonStaffCard />
-                <SkeletonStaffCard />
-                <SkeletonStaffCard />
-                <SkeletonStaffCard />
-                <SkeletonStaffCard />
-                <SkeletonStaffCard />
-              </Grid>
-            )}
-
-        {staffProfs.map((staff, index) => {
-          return staff.description?.length > 0 ? (
-            <StaffCard key={index} staff={staff} />
-          ) : null;
-        })}
+        <Grid laptop={laptop} desktop={desktop}>
+          {loading
+            ? null
+            : staffProfs.length === 0 && (
+                <>
+                  <SkeletonStaffCard />
+                  <SkeletonStaffCard />
+                  <SkeletonStaffCard />
+                  <SkeletonStaffCard />
+                  <SkeletonStaffCard />
+                  <SkeletonStaffCard />
+                </>
+              )}
+          {staffProfs.map((staff, index) => {
+            return staff.description?.length > 0 ? (
+              <StaffCard key={index} staff={staff} />
+            ) : null;
+          })}
+        </Grid>
       </Container>
     </Container>
   );
 };
+1;
