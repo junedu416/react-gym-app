@@ -25,8 +25,8 @@ export const ViewReports = () => {
   const laptop = useMediaQuery("(min-width:1024px)");
 
   useEffect(() => {
-    setLoading(true);
     const fetchReportsInfo = async () => {
+      setLoading(true);
       const reports = await getAllReports();
       for (let report of reports) {
         let reporterProfile = await getUserProfile(report.userId);
@@ -34,6 +34,7 @@ export const ViewReports = () => {
           ? reporterProfile.firstName + " " + reporterProfile.lastName
           : "Unknown User";
         report.reporterFullName = reporterFullName;
+        setLoading(false)
       }
 
       setEquipmentReports(
@@ -46,7 +47,6 @@ export const ViewReports = () => {
     };
 
     fetchReportsInfo().catch(console.error);
-    setLoading(false)
   }, []);
 
   const handleImageBtn = (index, type) => {

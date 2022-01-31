@@ -21,9 +21,9 @@ export const MeetTheTeam = () => {
       .then((response) => {
         console.log("fetched staff profiles:", response);
         setStaffProfs(response);
+        setLoading(false);
       })
       .catch((e) => console.log("error:", e));
-    setLoading(false);
   }, []);
 
   return (
@@ -31,20 +31,22 @@ export const MeetTheTeam = () => {
       <Heading>Meet The Team</Heading>
       <Container>
         <Grid laptop={laptop} desktop={desktop}>
-          {loading
-            ? null
-            : staffProfs.length === 0 && (
-                <>
-                  <SkeletonStaffCard />
-                  <SkeletonStaffCard />
-                  <SkeletonStaffCard />
-                  <SkeletonStaffCard />
-                  <SkeletonStaffCard />
-                  <SkeletonStaffCard />
-                </>
-              )}
+          {loading ? (
+            <>
+              <SkeletonStaffCard />
+              <SkeletonStaffCard />
+              <SkeletonStaffCard />
+              <SkeletonStaffCard />
+              <SkeletonStaffCard />
+              <SkeletonStaffCard />
+            </>
+          ) : (
+            staffProfs.length === 0 && (
+              <p>There are no staff profiles available</p>
+            )
+          )}
           {staffProfs.map((staff, index) => {
-            return staff.description?.length > 0 ? (
+            return staff.description?.length > 20 ? (
               <StaffCard key={index} staff={staff} />
             ) : null;
           })}
@@ -53,4 +55,4 @@ export const MeetTheTeam = () => {
     </Container>
   );
 };
-1;
+
