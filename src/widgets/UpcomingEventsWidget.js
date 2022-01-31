@@ -50,7 +50,7 @@ export const UpcomingEventsWidget = ({ events }) => {
   }, [events, profile]);
 
   return (
-    <Widget>
+    <Widget key="Events Widget">
       <WidgetTitle>Today you are going to...</WidgetTitle>
       {filteredEvents && (
         <>

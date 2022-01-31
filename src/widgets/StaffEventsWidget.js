@@ -39,7 +39,7 @@ export const StaffEventsWidget = ({ events }) => {
   }, [events, profile]);
 
   return (
-    <Widget>
+    <Widget key="Staff Events Widget">
       <WidgetTitle>Classes by You Today</WidgetTitle>
       {myEvents && (
         <>

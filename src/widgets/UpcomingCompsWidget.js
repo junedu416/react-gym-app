@@ -97,7 +97,7 @@ export const UpcomingCompsWidget = ({ events }) => {
   };
 
   return (
-    <Widget>
+    <Widget key="Competition Widget">
       <WidgetTitle>Competitions Today</WidgetTitle>
       {competition ? (
         <>

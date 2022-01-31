@@ -6,9 +6,8 @@ import { FilterEvents } from "../../components/FilterEvents";
 import { Container } from "../../styled-components";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import { gymClasses } from "../../data/events";
-// import { useLocation, useNavigate } from 'react-router-dom';
 import { eventsReducer } from "../../utils/events-reducer";
+// import { useLocation, useNavigate } from 'react-router-dom';
 
 export const Calendar = (props) => {
   const { categoryParams, trainerParams, setSearchParams, staffProfiles, profile, allevents } = props;
@@ -30,14 +29,15 @@ export const Calendar = (props) => {
 
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up("lg"));
-  const phone = useMediaQuery(theme.breakpoints.down("sm"));
+  // const phone = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [classFilters, setClassFilters] = useState([]);
-  const [weekdayFilters, setWeekdayFilters] = useState([]);
   const [trainerFilters, setTrainerFilters] = useState([]);
-  const [competitionFilters, setCompetitionFilters] = useState([])
+  // const [weekdayFilters, setWeekdayFilters] = useState([]);
+  // const [competitionFilters, setCompetitionFilters] = useState([])
   
-  console.log("TRAINER FILTERS ===========", trainerFilters);
+  // console.log("TRAINER FILTERS ===========", trainerFilters);
+
   // const location = useLocation()
   // const history = useNavigate()
 
@@ -54,21 +54,22 @@ export const Calendar = (props) => {
     }
   };
 
-  console.log("ALL EVENTS CALENDAR LEVEL============= : ", allevents);
+  // console.log("ALL EVENTS CALENDAR LEVEL============= : ", allevents);
 
   const resetFilters = useCallback((everyEvent) => {
     if (eventSelect) {
-      console.log("INSIDE RESET FILTER CALLBACK!!!!!!!!!!!!! ", everyEvent);
-
+      // console.log("INSIDE RESET FILTER CALLBACK!!!!!!!!!!!!! ", everyEvent);
       dispatchEventsVars({
         type: "setEventsList",
-        data: { events: everyEvent },
+        data: { category: eventSelect, profile: profile },
+      });
+      dispatchEventsVars({
         type: "resetEvents",
         data: { events: everyEvent, category: eventSelect },
       });
     }
     return;
-  }, [eventSelect]);
+  }, [eventSelect, profile]);
 
   return (
     <>
@@ -129,10 +130,10 @@ export const Calendar = (props) => {
             filterList={filterList}
             setFilterList={setFilterList}
             setClassFilters={setClassFilters}
-            setWeekdayFilters={setWeekdayFilters}
             trainerFilters={trainerFilters}
             setTrainerFilters={setTrainerFilters}
-            setCompetitionFilters={setCompetitionFilters}
+            // setWeekdayFilters={setWeekdayFilters}
+            // setCompetitionFilters={setCompetitionFilters}
             staffProfiles={staffProfiles}
             profile={profile}
             resetFilters={resetFilters}
@@ -155,9 +156,7 @@ export const Calendar = (props) => {
         filterList={filterList}
         setFilterList={setFilterList}
         classFilters={classFilters}
-        weekdayFilters={weekdayFilters}
         trainerFilters={trainerFilters}
-        competitionFilters={competitionFilters}
         allevents={allevents}
       />
 

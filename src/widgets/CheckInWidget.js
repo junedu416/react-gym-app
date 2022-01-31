@@ -114,7 +114,7 @@ const CheckInWidget = () => {
   const checkinButton = { height: "40px", minWidth: "100px" }
 
   return (
-    <Widget>
+    <Widget key="Checkin Widget">
       <Container direction="row">
           <BasicButton
             disabled={loading}

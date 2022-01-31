@@ -216,7 +216,7 @@ export const Workouts = () => {
 
                       {workout.exercises.map((exercise) => {
                         return (
-                          <Container>
+                          <Container key={exercise.exerciseId}>
                             <WorkoutList p="0 25px 0 15px">
                               {exercise.exerciseId ? (
                                 <p>{exercise.exerciseId.name}</p>

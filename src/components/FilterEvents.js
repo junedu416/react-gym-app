@@ -1,10 +1,13 @@
 // THIS COMPONENT IS NOT USED IN PRODUCTION,
 // THE COMPONENT IS COMMENTED OUT, NOT FULLY FUNCTIONAL AS IT ISN'T FILTERING ANY EVENTS.
 
-import React, { useState, useReducer } from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-import { gymClasses, weekdays, competitionFilters } from "../data/events";
+import { gymClasses, 
+  // weekdays, 
+  // competitionFilters 
+} from "../data/events";
 
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
@@ -24,7 +27,7 @@ import {
 } from "../styled-components/events";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import { eventsReducer } from "../utils/events-reducer";
+// import { eventsReducer } from "../utils/events-reducer";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -76,26 +79,26 @@ export const FilterEvents = (props) => {
     filterList,
     setFilterList,
     setClassFilters,
-    setWeekdayFilters,
-    trainerFilters,
     setTrainerFilters,
-    setCompetitionFilters,
+    // trainerFilters,
+    // setWeekdayFilters,
+    // setCompetitionFilters,
     staffProfiles,
-    profile,
+    // profile,
     resetFilters,
     allevents,
   } = props;
 
   // const [disabled, setDisabled] = useState(false);
 
-  const initialEventsVars = {
-    events: null,
-    filteredEvents: [],
-  };
-  const [eventsVars, dispatchEventsVars] = useReducer(
-    eventsReducer,
-    initialEventsVars
-  );
+  // const initialEventsVars = {
+  //   events: null,
+  //   filteredEvents: [],
+  // };
+  // const [eventsVars, dispatchEventsVars] = useReducer(
+  //   eventsReducer,
+  //   initialEventsVars
+  // );
 
   const trainers = staffProfiles.map((profile) => {
     return {
@@ -125,43 +128,42 @@ export const FilterEvents = (props) => {
     const classSelection = gymClasses
       .map((item) => filterList.filter((gymClass) => gymClass === item.name))
       .flat();
-    const weekdaySelection = weekdays
-      .map((item) => filterList.filter((selection) => selection === item.label))
-      .flat();
+  
     const trainerSelection = filterList
       .map((selection) => {
         return trainers.filter((trainer) => selection === trainer.fullname);
       })
       .flat();
 
-    const competitionSelection = competitionFilters.map((competitionCategory) =>
-      filterList.filter((selection) => selection === competitionCategory.label)
-    );
+    // const weekdaySelection = weekdays
+    //   .map((item) => filterList.filter((selection) => selection === item.label))
+    //   .flat();
+
+    // const competitionSelection = competitionFilters.map((competitionCategory) =>
+    //   filterList.filter((selection) => selection === competitionCategory.label)
+    // );
 
     console.log("classes selection: ", classSelection.flat());
-    console.log("weekday selection: ", weekdaySelection.flat());
     console.log("trainer selection: ", trainerSelection.flat());
-    console.log("competition selection: ", competitionSelection.flat());
+    // console.log("weekday selection: ", weekdaySelection.flat());
+    // console.log("competition selection: ", competitionSelection.flat());
 
     if (classSelection.flat().length > 0) {
       setClassFilters(classSelection.flat());
     }
-    if (weekdaySelection.flat().length > 0) {
-      setWeekdayFilters(weekdaySelection.flat());
-    }
+    // if (weekdaySelection.flat().length > 0) {
+    //   setWeekdayFilters(weekdaySelection.flat());
+    // }
     if (trainerSelection.length > 0) {
-      console.log(
-        "TRAINER FILTER SELECTED HERE!!!!!!!!! :     ",
-        trainerSelection
-      );
+      // console.log("TRAINER FILTER SELECTED HERE!:  ", trainerSelection);
       setTrainerFilters(trainerSelection);
     }
-    if (
-      eventCategory === "competition" &&
-      competitionSelection.flat().length > 0
-    ) {
-      setCompetitionFilters(competitionSelection.flat());
-    }
+    // if (
+    //   eventCategory === "competition" &&
+    //   competitionSelection.flat().length > 0
+    // ) {
+    //   setCompetitionFilters(competitionSelection.flat());
+    // }
   };
 
   const handleFilterSelect = (filter) => {
@@ -189,11 +191,11 @@ export const FilterEvents = (props) => {
   const clearFilters = () => {
     setFilterList([]);
     setClassFilters([]);
-    setWeekdayFilters([]);
     setTrainerFilters([]);
-    setCompetitionFilters([]);
+    // setWeekdayFilters([]);
+    // setCompetitionFilters([]);
 
-    console.log("ALLEVENTS AT CLEAR FILTER BUTTON: ############# ", allevents);
+    // console.log("ALLEVENTS AT CLEAR FILTER BUTTON: ############# ", allevents);
     resetFilters(allevents);
   };
 

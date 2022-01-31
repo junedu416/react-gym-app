@@ -27,10 +27,10 @@ export const ReportItems = ({
   useEffect(() => {
     getStaffProfiles()
     .then(response => {
-      console.log("fetched staff profiles:", response)
+      // console.log("fetched staff profiles:", response)
       setStaffProfiles(response)
     }).catch(e => console.log("error:", e))
-  }, [])
+  }, [getStaffProfiles])
 
   const assignStaffPhoto = (fullname) => {
     const firstName = fullname.split(" ")[0];

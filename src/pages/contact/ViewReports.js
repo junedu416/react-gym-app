@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Container, Heading, Row } from "../../styled-components";
+import { Container, Heading } from "../../styled-components";
 import { useGlobalState } from "../../config/globalStore.js";
 import { getAllReports, editReport } from "../../services/reportServices.js";
 import { getUserProfile } from "../../services/userServices.js";
 import Unresolved from "../../components/Unresolved";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ReportItems } from "./ReportItems";
-import Skeleton from "@mui/material/Skeleton";
 import {
   SkeletonNotification,
   SkeletonSquare,

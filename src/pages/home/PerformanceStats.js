@@ -112,6 +112,7 @@ export const PerformanceStats = (props) => {
         {Object.keys(workoutList).length > 0 ? (
           <Container align="flex-end">
             <Select
+              key={workoutIndex}
               value={workoutIndex}
               onChange={handleChange}
               sx={{ p: 1, mb: 2 }}

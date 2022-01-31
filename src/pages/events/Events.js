@@ -32,7 +32,7 @@ export const Events = (props) => {
       setStaffProfs(response)
     }).catch(e => console.log("error:", e))
 
-    console.log(staffProfs);
+    // console.log(staffProfs);
   }, [])
 
   function handleNewEvent() {

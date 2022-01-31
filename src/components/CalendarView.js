@@ -10,10 +10,9 @@ import { convertTimeToAcceptedFormat } from "../utils/events-helper-functions.js
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 // Changes Calendar days to start on Mon - Sun, rather than Sun - Sat
-import 'moment/locale/en-gb';
+import "moment/locale/en-gb";
 import { Wrapper } from "../styled-components/events";
-moment.locale('en-gb');
-
+moment.locale("en-gb");
 
 const CalendarView = ({
   eventCategory,
@@ -22,8 +21,7 @@ const CalendarView = ({
   filterList,
   setFilterList,
   trainerFilters,
-  competitionFilters,
-  weekdayFilters,
+  resetFilters,
 }) => {
   const { store } = useGlobalState();
   const { dispatch } = useGlobalState();
@@ -74,7 +72,7 @@ const CalendarView = ({
       });
     }
     return;
-  }, [trainerParams, eventCategory]);
+  }, [trainerParams]);
 
   const filterEventsByTrainer = useCallback(() => {
     if (trainerFilters && !trainerParams) {
@@ -84,7 +82,15 @@ const CalendarView = ({
       });
     }
     return;
-  }, [trainerFilters, eventCategory]);
+  }, [trainerFilters, eventCategory, trainerParams]);
+
+  resetFilters = useCallback(() => {
+    dispatchEventsVars({
+      type: "resetEvents",
+      data: { events: allevents, category: eventCategory },
+    });
+    return;
+  }, [allevents, eventCategory]);
 
   //=======
   // load events from backend
@@ -96,10 +102,10 @@ const CalendarView = ({
           convertTimeToAcceptedFormat(event);
         });
         dispatchEventsVars({ type: "setEventsList", data: eventsList });
-        dispatch({ type: "setAllEvents", data: eventsList});
+        dispatch({ type: "setAllEvents", data: eventsList });
       })
       .catch((error) => console.log(`error caught fetching events: `, error));
-  }, []);
+  }, [dispatch]);
 
   // ==========
   // filter events  by category
@@ -112,18 +118,33 @@ const CalendarView = ({
   }, [eventsVars.events, filterEventsByCategory]);
 
   useEffect(() => {
-    if (eventsVars.events?.length > 0 && eventCategory === "class" && classFilters.length > 0) {
+    if (
+      eventsVars.events?.length > 0 &&
+      eventCategory === "class" &&
+      classFilters.length > 0
+    ) {
       filterEventsByClass();
     }
     return;
-  }, [eventsVars.events, filterEventsByClass, eventCategory])
+  }, [eventsVars.events, filterEventsByClass, eventCategory, classFilters]);
 
   useEffect(() => {
-    if (eventsVars.events?.length > 0 && (eventCategory === "personal training" || eventCategory === "class") && trainerFilters.length > 0 && !trainerParams) {
+    if (
+      eventsVars.events?.length > 0 &&
+      (eventCategory === "personal training" || eventCategory === "class") &&
+      trainerFilters.length > 0 &&
+      !trainerParams
+    ) {
       filterEventsByTrainer();
     }
     return;
-  }, [eventsVars.events, filterEventsByTrainer, eventCategory])
+  }, [
+    eventsVars.events,
+    filterEventsByTrainer,
+    eventCategory,
+    trainerFilters,
+    trainerParams,
+  ]);
 
   //if params exist for trainer, filter events by trainer
   useEffect(() => {
@@ -131,8 +152,12 @@ const CalendarView = ({
       filterEventsByTrainerParams();
     }
     return;
-  }, [eventsVars.events, filterEventsByTrainerParams, eventCategory]);
-
+  }, [
+    eventsVars.events,
+    filterEventsByTrainerParams,
+    eventCategory,
+    trainerParams,
+  ]);
 
   const onClickEvent = (e) => {
     console.log(e);
@@ -150,7 +175,6 @@ const CalendarView = ({
         height: "80vh",
         width: ipadAndPhone ? "95%" : "80%",
         overflowY: "scroll",
-
       }}
     >
       {clickedEvent && (

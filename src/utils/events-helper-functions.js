@@ -24,7 +24,10 @@ export const filterEventsByClass = (events, category, gymClass) => {
   if (category === "class") {
     gymClass.map((className) => {
       return events.filter((event) => {
-        if (event.name === className) return filteredEvents.push(event);
+        if (event.name === className) {
+          filteredEvents.push(event);
+          return event;
+        }
       });
     });
   }
